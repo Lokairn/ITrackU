@@ -159,250 +159,252 @@ local AllEventHandlers = {
     end,
     ["COMBAT_LOG_EVENT_UNFILTERED"] = function(self, ...)
         local timestamp, type, hideCaster, sourceGUID, sourceName, sourceFlags, sourceFlags2, destGUID, destName, destFlags, destFlags2 = ...
-            if (type == "SPELL_AURA_APPLIED" or type == "SPELL_AURA_REFRESH" or type == "SPELL_AURA_APPLIED_DOSE") and ITrackU["DebuffToTrack"] ~= nil then
+            if (type == "SPELL_AURA_APPLIED" or type == "SPELL_AURA_REFRESH" or type == "SPELL_AURA_APPLIED_DOSE") and ITrackU ~= nil then
                 local _, _, _, _, _, _, _, _, _, _, _, spellID, _, _, auratype  = ...
-                    if ITrackU["DebuffToTrack"][spellID] then
-							-- Si la ligne existe déjà, on met juste à jour les variables
-							if ITrackU[spellID].Table_PlayerDebuffed[destName] == "True" then
+				if ITrackU["DebuffToTrack"] ~= nil then
+						if ITrackU["DebuffToTrack"][spellID] then
+								-- Si la ligne existe déjà, on met juste à jour les variables
+								if ITrackU[spellID].Table_PlayerDebuffed[destName] == "True" then
+								   
+								--Sinon on créé une frame
+								else
+									-- Création ligne
+									ITrackU[spellID].Table_PlayerDebuffed[destName] = "True"
+									ITrackU[spellID][destName] = {}
+									ITrackU[spellID][destName].AuraType = auratype
+									ITrackU["DebuffToTrack"][spellID]["Count"] = ITrackU["DebuffToTrack"][spellID]["Count"] + 1
+		 
+									local i = 0
+									for k, v in pairs(ITrackU["DebuffToTrack"]) do
+										if (ITrackU["DebuffToTrack"][k]["Count"] ~= 0 and ITrackU["DebuffToTrack"][k]["IfActive"] == "Yes") or ITrackU["DebuffToTrack"][k]["IfActive"] == "No" then
+											-- Frame_Titre[k]
+											ITrackU[k].Frame_Titre:SetPoint("TOPLEFT",0, i)
+											ITrackU[k].Frame_Titre:Show()
+										   
+											-- MAJ i
+											i = i - Height_Title
+										   
+											-- MAJ Height Frame Principale
+											Frame_Main:SetHeight((-1)*i)
+																	   
+											-- PlayerDebuffed[k]
+											if ITrackU[k].Table_PlayerDebuffed ~= nil then
+												for l, w in pairs(ITrackU[k].Table_PlayerDebuffed) do
+													if w ~= nil then
+														if ITrackU[k][l].Activate == nil then
+												   
+															-- Frame_PlayerDebuffed[l]
+															ITrackU[k][l].Frame_PlayerDebuffed = getframe()
+															ITrackU[k][l].Frame_PlayerDebuffed:SetParent(Frame_Main)
+															ITrackU[k][l].Frame_PlayerDebuffed:SetBackdrop({bgFile = [[Interface\ChatFrame\ChatFrameBackground]]});
+															ITrackU[k][l].Frame_PlayerDebuffed:SetWidth(Width_Global)
+															ITrackU[k][l].Frame_PlayerDebuffed:SetHeight(Height_Debuffed)
+																-- Color en fonction du joueur !
+																if l == select(1, UnitName("player")) then
+																	ITrackU[k][l].Frame_PlayerDebuffed:SetBackdropColor(0.208,0.80,0.192,0.5)
+																elseif l == select(1, UnitName("focus")) then
+																	ITrackU[k][l].Frame_PlayerDebuffed:SetBackdropColor(0.632,0.348,0.828,0.5)
+																else
+																	ITrackU[k][l].Frame_PlayerDebuffed:SetBackdropColor(0.78,0.828,0.464,0.5)
+																end
+															ITrackU[k][l].Frame_PlayerDebuffed:SetPoint("TOPLEFT",0, i)
+															ITrackU[k][l].Frame_PlayerDebuffed:SetFrameStrata("LOW")
+															ITrackU[k][l].Frame_PlayerDebuffed:Show()
+														   
+															--Frame_PlayerDebuffed StatusBar
+															ITrackU[k][l].Frame_PlayerDebuffed:SetStatusBarTexture([[Interface\ChatFrame\ChatFrameBackground]])
+																-- Color en fonction du joueur !
+																if l == select(1, UnitName("player")) then
+																	ITrackU[k][l].Frame_PlayerDebuffed:SetStatusBarColor(0.208,0.80,0.192,0.5)
+																elseif l == select(1, UnitName("focus")) then
+																	ITrackU[k][l].Frame_PlayerDebuffed:SetStatusBarColor(0.632,0.348,0.828,0.5)
+																else
+																	ITrackU[k][l].Frame_PlayerDebuffed:SetStatusBarColor(0.78,0.828,0.464,0.5)
+																end
+															ITrackU[k][l].Frame_PlayerDebuffed:SetFillStyle("REVERSE")
+															
+																--Frame PlayerDistance
+																if (ITrackU["DebuffToTrack"][k]["Type"] == "Stack" or ITrackU["DebuffToTrack"][k]["Type"] == "Spread") and l ~= select(1, UnitName("player")) then
+																	ITrackU[k][l].Frame_PlayerDistance = getframe()
+																	ITrackU[k][l].Frame_PlayerDistance:SetParent(Frame_Main)
+																	ITrackU[k][l].Frame_PlayerDistance:SetBackdrop({bgFile = [[Interface\ChatFrame\ChatFrameBackground]]});
+																	ITrackU[k][l].Frame_PlayerDistance:SetWidth(Width_PlayerDistance)
+																	ITrackU[k][l].Frame_PlayerDistance:SetHeight(Height_Debuffed)
+																	ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(0,1,0,1)
+																	ITrackU[k][l].Frame_PlayerDistance:SetPoint("TOPRIGHT", 0, i)
+																	ITrackU[k][l].Frame_PlayerDistance:SetFrameStrata("LOW")
+																	ITrackU[k][l].Frame_PlayerDistance:Show()
+																	ITrackU[k][l].Frame_PlayerDistance:SetScript("OnUpdate", function(self, elapsed)
+																		ITrackU[k][l].PlayerDistance = ComputeDistance(l, select(1, UnitName("player")))
+																		if ITrackU["DebuffToTrack"][k]["Type"] == "Stacks" then
+																			if ITrackU[k][l].PlayerDistance < ITrackU["DebuffToTrack"][k]["TypeDistance"] then
+																				ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(0,1,0,1)
+																			else
+																				ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(1,0,0,1)
+																			end
+																		elseif ITrackU["DebuffToTrack"][k]["Type"] == "Spread" then
+																			if ITrackU[k][l].PlayerDistance < ITrackU["DebuffToTrack"][k]["TypeDistance"] then
+																				ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(1,0,0,1)
+																			else
+																				ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(0,1,0,1)
+																			end
+																		end
+																	end)
+																end
+																												
+															--PlayerStacksText
+															ITrackU[k][l].Text_PlayerStacks = ITrackU[k][l].Frame_PlayerDebuffed:CreateFontString("Text_PlayerStacks", "OVERLAY", "GameFontNormal")
+															ITrackU[k][l].Text_PlayerStacks:SetPoint("RIGHT", 0, 0)
+														   
+															-- Variable Max
+															ITrackU[k][l].Min = 0
+															if auratype == "BUFF" then
+																-- Max
+																ITrackU[k][l].Max = select(6, UnitBuff(l, select(1, GetSpellInfo(k))))
+															elseif auratype == "DEBUFF" then
+																-- Max
+																ITrackU[k][l].Max = select(6, UnitDebuff(l, select(1, GetSpellInfo(k))))
+															end                                            
+														   
+															-- Set la statusbar
+															ITrackU[k][l].Frame_PlayerDebuffed:SetMinMaxValues(ITrackU[k][l].Min, ITrackU[k][l].Max)
+														   
+																-- this function will run repeatedly, incrementing the value of timer as it goes
+																ITrackU[k][l].Frame_PlayerDebuffed:SetScript("OnUpdate", function(self, elapsed)
+																	if ITrackU[k][l].AuraType == "BUFF" then
+																		-- Max
+																		ITrackU[k][l].ModifMax = select(6, UnitBuff(l, select(1, GetSpellInfo(k))))
+																		-- Stacks
+																		ITrackU[k][l].Stacks = select(4, UnitBuff(l, select(1, GetSpellInfo(k))))
+																		-- Timer
+																			if ITrackU[k][l].Max ~= ITrackU[k][l].ModifMax then
+																				ITrackU[k][l].Timer = (select(7, UnitBuff(l, select(1, GetSpellInfo(k)))) - GetTime()) * ITrackU[k][l].Max / ITrackU[k][l].ModifMax
+																			else
+																				ITrackU[k][l].Timer = select(7, UnitBuff(l, select(1, GetSpellInfo(k)))) - GetTime()
+																			end
+																	elseif ITrackU[k][l].AuraType == "DEBUFF" then
+																		-- Max
+																		ITrackU[k][l].ModifMax = select(6, UnitDebuff(l, select(1, GetSpellInfo(k))))
+																		-- Stacks
+																		ITrackU[k][l].Stacks = select(4, UnitDebuff(l, select(1, GetSpellInfo(k))))
+																		-- Timer
+																			if ITrackU[k][l].Max ~= ITrackU[k][l].ModifMax then
+																				ITrackU[k][l].Timer = (select(7, UnitDebuff(l, select(1, GetSpellInfo(k)))) - GetTime()) * ITrackU[k][l].Max / ITrackU[k][l].ModifMax
+																			else
+																				ITrackU[k][l].Timer = select(7, UnitDebuff(l, select(1, GetSpellInfo(k)))) - GetTime()
+																			end														
+																	end
+																	self:SetValue(ITrackU[k][l].Timer)
+																		if ITrackU[k][l].Stacks == 0 or ITrackU[k][l].Stacks == 1 then
+																			ITrackU[k][l].Text_PlayerStacks:SetText("")
+																		else
+																			ITrackU[k][l].Text_PlayerStacks:SetText(ITrackU[k][l].Stacks)
+																		end
+																	-- when timer has reached the desired value, as defined by global END (secTnds), restart it by setting it to 0, as defined by global START
+																	if ITrackU[k][l].Timer <= ITrackU[k][l].Min then
+																		self:SetValue(0)
+																		ITrackU[k][l].Text_PlayerStacks:SetText("")
+																		ITrackU[k][l].Frame_PlayerDebuffed:SetScript("OnUpdate", nil)
+																	end
+																end)
 							   
-							--Sinon on créé une frame
-							else
-								-- Création ligne
-								ITrackU[spellID].Table_PlayerDebuffed[destName] = "True"
-								ITrackU[spellID][destName] = {}
-								ITrackU[spellID][destName].AuraType = auratype
-								ITrackU["DebuffToTrack"][spellID]["Count"] = ITrackU["DebuffToTrack"][spellID]["Count"] + 1
+															-- PlayerDebuffedText
+															ITrackU[k][l].Text_PlayerDebuffed = ITrackU[k][l].Frame_PlayerDebuffed:CreateFontString("Text_PlayerDebuffed", "OVERLAY", "GameFontNormal")
+															ITrackU[k][l].Text_PlayerDebuffed:SetPoint("CENTER", 0, 0)
+															ITrackU[k][l].Text_PlayerDebuffed:SetText(l)
+						 
+															-- MAJ i
+															i = i - Height_Debuffed
+														   
+															-- MAJ Height Frame Principale
+															Frame_Main:SetHeight((-1)*i)
+														   
+															-- FRAME Activate
+															ITrackU[k][l].Activate = "True"
+														   
+														else
+															-- MAJ Height Player Debuffed
+															ITrackU[k][l].Frame_PlayerDebuffed:SetPoint("TOPLEFT",0, i)
+															if ITrackU["DebuffToTrack"][k]["Type"] == "Stack" or ITrackU["DebuffToTrack"][k]["Type"] == "Spread" then
+																ITrackU[k][l].Frame_PlayerDistance:SetPoint("TOPRIGHT", 0, i)
+															end
+															
+															-- MAJ i
+															i = i - Height_Debuffed
+														   
+															-- MAJ Height Frame Principale
+															Frame_Main:SetHeight((-1)*i)
+														end
+													   
+													end
+												end
+											end
+										end
+									end
+							end
+							end
+				end
+			end
+            if type == "SPELL_AURA_REMOVED" and ITrackU ~= nil then
+				if ITrackU["DebuffToTrack"] ~= nil then
+					local _, _, _, _, _, _, _, _, _, _, _, spellID, auratype = ...
+						if ITrackU["DebuffToTrack"][spellID] then
+						   
+							-- Vider les tables
+							ITrackU[spellID].Table_PlayerDebuffed[destName] = nil
+							ITrackU[spellID][destName].Text_PlayerStacks:SetText("")
+							ITrackU[spellID][destName].Text_PlayerDebuffed:SetText("")
+							removeframe(ITrackU[spellID][destName].Frame_PlayerDebuffed)
+							ITrackU["DebuffToTrack"][spellID]["Count"] = ITrackU["DebuffToTrack"][spellID]["Count"] - 1
+								--On hide la frame titre si Count = 0
+								if ITrackU["DebuffToTrack"][spellID]["IfActive"] == "Yes" and ITrackU["DebuffToTrack"][spellID]["Count"] == 0 then
+									ITrackU[spellID].Frame_Titre:Hide()
+								end
+								--On remove la frame si Stack ou Spread
+								if ITrackU["DebuffToTrack"][spellID]["Type"] == "Stack" or ITrackU["DebuffToTrack"][spellID]["Type"] == "Spread" then
+									removeframe(ITrackU[spellID][destName].Frame_PlayerDistance)
+								end
 	 
+							-- FRAME Deactivate
+							ITrackU[spellID][destName].Activate = nil
+												   
 								local i = 0
 								for k, v in pairs(ITrackU["DebuffToTrack"]) do
 									if (ITrackU["DebuffToTrack"][k]["Count"] ~= 0 and ITrackU["DebuffToTrack"][k]["IfActive"] == "Yes") or ITrackU["DebuffToTrack"][k]["IfActive"] == "No" then
 										-- Frame_Titre[k]
-										ITrackU[k].Frame_Titre:SetPoint("TOPLEFT",0, i)
-										ITrackU[k].Frame_Titre:Show()
+										ITrackU[k].Frame_Titre:SetPoint("TOPLEFT",0, i)              
 									   
 										-- MAJ i
 										i = i - Height_Title
 									   
 										-- MAJ Height Frame Principale
 										Frame_Main:SetHeight((-1)*i)
-																   
+																	   
 										-- PlayerDebuffed[k]
 										if ITrackU[k].Table_PlayerDebuffed ~= nil then
 											for l, w in pairs(ITrackU[k].Table_PlayerDebuffed) do
 												if w ~= nil then
-													if ITrackU[k][l].Activate == nil then
 											   
-														-- Frame_PlayerDebuffed[l]
-														ITrackU[k][l].Frame_PlayerDebuffed = getframe()
-														ITrackU[k][l].Frame_PlayerDebuffed:SetParent(Frame_Main)
-														ITrackU[k][l].Frame_PlayerDebuffed:SetBackdrop({bgFile = [[Interface\ChatFrame\ChatFrameBackground]]});
-														ITrackU[k][l].Frame_PlayerDebuffed:SetWidth(Width_Global)
-														ITrackU[k][l].Frame_PlayerDebuffed:SetHeight(Height_Debuffed)
-															-- Color en fonction du joueur !
-															if l == select(1, UnitName("player")) then
-																ITrackU[k][l].Frame_PlayerDebuffed:SetBackdropColor(0.208,0.80,0.192,0.5)
-															elseif l == select(1, UnitName("focus")) then
-																ITrackU[k][l].Frame_PlayerDebuffed:SetBackdropColor(0.632,0.348,0.828,0.5)
-															else
-																ITrackU[k][l].Frame_PlayerDebuffed:SetBackdropColor(0.78,0.828,0.464,0.5)
-															end
-														ITrackU[k][l].Frame_PlayerDebuffed:SetPoint("TOPLEFT",0, i)
-														ITrackU[k][l].Frame_PlayerDebuffed:SetFrameStrata("LOW")
-														ITrackU[k][l].Frame_PlayerDebuffed:Show()
-													   
-														--Frame_PlayerDebuffed StatusBar
-														ITrackU[k][l].Frame_PlayerDebuffed:SetStatusBarTexture([[Interface\ChatFrame\ChatFrameBackground]])
-															-- Color en fonction du joueur !
-															if l == select(1, UnitName("player")) then
-																ITrackU[k][l].Frame_PlayerDebuffed:SetStatusBarColor(0.208,0.80,0.192,0.5)
-															elseif l == select(1, UnitName("focus")) then
-																ITrackU[k][l].Frame_PlayerDebuffed:SetStatusBarColor(0.632,0.348,0.828,0.5)
-															else
-																ITrackU[k][l].Frame_PlayerDebuffed:SetStatusBarColor(0.78,0.828,0.464,0.5)
-															end
-														ITrackU[k][l].Frame_PlayerDebuffed:SetFillStyle("REVERSE")
-														
-															--Frame PlayerDistance
-															if (ITrackU["DebuffToTrack"][k]["Type"] == "Stack" or ITrackU["DebuffToTrack"][k]["Type"] == "Spread") and l ~= select(1, UnitName("player")) then
-																ITrackU[k][l].Frame_PlayerDistance = getframe()
-																ITrackU[k][l].Frame_PlayerDistance:SetParent(Frame_Main)
-																ITrackU[k][l].Frame_PlayerDistance:SetBackdrop({bgFile = [[Interface\ChatFrame\ChatFrameBackground]]});
-																ITrackU[k][l].Frame_PlayerDistance:SetWidth(Width_PlayerDistance)
-																ITrackU[k][l].Frame_PlayerDistance:SetHeight(Height_Debuffed)
-																ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(0,1,0,1)
-																ITrackU[k][l].Frame_PlayerDistance:SetPoint("TOPRIGHT", 0, i)
-																ITrackU[k][l].Frame_PlayerDistance:SetFrameStrata("LOW")
-																ITrackU[k][l].Frame_PlayerDistance:Show()
-																ITrackU[k][l].Frame_PlayerDistance:SetScript("OnUpdate", function(self, elapsed)
-																	ITrackU[k][l].PlayerDistance = ComputeDistance(l, select(1, UnitName("player")))
-																	if ITrackU["DebuffToTrack"][k]["Type"] == "Stacks" then
-																		if ITrackU[k][l].PlayerDistance < ITrackU["DebuffToTrack"][k]["TypeDistance"] then
-																			ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(0,1,0,1)
-																		else
-																			ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(1,0,0,1)
-																		end
-																	elseif ITrackU["DebuffToTrack"][k]["Type"] == "Spread" then
-																		if ITrackU[k][l].PlayerDistance < ITrackU["DebuffToTrack"][k]["TypeDistance"] then
-																			ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(1,0,0,1)
-																		else
-																			ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(0,1,0,1)
-																		end
-																	end
-																end)
-															end
-																											
-														--PlayerStacksText
-														ITrackU[k][l].Text_PlayerStacks = ITrackU[k][l].Frame_PlayerDebuffed:CreateFontString("Text_PlayerStacks", "OVERLAY", "GameFontNormal")
-														ITrackU[k][l].Text_PlayerStacks:SetPoint("RIGHT", 0, 0)
-													   
-														-- Variable Max
-														ITrackU[k][l].Min = 0
-														if auratype == "BUFF" then
-															-- Max
-															ITrackU[k][l].Max = select(6, UnitBuff(l, select(1, GetSpellInfo(k))))
-														elseif auratype == "DEBUFF" then
-															-- Max
-															ITrackU[k][l].Max = select(6, UnitDebuff(l, select(1, GetSpellInfo(k))))
-														end                                            
-													   
-														-- Set la statusbar
-														ITrackU[k][l].Frame_PlayerDebuffed:SetMinMaxValues(ITrackU[k][l].Min, ITrackU[k][l].Max)
-													   
-															-- this function will run repeatedly, incrementing the value of timer as it goes
-															ITrackU[k][l].Frame_PlayerDebuffed:SetScript("OnUpdate", function(self, elapsed)
-																if ITrackU[k][l].AuraType == "BUFF" then
-																	-- Max
-																	ITrackU[k][l].ModifMax = select(6, UnitBuff(l, select(1, GetSpellInfo(k))))
-																	-- Stacks
-																	ITrackU[k][l].Stacks = select(4, UnitBuff(l, select(1, GetSpellInfo(k))))
-																	-- Timer
-																		if ITrackU[k][l].Max ~= ITrackU[k][l].ModifMax then
-																			ITrackU[k][l].Timer = (select(7, UnitBuff(l, select(1, GetSpellInfo(k)))) - GetTime()) * ITrackU[k][l].Max / ITrackU[k][l].ModifMax
-																		else
-																			ITrackU[k][l].Timer = select(7, UnitBuff(l, select(1, GetSpellInfo(k)))) - GetTime()
-																		end
-																elseif ITrackU[k][l].AuraType == "DEBUFF" then
-																	-- Max
-																	ITrackU[k][l].ModifMax = select(6, UnitDebuff(l, select(1, GetSpellInfo(k))))
-																	-- Stacks
-																	ITrackU[k][l].Stacks = select(4, UnitDebuff(l, select(1, GetSpellInfo(k))))
-																	-- Timer
-																		if ITrackU[k][l].Max ~= ITrackU[k][l].ModifMax then
-																			ITrackU[k][l].Timer = (select(7, UnitDebuff(l, select(1, GetSpellInfo(k)))) - GetTime()) * ITrackU[k][l].Max / ITrackU[k][l].ModifMax
-																		else
-																			ITrackU[k][l].Timer = select(7, UnitDebuff(l, select(1, GetSpellInfo(k)))) - GetTime()
-																		end														
-																end
-																self:SetValue(ITrackU[k][l].Timer)
-																	if ITrackU[k][l].Stacks == 0 or ITrackU[k][l].Stacks == 1 then
-																		ITrackU[k][l].Text_PlayerStacks:SetText("")
-																	else
-																		ITrackU[k][l].Text_PlayerStacks:SetText(ITrackU[k][l].Stacks)
-																	end
-																-- when timer has reached the desired value, as defined by global END (secTnds), restart it by setting it to 0, as defined by global START
-																if ITrackU[k][l].Timer <= ITrackU[k][l].Min then
-																	self:SetValue(0)
-																	ITrackU[k][l].Text_PlayerStacks:SetText("")
-																	ITrackU[k][l].Frame_PlayerDebuffed:SetScript("OnUpdate", nil)
-																end
-															end)
-						   
-														-- PlayerDebuffedText
-														ITrackU[k][l].Text_PlayerDebuffed = ITrackU[k][l].Frame_PlayerDebuffed:CreateFontString("Text_PlayerDebuffed", "OVERLAY", "GameFontNormal")
-														ITrackU[k][l].Text_PlayerDebuffed:SetPoint("CENTER", 0, 0)
-														ITrackU[k][l].Text_PlayerDebuffed:SetText(l)
-					 
-														-- MAJ i
-														i = i - Height_Debuffed
-													   
-														-- MAJ Height Frame Principale
-														Frame_Main:SetHeight((-1)*i)
-													   
-														-- FRAME Activate
-														ITrackU[k][l].Activate = "True"
-													   
-													else
-														-- MAJ Height Player Debuffed
-														ITrackU[k][l].Frame_PlayerDebuffed:SetPoint("TOPLEFT",0, i)
-														if ITrackU["DebuffToTrack"][k]["Type"] == "Stack" or ITrackU["DebuffToTrack"][k]["Type"] == "Spread" then
-															ITrackU[k][l].Frame_PlayerDistance:SetPoint("TOPRIGHT", 0, i)
-														end
-														
-														-- MAJ i
-														i = i - Height_Debuffed
-													   
-														-- MAJ Height Frame Principale
-														Frame_Main:SetHeight((-1)*i)
+													-- Frame_PlayerDebuffed[l]
+													ITrackU[k][l].Frame_PlayerDebuffed:SetPoint("TOPLEFT",0, i)
+													if ITrackU["DebuffToTrack"][k]["Type"] == "Stack" or ITrackU["DebuffToTrack"][k]["Type"] == "Spread" then
+														ITrackU[k][l].Frame_PlayerDistance:SetPoint("TOPRIGHT", 0, i)
 													end
+													
+													-- MAJ i
+													i = i - Height_Debuffed
 												   
-												end
+													-- MAJ Height Frame Principale
+													Frame_Main:SetHeight((-1)*i)
+												   
+											   end
 											end
 										end
 									end
 								end
 						end
-						end
-            end
-            if type == "SPELL_AURA_REMOVED" and ITrackU["DebuffToTrack"] ~= nil then
-                local _, _, _, _, _, _, _, _, _, _, _, spellID, auratype = ...
-                    if ITrackU["DebuffToTrack"][spellID] then
-                       
-                        -- Vider les tables
-                        ITrackU[spellID].Table_PlayerDebuffed[destName] = nil
-						ITrackU[spellID][destName].Text_PlayerStacks:SetText("")
-						ITrackU[spellID][destName].Text_PlayerDebuffed:SetText("")
-                        removeframe(ITrackU[spellID][destName].Frame_PlayerDebuffed)
-						ITrackU["DebuffToTrack"][spellID]["Count"] = ITrackU["DebuffToTrack"][spellID]["Count"] - 1
-							--On hide la frame titre si Count = 0
-							if ITrackU["DebuffToTrack"][spellID]["IfActive"] == "Yes" and ITrackU["DebuffToTrack"][spellID]["Count"] == 0 then
-								ITrackU[spellID].Frame_Titre:Hide()
-							end
-							--On remove la frame si Stack ou Spread
-							if ITrackU["DebuffToTrack"][spellID]["Type"] == "Stack" or ITrackU["DebuffToTrack"][spellID]["Type"] == "Spread" then
-								removeframe(ITrackU[spellID][destName].Frame_PlayerDistance)
-							end
- 
-                        -- FRAME Deactivate
-                        ITrackU[spellID][destName].Activate = nil
-                                               
-                            local i = 0
-                            for k, v in pairs(ITrackU["DebuffToTrack"]) do
-								if (ITrackU["DebuffToTrack"][k]["Count"] ~= 0 and ITrackU["DebuffToTrack"][k]["IfActive"] == "Yes") or ITrackU["DebuffToTrack"][k]["IfActive"] == "No" then
-									-- Frame_Titre[k]
-									ITrackU[k].Frame_Titre:SetPoint("TOPLEFT",0, i)              
-								   
-									-- MAJ i
-									i = i - Height_Title
-								   
-									-- MAJ Height Frame Principale
-									Frame_Main:SetHeight((-1)*i)
-																   
-									-- PlayerDebuffed[k]
-									if ITrackU[k].Table_PlayerDebuffed ~= nil then
-										for l, w in pairs(ITrackU[k].Table_PlayerDebuffed) do
-											if w ~= nil then
-										   
-												-- Frame_PlayerDebuffed[l]
-												ITrackU[k][l].Frame_PlayerDebuffed:SetPoint("TOPLEFT",0, i)
-												if ITrackU["DebuffToTrack"][k]["Type"] == "Stack" or ITrackU["DebuffToTrack"][k]["Type"] == "Spread" then
-													ITrackU[k][l].Frame_PlayerDistance:SetPoint("TOPRIGHT", 0, i)
-												end
-												
-												-- MAJ i
-												i = i - Height_Debuffed
-											   
-												-- MAJ Height Frame Principale
-												Frame_Main:SetHeight((-1)*i)
-											   
-										   end
-										end
-									end
-								end
-                            end
-                       
-                       
-                    end
-            end
+				end
+			end
            
             -- Pour début du combat
             if type == "SPELL_AURA_APPLIED" or type == "SPELL_AURA_REFRESH" then
