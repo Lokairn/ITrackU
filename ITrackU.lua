@@ -98,6 +98,8 @@ local Width_Ecart_Global_PlayerDistance = 3
 -- Max Stacks
 
 local Debuffs = {
+					[1111] = {
+							},
 					[2074] = {
 							[245098] = {
 											["IfActive"] = "No",
@@ -142,20 +144,22 @@ local AllEventHandlers = {
        
     end,
     ["PLAYER_REGEN_ENABLED"] = function(self, ...)
-       for k, v in pairs(ITrackU["DebuffToTrack"]) do
-			if ITrackU[k].Table_PlayerDebuffed ~= nil then
-				for l, w in pairs(ITrackU[k].Table_PlayerDebuffed) do
-					if l ~= nil then
-						removeframe(ITrackU[k][l].Frame_PlayerDebuffed)
-						removeframe(ITrackU[k][l].Frame_PlayerDistance)
+		if ITrackU ~= nil then
+		   for k, v in pairs(ITrackU["DebuffToTrack"]) do
+				if ITrackU[k].Table_PlayerDebuffed ~= nil then
+					for l, w in pairs(ITrackU[k].Table_PlayerDebuffed) do
+						if l ~= nil then
+							removeframe(ITrackU[k][l].Frame_PlayerDebuffed)
+							removeframe(ITrackU[k][l].Frame_PlayerDistance)
+						end
 					end
 				end
-			end
-			removeframe(ITrackU[k].Frame_Titre)
-	   end
-	   ITrackU = nil
-       Frame_Main:SetHeight(0)
-       Frame_Main:Hide()
+				removeframe(ITrackU[k].Frame_Titre)
+		   end
+		   ITrackU = nil
+		   Frame_Main:SetHeight(0)
+		   Frame_Main:Hide()
+		end
     end,
     ["COMBAT_LOG_EVENT_UNFILTERED"] = function(self, ...)
         local timestamp, type, hideCaster, sourceGUID, sourceName, sourceFlags, sourceFlags2, destGUID, destName, destFlags, destFlags2 = ...
@@ -163,11 +167,6 @@ local AllEventHandlers = {
                 local _, _, _, _, _, _, _, _, _, _, _, spellID, _, _, auratype  = ...
 				if ITrackU["DebuffToTrack"] ~= nil then
 						if ITrackU["DebuffToTrack"][spellID] then
-								-- Si la ligne existe déjà, on met juste à jour les variables
-								if ITrackU[spellID].Table_PlayerDebuffed[destName] == "True" then
-								   
-								--Sinon on créé une frame
-								else
 									-- Création ligne
 									ITrackU[spellID].Table_PlayerDebuffed[destName] = "True"
 									ITrackU[spellID][destName] = {}
@@ -195,10 +194,7 @@ local AllEventHandlers = {
 												   
 															-- Frame_PlayerDebuffed[l]
 															ITrackU[k][l].Frame_PlayerDebuffed = getframe()
-															ITrackU[k][l].Frame_PlayerDebuffed:SetParent(Frame_Main)
-															ITrackU[k][l].Frame_PlayerDebuffed:SetBackdrop({bgFile = [[Interface\ChatFrame\ChatFrameBackground]]});
-															ITrackU[k][l].Frame_PlayerDebuffed:SetWidth(Width_Global)
-															ITrackU[k][l].Frame_PlayerDebuffed:SetHeight(Height_Debuffed)
+															ITrackU[k][l].Frame_PlayerDebuffed = modifyFrame(ITrackU[k][l].Frame_PlayerDebuffed, Frame_Main, {bgFile = [[Interface\ChatFrame\ChatFrameBackground]]}, Width_Global, Height_Debuffed, "TOPLEFT", 0, i, 1, 1, 1, 1, "LOW")									
 																-- Color en fonction du joueur !
 																if l == select(1, UnitName("player")) then
 																	ITrackU[k][l].Frame_PlayerDebuffed:SetBackdropColor(0.208,0.80,0.192,0.5)
@@ -207,8 +203,6 @@ local AllEventHandlers = {
 																else
 																	ITrackU[k][l].Frame_PlayerDebuffed:SetBackdropColor(0.78,0.828,0.464,0.5)
 																end
-															ITrackU[k][l].Frame_PlayerDebuffed:SetPoint("TOPLEFT",0, i)
-															ITrackU[k][l].Frame_PlayerDebuffed:SetFrameStrata("LOW")
 															ITrackU[k][l].Frame_PlayerDebuffed:Show()
 														   
 															--Frame_PlayerDebuffed StatusBar
@@ -226,13 +220,7 @@ local AllEventHandlers = {
 																--Frame PlayerDistance
 																if (ITrackU["DebuffToTrack"][k]["Type"] == "Stack" or ITrackU["DebuffToTrack"][k]["Type"] == "Spread") and l ~= select(1, UnitName("player")) then
 																	ITrackU[k][l].Frame_PlayerDistance = getframe()
-																	ITrackU[k][l].Frame_PlayerDistance:SetParent(Frame_Main)
-																	ITrackU[k][l].Frame_PlayerDistance:SetBackdrop({bgFile = [[Interface\ChatFrame\ChatFrameBackground]]});
-																	ITrackU[k][l].Frame_PlayerDistance:SetWidth(Width_PlayerDistance)
-																	ITrackU[k][l].Frame_PlayerDistance:SetHeight(Height_Debuffed)
-																	ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(0,1,0,1)
-																	ITrackU[k][l].Frame_PlayerDistance:SetPoint("TOPRIGHT", 0, i)
-																	ITrackU[k][l].Frame_PlayerDistance:SetFrameStrata("LOW")
+																	ITrackU[k][l].Frame_PlayerDistance = modifyFrame(ITrackU[k][l].Frame_PlayerDistance, Frame_Main, {bgFile = [[Interface\ChatFrame\ChatFrameBackground]]}, Width_PlayerDistance, Height_Debuffed, "TOPRIGHT", 0, i, 0, 0, 0, 1, "LOW")
 																	ITrackU[k][l].Frame_PlayerDistance:Show()
 																	ITrackU[k][l].Frame_PlayerDistance:SetScript("OnUpdate", function(self, elapsed)
 																		ITrackU[k][l].PlayerDistance = ComputeDistance(l, select(1, UnitName("player")))
@@ -341,8 +329,7 @@ local AllEventHandlers = {
 											end
 										end
 									end
-							end
-							end
+						end
 				end
 			end
             if type == "SPELL_AURA_REMOVED" and ITrackU ~= nil then
