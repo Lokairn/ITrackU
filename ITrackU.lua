@@ -1,14 +1,22 @@
 print("Load réussi V4")
- 
- --Next DEVS
- -- Max stacks
- -- Icon Rôle
- 
+  
 -- FRAME Pool
 local framepool = {}
-    
+
+	--modify Frame
+	local function modifyFrame(f, parent, backdrop, width, height, setPointPos, setPointX, setPointY, colorR, colorG, colorB, colorA, frameStrata)
+	f:SetParent(parent)
+	f:SetBackdrop(backdrop)
+	f:SetWidth(width)
+	f:SetHeight(height)
+	f:SetPoint(setPointPos, setPointX, setPointY)
+	f:SetBackdropColor(colorR, colorG, colorB, colorA)
+	f:SetFrameStrata(frameStrata)
+	return f
+	end
+
 	-- Remove frame
-        local function removeframe(f)
+    local function removeframe(f)
             f:Hide()
             f:SetBackdrop(nil)
             f:SetParent(nil)
@@ -16,7 +24,7 @@ local framepool = {}
         end
     
 	-- Get Frame
-        local function getframe()
+    local function getframe()
             local f = tremove(framepool)
             if not f then
                 -- Create your frame
@@ -60,13 +68,6 @@ local framepool = {}
 		end
 	  return result
 	end
- 
-local ITrackU = {}
-local Height_Title = 27
-local Height_Debuffed = 20
-local Width_Global = 150
-local Width_PlayerDistance = 10
-local Width_Ecart_Global_PlayerDistance = 3
 
 	-- Get Table
 	local function getTable(tableToGet)
@@ -76,15 +77,20 @@ local Width_Ecart_Global_PlayerDistance = 3
 				for l, w in pairs(tableToGet[k]) do
 					t[l] = {}
 					for m, x in pairs(tableToGet[k][l]) do
-						t[l].insert = {
-							[m] = x
-						}
+						t[l][m] = x
 					end
 				end
 		end
 		return t
 	end
 
+local ITrackU = {}
+local Height_Title = 27
+local Height_Debuffed = 20
+local Width_Global = 150
+local Width_PlayerDistance = 10
+local Width_Ecart_Global_PlayerDistance = 3	
+	
 -- IfActive = Yes/No
 -- Type = Classic / Stack / Spread
 -- TypeDistance = M or nil
@@ -93,18 +99,39 @@ local Width_Ecart_Global_PlayerDistance = 3
 
 local Debuffs = {
 					[2074] = {
-							[243961] = {
-											["IfActive"] = "	",
+							[245098] = {
+											["IfActive"] = "No",
 											["Count"] = 0,
 											["Type"] = "Classic",
 											["TypeDistance"] = nil,
 											["Rôle"] = "Tank"
 										},
-							[244093] = {
+							[251445] = {
 											["IfActive"] = "No",
 											["Count"] = 0,
 											["Type"] = "Classic",
 											["TypeDistance"] = nil,
+											["Rôle"] = "Tank"
+										},
+							[248815] = {
+											["IfActive"] = "Yes",
+											["Count"] = 0,
+											["Type"] = "Spread",
+											["TypeDistance"] = 8,
+											["Rôle"] = "Tank"
+										},
+							[244768] = {
+											["IfActive"] = "Yes",
+											["Count"] = 0,
+											["Type"] = "Classic",
+											["TypeDistance"] = nil,
+											["Rôle"] = "Tank"
+										},
+							[248819] = {
+											["IfActive"] = "Yes",
+											["Count"] = 0,
+											["Type"] = "Stack",
+											["TypeDistance"] = 8,
 											["Rôle"] = "Tank"
 										}
 								}
@@ -390,13 +417,7 @@ local AllEventHandlers = {
 								ITrackU[k] = {}
 								-- Frame_Titre[k]
 								ITrackU[k].Frame_Titre = getframe()
-								ITrackU[k].Frame_Titre:SetParent(Frame_Main)
-								ITrackU[k].Frame_Titre:SetBackdrop({bgFile = [[Interface\ChatFrame\ChatFrameBackground]]});
-								ITrackU[k].Frame_Titre:SetWidth(Width_Global)
-								ITrackU[k].Frame_Titre:SetHeight(Height_Title)
-								ITrackU[k].Frame_Titre:SetBackdropColor(0.368,0.368,0.368,0.9)
-								ITrackU[k].Frame_Titre:SetPoint("TOPLEFT",0, i)
-								ITrackU[k].Frame_Titre:SetFrameStrata("LOW")
+								ITrackU[k].Frame_Titre = modifyFrame(ITrackU[k].Frame_Titre, Frame_Main, {bgFile = [[Interface\ChatFrame\ChatFrameBackground]]}, Width_Global, Height_Title, "TOPLEFT", 0, i, 0.368, 0.368, 0.368, 0.9, "LOW")
 									if ITrackU["DebuffToTrack"][k]["IfActive"] == "No" then
 										ITrackU[k].Frame_Titre:Show()
 									else
