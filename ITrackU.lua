@@ -69,18 +69,20 @@ local Width_PlayerDistance = 10
 local Width_Ecart_Global_PlayerDistance = 3
 
 	-- Get Table
-	local function getTable()
+	local function getTable(tableToGet)
 		local t = {}
-		for k, _ in pairs(Debuffs) do
+		for k, _ in pairs(tableToGet) do
 			-- if k ==
-				for l, w in pairs(Debuffs[k]) do
-					for m, x in pairs(Debuffs[k][l]) do
-						t[l] = {
+				for l, w in pairs(tableToGet[k]) do
+					t[l] = {}
+					for m, x in pairs(tableToGet[k][l]) do
+						t[l].insert = {
 							[m] = x
 						}
 					end
 				end
 		end
+		return t
 	end
 
 -- IfActive = Yes/No
@@ -92,14 +94,14 @@ local Width_Ecart_Global_PlayerDistance = 3
 local Debuffs = {
 					[2074] = {
 							[243961] = {
-											["IfActive"] = "Yes",
+											["IfActive"] = "	",
 											["Count"] = 0,
 											["Type"] = "Classic",
 											["TypeDistance"] = nil,
 											["Rôle"] = "Tank"
 										},
 							[244093] = {
-											["IfActive"] = "Yes",
+											["IfActive"] = "No",
 											["Count"] = 0,
 											["Type"] = "Classic",
 											["TypeDistance"] = nil,
@@ -380,58 +382,58 @@ local AllEventHandlers = {
                 local _, _, _, _, _, _, _, _, _, _, _, spellID, auratype = ...
                 local MyPlayer = select(1, UnitName("player"))
                     if spellID == 224001 and destName == MyPlayer then
-						print("Lancé")
-						ITrackU["DebuffToTrack"] = getTable()
-                        local i = 0
-                        for k, v in pairs(ITrackU["DebuffToTrack"]) do
-                            -- Init
-                            ITrackU[k] = {}
-                            -- Frame_Titre[k]
-                            ITrackU[k].Frame_Titre = getframe()
-                            ITrackU[k].Frame_Titre:SetParent(Frame_Main)
-                            ITrackU[k].Frame_Titre:SetBackdrop({bgFile = [[Interface\ChatFrame\ChatFrameBackground]]});
-                            ITrackU[k].Frame_Titre:SetWidth(Width_Global)
-                            ITrackU[k].Frame_Titre:SetHeight(Height_Title)
-                            ITrackU[k].Frame_Titre:SetBackdropColor(0.368,0.368,0.368,0.9)
-                            ITrackU[k].Frame_Titre:SetPoint("TOPLEFT",0, i)
-                            ITrackU[k].Frame_Titre:SetFrameStrata("LOW")
+						ITrackU["DebuffToTrack"] = getTable(Debuffs)
+						if ITrackU["DebuffToTrack"] ~= nil then
+							local i = 0
+							for k, v in pairs(ITrackU["DebuffToTrack"]) do
+								-- Init
+								ITrackU[k] = {}
+								-- Frame_Titre[k]
+								ITrackU[k].Frame_Titre = getframe()
+								ITrackU[k].Frame_Titre:SetParent(Frame_Main)
+								ITrackU[k].Frame_Titre:SetBackdrop({bgFile = [[Interface\ChatFrame\ChatFrameBackground]]});
+								ITrackU[k].Frame_Titre:SetWidth(Width_Global)
+								ITrackU[k].Frame_Titre:SetHeight(Height_Title)
+								ITrackU[k].Frame_Titre:SetBackdropColor(0.368,0.368,0.368,0.9)
+								ITrackU[k].Frame_Titre:SetPoint("TOPLEFT",0, i)
+								ITrackU[k].Frame_Titre:SetFrameStrata("LOW")
+									if ITrackU["DebuffToTrack"][k]["IfActive"] == "No" then
+										ITrackU[k].Frame_Titre:Show()
+									else
+										ITrackU[k].Frame_Titre:Hide()
+									end
+														   
+								-- Text_Frame_Titre
+								ITrackU[k].Text_Frame_Titre = ITrackU[k].Frame_Titre:CreateFontString("Text_Frame_Titre", "OVERLAY", "GameFontNormal")
+								ITrackU[k].Text_Frame_Titre:SetPoint("LEFT", Height_Title + 4, 0)
+								ITrackU[k].Text_Frame_Titre:SetText(select(1, GetSpellInfo(k)))    
+	 
+									-- Icon_Frame_Titre
+									ITrackU[k].Icon_Frame_Titre = ITrackU[k].Frame_Titre:CreateTexture(nil,"MEDIUM")
+									ITrackU[k].Icon_Frame_Titre:SetTexture(select(3, GetSpellInfo(k)))
+									ITrackU[k].Icon_Frame_Titre:SetPoint("LEFT", 0, 0)
+									ITrackU[k].Icon_Frame_Titre:SetWidth(Height_Title)
+									ITrackU[k].Icon_Frame_Titre:SetHeight(Height_Title)
+									ITrackU[k].Frame_Titre.texture = ITrackU[k].Icon_Frame_Titre                      
+							   
+								-- MAJ i
+									if ITrackU["DebuffToTrack"][k]["IfActive"] == "No" then
+										i = i - Height_Title
+									end
+							   
+								-- Init Table Track joueurs
+								ITrackU[k].Table_PlayerDebuffed = {}
+								ITrackU[k].Frame_PlayerDebuffed = {}
+								ITrackU[k].Text_PlayerDebuffed = {}
+							   
+								-- MAJ Frame Principale
 								if ITrackU["DebuffToTrack"][k]["IfActive"] == "No" then
-									ITrackU[k].Frame_Titre:Show()
-								else
-									ITrackU[k].Frame_Titre:Hide()
+									Frame_Main:SetHeight((-1)*i)
 								end
-                                                       
-                            -- Text_Frame_Titre
-                            ITrackU[k].Text_Frame_Titre = ITrackU[k].Frame_Titre:CreateFontString("Text_Frame_Titre", "OVERLAY", "GameFontNormal")
-                            ITrackU[k].Text_Frame_Titre:SetPoint("LEFT", Height_Title + 4, 0)
-                            ITrackU[k].Text_Frame_Titre:SetText(select(1, GetSpellInfo(k)))    
- 
-                                -- Icon_Frame_Titre
-                                ITrackU[k].Icon_Frame_Titre = ITrackU[k].Frame_Titre:CreateTexture(nil,"MEDIUM")
-                                ITrackU[k].Icon_Frame_Titre:SetTexture(select(3, GetSpellInfo(k)))
-                                ITrackU[k].Icon_Frame_Titre:SetPoint("LEFT", 0, 0)
-                                ITrackU[k].Icon_Frame_Titre:SetWidth(Height_Title)
-                                ITrackU[k].Icon_Frame_Titre:SetHeight(Height_Title)
-                                ITrackU[k].Frame_Titre.texture = ITrackU[k].Icon_Frame_Titre                      
-                           
-                            -- MAJ i
-								if ITrackU["DebuffToTrack"][k]["IfActive"] == "No" then
-									i = i - Height_Title
-								end
-                           
-                            -- Init Table Track joueurs
-                            ITrackU[k].Table_PlayerDebuffed = {}
-                            ITrackU[k].Frame_PlayerDebuffed = {}
-                            ITrackU[k].Text_PlayerDebuffed = {}
-                           
-                            -- MAJ Frame Principale
-							if ITrackU["DebuffToTrack"][k]["IfActive"] == "No" then
-								Frame_Main:SetHeight((-1)*i)
+								Frame_Main:Show()
+													   
 							end
-                            Frame_Main:Show()
-                                                   
-                        end
- 
+						end
                     end        
             end
     end
