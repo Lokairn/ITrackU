@@ -169,70 +169,74 @@ end
 
 
 -- TODO Rename éventuellement + documenter ce que la méthode fait
-local function player_distance_script(self, elapsed)
-  ITrackU[k][l].PlayerDistance = compute_distance(l, select(1, UnitName("player")))
+local function player_distance_script(k, l)
+  ITrackU[k][l].Frame_PlayerDistance:SetScript("OnUpdate", function(self, elapsed)
+    ITrackU[k][l].PlayerDistance = compute_distance(l, select(1, UnitName("player")))
 
-  if ITrackU["DebuffToTrack"][k]["Type"] == "Stacks" then
-    if ITrackU[k][l].PlayerDistance < ITrackU["DebuffToTrack"][k]["TypeDistance"] then
-      ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(0,1,0,1)
-    else
-      ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(1,0,0,1)
-    end
+    if ITrackU["DebuffToTrack"][k]["Type"] == "Stacks" then
+      if ITrackU[k][l].PlayerDistance < ITrackU["DebuffToTrack"][k]["TypeDistance"] then
+        ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(0,1,0,1)
+      else
+        ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(1,0,0,1)
+      end
 
-  elseif ITrackU["DebuffToTrack"][k]["Type"] == "Spread" then
-    if ITrackU[k][l].PlayerDistance < ITrackU["DebuffToTrack"][k]["TypeDistance"] then
-      ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(1,0,0,1)
-    else
-      ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(0,1,0,1)
+    elseif ITrackU["DebuffToTrack"][k]["Type"] == "Spread" then
+      if ITrackU[k][l].PlayerDistance < ITrackU["DebuffToTrack"][k]["TypeDistance"] then
+        ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(1,0,0,1)
+      else
+        ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(0,1,0,1)
+      end
     end
-  end
+  end)
 end
 
 
 -- TODO Rename éventuellement + documenter ce que la méthode fait
-local function update_timer(self, elapsed)
-  if ITrackU[k][l].AuraType == "BUFF" then
-    -- Max
-    ITrackU[k][l].ModifMax = select(6, UnitBuff(l, select(1, GetSpellInfo(k))))
+local function update_timer(k, l)
+  ITrackU[k][l].Frame_PlayerDebuffed:SetScript("OnUpdate", function(self, elapsed)  
+    if ITrackU[k][l].AuraType == "BUFF" then
+      -- Max
+      ITrackU[k][l].ModifMax = select(6, UnitBuff(l, select(1, GetSpellInfo(k))))
 
-    -- Stacks
-    ITrackU[k][l].Stacks = select(4, UnitBuff(l, select(1, GetSpellInfo(k))))
+      -- Stacks
+      ITrackU[k][l].Stacks = select(4, UnitBuff(l, select(1, GetSpellInfo(k))))
 
-    -- Timer
-    if ITrackU[k][l].Max ~= ITrackU[k][l].ModifMax then
-      ITrackU[k][l].Timer = (select(7, UnitBuff(l, select(1, GetSpellInfo(k)))) - GetTime()) * ITrackU[k][l].Max / ITrackU[k][l].ModifMax
-    else
-      ITrackU[k][l].Timer = select(7, UnitBuff(l, select(1, GetSpellInfo(k)))) - GetTime()
+      -- Timer
+      if ITrackU[k][l].Max ~= ITrackU[k][l].ModifMax then
+        ITrackU[k][l].Timer = (select(7, UnitBuff(l, select(1, GetSpellInfo(k)))) - GetTime()) * ITrackU[k][l].Max / ITrackU[k][l].ModifMax
+      else
+        ITrackU[k][l].Timer = select(7, UnitBuff(l, select(1, GetSpellInfo(k)))) - GetTime()
+      end
+
+    elseif ITrackU[k][l].AuraType == "DEBUFF" then
+      -- Max
+      ITrackU[k][l].ModifMax = select(6, UnitDebuff(l, select(1, GetSpellInfo(k))))
+
+      -- Stacks
+      ITrackU[k][l].Stacks = select(4, UnitDebuff(l, select(1, GetSpellInfo(k))))
+
+      -- Timer
+      if ITrackU[k][l].Max ~= ITrackU[k][l].ModifMax then
+        ITrackU[k][l].Timer = (select(7, UnitDebuff(l, select(1, GetSpellInfo(k)))) - GetTime()) * ITrackU[k][l].Max / ITrackU[k][l].ModifMax
+      else
+        ITrackU[k][l].Timer = select(7, UnitDebuff(l, select(1, GetSpellInfo(k)))) - GetTime()
+      end                           
     end
 
-  elseif ITrackU[k][l].AuraType == "DEBUFF" then
-    -- Max
-    ITrackU[k][l].ModifMax = select(6, UnitDebuff(l, select(1, GetSpellInfo(k))))
-
-    -- Stacks
-    ITrackU[k][l].Stacks = select(4, UnitDebuff(l, select(1, GetSpellInfo(k))))
-
-    -- Timer
-    if ITrackU[k][l].Max ~= ITrackU[k][l].ModifMax then
-      ITrackU[k][l].Timer = (select(7, UnitDebuff(l, select(1, GetSpellInfo(k)))) - GetTime()) * ITrackU[k][l].Max / ITrackU[k][l].ModifMax
+    self:SetValue(ITrackU[k][l].Timer)
+    if ITrackU[k][l].Stacks == 0 or ITrackU[k][l].Stacks == 1 then
+      ITrackU[k][l].Text_PlayerStacks:SetText("")
     else
-      ITrackU[k][l].Timer = select(7, UnitDebuff(l, select(1, GetSpellInfo(k)))) - GetTime()
-    end                           
-  end
+      ITrackU[k][l].Text_PlayerStacks:SetText(ITrackU[k][l].Stacks)
+    end
 
-  self:SetValue(ITrackU[k][l].Timer)
-  if ITrackU[k][l].Stacks == 0 or ITrackU[k][l].Stacks == 1 then
-    ITrackU[k][l].Text_PlayerStacks:SetText("")
-  else
-    ITrackU[k][l].Text_PlayerStacks:SetText(ITrackU[k][l].Stacks)
-  end
-
-  -- when timer has reached the desired value, as defined by global END (secTnds), restart it by setting it to 0, as defined by global START
-  if ITrackU[k][l].Timer <= ITrackU[k][l].Min then
-    self:SetValue(0)
-    ITrackU[k][l].Text_PlayerStacks:SetText("")
-    ITrackU[k][l].Frame_PlayerDebuffed:SetScript("OnUpdate", nil)
-  end
+    -- when timer has reached the desired value, as defined by global END (secTnds), restart it by setting it to 0, as defined by global START
+    if ITrackU[k][l].Timer <= ITrackU[k][l].Min then
+      self:SetValue(0)
+      ITrackU[k][l].Text_PlayerStacks:SetText("")
+      ITrackU[k][l].Frame_PlayerDebuffed:SetScript("OnUpdate", nil)
+    end
+  end)
 end
 
 
@@ -332,7 +336,7 @@ local function combat_log_event_unfiltered_handler(self, ...)
                         ITrackU[k][l].Frame_PlayerDistance = get_frame()
                         ITrackU[k][l].Frame_PlayerDistance = modify_frame(ITrackU[k][l].Frame_PlayerDistance, Frame_Main, {bgFile = [[Interface\ChatFrame\ChatFrameBackground]]}, WIDTH_PLAYER_DISTANCE, HEIGHT_DEBUFFED, "TOPRIGHT", 0, i, 0, 0, 0, 1, "LOW")
                         ITrackU[k][l].Frame_PlayerDistance:Show()
-                        ITrackU[k][l].Frame_PlayerDistance:SetScript("OnUpdate", player_distance_script)
+                        player_distance_script(k,l)
                       end
                       
                       --PlayerStacksText
@@ -353,7 +357,7 @@ local function combat_log_event_unfiltered_handler(self, ...)
                       ITrackU[k][l].Frame_PlayerDebuffed:SetMinMaxValues(ITrackU[k][l].Min, ITrackU[k][l].Max)
                       
                       -- this function will run repeatedly, incrementing the value of timer as it goes
-                      ITrackU[k][l].Frame_PlayerDebuffed:SetScript("OnUpdate", update_timer)
+                      update_timer(k,l)
                       
                       -- PlayerDebuffedText
                       ITrackU[k][l].Text_PlayerDebuffed = ITrackU[k][l].Frame_PlayerDebuffed:CreateFontString("Text_PlayerDebuffed", "OVERLAY", "GameFontNormal")
