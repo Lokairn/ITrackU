@@ -3,7 +3,6 @@
 ---------------------------------------------------------------------------------------------------
 
 local ITrackU = {}
-local ITrack, Core = ...
 
 -- IfActive = Yes/No
 -- Type = Classic / Stack / Spread
