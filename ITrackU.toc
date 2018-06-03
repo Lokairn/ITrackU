@@ -5,10 +5,10 @@
 ## Version: 1.0
 ## SavedVariables: debuffs_table
 ## SavedVariables: db_variable
+## OptionalDeps: Ace3 
+## X-bindings: Ace3
 
 ITrackU.lua
+bindings.xml
+options.lua
 
-#@no-lib-strip@
-libs\LibStub.lua
-libs\AceGUI-3.0\AceGUI-3.0.xml
-#@end-no-lib-strip@

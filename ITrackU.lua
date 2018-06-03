@@ -122,6 +122,9 @@ local function addon_loaded(event, arg1)
     if db_variable.WIDTH_GLOBAL == nil then db_variable.WIDTH_GLOBAL = 150 end
     if db_variable.WIDTH_PLAYER_DISTANCE == nil then db_variable.WIDTH_PLAYER_DISTANCE = 10 end
     if db_variable.WIDTH_ECART_GLOBAL_PLAYER_DISTANCE == nil then db_variable.WIDTH_ECART_GLOBAL_PLAYER_DISTANCE = 3 end
+    if db_variable.HEIGHT_BETWEEN_TITLE == nil then db_variable.HEIGHT_BETWEEN_TITLE = 1 end
+    if db_variable.HEIGHT_BETWEEN_DEBUFFED == nil then db_variable.HEIGHT_BETWEEN_DEBUFFED = 1 end
+	if db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED == nil then db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED = 0 end
   end
 end
 
@@ -352,7 +355,7 @@ local function player_regen_disabled_handler(self, ...)
       -- MAJ Frames
       if ITrackU["DebuffToTrack"][k]["IfActive"] == "No" then
         ITrackU[k].Frame_Titre:Show()
-        i = i - db_variable.HEIGHT_TITLE
+        i = i - db_variable.HEIGHT_TITLE - db_variable.HEIGHT_BETWEEN_TITLE
         Frame_Main:SetHeight((-1)*i)
       else
         ITrackU[k].Frame_Titre:Hide()
@@ -485,7 +488,11 @@ local function combat_log_event_unfiltered_handler(self, ...)
             ITrackU[k].Frame_Titre:SetPoint("TOPLEFT",0, i)
 
             -- MAJ i
-            i = i - db_variable.HEIGHT_TITLE
+			if ITrackU["DebuffToTrack"][k]["Count"] > 0 then
+			  i = i - db_variable.HEIGHT_TITLE - db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED
+			else
+			  i = i - db_variable.HEIGHT_TITLE
+			end
 
             -- MAJ Height Frame Principale
             Frame_Main:SetHeight((-1)*i)
@@ -508,13 +515,14 @@ local function combat_log_event_unfiltered_handler(self, ...)
                       end
                       
                       -- MAJ i
-                      i = i - db_variable.HEIGHT_DEBUFFED
+                      i = i - db_variable.HEIGHT_DEBUFFED - db_variable.HEIGHT_BETWEEN_DEBUFFED
                                
                       -- MAJ Height Frame Principale
                       Frame_Main:SetHeight((-1)*i)
                     end
               end
             end
+			i = i - db_variable.HEIGHT_BETWEEN_TITLE
           end
         end
       end
@@ -551,7 +559,11 @@ local function combat_log_event_unfiltered_handler(self, ...)
             ITrackU[k].Frame_Titre:SetPoint("TOPLEFT",0, i)
 
             -- MAJ i
-            i = i - db_variable.HEIGHT_TITLE
+			if ITrackU["DebuffToTrack"][k]["Count"] > 0 then
+			  i = i - db_variable.HEIGHT_TITLE - db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED
+			else
+			  i = i - db_variable.HEIGHT_TITLE
+			end
 
             -- MAJ Height Frame Principale
             Frame_Main:SetHeight((-1)*i)
@@ -570,13 +582,14 @@ local function combat_log_event_unfiltered_handler(self, ...)
                         end
                         
                         -- MAJ i
-                        i = i - db_variable.HEIGHT_DEBUFFED
+                        i = i - db_variable.HEIGHT_DEBUFFED - db_variable.HEIGHT_BETWEEN_DEBUFFED
                                  
                         -- MAJ Height Frame Principale
                         Frame_Main:SetHeight((-1)*i)
                       end
                 end
               end
+			i = i - db_variable.HEIGHT_BETWEEN_TITLE
           end
         end
       end
@@ -644,3 +657,4 @@ SlashCmdList['ITRACKU_ENCOUNTER_SLASHCMD'] = function()
   print(encounter)
 end
 SLASH_ITRACKU_ENCOUNTER_SLASHCMD1 = '/encounter'
+
