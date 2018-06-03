@@ -3,5 +3,12 @@
 ## Author: Kahinh
 ## Notes: Ceci est un test
 ## Version: 1.0
+## SavedVariables: debuffs_table
+## SavedVariables: db_variable
 
 ITrackU.lua
+
+#@no-lib-strip@
+libs\LibStub.lua
+libs\AceGUI-3.0\AceGUI-3.0.xml
+#@end-no-lib-strip@
