@@ -124,11 +124,24 @@ local function addon_loaded(event, arg1)
     if db_variable.WIDTH_ECART_GLOBAL_PLAYER_DISTANCE == nil then db_variable.WIDTH_ECART_GLOBAL_PLAYER_DISTANCE = 3 end
     if db_variable.HEIGHT_BETWEEN_TITLE == nil then db_variable.HEIGHT_BETWEEN_TITLE = 1 end
     if db_variable.HEIGHT_BETWEEN_DEBUFFED == nil then db_variable.HEIGHT_BETWEEN_DEBUFFED = 1 end
-    if db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED == nil then db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED = 0 end
-    if db_variable.POSITION_X == nil then db_variable.POSITION_X = 0 end
-    if db_variable.POSITION_Y == nil then db_variable.POSITION_Y = 0 end
+  if db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED == nil then db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED = 0 end
   end
 end
+
+---------------------------------------------------------------------------------------------------
+---------------------------------   MAIN FRAIM INITIALIZATION   -----------------------------------
+---------------------------------------------------------------------------------------------------
+
+local function addon_initialization(self, ...)
+  local Frame_Main = CreateFrame("FRAME", "Frame_Main", UIParent)
+  Frame_Main:SetBackdrop({bgFile = [[Interface\ChatFrame\ChatFrameBackground]]});
+  Frame_Main:SetWidth(db_variable.WIDTH_GLOBAL + db_variable.WIDTH_ECART_GLOBAL_PLAYER_DISTANCE + db_variable.WIDTH_PLAYER_DISTANCE)
+  Frame_Main:SetHeight(0)
+  Frame_Main:SetBackdropColor(1,0,0,0)
+  Frame_Main:SetPoint("CENTER",db_variable.POSITION_X,0)
+  Frame_Main:SetFrameStrata("BACKGROUND")
+  Frame_Main:Show()
+ end
 
 ---------------------------------------------------------------------------------------------------
 ----------------------------------   FRAMEPOOL IMPLEMENTATION   -----------------------------------
@@ -320,20 +333,17 @@ end
 -- Called when the player regen is disabled
 local function player_regen_disabled_handler(self, ...)
 
-  if ITrackU == nil then ITrackU = {} end
-  if ITrackU["encounter_id"] == nil then ITrackU["encounter_id"] = EJ_GetCreatureInfo(1) end
+  if ITrackU == nil or ITrackU == "ITrackU" then ITrackU = {} end
   if debuffs_table ~= nil then ITrackU["DebuffToTrack"] = get_table(debuffs_table, ITrackU["encounter_id"]) end
 
   if ITrackU["DebuffToTrack"] ~= nil then
-  
-    Frame_Main:Show()
+    addon_initialization()
+
     local i = 0
     
     for k, v in pairs(ITrackU["DebuffToTrack"]) do
-    
-      -- Init
-      ITrackU[k] = {}
       -- Frame_Titre[k]
+      ITrackU[k] = {}
       ITrackU[k].Frame_Titre = get_frame()
       ITrackU[k].Frame_Titre = modify_frame(ITrackU[k].Frame_Titre, Frame_Main, {bgFile = [[Interface\ChatFrame\ChatFrameBackground]]}, db_variable.WIDTH_GLOBAL, db_variable.HEIGHT_TITLE, "TOPLEFT", 0, i, 0.368, 0.368, 0.368, 0.9, "LOW")
                            
@@ -391,6 +401,7 @@ local function player_regen_enabled_handler(self, ...)
         remove_frame(ITrackU[k].Frame_Titre)
       end
     end
+    print("Done")
      ITrackU = nil
      Frame_Main:SetHeight(0)
      Frame_Main:Hide()
@@ -598,13 +609,20 @@ local function combat_log_event_unfiltered_handler(self, ...)
     end
   end
 end
-          
+
+-- Called when encounter starts
+local function encounter_start(self, ...)
+ITrackU = {}
+ITrackU["encounter_id"], _, _, _ = ...
+player_regen_disabled_handler()
+end  
 ---------------------------------------------------------------------------------------------------
 -----------------------------------   EVENT HANDLER BINDINGS   ------------------------------------
 ---------------------------------------------------------------------------------------------------
 
 local AllEventHandlers = {
-    ["PLAYER_REGEN_DISABLED"] = player_regen_disabled_handler,
+    ["ENCOUNTER_START"] = encounter_start,
+    --["PLAYER_REGEN_DISABLED"] = player_regen_disabled_handler,
     ["PLAYER_REGEN_DISABLED"] = addon_initialization,
     ["PLAYER_REGEN_ENABLED"] = player_regen_enabled_handler,
     ["COMBAT_LOG_EVENT_UNFILTERED"] = combat_log_event_unfiltered_handler,
@@ -621,28 +639,12 @@ ITrackUFrame:SetScript("OnEvent", function(self, event, ...)
 end)
 
 ---------------------------------------------------------------------------------------------------
----------------------------------   MAIN FRAIM INITIALIZATION   -----------------------------------
----------------------------------------------------------------------------------------------------
-
-local function addon_initialization(self, ...)
-  local Frame_Main = CreateFrame("FRAME", "Frame_Main", UIParent)
-  Frame_Main:SetBackdrop({bgFile = [[Interface\ChatFrame\ChatFrameBackground]]});
-  Frame_Main:SetWidth(db_variable.WIDTH_GLOBAL + db_variable.WIDTH_ECART_GLOBAL_PLAYER_DISTANCE + db_variable.WIDTH_PLAYER_DISTANCE)
-  Frame_Main:SetHeight(0)
-  Frame_Main:SetBackdropColor(1,0,0,0)
-  Frame_Main:SetPoint("CENTER",-400,0)
-  Frame_Main:SetFrameStrata("BACKGROUND")
-  Frame_Main:Hide()
- end
-
----------------------------------------------------------------------------------------------------
 ------------------------------------   SLASH INITIALIZATION   -------------------------------------
 --------------------------------------------------------------------------------------------------- 
  
 SlashCmdList['ITRACKU_MAINFRAME_SLASHCMD'] = function()
   if ITrackU == nil then ITrackU = {} end
   ITrackU["encounter_id"] = 1111
-  addon_initialization()
   player_regen_disabled_handler()
   print("Addon Open")
 end
@@ -655,7 +657,7 @@ end
 SLASH_ITRACKU_CLOSEFRAME_SLASHCMD1 = '/closeframe'
 
 SlashCmdList['ITRACKU_ENCOUNTER_SLASHCMD'] = function()
-  local encounter = EJ_GetCreatureInfo(1)
+  local encounter = EJ_GetCreatureInfo()
   print(encounter)
 end
 SLASH_ITRACKU_ENCOUNTER_SLASHCMD1 = '/encounter'

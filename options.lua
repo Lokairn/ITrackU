@@ -17,7 +17,7 @@ local options = {
 			args = {
 				HEADER_POS = {
 					type = "header",
-					name = "HEADER"
+					name = "ITrackU Position"
 				},
 				POS_X = {
 					type = "range",
@@ -25,9 +25,9 @@ local options = {
 					name = "Position X",
 					min = -1000,
 					max = 1000,
-					step = 1
-					--set = db_variable.POSITION_X,
-					--get = db_variable.POSITION_X
+					step = 1,
+					set = function(info,val) db_variable.POSITION_X = val end,
+					get = function(info) return db_variable.POSITION_X end,
 				},
 				POS_Y = {
 					type = "range",
