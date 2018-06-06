@@ -1,6 +1,6 @@
 local addonName, L = ...
 
-ITrackU = LibStub("AceAddon-3.0"):NewAddon("ITrackU", "AceConsole-3.0") 
+ITrackU = LibStub("AceAddon-3.0"):NewAddon(addonName, "AceConsole-3.0") 
 
 local defaults = {
 }
@@ -15,13 +15,29 @@ local options = {
 			type = "group",
 			order = 1,
 			args = {
-				WIDTH_GLOBAL = {
+				HEADER_POS = {
+					type = "header",
+					name = "HEADER"
+				},
+				POS_X = {
 					type = "range",
 					desc = "test",
-					name = "range",
-					min = 100,
-					max = 300,
+					name = "Position X",
+					min = -1000,
+					max = 1000,
 					step = 1
+					--set = db_variable.POSITION_X,
+					--get = db_variable.POSITION_X
+				},
+				POS_Y = {
+					type = "range",
+					desc = "test",
+					name = "Position Y",
+					min = -1000,
+					max = 1000,
+					step = 1
+					--set = db_variable.POSITION_Y,
+					--get = db_variable.POSITION_Y
 				},
 			},
 		},
@@ -50,8 +66,8 @@ local options = {
 
 function ITrackU:OnInitialize()     
 -- Called when the addon is loaded 
-    LibStub("AceConfig-3.0"):RegisterOptionsTable("ITrackU", options)     
-	self.optionsFrame = LibStub("AceConfigDialog-3.0"):AddToBlizOptions("ITrackU", "ITrackU")     
+    LibStub("AceConfig-3.0"):RegisterOptionsTable(addonName, options)     
+	self.optionsFrame = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(addonName, addonName)     
 	self:RegisterChatCommand("ITU", "ChatCommand")     
 	self:RegisterChatCommand("ITrackU", "ChatCommand")     
 end 
