@@ -9,6 +9,7 @@
 -- Max Stacks
 -- PlayerOnly : All / Player / Focus / Player_Focus
 
+
 ---------------------------------------------------------------------------------------------------
 --------------------------------   SAVED VARIABLES DECLARATIONS   ---------------------------------
 ---------------------------------------------------------------------------------------------------
@@ -30,18 +31,22 @@ local function addon_loaded(event, arg1)
     if db_variable.POSITION_X == nil then db_variable.POSITION_X = 0 end
     if db_variable.POSITION_Y == nil then db_variable.POSITION_Y = 0 end
     
-    --Set all variable tables from saved variables or default ones if not available
+    --Set all variable tables from saved variables or default ones if not available    
     if debuffs_table ~= nil then
         for k, v in pairs(debuffs_table) do
           if v ~= nil then
-            if debuffs_table[v]["IfActive"] == nil then debuffs_table[v]["IfActive"] = "No" end
-            if debuffs_table[v]["Count"] == nil then debuffs_table[v]["Count"] = 0 end
-            if debuffs_table[v]["Type"] == nil then debuffs_table[v]["Type"] = "Classic" end
-            if debuffs_table[v]["TypeDistance"] == nil then debuffs_table[v]["TypeDistance"] = 0 end
-            if debuffs_table[v]["Rôle"] == nil then debuffs_table[v]["Rôle"] = "All" end
-            if debuffs_table[v]["PlayerOnly"] == nil then debuffs_table[v]["PlayerOnly"] = "All" end
-            if debuffs_table[v]["MaxStacks"] == nil then debuffs_table[v]["MaxStacks"] = "Yes" end
-            if debuffs_table[v]["MaxStacksNumber"] == nil then debuffs_table[v]["MaxStacksNumber"] = 0 end
+            for l, w in pairs(debuffs_table[k]) do
+              if w ~= nil then
+                if debuffs_table[k][l]["IfActive"] == nil then debuffs_table[k][l]["IfActive"] = "No" end
+                if debuffs_table[k][l]["Count"] == nil then debuffs_table[k][l]["Count"] = 0 end
+                if debuffs_table[k][l]["Type"] == nil then debuffs_table[k][l]["Type"] = "Classic" end
+                if debuffs_table[k][l]["TypeDistance"] == nil then debuffs_table[k][l]["TypeDistance"] = 0 end
+                if debuffs_table[k][l]["Rôle"] == nil then debuffs_table[k][l]["Rôle"] = "All" end
+                if debuffs_table[k][l]["PlayerOnly"] == nil then debuffs_table[k][l]["PlayerOnly"] = "All" end
+                if debuffs_table[k][l]["MaxStacks"] == nil then debuffs_table[k][l]["MaxStacks"] = "Yes" end
+                if debuffs_table[k][l]["MaxStacksNumber"] == nil then debuffs_table[k][l]["MaxStacksNumber"] = 0 end
+              end
+            end
           end
         end
     end
@@ -85,12 +90,12 @@ end
 -- Put the frame in the available frames (in the framepool)
 local function remove_frame(f)
   f:Hide()
+  f:SetParent(nil)
   f:SetBackdrop(nil)
   f:SetWidth(0)
   f:SetPoint("CENTER", 0, 0)
   f:SetBackdropColor(0, 0, 0, 0)
-  f:SetHeight(0)
-  f:SetParent(nil)
+  f:SetHeight(0)  
   f:SetScript("OnUpdate", nil)
   tinsert(framepool, f)
 end
@@ -172,6 +177,11 @@ local function get_table(from_table, encounter)
     end
     return t
   end
+end
+
+-- Update the main frame position 
+function update_main_frame(x_value)
+  Frame_Main:SetPoint("CENTER",x_value,0)
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -257,7 +267,13 @@ local function player_regen_disabled_handler(self, ...)
   if debuffs_table ~= nil then ITrackU["DebuffToTrack"] = get_table(debuffs_table, ITrackU["encounter_id"]) end
 
   if ITrackU["DebuffToTrack"] ~= nil then
-    addon_initialization()
+    if Frame_Main == nil then
+      addon_initialization()
+    else
+      Frame_Main:Show()
+    end
+  
+
 
     local i = 0
     
@@ -543,7 +559,7 @@ end
 local AllEventHandlers = {
     ["ENCOUNTER_START"] = encounter_start,
     --["PLAYER_REGEN_DISABLED"] = player_regen_disabled_handler,
-    ["PLAYER_REGEN_DISABLED"] = addon_initialization,
+    ["PLAYER_REGEN_DISABLED"] = player_regen_disabled_handler,
     ["PLAYER_REGEN_ENABLED"] = player_regen_enabled_handler,
     ["COMBAT_LOG_EVENT_UNFILTERED"] = combat_log_event_unfiltered_handler,
     ["ADDON_LOADED"] = addon_loaded,
@@ -570,13 +586,13 @@ SlashCmdList['ITRACKU_MAINFRAME_SLASHCMD'] = function()
 end
 SLASH_ITRACKU_MAINFRAME_SLASHCMD1 = '/mainframe'
 
-SlashCmdList['ITRACKU_MAINFRAMEB_SLASHCMD'] = function()
+--[[SlashCmdList['ITRACKU_MAINFRAMEB_SLASHCMD'] = function()
   if ITrackU == nil then ITrackU = {} end
   ITrackU["encounter_id"] = 1112
   player_regen_disabled_handler()
   print("Addon Open")
 end
-SLASH_ITRACKU_MAINFRAME_SLASHCMD1 = '/mainframeb'
+SLASH_ITRACKU_MAINFRAME_SLASHCMD1 = '/mainframeb'--]]
 
 SlashCmdList['ITRACKU_CLOSEFRAME_SLASHCMD'] = function()
   player_regen_enabled_handler()
