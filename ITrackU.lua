@@ -40,7 +40,8 @@ local function addon_loaded(event, arg1)
             if debuffs_table[v]["TypeDistance"] == nil then debuffs_table[v]["TypeDistance"] = 0 end
             if debuffs_table[v]["Rôle"] == nil then debuffs_table[v]["Rôle"] = "All" end
             if debuffs_table[v]["PlayerOnly"] == nil then debuffs_table[v]["PlayerOnly"] = "All" end
-            if debuffs_table[v]["MaxStacks"] == nil then debuffs_table[v]["MaxStacks"] = 0 end
+            if debuffs_table[v]["MaxStacks"] == nil then debuffs_table[v]["MaxStacks"] = "Yes" end
+            if debuffs_table[v]["MaxStacksNumber"] == nil then debuffs_table[v]["MaxStacksNumber"] = 0 end
           end
         end
     end
