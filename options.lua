@@ -2,7 +2,15 @@ local addonName, L = ...
 
 ITrackU = LibStub("AceAddon-3.0"):NewAddon(addonName, "AceConsole-3.0") 
 
-local defaults = {
+---------------------------------------------------------------------------------------------------
+-------------------------------------   INIT RAID DISPONIBLE   ------------------------------------
+---------------------------------------------------------------------------------------------------
+
+local raid_select = nil
+local raid_boss = {}
+local raid_spell = {}
+
+local raids = {
 	["NightHold"] = {
 		[1111] = "TEST",
 	},
@@ -14,7 +22,43 @@ local defaults = {
 	},
 }
 
-local raid_select = nil
+---------------------------------------------------------------------------------------------------
+-----------------------------------------   FUNCTION TOOLS   --------------------------------------
+---------------------------------------------------------------------------------------------------
+
+local function update_raid_boss(raid)
+	boss_select = nil
+	for k,v in pairs(raid_boss) do
+		raid_boss[k] = nil
+	end	
+	for k, v in pairs(raid_spell) do
+		raid_spell[k] = nil
+	end
+	for k, v in pairs(raids) do
+		if k == raid then
+			for l, w in pairs(raids[k]) do
+				raid_boss[l] = w
+			end
+		end
+	end
+end
+
+local function update_spell_raid_boss(boss)
+	for k, v in pairs(raid_spell) do
+		raid_spell[k] = nil
+	end
+	for k, v in pairs(debuffs_table) do
+		if k == boss_select then
+			for l, w in pairs(debuffs_table[k]) do
+				raid_spell[l] = select(1, GetSpellInfo(l))
+			end
+		end
+	end
+end
+
+---------------------------------------------------------------------------------------------------
+---------------------------------------------   OPTIONS   -----------------------------------------
+---------------------------------------------------------------------------------------------------
 
 local options = {
      name = "ITrackU",
@@ -97,31 +141,49 @@ local options = {
 					order = 1,
 					values = function()
 						local t = {}
-						for k, v in pairs(defaults) do
+						for k, v in pairs(raids) do
 							t[k] = k
 						end
 						return t
 					end,
 					set = function(info, val)
 						raid_select = val
+						update_raid_boss(val)
 					end,
-					get = function(key) return raid_select end,
+					get = function(val) return raid_select end,
 				},
 				SELECT_BOSS = {
 					type = "select",
 					name = "Select Boss",
 					style = "dropdown",
 					order = 2,
-					values = function()
-						local t = {}
-						t[1] = "2"
-						return t
+					values = raid_boss,
+					set = function(info, val)
+						boss_select = val
+						update_spell_raid_boss(val)
 					end,
+					get = function(val) return boss_select end,
+				},
+				SELECT_SPELL = {
+					type = "select",
+					name = "Select Spell",
+					style = "radio",
+					order = 3,
+					width = "full",
+					values = raid_spell,
+					set = function(info, val)
+						spell_select = val
+					end,
+					get = function(val) return spell_select end,
 				},
 			},
 		},
 	},
 }	
+
+---------------------------------------------------------------------------------------------------
+-------------------------------------------   INITIALIZE   ----------------------------------------
+---------------------------------------------------------------------------------------------------
 
 function ITrackU:OnInitialize()     
 -- Called when the addon is loaded 
