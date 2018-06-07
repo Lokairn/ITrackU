@@ -26,7 +26,10 @@ local options = {
 					min = -1000,
 					max = 1000,
 					step = 1,
-					set = function(info,val) db_variable.POSITION_X = val end,
+					set = function(info,val)
+						db_variable.POSITION_X = val
+						update_main_frame(val)
+					end,
 					get = function(info) return db_variable.POSITION_X end,
 				},
 				POS_Y = {

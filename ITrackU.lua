@@ -179,6 +179,11 @@ local function get_table(from_table, encounter)
   end
 end
 
+-- Update the main frame position 
+function update_main_frame(x_value)
+  Frame_Main:SetPoint("CENTER",x_value,0)
+end
+
 ---------------------------------------------------------------------------------------------------
 -------------------------------   ONUPDATE EVENT HANDLING METHODS   -------------------------------
 ---------------------------------------------------------------------------------------------------
