@@ -2,8 +2,6 @@
 ------------------------------------   CONSTANT DECLARATIONS   ------------------------------------
 ---------------------------------------------------------------------------------------------------
 
-local ITrackU = {}
-
 -- IfActive = Yes/No
 -- Type = Classic / Stack / Spread
 -- TypeDistance = M or nil
@@ -612,7 +610,7 @@ end
 
 -- Called when encounter starts
 local function encounter_start(self, ...)
-ITrackU = {}
+if ITrackU == nil or ITrackU == "ITrackU" then ITrackU = {} end
 ITrackU["encounter_id"], _, _, _ = ...
 player_regen_disabled_handler()
 end  
@@ -649,6 +647,14 @@ SlashCmdList['ITRACKU_MAINFRAME_SLASHCMD'] = function()
   print("Addon Open")
 end
 SLASH_ITRACKU_MAINFRAME_SLASHCMD1 = '/mainframe'
+
+SlashCmdList['ITRACKU_MAINFRAMEB_SLASHCMD'] = function()
+  if ITrackU == nil then ITrackU = {} end
+  ITrackU["encounter_id"] = 1112
+  player_regen_disabled_handler()
+  print("Addon Open")
+end
+SLASH_ITRACKU_MAINFRAME_SLASHCMD1 = '/mainframeb'
 
 SlashCmdList['ITRACKU_CLOSEFRAME_SLASHCMD'] = function()
   player_regen_enabled_handler()
