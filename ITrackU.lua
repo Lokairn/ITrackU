@@ -9,101 +9,6 @@
 -- Max Stacks
 -- PlayerOnly : All / Player / Focus / Player_Focus
 
-local debuffs_table_init = {
-  [1111] = {
-            [23920] = {
-                        ["IfActive"] = "No",
-                        ["Count"] = 0,
-                        ["Type"] = "Classic",
-                        ["TypeDistance"] = nil,
-                        ["Role"] = "Tank",
-                        ["PlayerOnly"] = "All"
-                       },
-            [18499] = {
-                        ["IfActive"] = "No",
-                        ["Count"] = 0,
-                        ["Type"] = "Classic",
-                        ["TypeDistance"] = nil,
-                        ["Role"] = "Tank",
-                        ["PlayerOnly"] = "All"
-                       },
-            [203324] = {
-                        ["IfActive"] = "Yes",
-                        ["Count"] = 0,
-                        ["Type"] = "Classic",
-                        ["TypeDistance"] = nil,
-                        ["Role"] = "Tank",
-                        ["PlayerOnly"] = "All"
-                       },
-            [132404] = {
-                        ["IfActive"] = "Yes",
-                        ["Count"] = 0,
-                        ["Type"] = "Stack",
-                        ["TypeDistance"] = 8,
-                        ["Role"] = "Tank",
-                        ["PlayerOnly"] = "All"
-                       },
-            [188783] = {
-                        ["IfActive"] = "Yes",
-                        ["Count"] = 0,
-                        ["Type"] = "Spread",
-                        ["TypeDistance"] = 8,
-                        ["Role"] = "Tank",
-                        ["PlayerOnly"] = "All"
-                       },
-            [125565] = {
-                        ["IfActive"] = "Yes",
-                        ["Count"] = 0,
-                        ["Type"] = "Spread",
-                        ["TypeDistance"] = 8,
-                        ["Role"] = "Tank",
-                        ["PlayerOnly"] = "All"
-                       }
-           },
-  [2074] = {
-            [245098] = {
-                        ["IfActive"] = "Yes",
-                        ["Count"] = 0,
-                        ["Type"] = "Classic",
-                        ["TypeDistance"] = nil,
-                        ["Role"] = "Tank",
-                        ["PlayerOnly"] = "All"
-                       },
-            [251445] = {
-                        ["IfActive"] = "Yes",
-                        ["Count"] = 0,
-                        ["Type"] = "Classic",
-                        ["TypeDistance"] = nil,
-                        ["Role"] = "Tank",
-                        ["PlayerOnly"] = "All"
-                       },
-            [248815] = {
-                        ["IfActive"] = "Yes",
-                        ["Count"] = 0,
-                        ["Type"] = "Spread",
-                        ["TypeDistance"] = 8,
-                        ["Role"] = "Tank",
-                        ["PlayerOnly"] = "All"
-                         },
-            [244768] = {
-                        ["IfActive"] = "Yes",
-                        ["Count"] = 0,
-                        ["Type"] = "Classic",
-                        ["TypeDistance"] = nil,
-                        ["Role"] = "Tank",
-                        ["PlayerOnly"] = "All"
-                       },
-            [248819] = {
-                        ["IfActive"] = "Yes",
-                        ["Count"] = 0,
-                        ["Type"] = "Stack",
-                        ["TypeDistance"] = 8,
-                        ["Role"] = "Tank",
-                        ["PlayerOnly"] = "All"
-                       }
-          }
-}
-
 ---------------------------------------------------------------------------------------------------
 --------------------------------   SAVED VARIABLES DECLARATIONS   ---------------------------------
 ---------------------------------------------------------------------------------------------------
@@ -113,8 +18,7 @@ local function addon_loaded(event, arg1)
   if arg1 == "ITrackU" then
     print("Bienvenue sur ITrackU version 1.00, tapez /ITU afin d'accéder au menu de configuration en jeu.")
     if debuffs_table == nil then print("CETTE TABLE NE SE CHARGE PAS") end
-    if debuffs_table == nil then debuffs_table = debuffs_table_init end
-     if db_variable == nil then db_variable = {} end
+    if db_variable == nil then db_variable = {} end
     if db_variable.HEIGHT_TITLE == nil then db_variable.HEIGHT_TITLE = 27 end
     if db_variable.HEIGHT_DEBUFFED == nil then db_variable.HEIGHT_DEBUFFED = 20 end
     if db_variable.WIDTH_GLOBAL == nil then db_variable.WIDTH_GLOBAL = 150 end
@@ -122,7 +26,24 @@ local function addon_loaded(event, arg1)
     if db_variable.WIDTH_ECART_GLOBAL_PLAYER_DISTANCE == nil then db_variable.WIDTH_ECART_GLOBAL_PLAYER_DISTANCE = 3 end
     if db_variable.HEIGHT_BETWEEN_TITLE == nil then db_variable.HEIGHT_BETWEEN_TITLE = 1 end
     if db_variable.HEIGHT_BETWEEN_DEBUFFED == nil then db_variable.HEIGHT_BETWEEN_DEBUFFED = 1 end
-  if db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED == nil then db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED = 0 end
+    if db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED == nil then db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED = 0 end
+    if db_variable.POSITION_X == nil then db_variable.POSITION_X = 0 end
+    if db_variable.POSITION_Y == nil then db_variable.POSITION_Y = 0 end
+    
+    --Set all variable tables from saved variables or default ones if not available
+    if debuffs_table ~= nil then
+        for k, v in pairs(debuffs_table) do
+          if v ~= nil then
+            if debuffs_table[v]["IfActive"] == nil then debuffs_table[v]["IfActive"] = "No" end
+            if debuffs_table[v]["Count"] == nil then debuffs_table[v]["Count"] = 0 end
+            if debuffs_table[v]["Type"] == nil then debuffs_table[v]["Type"] = "Classic" end
+            if debuffs_table[v]["TypeDistance"] == nil then debuffs_table[v]["TypeDistance"] = 0 end
+            if debuffs_table[v]["Rôle"] == nil then debuffs_table[v]["Rôle"] = "All" end
+            if debuffs_table[v]["PlayerOnly"] == nil then debuffs_table[v]["PlayerOnly"] = "All" end
+            if debuffs_table[v]["MaxStacks"] == nil then debuffs_table[v]["MaxStacks"] = 0 end
+          end
+        end
+    end
   end
 end
 
