@@ -100,6 +100,11 @@ local options = {
 					end,
 					get = function(info) return db_variable.POSITION_Y end,
 				},
+				LOCK = {
+					type = "execute",					
+					name = "Move main frame",
+					func = show_lock_dialog,
+			}
 			},
 		},
 		ColorPanel = {
