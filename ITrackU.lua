@@ -30,6 +30,10 @@ local function addon_loaded(event, arg1)
     if db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED == nil then db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED = 0 end
     if db_variable.POSITION_X == nil then db_variable.POSITION_X = 0 end
     if db_variable.POSITION_Y == nil then db_variable.POSITION_Y = 0 end
+    if db_variable.COLOR_R_TITRE == nil then db_variable.COLOR_R_TITRE = 0.368 end
+    if db_variable.COLOR_G_TITRE == nil then db_variable.COLOR_G_TITRE = 0.368 end
+    if db_variable.COLOR_B_TITRE == nil then db_variable.COLOR_B_TITRE = 0.368 end
+    if db_variable.COLOR_A_TITRE == nil then db_variable.COLOR_A_TITRE = 0.9 end
     
     --Set all variable tables from saved variables or default ones if not available    
     if debuffs_table ~= nil then
@@ -63,7 +67,7 @@ local function addon_initialization(self, ...)
   Frame_Main:SetWidth(db_variable.WIDTH_GLOBAL + db_variable.WIDTH_ECART_GLOBAL_PLAYER_DISTANCE + db_variable.WIDTH_PLAYER_DISTANCE)
   Frame_Main:SetHeight(0)
   Frame_Main:SetBackdropColor(1,0,0,0)
-  Frame_Main:SetPoint("CENTER",db_variable.POSITION_X,0)
+  Frame_Main:SetPoint("CENTER",db_variable.POSITION_X,db_variable.POSITION_Y)
   Frame_Main:SetFrameStrata("BACKGROUND")
   Frame_Main:Show()
  end
@@ -89,7 +93,6 @@ end
 
 -- Put the frame in the available frames (in the framepool)
 local function remove_frame(f)
-  f:Hide()
   f:SetParent(nil)
   f:SetBackdrop(nil)
   f:SetWidth(0)
@@ -97,6 +100,7 @@ local function remove_frame(f)
   f:SetBackdropColor(0, 0, 0, 0)
   f:SetHeight(0)  
   f:SetScript("OnUpdate", nil)
+  f:Hide()
   tinsert(framepool, f)
 end
 
@@ -111,22 +115,12 @@ local function get_frame()
   return f
 end
 
--- Create a texture
-local function get_texture(icon, strata, texture, point_position, x_pos, y_pos, width, height)
-f = icon:CreateTexture(nil, strata)
-f:SetTexture(texture)
-f:SetPoint(point_position, x_pos, y_pos)
-f:SetWidth(width)
-f:SetHeight(height)
-return f
-end
-
 ---------------------------------------------------------------------------------------------------
 -----------------------------------------   TOOL METHODS   ----------------------------------------
 ---------------------------------------------------------------------------------------------------
 
 -- Distance between 2 players
-function compute_distance(unit2)
+local function compute_distance(unit2)
   if IsItemInRange(37727, unit2) then
     result = 5
   elseif IsItemInRange(63427, unit2) then
@@ -179,11 +173,35 @@ local function get_table(from_table, encounter)
   end
 end
 
--- Update the main frame position 
-function update_main_frame(x_value)
-  Frame_Main:SetPoint("CENTER",x_value,0)
+-- Create a frame to test options
+local function get_frame_test_option()
 end
 
+-- Close the frame test options
+local function close_frame_test_option()
+end
+
+-- Update the main frame position 
+function update_main_frame_x(x_value)
+  if Frame_Main ~= nil then
+    Frame_Main:SetPoint("CENTER",x_value,db_variable.POSITION_Y)
+  end
+end
+
+function update_main_frame_y(y_value)
+  if Frame_Main ~= nil then
+    Frame_Main:SetPoint("CENTER", db_variable.POSITION_X, y_value)
+  end
+end
+
+-- Update Titre Background Color
+function update_background_color_titre(r, g, b, a)
+  if ITrackU["DebuffToTrack"] ~= nil then
+    for k, v in pairs(ITrackU["DebuffToTrack"]) do
+      ITrackU[k].Frame_Titre:SetBackdropColor(r, g, b, a)
+    end
+  end
+end
 ---------------------------------------------------------------------------------------------------
 -------------------------------   ONUPDATE EVENT HANDLING METHODS   -------------------------------
 ---------------------------------------------------------------------------------------------------
@@ -281,7 +299,7 @@ local function player_regen_disabled_handler(self, ...)
       -- Frame_Titre[k]
       ITrackU[k] = {}
       ITrackU[k].Frame_Titre = get_frame()
-      ITrackU[k].Frame_Titre = modify_frame(ITrackU[k].Frame_Titre, Frame_Main, {bgFile = [[Interface\ChatFrame\ChatFrameBackground]]}, db_variable.WIDTH_GLOBAL, db_variable.HEIGHT_TITLE, "TOPLEFT", 0, i, 0.368, 0.368, 0.368, 0.9, "LOW")
+      ITrackU[k].Frame_Titre = modify_frame(ITrackU[k].Frame_Titre, Frame_Main, {bgFile = [[Interface\ChatFrame\ChatFrameBackground]]}, db_variable.WIDTH_GLOBAL, db_variable.HEIGHT_TITLE, "TOPLEFT", 0, i, db_variable.COLOR_R_TITRE, db_variable.COLOR_G_TITRE, db_variable.COLOR_B_TITRE, db_variable.COLOR_A_TITRE, "LOW")
                            
       -- Text_Frame_Titre
       ITrackU[k].Text_Frame_Titre = ITrackU[k].Frame_Titre:CreateFontString("Text_Frame_Titre", "OVERLAY", "GameFontNormal")
@@ -337,7 +355,6 @@ local function player_regen_enabled_handler(self, ...)
         remove_frame(ITrackU[k].Frame_Titre)
       end
     end
-    print("Done")
      ITrackU = nil
      Frame_Main:SetHeight(0)
      Frame_Main:Hide()
@@ -481,7 +498,7 @@ local function combat_log_event_unfiltered_handler(self, ...)
   if type == "SPELL_AURA_REMOVED" and ITrackU ~= nil then
     if ITrackU["DebuffToTrack"] ~= nil then
       local _, _, _, _, _, _, _, _, _, _, _, spell_id, aura_type = ...
-      if ITrackU["DebuffToTrack"][spell_id] then
+      if ITrackU["DebuffToTrack"][spell_id] and ITrackU[spell_id][dest_name] ~= nil then
       
         -- On remove la frame si Stack ou Spread
         if (ITrackU["DebuffToTrack"][spell_id]["Type"] == "Stack" or ITrackU["DebuffToTrack"][spell_id]["Type"] == "Spread") and dest_name ~= select(1, UnitName("player")) then
@@ -559,7 +576,6 @@ end
 local AllEventHandlers = {
     ["ENCOUNTER_START"] = encounter_start,
     --["PLAYER_REGEN_DISABLED"] = player_regen_disabled_handler,
-    ["PLAYER_REGEN_DISABLED"] = player_regen_disabled_handler,
     ["PLAYER_REGEN_ENABLED"] = player_regen_enabled_handler,
     ["COMBAT_LOG_EVENT_UNFILTERED"] = combat_log_event_unfiltered_handler,
     ["ADDON_LOADED"] = addon_loaded,
@@ -586,14 +602,6 @@ SlashCmdList['ITRACKU_MAINFRAME_SLASHCMD'] = function()
 end
 SLASH_ITRACKU_MAINFRAME_SLASHCMD1 = '/mainframe'
 
---[[SlashCmdList['ITRACKU_MAINFRAMEB_SLASHCMD'] = function()
-  if ITrackU == nil then ITrackU = {} end
-  ITrackU["encounter_id"] = 1112
-  player_regen_disabled_handler()
-  print("Addon Open")
-end
-SLASH_ITRACKU_MAINFRAME_SLASHCMD1 = '/mainframeb'--]]
-
 SlashCmdList['ITRACKU_CLOSEFRAME_SLASHCMD'] = function()
   player_regen_enabled_handler()
   print("Addon fermé")
@@ -605,3 +613,14 @@ SlashCmdList['ITRACKU_ENCOUNTER_SLASHCMD'] = function()
   print(encounter)
 end
 SLASH_ITRACKU_ENCOUNTER_SLASHCMD1 = '/encounter'
+
+SlashCmdList['ITRACKU_FRAMETEST_SLASHCMD'] = function()
+  get_frame_test_option()
+end
+SLASH_ITRACKU_FRAMETEST_SLASHCMD1 = '/frametest'
+
+
+SlashCmdList['ITRACKU_CLOSETEST_SLASHCMD'] = function()
+  close_frame_test_option()
+end
+SLASH_ITRACKU_CLOSETEST_SLASHCMD1 = '/closetest'
