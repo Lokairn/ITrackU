@@ -11,14 +11,18 @@ local raid_boss = {}
 local raid_spell = {}
 
 local raids = {
-	["NightHold"] = {
-		[1111] = "TEST",
-	},
 	["Antorus, Burning Throne"] = {
 		[2076] = "Garothi",
 		[2074] = "Felbounds",
-	},
-	["Tombe de Sargeras"] = {
+    [2070] = "High Command",
+    [2064] = "Hasabel",
+    [2075] = "Eonar",
+    [2082] = "Imonar",
+    [2088] = "Kin'garoth",
+    [2069] = "Varimathras",
+    [2073] = "Shivarra",
+    [2063] = "Aggramar",
+    [2092] = "Argus"
 	},
 }
 
@@ -142,11 +146,21 @@ local options = {
 			type = "group",
 			order = 2,
 			args = {
+        HEADER_DEBUFF_SELECT = {
+          type = "header",
+          name = "Select Raid and Boss",
+          order = 1,
+        },
+        DESC_DEBUFF_SELECT = {
+          type = "description",
+          name = "Select the raid and then the boss you want to control buffs and debuffs. You will be able to modify/add/delete spells.",
+          order = 2,
+        },
 				SELECT_RAID = {
 					type = "select",
-					name = "Select Raid",
+					name = "",
 					style = "dropdown",
-					order = 1,
+					order = 3,
 					values = function()
 						local t = {}
 						for k, v in pairs(raids) do
@@ -162,9 +176,9 @@ local options = {
 				},
 				SELECT_BOSS = {
 					type = "select",
-					name = "Select Boss",
+					name = "",
 					style = "dropdown",
-					order = 2,
+					order = 4,
           hidden = function() if raid_select ~= nil then return false else return true end end,
 					values = raid_boss,
 					set = function(info, val)
@@ -173,41 +187,50 @@ local options = {
 					end,
 					get = function(val) return boss_select end,
 				},
-        ADD_SPELL = {
-          type = "input",
-          order = 3,
-          name = "Spell to add",
+        HEADER_SELECT_SPELL = {
+          type = "header",
+          name = "Manage Spells",
           hidden = function() if boss_select ~= nil then return false else return true end end,
-          set = function(info, val)
-            spell_add = val
-          end,
-          get = function(val) return spell_add end,
+          order = 5,
         },
-        ADD_SPELL_BUTTON = {
-          type = "execute",
-          name = "Add Spell",
-          order = 4,
-          hidden = function () if spell_add ~= nil then return false else return true end end,
+        DESC_SELECT_SPELL = {
+          type = "description",
+          name = "Manage your spells here, add whatever your want to track during the encounter.",
+          hidden = function() if boss_select ~= nil then return false else return true end end,
+          order = 6,
         },
 				SELECT_SPELL = {
 					type = "select",
-					name = "Select Spell",
+					name = "Spells tracked",
 					style = "radio",
-					order = 5,
+					order = 7,
 					width = "full",
           hidden = function() if boss_select ~= nil then return false else return true end end,
 					values = raid_spell,
 					set = function(info, val)
-						spell_select = val
+            if val == spell_select then
+              spell_select = nil
+            else
+              spell_select = val
+            end
 					end,
 					get = function(val) return spell_select end,
 				},
+        ICON_SPELL_SELECT = {
+          type = "description",
+          name = "",
+          image = function()
+          return select(3, GetSpellInfo(spell_select)) 
+          end,
+          hidden = function() if spell_select ~= nil then return false else return true end end,
+          order = 8,
+        },
         IF_ACTIVE = {
           type = "toggle",
           name = "Open if active",
           tristate = false,
-          order = 6,
           width = "full",
+          order = 9,
           hidden = function() if spell_select ~= nil then return false else return true end end,
           set = function(info, val)
             debuffs_table[boss_select][spell_select]["IfActive"] = val
@@ -218,7 +241,7 @@ local options = {
           type = "select",
           name = "Buff/Debuff Type",
           style = "dropdown",
-          order = 7,
+          order = 10,
           values = {["Classic"] = "Classic", ["Spread"] = "Spread", ["Stack"] = "Stack"},
           hidden = function() if spell_select ~= nil then return false else return true end end,
           set = function(info, val)
@@ -230,7 +253,7 @@ local options = {
         TYPE_DISTANCE = {
           type = "select",
           name = "Buff/Debuff Distance",
-          order = 8,
+          order = 11,
           disabled = function() if debuffs_table[boss_select][spell_select]["Type"] == "Spread" or debuffs_table[boss_select][spell_select]["Type"] == "Stack" then return false else return true end end,
           hidden = function() if spell_select ~= nil then return false else return true end end,
           values = {[5] = 5, [8] = 8},
@@ -242,7 +265,7 @@ local options = {
         PLAYERONLY = {
           type = "select",
           name = "Players to track",
-          order = 9,
+          order = 12,
           width = "full",
           hidden = function() if spell_select ~= nil then return false else return true end end,
           values = {["All"] = "All", ["Player"] = "Player", ["Focus"] = "Focus", ["Player_Focus"] = "Player_Focus"},
@@ -254,7 +277,7 @@ local options = {
         MAXSTACKS = {
           type = "toggle",
           name = "Stacks Alert",
-          order = 10,
+          order = 13,
           hidden = function() if spell_select ~= nil then return false else return true end end,
           set = function(info, val)
             debuffs_table[boss_select][spell_select]["MaxStacks"] = val
@@ -264,7 +287,7 @@ local options = {
         MAXSTACKSNUMBER = {
           type = "range",
           name = "Stacks Number",
-          order = 11,
+          order = 14,
           min = 0,
           max = 50,
           step = 1,
@@ -278,8 +301,81 @@ local options = {
         DELETE_SPELL_BUTTON = {
           type = "execute",
           name = "Delete",
+          order = 15,
           hidden = function() if spell_select ~= nil then return false else return true end end,
-          --validate
+          func = function()
+            debuffs_table[boss_select][spell_select] = nil
+            spell_select = nil
+            update_spell_raid_boss()
+          end,
+        },
+        HEADER_ADD_SPELL = {
+          type = "header",
+          name = "Add a Spell",
+          hidden = function() if boss_select ~= nil then return false else return true end end,
+          order = 16,
+        },
+        DESC_ADD_SPELL = {
+          type = "description",
+          name = "Add a new spell using the name or the ID.",
+          hidden = function() if boss_select ~= nil then return false else return true end end,
+          order = 17,
+        },
+        ADD_SPELL = {
+          type = "input",
+          order = 18,
+          name = "",
+          hidden = function() if boss_select ~= nil then return false else return true end end,
+          set = function(info, val)
+            spell_add = val
+          end,
+          get = function(val) return spell_add end,
+        },
+        ADD_SPELL_BUTTON = {
+          type = "execute",
+          name = "Add spell",
+          order = 19,
+          hidden = function() if select(7, GetSpellInfo(spell_add)) ~= nil and debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))] == nil then return false else return true end end,
+          func = function()
+            debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))] = {}
+            debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))]["IfActive"] = false
+            debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))]["Count"] = 0
+            debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))]["Type"] = "Classic"
+            debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))]["TypeDistance"] = 0
+            debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))]["Rôle"] = "All"
+            debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))]["PlayerOnly"] = "All"
+            debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))]["MaxStacks"] = false
+            debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))]["MaxStacksNumber"] = 0
+            
+            spell_select = select(7, GetSpellInfo(spell_add))
+            spell_add = nil
+            update_spell_raid_boss()
+          end,
+        },
+        ADD_SPELL_VALIDATION = {
+          type = "description",
+          image = function()
+            if select(7, GetSpellInfo(spell_add)) ~= nil and debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))] == nil then
+              return select(3, GetSpellInfo(spell_add))
+            end          
+          end,
+          name = function()
+            if select(7, GetSpellInfo(spell_add)) == nil then
+              if spell_add == "" then
+                return "" 
+              else
+                return "The spell you want to add doesn't exist"
+              end
+            else
+              if debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))] == nil then
+                return select(1, GetSpellInfo(spell_add))
+              else
+                return ("You have already registered this spell")
+              end
+            end
+          end,
+          order = 20,
+          hidden = function () if spell_add ~= nil then return false else return true end end,
         },
 			},
 		},
@@ -295,7 +391,15 @@ function ITrackU:OnInitialize()
     LibStub("AceConfig-3.0"):RegisterOptionsTable(addonName, options)     
 	self.optionsFrame = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(addonName, addonName)     
 	self:RegisterChatCommand("ITU", "ChatCommand")     
-	self:RegisterChatCommand("ITrackU", "ChatCommand")     
+	self:RegisterChatCommand("ITrackU", "ChatCommand")
+  
+  for k, v in pairs(raids) do
+    for l,w in pairs(raids[k]) do
+      if debuffs_table[l] == nil then
+        debuffs_table[l] = {}
+      end
+    end
+  end
 end 
 function ITrackU:ChatCommand(input)     
 	if not input or input:trim() == "" then         
