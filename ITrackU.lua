@@ -41,14 +41,15 @@ local function addon_loaded(event, arg1)
         for k, v in pairs(debuffs_table) do
           if v ~= nil then
             for l, w in pairs(debuffs_table[k]) do
+              --debuffs_table[k][l] = {}
               if w ~= nil then
-                if debuffs_table[k][l]["IfActive"] == nil then debuffs_table[k][l]["IfActive"] = "No" end
+                if debuffs_table[k][l]["IfActive"] == nil then debuffs_table[k][l]["IfActive"] = false end
                 if debuffs_table[k][l]["Count"] == nil then debuffs_table[k][l]["Count"] = 0 end
                 if debuffs_table[k][l]["Type"] == nil then debuffs_table[k][l]["Type"] = "Classic" end
                 if debuffs_table[k][l]["TypeDistance"] == nil then debuffs_table[k][l]["TypeDistance"] = 0 end
                 if debuffs_table[k][l]["Rôle"] == nil then debuffs_table[k][l]["Rôle"] = "All" end
                 if debuffs_table[k][l]["PlayerOnly"] == nil then debuffs_table[k][l]["PlayerOnly"] = "All" end
-                if debuffs_table[k][l]["MaxStacks"] == nil then debuffs_table[k][l]["MaxStacks"] = "Yes" end
+                if debuffs_table[k][l]["MaxStacks"] == nil then debuffs_table[k][l]["MaxStacks"] = false end
                 if debuffs_table[k][l]["MaxStacksNumber"] == nil then debuffs_table[k][l]["MaxStacksNumber"] = 0 end
               end
             end
@@ -435,7 +436,7 @@ local function player_regen_disabled_handler(self, ...)
       ITrackU[k].Text_PlayerDebuffed = {}
       
       -- MAJ Frames
-      if ITrackU["DebuffToTrack"][k]["IfActive"] == "No" then
+      if ITrackU["DebuffToTrack"][k]["IfActive"] == false then
         ITrackU[k].Frame_Titre:Show()
         i = i - db_variable.HEIGHT_TITLE - db_variable.HEIGHT_BETWEEN_TITLE
         Frame_Main:SetHeight((-1)*i)
@@ -565,7 +566,7 @@ local function combat_log_event_unfiltered_handler(self, ...)
         
         -- Positionning each frame
         for k, v in pairs(ITrackU["DebuffToTrack"]) do
-          if (ITrackU["DebuffToTrack"][k]["Count"] ~= 0 and ITrackU["DebuffToTrack"][k]["IfActive"] == "Yes") or ITrackU["DebuffToTrack"][k]["IfActive"] == "No" then
+          if (ITrackU["DebuffToTrack"][k]["Count"] ~= 0 and ITrackU["DebuffToTrack"][k]["IfActive"] == true) or ITrackU["DebuffToTrack"][k]["IfActive"] == false then
             -- Frame_Titre[k]
             ITrackU[k].Frame_Titre:SetPoint("TOPLEFT",0, i)
 
@@ -629,14 +630,14 @@ local function combat_log_event_unfiltered_handler(self, ...)
         
         -- On hide la frame titre si Count = 0
         ITrackU["DebuffToTrack"][spell_id]["Count"] = ITrackU["DebuffToTrack"][spell_id]["Count"] - 1
-        if ITrackU["DebuffToTrack"][spell_id]["IfActive"] == "Yes" and ITrackU["DebuffToTrack"][spell_id]["Count"] == 0 then
+        if ITrackU["DebuffToTrack"][spell_id]["IfActive"] == true and ITrackU["DebuffToTrack"][spell_id]["Count"] == 0 then
           ITrackU[spell_id].Frame_Titre:Hide()
         end
         
         local i = 0
         
         for k, v in pairs(ITrackU["DebuffToTrack"]) do
-          if (ITrackU["DebuffToTrack"][k]["Count"] ~= 0 and ITrackU["DebuffToTrack"][k]["IfActive"] == "Yes") or ITrackU["DebuffToTrack"][k]["IfActive"] == "No" then
+          if (ITrackU["DebuffToTrack"][k]["Count"] ~= 0 and ITrackU["DebuffToTrack"][k]["IfActive"] == true) or ITrackU["DebuffToTrack"][k]["IfActive"] == false then
             -- Frame_Titre[k]
             ITrackU[k].Frame_Titre:SetPoint("TOPLEFT",0, i)
 

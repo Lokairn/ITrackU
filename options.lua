@@ -28,6 +28,7 @@ local raids = {
 
 local function update_raid_boss(raid)
 	boss_select = nil
+  spell_select = nil
 	for k,v in pairs(raid_boss) do
 		raid_boss[k] = nil
 	end	
@@ -45,6 +46,7 @@ end
 
 local function update_spell_raid_boss(boss)
 	for k, v in pairs(raid_spell) do
+    spell_select = nil
 		raid_spell[k] = nil
 	end
 	for k, v in pairs(debuffs_table) do
@@ -74,34 +76,35 @@ local options = {
 					type = "header",
 					name = "ITrackU Position"
 				},
-				POS_X = {
-					type = "range",
-					desc = "test",
-					name = "Position X",
-					min = -1000,
-					max = 1000,
-					step = 1,
-					set = function(info,val)
-						db_variable.POSITION_X = val
-						update_main_frame_x(val)
-					end,
-					get = function(info) return db_variable.POSITION_X end,
-				},
-				POS_Y = {
-					type = "range",
-					desc = "test",
-					name = "Position Y",
-					min = -1000,
-					max = 1000,
-					step = 1,
-					set = function(info,val)
-						db_variable.POSITION_Y = val
-						update_main_frame_y(val)
-					end,
-					get = function(info) return db_variable.POSITION_Y end,
-				},
+				-- POS_X = {
+					-- type = "range",
+					-- desc = "test",
+					-- name = "Position X",
+					-- min = -1000,
+					-- max = 1000,
+					-- step = 1,
+					-- set = function(info,val)
+						-- db_variable.POSITION_X = val
+						-- update_main_frame_x(val)
+					-- end,
+					-- get = function(info) return db_variable.POSITION_X end,
+				-- },
+				-- POS_Y = {
+					-- type = "range",
+					-- desc = "test",
+					-- name = "Position Y",
+					-- min = -1000,
+					-- max = 1000,
+					-- step = 1,
+					-- set = function(info,val)
+						-- db_variable.POSITION_Y = val
+						-- update_main_frame_y(val)
+					-- end,
+					-- get = function(info) return db_variable.POSITION_Y end,
+				-- },
 				LOCK = {
-					type = "execute",					
+					type = "execute",
+          width = "full",
 					name = "Move main frame",
 					func = show_lock_dialog,
 			}
@@ -162,6 +165,7 @@ local options = {
 					name = "Select Boss",
 					style = "dropdown",
 					order = 2,
+          hidden = function() if raid_select ~= nil then return false else return true end end,
 					values = raid_boss,
 					set = function(info, val)
 						boss_select = val
@@ -169,18 +173,114 @@ local options = {
 					end,
 					get = function(val) return boss_select end,
 				},
+        ADD_SPELL = {
+          type = "input",
+          order = 3,
+          name = "Spell to add",
+          hidden = function() if boss_select ~= nil then return false else return true end end,
+          set = function(info, val)
+            spell_add = val
+          end,
+          get = function(val) return spell_add end,
+        },
+        ADD_SPELL_BUTTON = {
+          type = "execute",
+          name = "Add Spell",
+          order = 4,
+          hidden = function () if spell_add ~= nil then return false else return true end end,
+        },
 				SELECT_SPELL = {
 					type = "select",
 					name = "Select Spell",
 					style = "radio",
-					order = 3,
+					order = 5,
 					width = "full",
+          hidden = function() if boss_select ~= nil then return false else return true end end,
 					values = raid_spell,
 					set = function(info, val)
 						spell_select = val
 					end,
 					get = function(val) return spell_select end,
 				},
+        IF_ACTIVE = {
+          type = "toggle",
+          name = "Open if active",
+          tristate = false,
+          order = 6,
+          width = "full",
+          hidden = function() if spell_select ~= nil then return false else return true end end,
+          set = function(info, val)
+            debuffs_table[boss_select][spell_select]["IfActive"] = val
+          end,
+          get = function(val) return debuffs_table[boss_select][spell_select]["IfActive"] end,
+        },
+        TYPE = {
+          type = "select",
+          name = "Buff/Debuff Type",
+          style = "dropdown",
+          order = 7,
+          values = {["Classic"] = "Classic", ["Spread"] = "Spread", ["Stack"] = "Stack"},
+          hidden = function() if spell_select ~= nil then return false else return true end end,
+          set = function(info, val)
+            debuffs_table[boss_select][spell_select]["Type"] = val
+            debuffs_table[boss_select][spell_select]["TypeDistance"] = nil
+          end,
+          get = function(val) return debuffs_table[boss_select][spell_select]["Type"] end,
+        },
+        TYPE_DISTANCE = {
+          type = "select",
+          name = "Buff/Debuff Distance",
+          order = 8,
+          disabled = function() if debuffs_table[boss_select][spell_select]["Type"] == "Spread" or debuffs_table[boss_select][spell_select]["Type"] == "Stack" then return false else return true end end,
+          hidden = function() if spell_select ~= nil then return false else return true end end,
+          values = {[5] = 5, [8] = 8},
+          set = function(info, val)
+            debuffs_table[boss_select][spell_select]["TypeDistance"] = val
+          end,
+          get = function(val) return debuffs_table[boss_select][spell_select]["TypeDistance"] end,
+        },
+        PLAYERONLY = {
+          type = "select",
+          name = "Players to track",
+          order = 9,
+          width = "full",
+          hidden = function() if spell_select ~= nil then return false else return true end end,
+          values = {["All"] = "All", ["Player"] = "Player", ["Focus"] = "Focus", ["Player_Focus"] = "Player_Focus"},
+          set = function(info, val)
+            debuffs_table[boss_select][spell_select]["PlayerOnly"] = val
+          end,
+          get = function(val) return debuffs_table[boss_select][spell_select]["PlayerOnly"] end,
+        },
+        MAXSTACKS = {
+          type = "toggle",
+          name = "Stacks Alert",
+          order = 10,
+          hidden = function() if spell_select ~= nil then return false else return true end end,
+          set = function(info, val)
+            debuffs_table[boss_select][spell_select]["MaxStacks"] = val
+          end,
+          get = function(val) return debuffs_table[boss_select][spell_select]["MaxStacks"] end,
+        },
+        MAXSTACKSNUMBER = {
+          type = "range",
+          name = "Stacks Number",
+          order = 11,
+          min = 0,
+          max = 50,
+          step = 1,
+          hidden = function() if spell_select ~= nil then return false else return true end end,
+          disabled = function() if debuffs_table[boss_select][spell_select]["MaxStacks"] == true then return false else return true end end,
+          set = function(info, val)
+            debuffs_table[boss_select][spell_select]["MaxStacksNumber"] = val
+          end,
+          get = function(val) return debuffs_table[boss_select][spell_select]["MaxStacksNumber"] end,
+        },
+        DELETE_SPELL_BUTTON = {
+          type = "execute",
+          name = "Delete",
+          hidden = function() if spell_select ~= nil then return false else return true end end,
+          --validate
+        },
 			},
 		},
 	},
