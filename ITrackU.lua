@@ -9,6 +9,7 @@
 -- Max Stacks
 -- PlayerOnly : All / Player / Focus / Player_Focus
 
+local unlock_dialog = nil
 
 ---------------------------------------------------------------------------------------------------
 --------------------------------   SAVED VARIABLES DECLARATIONS   ---------------------------------
@@ -63,12 +64,29 @@ end
 
 local function addon_initialization(self, ...)
   local Frame_Main = CreateFrame("FRAME", "Frame_Main", UIParent)
+
+  -- SavedVariables init
+  if db_variable.ANCHOR_POINT == nil then
+    db_variable.ANCHOR_POINT = "CENTER"
+  end
+
+  if db_variable.POSITION_X == nil then
+    db_variable.POSITION_X = 0
+  end
+
+  if db_variable.POSITION_Y == nil then
+    db_variable.POSITION_Y = 0
+  end
+
   Frame_Main:SetBackdrop({bgFile = [[Interface\ChatFrame\ChatFrameBackground]]});
   Frame_Main:SetWidth(db_variable.WIDTH_GLOBAL + db_variable.WIDTH_ECART_GLOBAL_PLAYER_DISTANCE + db_variable.WIDTH_PLAYER_DISTANCE)
   Frame_Main:SetHeight(0)
   Frame_Main:SetBackdropColor(1,0,0,0)
-  Frame_Main:SetPoint("CENTER",db_variable.POSITION_X,db_variable.POSITION_Y)
+  Frame_Main:SetPoint(db_variable.ANCHOR_POINT,db_variable.POSITION_X,db_variable.POSITION_Y)
   Frame_Main:SetFrameStrata("BACKGROUND")
+  Frame_Main:RegisterForDrag('LeftButton')
+  Frame_Main:SetScript('OnDragStart', function(f) f:StartMoving() end)
+  Frame_Main:SetScript('OnDragStop', function(f) f:StopMovingOrSizing() end)
   Frame_Main:Show()
  end
 
@@ -114,6 +132,7 @@ local function get_frame()
   end 
   return f
 end
+
 
 ---------------------------------------------------------------------------------------------------
 -----------------------------------------   TOOL METHODS   ----------------------------------------
@@ -184,14 +203,112 @@ end
 -- Update the main frame position 
 function update_main_frame_x(x_value)
   if Frame_Main ~= nil then
-    Frame_Main:SetPoint("CENTER",x_value,db_variable.POSITION_Y)
+    Frame_Main:SetPoint(db_variable.ANCHOR_POINT,x_value,db_variable.POSITION_Y)
   end
 end
 
 function update_main_frame_y(y_value)
   if Frame_Main ~= nil then
-    Frame_Main:SetPoint("CENTER", db_variable.POSITION_X, y_value)
+    Frame_Main:SetPoint(db_variable.ANCHOR_POINT, db_variable.POSITION_X, y_value)
   end
+end
+
+
+-- Move frames
+local function unlock_main_frame()
+  if Frame_Main == nil then
+      addon_initialization()
+    else
+      Frame_Main:Show()
+  end  
+
+  Frame_Main:EnableMouse(true)
+  Frame_Main:SetMovable(true)
+  
+end
+
+
+local function lock_main_frame()
+  if Frame_Main == nil then
+      addon_initialization()
+    else
+      Frame_Main:Show()
+  end  
+
+  Frame_Main:EnableMouse(false)
+  Frame_Main:SetMovable(false)
+  unlock_dialog:Hide()
+
+  print(Frame_Main:GetPoint())
+
+  point, _, _, xOfs, yOfs = Frame_Main:GetPoint()
+  db_variable.ANCHOR_POINT = point
+  db_variable.POSITION_X = xOfs
+  db_variable.POSITION_Y = yOfs
+
+end
+
+
+function show_lock_dialog()
+  if not unlock_dialog then
+    local f = CreateFrame("Frame", "UnlockDialog", UIParent)
+    f:SetFrameStrata("DIALOG")
+    f:SetToplevel(true)
+    f:EnableMouse(true)
+    f:SetMovable(true)
+    f:SetClampedToScreen(true)
+    f:SetWidth(360)
+    f:SetHeight(110)
+    f:SetBackdrop{
+      bgFile="Interface\\DialogFrame\\UI-DialogBox-Background" ,
+      edgeFile="Interface\\DialogFrame\\UI-DialogBox-Border",
+      tile = true,
+      insets = {left = 11, right = 12, top = 12, bottom = 11},
+      tileSize = 32,
+      edgeSize = 32,
+    }
+    f:SetPoint("TOP", 0, -50)
+    f:Hide()
+    f:SetScript('OnShow', function() PlaySound(SOUNDKIT and SOUNDKIT.IG_MAINMENU_OPTION or 'igMainMenuOption') end)
+    f:SetScript('OnHide', function() PlaySound(SOUNDKIT and SOUNDKIT.GS_TITLE_OPTION_EXIT or 'gsTitleOptionExit') end)
+
+    f:RegisterForDrag('LeftButton')
+    f:SetScript('OnDragStart', function(f) f:StartMoving() end)
+    f:SetScript('OnDragStop', function(f) f:StopMovingOrSizing() end)
+
+    local header = f:CreateTexture(nil, "ARTWORK")
+    header:SetTexture("Interface\\DialogFrame\\UI-DialogBox-Header")
+    header:SetWidth(256); header:SetHeight(64)
+    header:SetPoint("TOP", 0, 12)
+
+    local title = f:CreateFontString("ARTWORK")
+    title:SetFontObject("GameFontNormal")
+    title:SetPoint("TOP", header, "TOP", 0, -14)
+    title:SetText("ITrackU")
+
+    local desc = f:CreateFontString("ARTWORK")
+    desc:SetFontObject("GameFontHighlight")
+    desc:SetJustifyV("TOP")
+    desc:SetJustifyH("LEFT")
+    desc:SetPoint("TOPLEFT", 18, -32)
+    desc:SetPoint("BOTTOMRIGHT", -18, 48)
+    desc:SetText("Main frame unlocked. Move it now and click Lock when you are done.")
+
+    local lock = CreateFrame("CheckButton", "Lock", f, "OptionsButtonTemplate")
+    getglobal(lock:GetName() .. "Text"):SetText("Lock")
+
+    lock:SetScript("OnClick", function(self)
+      lock_main_frame()
+    end)
+
+    --position buttons
+    lock:SetPoint("BOTTOMRIGHT", -14, 14)
+
+    unlock_dialog = f
+
+  end
+  unlock_main_frame()
+  unlock_dialog:Show()
 end
 
 -- Update Titre Background Color
@@ -289,8 +406,7 @@ local function player_regen_disabled_handler(self, ...)
       addon_initialization()
     else
       Frame_Main:Show()
-    end
-  
+    end  
 
 
     local i = 0
