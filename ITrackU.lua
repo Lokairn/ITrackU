@@ -35,6 +35,39 @@ local function addon_loaded(event, arg1)
     if db_variable.COLOR_G_TITRE == nil then db_variable.COLOR_G_TITRE = 0.368 end
     if db_variable.COLOR_B_TITRE == nil then db_variable.COLOR_B_TITRE = 0.368 end
     if db_variable.COLOR_A_TITRE == nil then db_variable.COLOR_A_TITRE = 0.9 end
+
+  --set all variables tables for the test frame
+  if debuffs_table ~= nil then
+    debuffs_table[1111] = {
+      [23920] = {
+        ["IfActive"] = false,
+        ["Count"] = 0,
+        ["Type"] = "Classic",
+        ["TypeDistance"] = 0,
+        ["Rôle"] = "All",
+        ["MaxStacks"] = false,
+        ["MaxStacksNumber"] = 0,
+      },
+      [132404] = {
+        ["IfActive"] = false,
+        ["Count"] = 0,
+        ["Type"] = "Classic",
+        ["TypeDistance"] = 0,
+        ["Rôle"] = "All",
+        ["MaxStacks"] = true,
+        ["MaxStacksNumber"] = 0,      
+      },
+      [18499] = {
+        ["IfActive"] = false,
+        ["Count"] = 0,
+        ["Type"] = "Classic",
+        ["TypeDistance"] = 0,
+        ["Rôle"] = "All",
+        ["MaxStacks"] = false,
+        ["MaxStacksNumber"] = 0,      
+      },
+    }
+  end
     
     --Set all variable tables from saved variables or default ones if not available    
     if debuffs_table ~= nil then
@@ -191,10 +224,6 @@ local function get_table(from_table, encounter)
     end
     return t
   end
-end
-
--- Create a frame to test options
-local function get_frame_test_option()
 end
 
 -- Close the frame test options
@@ -382,6 +411,11 @@ local function update_timer(k, l, minimum, maximum, auratype)
     else
       ITrackU[k][l].Text_PlayerStacks:SetText(ITrackU[k][l].Stacks)
     end
+    -- Alert if stacks > max stacks
+    if ITrackU["DebuffToTrack"][k]["MaxStacks"] == true and ITrackU[k][l].Stacks >= ITrackU["DebuffToTrack"][k]["MaxStacksNumber"] then
+      ITrackU[k][l].Frame_PlayerDebuffed:SetBackdropColor(1, 0, 0, 0.5)
+      ITrackU[k][l].Frame_PlayerDebuffed:SetStatusBarColor(1, 0, 0, 1)
+    end
 
     -- when timer has reached the desired value, as defined by global END (secTnds), restart it by setting it to 0, as defined by global START
     if ITrackU[k][l].Timer <= minimum then
@@ -478,10 +512,141 @@ local function player_regen_enabled_handler(self, ...)
   end
 end
 
+-- Called for frame test
+local function combat_log_frame_test(type, spell_id, dest_name, aura_type)
+  if type == "SPELL_AURA_APPLIED" and ITrackU ~= nil then
+    if ITrackU["DebuffToTrack"] ~= nil then
+      local i = 0
+      if dest_name ~= nil then
+        if ITrackU["DebuffToTrack"][spell_id] and (ITrackU["DebuffToTrack"][spell_id]["PlayerOnly"] == "All" or (ITrackU["DebuffToTrack"][spell_id]["PlayerOnly"] == "Player" and dest_name == select(1, UnitName("player"))) or (ITrackU["DebuffToTrack"][spell_id]["PlayerOnly"] == "Focus" and dest_name == select(1, UnitName("focus"))) or (ITrackU["DebuffToTrack"][spell_id]["PlayerOnly"] == "Player_Focus" and (dest_name == select(1, UnitName("player")) or dest_name == select(1, UnitName("focus"))))) then
+          
+            ITrackU[spell_id][dest_name] = {}
+
+            -- Création ligne
+            if ITrackU[spell_id]["debuffed"][dest_name] == nil then ITrackU[spell_id]["debuffed"][dest_name] = {} end
+            ITrackU[spell_id]["debuffed"][dest_name] = {
+                          ["aura_type"] = aura_type,
+                          ["frame_active"] = "yes"
+                          }
+            
+            -- Get Player Color
+            if dest_name == "Player" then
+              ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = 0.208
+              ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = 0.80
+              ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = 0.192
+              ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = 0.5
+            elseif dest_name == "Focus" then
+              ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = 0.632
+              ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = 0.348
+              ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = 0.828
+              ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = 0.5     
+            else
+              ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = 0.78
+              ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = 0.828
+              ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = 0.464
+              ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = 0.5        
+            end
+            
+            -- Create Frame
+            ITrackU[spell_id][dest_name].Frame_PlayerDebuffed = get_frame()
+            ITrackU[spell_id][dest_name].Frame_PlayerDebuffed = modify_frame(ITrackU[spell_id][dest_name].Frame_PlayerDebuffed, Frame_Main, {bgFile = [[Interface\ChatFrame\ChatFrameBackground]]}, db_variable.WIDTH_GLOBAL, db_variable.HEIGHT_DEBUFFED, "TOPLEFT", 0, i, ITrackU[spell_id]["debuffed"][dest_name]["color_red"], ITrackU[spell_id]["debuffed"][dest_name]["color_green"], ITrackU[spell_id]["debuffed"][dest_name]["color_blue"], ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"], "LOW")                     
+            ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:Hide()
+            
+            --PlayerStacksText
+            ITrackU[spell_id][dest_name].Text_PlayerStacks = ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:CreateFontString("Text_PlayerStacks", "OVERLAY", "GameFontNormal")
+            ITrackU[spell_id][dest_name].Text_PlayerStacks:SetPoint("RIGHT", -5, 0)
+            ITrackU[spell_id][dest_name].Text_PlayerStacks:SetFont("Fonts\\FRIZQT__.TTF", 15, "MONOCHROME")
+            ITrackU[spell_id][dest_name].Text_PlayerStacks:SetText(math.random(5))
+            -- ITrackU[spell_id][dest_name].Text_PlayerStacks:SetTextColor(1, 1, 1, 1)
+            
+            -- PlayerDebuffedText
+            ITrackU[spell_id][dest_name].Text_PlayerDebuffed = ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:CreateFontString("Text_PlayerDebuffed", "OVERLAY", "GameFontNormal")
+            ITrackU[spell_id][dest_name].Text_PlayerDebuffed:SetPoint("CENTER", 0, 0)
+            ITrackU[spell_id][dest_name].Text_PlayerDebuffed:SetText(dest_name)
+            
+            -- Status Bar
+            
+              --Frame_PlayerDebuffed StatusBar
+              ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetStatusBarTexture([[Interface\ChatFrame\ChatFrameBackground]])
+              ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetStatusBarColor(ITrackU[spell_id]["debuffed"][dest_name]["color_red"],ITrackU[spell_id]["debuffed"][dest_name]["color_green"],ITrackU[spell_id]["debuffed"][dest_name]["color_blue"], 1)
+              ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetFillStyle("REVERSE")                                        
+              
+              -- Set MinMax Status Bar
+              ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetMinMaxValues(0, 6)
+              ITrackU[spell_id][dest_name].Timer = 4
+              
+              -- this function will run repeatedly, incrementing the value of timer as it goes
+              ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetScript("OnUpdate", function(self, elapsed)
+              ITrackU[spell_id][dest_name].Timer = ITrackU[spell_id][dest_name].Timer - elapsed
+              self:SetValue(ITrackU[spell_id][dest_name].Timer)
+                -- when timer has reached the desired value, as defined by global END (secTnds), restart it by setting it to 0, as defined by global START
+                if ITrackU[spell_id][dest_name].Timer <= 2 then
+                  ITrackU[spell_id][dest_name].Timer = 4
+                end
+              end)
+            
+            --Frame PlayerDistance
+            if (ITrackU["DebuffToTrack"][spell_id]["Type"] == "Stack" or ITrackU["DebuffToTrack"][spell_id]["Type"] == "Spread") and dest_name ~= select(1, UnitName("player")) then
+              ITrackU[spell_id][dest_name].Frame_PlayerDistance = get_frame()
+              ITrackU[spell_id][dest_name].Frame_PlayerDistance = modify_frame(ITrackU[spell_id][dest_name].Frame_PlayerDistance, Frame_Main, {bgFile = [[Interface\ChatFrame\ChatFrameBackground]]}, db_variable.WIDTH_PLAYER_DISTANCE, db_variable.HEIGHT_DEBUFFED, "TOPRIGHT", 0, i, 0, 0, 0, 1, "LOW")
+              ITrackU[spell_id][dest_name].Frame_PlayerDistance:Show()
+              player_distance_script(spell_id,dest_name)
+            end
+            
+            ITrackU["DebuffToTrack"][spell_id]["Count"] = ITrackU["DebuffToTrack"][spell_id]["Count"] + 1
+          end
+        
+        -- Positionning each frame
+        for k, v in pairs(ITrackU["DebuffToTrack"]) do
+          if (ITrackU["DebuffToTrack"][k]["Count"] ~= 0 and ITrackU["DebuffToTrack"][k]["IfActive"] == true) or ITrackU["DebuffToTrack"][k]["IfActive"] == false then
+            -- Frame_Titre[k]
+            ITrackU[k].Frame_Titre:SetPoint("TOPLEFT",0, i)
+
+            -- MAJ i
+      if ITrackU["DebuffToTrack"][k]["Count"] > 0 then
+        i = i - db_variable.HEIGHT_TITLE - db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED
+      else
+        i = i - db_variable.HEIGHT_TITLE
+      end
+
+            -- MAJ Height Frame Principale
+            Frame_Main:SetHeight((-1)*i)
+            
+            ITrackU[k].Frame_Titre:Show()
+                                   
+            -- PlayerDebuffed[k]
+            if ITrackU["DebuffToTrack"][k]["Count"] > 0 then
+              for l, w in pairs(ITrackU[k]["debuffed"]) do
+                    if ITrackU[k]["debuffed"][l]["frame_active"] == "yes" then                          
+                      ITrackU[k][l].Frame_PlayerDebuffed:Show()
+                      -- MAJ Frame_PlayerDebuffed Positionning
+                      ITrackU[k][l].Frame_PlayerDebuffed:SetPoint("TOPLEFT", 0, i)
+                      
+                      --Frame PlayerDistance
+                      if (ITrackU["DebuffToTrack"][k]["Type"] == "Stack" or ITrackU["DebuffToTrack"][k]["Type"] == "Spread") and l ~= select(1, UnitName("player")) then
+                        ITrackU[k][l].Frame_PlayerDistance:SetPoint("TOPRIGHT", 0, i)
+                      end
+                      
+                      -- MAJ i
+                      i = i - db_variable.HEIGHT_DEBUFFED - db_variable.HEIGHT_BETWEEN_DEBUFFED
+                               
+                      -- MAJ Height Frame Principale
+                      Frame_Main:SetHeight((-1)*i)
+                    end
+              end
+            end
+      i = i - db_variable.HEIGHT_BETWEEN_TITLE
+          end
+        end
+      end
+    end
+  end
+end
+
 -- Called when a combat log event is detected
 local function combat_log_event_unfiltered_handler(self, ...)
   local timestamp, type, hide_caster, source_GUID, source_name, source_flags, source_flags_2, dest_GUID, dest_name, dest_flags, dest_flags_2 = ...
-  if (type == "SPELL_AURA_APPLIED" or type == "SPELL_AURA_REFRESH" or type == "SPELL_AURA_APPLIED_DOSE") and ITrackU ~= nil then
+  if type == "SPELL_AURA_APPLIED" and ITrackU ~= nil then
     local _, _, _, _, _, _, _, _, _, _, _, spell_id, _, _, aura_type  = ...
     if ITrackU["DebuffToTrack"] ~= nil then
       -- to be continued
@@ -584,7 +749,7 @@ local function combat_log_event_unfiltered_handler(self, ...)
                                    
             -- PlayerDebuffed[k]
             if ITrackU["DebuffToTrack"][k]["Count"] > 0 then
-              for l, w in pairs(ITrackU[spell_id]["debuffed"]) do
+              for l, w in pairs(ITrackU[k]["debuffed"]) do
                     if ITrackU[k]["debuffed"][l]["frame_active"] == "yes" then                          
                       
                       ITrackU[k][l].Frame_PlayerDebuffed:Show()
@@ -732,12 +897,24 @@ end
 SLASH_ITRACKU_ENCOUNTER_SLASHCMD1 = '/encounter'
 
 SlashCmdList['ITRACKU_FRAMETEST_SLASHCMD'] = function()
-  get_frame_test_option()
+  if ITrackU == nil then ITrackU = {} end
+  ITrackU["encounter_id"] = 1111
+  player_regen_disabled_handler()
+  combat_log_frame_test("SPELL_AURA_APPLIED", 125565, "Player", "BUFF")
+  combat_log_frame_test("SPELL_AURA_APPLIED", 125565, "Focus", "BUFF")
+  combat_log_frame_test("SPELL_AURA_APPLIED", 125565, "Mate1", "BUFF")
+  combat_log_frame_test("SPELL_AURA_APPLIED", 23920, "Mate2", "BUFF")
+  combat_log_frame_test("SPELL_AURA_APPLIED", 23920, "Player", "BUFF")
+  combat_log_frame_test("SPELL_AURA_APPLIED", 23920, "Mate3", "BUFF")
+  combat_log_frame_test("SPELL_AURA_APPLIED", 18499, "Focus", "BUFF")
+  combat_log_frame_test("SPELL_AURA_APPLIED", 18499, "Mate4", "BUFF")
+  combat_log_frame_test("SPELL_AURA_APPLIED", 18499, "Mate5", "BUFF")
+  print("Addon Open")  
 end
 SLASH_ITRACKU_FRAMETEST_SLASHCMD1 = '/frametest'
 
 
 SlashCmdList['ITRACKU_CLOSETEST_SLASHCMD'] = function()
-  close_frame_test_option()
+
 end
 SLASH_ITRACKU_CLOSETEST_SLASHCMD1 = '/closetest'
