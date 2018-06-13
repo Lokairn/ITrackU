@@ -17,6 +17,8 @@ local unlock_dialog = nil
 
 -- Set all variables from saved variables or default ones if not available
 local function addon_loaded(event, arg1)
+	if debuffs_table == nil then debuffs_table = {} end
+
   if arg1 == "ITrackU" then
     print("Bienvenue sur ITrackU version 1.00, tapez /ITU afin d'accéder au menu de configuration en jeu.")
     if debuffs_table == nil then print("CETTE TABLE NE SE CHARGE PAS") end
@@ -35,6 +37,22 @@ local function addon_loaded(event, arg1)
     if db_variable.COLOR_G_TITRE == nil then db_variable.COLOR_G_TITRE = 0.368 end
     if db_variable.COLOR_B_TITRE == nil then db_variable.COLOR_B_TITRE = 0.368 end
     if db_variable.COLOR_A_TITRE == nil then db_variable.COLOR_A_TITRE = 0.9 end
+	if db_variable.COLOR_R_DEBUFFED_PLAYER == nil then db_variable.COLOR_R_DEBUFFED_PLAYER = 0.208 end
+	if db_variable.COLOR_G_DEBUFFED_PLAYER == nil then db_variable.COLOR_G_DEBUFFED_PLAYER = 0.80 end
+	if db_variable.COLOR_B_DEBUFFED_PLAYER == nil then db_variable.COLOR_B_DEBUFFED_PLAYER = 0.192 end
+	if db_variable.COLOR_A_DEBUFFED_PLAYER == nil then db_variable.COLOR_A_DEBUFFED_PLAYER = 0.5 end
+	if db_variable.COLOR_R_DEBUFFED_FOCUS == nil then db_variable.COLOR_R_DEBUFFED_FOCUS = 0.632 end
+	if db_variable.COLOR_G_DEBUFFED_FOCUS == nil then db_variable.COLOR_G_DEBUFFED_FOCUS = 0.348 end
+	if db_variable.COLOR_B_DEBUFFED_FOCUS == nil then db_variable.COLOR_B_DEBUFFED_FOCUS = 0.828 end
+	if db_variable.COLOR_A_DEBUFFED_FOCUS == nil then db_variable.COLOR_A_DEBUFFED_FOCUS = 0.5 end
+	if db_variable.COLOR_R_DEBUFFED_MATE == nil then db_variable.COLOR_R_DEBUFFED_MATE = 0.78 end
+	if db_variable.COLOR_G_DEBUFFED_MATE == nil then db_variable.COLOR_G_DEBUFFED_MATE = 0.828 end
+	if db_variable.COLOR_B_DEBUFFED_MATE == nil then db_variable.COLOR_B_DEBUFFED_MATE = 0.464 end
+	if db_variable.COLOR_A_DEBUFFED_MATE == nil then db_variable.COLOR_A_DEBUFFED_MATE = 0.5 end
+	if db_variable.COLOR_R_DEBUFFED_MAXSTACK == nil then db_variable.COLOR_R_DEBUFFED_MAXSTACK = 1 end
+	if db_variable.COLOR_G_DEBUFFED_MAXSTACK == nil then db_variable.COLOR_G_DEBUFFED_MAXSTACK = 0 end
+	if db_variable.COLOR_B_DEBUFFED_MAXSTACK == nil then db_variable.COLOR_B_DEBUFFED_MAXSTACK = 0 end
+	if db_variable.COLOR_A_DEBUFFED_MAXSTACK == nil then db_variable.COLOR_A_DEBUFFED_MAXSTACK = 0.5 end
 
   --set all variables tables for the test frame
   if debuffs_table ~= nil then
@@ -45,8 +63,8 @@ local function addon_loaded(event, arg1)
         ["Type"] = "Classic",
         ["TypeDistance"] = 0,
         ["Rôle"] = "All",
-        ["MaxStacks"] = false,
-        ["MaxStacksNumber"] = 0,
+        ["MaxStacks"] = true,
+        ["MaxStacksNumber"] = 4,
       },
       [132404] = {
         ["IfActive"] = false,
@@ -55,7 +73,7 @@ local function addon_loaded(event, arg1)
         ["TypeDistance"] = 0,
         ["Rôle"] = "All",
         ["MaxStacks"] = true,
-        ["MaxStacksNumber"] = 0,      
+        ["MaxStacksNumber"] = 4,      
       },
       [18499] = {
         ["IfActive"] = false,
@@ -63,8 +81,17 @@ local function addon_loaded(event, arg1)
         ["Type"] = "Classic",
         ["TypeDistance"] = 0,
         ["Rôle"] = "All",
-        ["MaxStacks"] = false,
-        ["MaxStacksNumber"] = 0,      
+        ["MaxStacks"] = true,
+        ["MaxStacksNumber"] = 4,      
+      },
+      [125565] = {
+        ["IfActive"] = false,
+        ["Count"] = 0,
+        ["Type"] = "Classic",
+        ["TypeDistance"] = 0,
+        ["Rôle"] = "All",
+        ["MaxStacks"] = true,
+        ["MaxStacksNumber"] = 4,      
       },
     }
   end
@@ -413,8 +440,8 @@ local function update_timer(k, l, minimum, maximum, auratype)
     end
     -- Alert if stacks > max stacks
     if ITrackU["DebuffToTrack"][k]["MaxStacks"] == true and ITrackU[k][l].Stacks >= ITrackU["DebuffToTrack"][k]["MaxStacksNumber"] then
-      ITrackU[k][l].Frame_PlayerDebuffed:SetBackdropColor(1, 0, 0, 0.5)
-      ITrackU[k][l].Frame_PlayerDebuffed:SetStatusBarColor(1, 0, 0, 1)
+      ITrackU[k][l].Frame_PlayerDebuffed:SetBackdropColor(db_variable.COLOR_R_DEBUFFED_MAXSTACK, db_variable.COLOR_G_DEBUFFED_MAXSTACK, db_variable.COLOR_B_DEBUFFED_MAXSTACK, db_variable.COLOR_A_DEBUFFED_MAXSTACK)
+      ITrackU[k][l].Frame_PlayerDebuffed:SetStatusBarColor(db_variable.COLOR_R_DEBUFFED_MAXSTACK, db_variable.COLOR_G_DEBUFFED_MAXSTACK, db_variable.COLOR_B_DEBUFFED_MAXSTACK, 1)
     end
 
     -- when timer has reached the desired value, as defined by global END (secTnds), restart it by setting it to 0, as defined by global START
@@ -483,13 +510,13 @@ local function player_regen_disabled_handler(self, ...)
 end
 
 -- Called when the player regen is enabled
-local function player_regen_enabled_handler(self, ...)
-  if ITrackU ~= nil then
-    if ITrackU["DebuffToTrack"] ~= nil then
+local function encounter_end(self, ...)
+  if ITrackU then
+    if ITrackU["DebuffToTrack"] then
       for k, v in pairs(ITrackU["DebuffToTrack"]) do
-        if ITrackU[k]["debuffed"] ~= nil then
+        if ITrackU[k]["debuffed"] then
           for l, w in pairs(ITrackU[k]["debuffed"]) do
-            if w ~= nil then
+            if w then
               ITrackU[k][l].Frame_PlayerDebuffed:SetValue(0)
               ITrackU[k][l].Frame_PlayerDebuffed:SetScript("OnUpdate", nil)
               ITrackU[k][l].Text_PlayerDebuffed:SetText("")
@@ -505,10 +532,10 @@ local function player_regen_enabled_handler(self, ...)
         ITrackU[k].Text_Frame_Titre:SetText("")
         remove_frame(ITrackU[k].Frame_Titre)
       end
-    end
      ITrackU = nil
      Frame_Main:SetHeight(0)
      Frame_Main:Hide()
+    end
   end
 end
 
@@ -531,37 +558,37 @@ local function table_frame_player_debuffed(Env, type, spell_id, dest_name, aura_
           -- Get Player Color
           if Env == "PROD" then
             if dest_name == select(1, UnitName("player")) then
-              ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = 0.208
-              ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = 0.80
-              ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = 0.192
-              ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = 0.5
+              ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = db_variable.COLOR_R_DEBUFFED_PLAYER
+              ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = db_variable.COLOR_G_DEBUFFED_PLAYER
+              ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = db_variable.COLOR_B_DEBUFFED_PLAYER
+              ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_DEBUFFED_PLAYER
             elseif dest_name == select(1, UnitName("focus")) then
-              ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = 0.632
-              ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = 0.348
-              ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = 0.828
-              ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = 0.5     
+              ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = db_variable.COLOR_R_DEBUFFED_FOCUS
+              ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = db_variable.COLOR_G_DEBUFFED_FOCUS
+              ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = db_variable.COLOR_B_DEBUFFED_FOCUS
+              ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_DEBUFFED_FOCUS    
             else
-              ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = 0.78
-              ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = 0.828
-              ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = 0.464
-              ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = 0.5        
+              ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = db_variable.COLOR_R_DEBUFFED_MATE
+              ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = db_variable.COLOR_G_DEBUFFED_MATE
+              ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = db_variable.COLOR_B_DEBUFFED_MATE
+              ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_DEBUFFED_MATE       
             end
           elseif Env == "TEST" then
             if dest_name == "Player" then
-              ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = 0.208
-              ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = 0.80
-              ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = 0.192
-              ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = 0.5
+              ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = db_variable.COLOR_R_DEBUFFED_PLAYER
+              ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = db_variable.COLOR_G_DEBUFFED_PLAYER
+              ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = db_variable.COLOR_B_DEBUFFED_PLAYER
+              ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_DEBUFFED_PLAYER
             elseif dest_name == "Focus" then
-              ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = 0.632
-              ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = 0.348
-              ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = 0.828
-              ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = 0.5     
+              ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = db_variable.COLOR_R_DEBUFFED_FOCUS
+              ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = db_variable.COLOR_G_DEBUFFED_FOCUS
+              ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = db_variable.COLOR_B_DEBUFFED_FOCUS
+              ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_DEBUFFED_FOCUS  
             else
-              ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = 0.78
-              ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = 0.828
-              ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = 0.464
-              ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = 0.5        
+              ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = db_variable.COLOR_R_DEBUFFED_MATE
+              ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = db_variable.COLOR_G_DEBUFFED_MATE
+              ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = db_variable.COLOR_B_DEBUFFED_MATE
+              ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_DEBUFFED_MATE       
             end          
           end
           
@@ -575,8 +602,20 @@ local function table_frame_player_debuffed(Env, type, spell_id, dest_name, aura_
           ITrackU[spell_id][dest_name].Text_PlayerStacks:SetPoint("RIGHT", -5, 0)
           ITrackU[spell_id][dest_name].Text_PlayerStacks:SetFont("Fonts\\FRIZQT__.TTF", 15, "MONOCHROME")
           -- ITrackU[spell_id][dest_name].Text_PlayerStacks:SetTextColor(1, 1, 1, 1)
+
+            --Frame_PlayerDebuffed StatusBar
+            ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetStatusBarTexture([[Interface\ChatFrame\ChatFrameBackground]])
+            ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetStatusBarColor(ITrackU[spell_id]["debuffed"][dest_name]["color_red"],ITrackU[spell_id]["debuffed"][dest_name]["color_green"],ITrackU[spell_id]["debuffed"][dest_name]["color_blue"], 1)
+            ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetFillStyle("REVERSE")
+
           if Env == "TEST" then
-            ITrackU[spell_id][dest_name].Text_PlayerStacks:SetText(math.random(5))
+			ITrackU[spell_id][dest_name].Stacks = math.random(5)
+            ITrackU[spell_id][dest_name].Text_PlayerStacks:SetText(ITrackU[spell_id][dest_name].Stacks)
+
+            if ITrackU[spell_id][dest_name].Stacks >= ITrackU["DebuffToTrack"][spell_id]["MaxStacksNumber"] then
+            	ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetBackdropColor(db_variable.COLOR_R_DEBUFFED_MAXSTACK, db_variable.COLOR_G_DEBUFFED_MAXSTACK, db_variable.COLOR_B_DEBUFFED_MAXSTACK, db_variable.COLOR_A_DEBUFFED_MAXSTACK)
+      			ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetStatusBarColor(db_variable.COLOR_R_DEBUFFED_MAXSTACK, db_variable.COLOR_G_DEBUFFED_MAXSTACK, db_variable.COLOR_B_DEBUFFED_MAXSTACK, 1)
+            end
           end
           
           -- PlayerDebuffedText
@@ -585,11 +624,6 @@ local function table_frame_player_debuffed(Env, type, spell_id, dest_name, aura_
           ITrackU[spell_id][dest_name].Text_PlayerDebuffed:SetText(dest_name)
           
           -- Status Bar
-          
-            --Frame_PlayerDebuffed StatusBar
-            ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetStatusBarTexture([[Interface\ChatFrame\ChatFrameBackground]])
-            ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetStatusBarColor(ITrackU[spell_id]["debuffed"][dest_name]["color_red"],ITrackU[spell_id]["debuffed"][dest_name]["color_green"],ITrackU[spell_id]["debuffed"][dest_name]["color_blue"], 1)
-            ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetFillStyle("REVERSE")
             if Env == "PROD" then
               -- Variable Max
               ITrackU[spell_id][dest_name].Min = 0
@@ -683,22 +717,29 @@ end
 
 -- Called when a combat log event is detected
 local function combat_log_event_unfiltered_handler(self, ...)
-  if ITrackU["DebuffToTrack"] ~= nil then
+if ITrackU then
+  if ITrackU["DebuffToTrack"] then
   local timestamp, type, hide_caster, source_GUID, source_name, source_flags, source_flags_2, dest_GUID, dest_name, dest_flags, dest_flags_2 = ...
-  
     -- Aura Applied
-    if type == "SPELL_AURA_APPLIED" and ITrackU ~= nil then
+    if (type == "SPELL_AURA_APPLIED" or type == "SPELL_AURA_APPLIED_DOSE") and ITrackU then
       local _, _, _, _, _, _, _, _, _, _, _, spell_id, _, _, aura_type  = ...
-      
-        -- Create Frame & Table
-        table_frame_player_debuffed("PROD", type, spell_id, dest_name, aura_type)
-        -- Order Frame
-        order_frame_player_debuff()
-        
+
+      	if ITrackU[spell_id] then
+	        -- Create Frame & Table
+	        if ITrackU[spell_id]["debuffed"][dest_name] == nil then
+	        	table_frame_player_debuffed("PROD", type, spell_id, dest_name, aura_type)
+	        else
+	        	if ITrackU[spell_id]["debuffed"][dest_name]["frame_active"] == "No" then
+	        		table_frame_player_debuffed("PROD", type, spell_id, dest_name, aura_type)
+	        	end	
+	    	end
+	        -- Order Frame
+	        order_frame_player_debuff()
+	    end
     end
     
     -- Aura removed
-    if type == "SPELL_AURA_REMOVED" and ITrackU ~= nil then
+    if type == "SPELL_AURA_REMOVED" and ITrackU then
       if ITrackU["DebuffToTrack"] ~= nil then
         local _, _, _, _, _, _, _, _, _, _, _, spell_id, aura_type = ...
         if ITrackU["DebuffToTrack"][spell_id] and ITrackU[spell_id][dest_name] ~= nil then
@@ -728,6 +769,7 @@ local function combat_log_event_unfiltered_handler(self, ...)
     end
   end
 end
+end
 
 -- Called when encounter starts
 local function encounter_start(self, ...)
@@ -743,7 +785,7 @@ end
 local AllEventHandlers = {
     ["ENCOUNTER_START"] = encounter_start,
     --["PLAYER_REGEN_DISABLED"] = player_regen_disabled_handler,
-    ["PLAYER_REGEN_ENABLED"] = player_regen_enabled_handler,
+    ["ENCOUNTER_END"] = encounter_end,
     ["COMBAT_LOG_EVENT_UNFILTERED"] = combat_log_event_unfiltered_handler,
     ["ADDON_LOADED"] = addon_loaded,
 }
@@ -770,7 +812,7 @@ end
 SLASH_ITRACKU_MAINFRAME_SLASHCMD1 = '/mainframe'
 
 SlashCmdList['ITRACKU_CLOSEFRAME_SLASHCMD'] = function()
-  player_regen_enabled_handler()
+  encounter_end()
   print("Addon fermé")
 end
 SLASH_ITRACKU_CLOSEFRAME_SLASHCMD1 = '/closeframe'

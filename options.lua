@@ -220,7 +220,7 @@ local options = {
           type = "description",
           name = "",
           image = function()
-          return select(3, GetSpellInfo(spell_select)) 
+          return select(3, GetSpellInfo(spell_select)), 20, 20
           end,
           hidden = function() if spell_select ~= nil then return false else return true end end,
           order = 8,
@@ -356,7 +356,7 @@ local options = {
           type = "description",
           image = function()
             if select(7, GetSpellInfo(spell_add)) ~= nil and debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))] == nil then
-              return select(3, GetSpellInfo(spell_add))
+              return select(3, GetSpellInfo(spell_add)), 20, 20
             end          
           end,
           name = function()
@@ -392,7 +392,9 @@ function ITrackU:OnInitialize()
 	self.optionsFrame = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(addonName, addonName)     
 	self:RegisterChatCommand("ITU", "ChatCommand")     
 	self:RegisterChatCommand("ITrackU", "ChatCommand")
-  
+ 
+ if debuffs_table == nil then debuffs_table = {} end
+ 
   for k, v in pairs(raids) do
     for l,w in pairs(raids[k]) do
       if debuffs_table[l] == nil then
@@ -401,6 +403,7 @@ function ITrackU:OnInitialize()
     end
   end
 end 
+
 function ITrackU:ChatCommand(input)     
 	if not input or input:trim() == "" then         
 	InterfaceOptionsFrame_OpenToCategory(self.optionsFrame)     
