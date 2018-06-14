@@ -750,7 +750,8 @@ if ITrackU then
         
           -- On remove la frame si Stack ou Spread
           if (ITrackU["DebuffToTrack"][spell_id]["Type"] == "Stack" or ITrackU["DebuffToTrack"][spell_id]["Type"] == "Spread") and dest_name ~= select(1, UnitName("player")) then
-            remove_frame(ITrackU[spell_id][dest_name].Frame_PlayerDistance)
+            	print("That's working")
+		remove_frame(ITrackU[spell_id][dest_name].Frame_PlayerDistance)
           end      
         
           -- Vider les tables
