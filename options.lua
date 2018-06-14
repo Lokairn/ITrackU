@@ -120,16 +120,21 @@ local options = {
 			order = 3,
 			args = {
 				HEADER_COLOR_TITRE = {
-				type = "header",
-				name = "Titre",
-				order = 1,
+  				type = "header",
+  				name = "Titres",
+  				order = 1,
 				},
+        HEADER_COLOR_TITRE_DESCRIPTION = {
+          type = "description",
+          name = "You can modify the color of the title frames and the police.",
+          order = 2,
+        },
 				COLOR_BACKGROUND_TITRE = {
 					type = "color",
-					desc = "test",
-					name = "color",
+					desc = "",
+					name = "Title Color",
 					hasAlpha = true,
-					order = 2,
+					order = 3,
 					set = function(info, val1, val2, val3, val4)
 						db_variable.COLOR_R_TITRE = val1
 						db_variable.COLOR_G_TITRE = val2
@@ -139,6 +144,112 @@ local options = {
 					end,
 					get = function(info) return db_variable.COLOR_R_TITRE, db_variable.COLOR_G_TITRE, db_variable.COLOR_B_TITRE, db_variable.COLOR_A_TITRE end,
 				},
+        HEADER_COLOR_PLAYERDEBUFFED = {
+          type = "header",
+          name = "Player Debuffed",
+          order = 4,
+        },
+        HEADER_COLOR_PLAYERDEBUFFED_DESCRIPTION = {
+          type = "description",
+          name = "You can modify the color of player debuffed frames if You / Focus / Another Player / Max Stacks",
+          order = 5,
+        },
+        COLOR_BACKGROUND_PLAYER = {
+          type = "color",
+          desc = "",
+          name = "Player Color",
+          hasAlpha = true,
+          order = 6,
+          set = function(info, val1, val2, val3, val4)
+            db_variable.COLOR_R_DEBUFFED_PLAYER = val1
+            db_variable.COLOR_G_DEBUFFED_PLAYER = val2
+            db_variable.COLOR_B_DEBUFFED_PLAYER = val3
+            db_variable.COLOR_A_DEBUFFED_PLAYER = val4
+            update_background_color_player(val1, val2, val3, val4)
+          end,
+          get = function(info) return db_variable.COLOR_R_DEBUFFED_PLAYER, db_variable.COLOR_G_DEBUFFED_PLAYER, db_variable.COLOR_B_DEBUFFED_PLAYER, db_variable.COLOR_A_DEBUFFED_PLAYER end,
+        },
+        --ALPHA_STATUSBAR_PLAYER = {
+        --order = 7,
+        --},
+        COLOR_BACKGROUND_FOCUS = {
+          type = "color",
+          desc = "",
+          name = "Focus Color",
+          hasAlpha = true,
+          order = 8,
+          set = function(info, val1, val2, val3, val4)
+            db_variable.COLOR_R_DEBUFFED_FOCUS = val1
+            db_variable.COLOR_G_DEBUFFED_FOCUS = val2
+            db_variable.COLOR_B_DEBUFFED_FOCUS = val3
+            db_variable.COLOR_A_DEBUFFED_FOCUS = val4
+            update_background_color_focus(val1, val2, val3, val4)
+          end,
+          get = function(info) return db_variable.COLOR_R_DEBUFFED_FOCUS, db_variable.COLOR_G_DEBUFFED_FOCUS, db_variable.COLOR_B_DEBUFFED_FOCUS, db_variable.COLOR_A_DEBUFFED_FOCUS end,
+        },
+        --ALPHA_STATUSBAR_FOCUS = {
+        --order = 9,
+        --},
+        COLOR_BACKGROUND_MATE = {
+          type = "color",
+          desc = "",
+          name = "Mate Color",
+          hasAlpha = true,
+          order = 10,
+          set = function(info, val1, val2, val3, val4)
+            db_variable.COLOR_R_DEBUFFED_MATE = val1
+            db_variable.COLOR_G_DEBUFFED_MATE = val2
+            db_variable.COLOR_B_DEBUFFED_MATE = val3
+            db_variable.COLOR_A_DEBUFFED_MATE = val4
+            update_background_color_mate(val1, val2, val3, val4)
+          end,
+          get = function(info) return db_variable.COLOR_R_DEBUFFED_MATE, db_variable.COLOR_G_DEBUFFED_MATE, db_variable.COLOR_B_DEBUFFED_MATE, db_variable.COLOR_A_DEBUFFED_MATE end,
+        },
+        --ALPHA_STATUSBAR_FOCUS = {
+        --order = 11,
+        --}, 
+        COLOR_BACKGROUND_MAXSTACKS = {
+          type = "color",
+          desc = "",
+          name = "MaxStacks Color",
+          hasAlpha = true,
+          order = 12,
+          set = function(info, val1, val2, val3, val4)
+            db_variable.COLOR_R_DEBUFFED_MAXSTACK = val1
+            db_variable.COLOR_G_DEBUFFED_MAXSTACK = val2
+            db_variable.COLOR_B_DEBUFFED_MAXSTACK = val3
+            db_variable.COLOR_A_DEBUFFED_MAXSTACK = val4
+            update_background_color_maxstack(val1, val2, val3, val4)
+          end,
+          get = function(info) return db_variable.COLOR_R_DEBUFFED_MAXSTACK, db_variable.COLOR_G_DEBUFFED_MAXSTACK, db_variable.COLOR_B_DEBUFFED_MAXSTACK, db_variable.COLOR_A_DEBUFFED_MAXSTACK end,
+        },  
+        --ALPHA_STATUSBAR_FOCUS = {
+        --order = 13,
+        --},
+        ALPHA_BACKGROUND_PLAYERDEBUFFED = {
+          type = "range",
+          name = "StatusBar Alpha",
+          desc = "",
+          order = 14,
+          min = 0,
+          max = 1,
+          step = 0.01,
+          set = function(info, val)
+            db_variable.COLOR_A_DEBUFFED_STATUSBAR = val
+            update_alpha_color_statusbar(val)
+          end,
+          get = function(val) return db_variable.COLOR_A_DEBUFFED_STATUSBAR end,
+        },  
+        HEADER_PLAYERDISTANCE = {
+          type = "header",
+          name = "Player Distance",
+          order = 15,
+        },
+        DESCRIPTION_PLAYERDISTANCE = {
+          type = "description",
+          name = "You can modify the color of the frame created when you are tracking a Stack or Spread spell.",
+          order = 16,
+        },      
 			},
 		},
 		DebuffsBDD = {

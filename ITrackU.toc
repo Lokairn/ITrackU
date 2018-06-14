@@ -1,6 +1,6 @@
 ## Interface: 70300
 ## Title: ITrackU
-## Author: Kahinh
+## Author: Kahinh & Sindalar
 ## Notes: Ceci est un test
 ## Version: 1.0
 ## SavedVariables: debuffs_table

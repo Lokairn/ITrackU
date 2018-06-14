@@ -53,6 +53,7 @@ local function addon_loaded(event, arg1)
 	if db_variable.COLOR_G_DEBUFFED_MAXSTACK == nil then db_variable.COLOR_G_DEBUFFED_MAXSTACK = 0 end
 	if db_variable.COLOR_B_DEBUFFED_MAXSTACK == nil then db_variable.COLOR_B_DEBUFFED_MAXSTACK = 0 end
 	if db_variable.COLOR_A_DEBUFFED_MAXSTACK == nil then db_variable.COLOR_A_DEBUFFED_MAXSTACK = 0.5 end
+	if db_variable.COLOR_A_DEBUFFED_STATUSBAR == nil then db_variable.COLOR_A_DEBUFFED_STATUSBAR = 1 end
 
   --set all variables tables for the test frame
   if debuffs_table ~= nil then
@@ -172,13 +173,7 @@ end
 
 -- Put the frame in the available frames (in the framepool)
 local function remove_frame(f)
-  f:SetParent(nil)
-  f:SetBackdrop(nil)
-  f:SetWidth(0)
-  f:SetPoint("CENTER", 0, 0)
-  f:SetBackdropColor(0, 0, 0, 0)
-  f:SetHeight(0)  
-  f:SetScript("OnUpdate", nil)
+  f = modify_frame(f, nil, nil, 0, 0, "CENTER", 0, 0, 0, 0, 0, 0, "BACKGROUND")
   f:Hide()
   tinsert(framepool, f)
 end
@@ -189,7 +184,7 @@ local function get_frame()
   if not f then
     -- Create your frame
     f = CreateFrame("StatusBar", nil)
-  else   
+  else 
   end 
   return f
 end
@@ -376,6 +371,82 @@ function update_background_color_titre(r, g, b, a)
     end
   end
 end
+
+-- Update Player Background Color
+function update_background_color_player(r, g, b, a)
+	if ITrackU["DebuffToTrack"] then	
+	  for k, v in pairs(ITrackU["DebuffToTrack"]) do
+	    for l, w in pairs(ITrackU[k]["debuffed"]) do
+	      if w and l == "Player" and ITrackU[k][l].Stacks < ITrackU["DebuffToTrack"][k]["MaxStacksNumber"] then
+	    	ITrackU[k][l].Frame_PlayerDebuffed:SetBackdropColor(r, g, b, a)
+	    	ITrackU[k][l].Frame_PlayerDebuffed:SetStatusBarColor(r, g, b, 1)
+	      end
+	    end
+	  end
+	end
+end
+
+-- Update Focus Background Color
+function update_background_color_focus(r, g, b, a)
+	if ITrackU["DebuffToTrack"] then
+	  for k, v in pairs(ITrackU["DebuffToTrack"]) do
+	    for l, w in pairs(ITrackU[k]["debuffed"]) do
+	      if w and l == "Focus" and ITrackU[k][l].Stacks < ITrackU["DebuffToTrack"][k]["MaxStacksNumber"] then
+	    	ITrackU[k][l].Frame_PlayerDebuffed:SetBackdropColor(r, g, b, a)
+	    	ITrackU[k][l].Frame_PlayerDebuffed:SetStatusBarColor(r, g, b, 1)
+	      end
+	    end
+	  end
+	end
+end
+
+-- Update Mate Background Color
+function update_background_color_mate(r, g, b, a)
+	if ITrackU["DebuffToTrack"] then
+	  for k, v in pairs(ITrackU["DebuffToTrack"]) do
+	    for l, w in pairs(ITrackU[k]["debuffed"]) do
+	      if w and l ~= "Focus" and l ~= "Player" and ITrackU[k][l].Stacks < ITrackU["DebuffToTrack"][k]["MaxStacksNumber"] then
+	    	ITrackU[k][l].Frame_PlayerDebuffed:SetBackdropColor(r, g, b, a)
+	    	ITrackU[k][l].Frame_PlayerDebuffed:SetStatusBarColor(r, g, b, 1)
+	      end
+	    end
+	  end
+	end
+end
+
+-- Update MaxStack Background Color
+function update_background_color_maxstack(r, g, b, a)
+	if ITrackU["DebuffToTrack"] then
+	  for k, v in pairs(ITrackU["DebuffToTrack"]) do
+	    for l, w in pairs(ITrackU[k]["debuffed"]) do
+	      if w and ITrackU[k][l].Stacks >= ITrackU["DebuffToTrack"][k]["MaxStacksNumber"] then
+	    	ITrackU[k][l].Frame_PlayerDebuffed:SetBackdropColor(r, g, b, a)
+	    	ITrackU[k][l].Frame_PlayerDebuffed:SetStatusBarColor(r, g, b, 1)
+	      end
+	    end
+	  end
+	end
+end
+
+function update_alpha_color_statusbar(a)
+	if ITrackU["DebuffToTrack"] then
+	  for k, v in pairs(ITrackU["DebuffToTrack"]) do
+	    for l, w in pairs(ITrackU[k]["debuffed"]) do
+	      if w then
+	      	if ITrackU[k][l].Stacks >= ITrackU["DebuffToTrack"][k]["MaxStacksNumber"] then
+	    			ITrackU[k][l].Frame_PlayerDebuffed:SetStatusBarColor(db_variable.COLOR_R_DEBUFFED_MAXSTACK, db_variable.COLOR_G_DEBUFFED_MAXSTACK, db_variable.COLOR_B_DEBUFFED_MAXSTACK, a)
+	    		elseif l == "Player" then
+	    			ITrackU[k][l].Frame_PlayerDebuffed:SetStatusBarColor(db_variable.COLOR_R_DEBUFFED_PLAYER, db_variable.COLOR_G_DEBUFFED_PLAYER, db_variable.COLOR_B_DEBUFFED_PLAYER, a)
+	    		elseif l == "Focus" then
+	    			ITrackU[k][l].Frame_PlayerDebuffed:SetStatusBarColor(db_variable.COLOR_R_DEBUFFED_FOCUS, db_variable.COLOR_G_DEBUFFED_FOCUS, db_variable.COLOR_B_DEBUFFED_FOCUS, a)
+	    		else
+	    			ITrackU[k][l].Frame_PlayerDebuffed:SetStatusBarColor(db_variable.COLOR_R_DEBUFFED_MATE, db_variable.COLOR_G_DEBUFFED_MATE, db_variable.COLOR_B_DEBUFFED_MATE, a)
+	    		end
+	      end
+	    end
+	  end
+	end
+end
 ---------------------------------------------------------------------------------------------------
 -------------------------------   ONUPDATE EVENT HANDLING METHODS   -------------------------------
 ---------------------------------------------------------------------------------------------------
@@ -445,7 +516,7 @@ local function update_timer(k, l, minimum, maximum, auratype)
     -- Alert if stacks > max stacks
     if ITrackU["DebuffToTrack"][k]["MaxStacks"] == true and ITrackU[k][l].Stacks >= ITrackU["DebuffToTrack"][k]["MaxStacksNumber"] then
       ITrackU[k][l].Frame_PlayerDebuffed:SetBackdropColor(db_variable.COLOR_R_DEBUFFED_MAXSTACK, db_variable.COLOR_G_DEBUFFED_MAXSTACK, db_variable.COLOR_B_DEBUFFED_MAXSTACK, db_variable.COLOR_A_DEBUFFED_MAXSTACK)
-      ITrackU[k][l].Frame_PlayerDebuffed:SetStatusBarColor(db_variable.COLOR_R_DEBUFFED_MAXSTACK, db_variable.COLOR_G_DEBUFFED_MAXSTACK, db_variable.COLOR_B_DEBUFFED_MAXSTACK, 1)
+      ITrackU[k][l].Frame_PlayerDebuffed:SetStatusBarColor(db_variable.COLOR_R_DEBUFFED_MAXSTACK, db_variable.COLOR_G_DEBUFFED_MAXSTACK, db_variable.COLOR_B_DEBUFFED_MAXSTACK, db_variable.COLOR_A_DEBUFFED_STATUSBAR)
     end
 
     -- when timer has reached the desired value, as defined by global END (secTnds), restart it by setting it to 0, as defined by global START
@@ -521,14 +592,15 @@ local function encounter_end(self, ...)
         if ITrackU[k]["debuffed"] then
           for l, w in pairs(ITrackU[k]["debuffed"]) do
             if w then
+              if ITrackU["DebuffToTrack"][k]["Type"] == "Stack" or ITrackU["DebuffToTrack"][k]["Type"] == "Spread" and l ~= select(1, UnitName("player")) then
+              	ITrackU[k][l].Frame_PlayerDistance:SetScript("OnUpdate", nil)
+                remove_frame(ITrackU[k][l].Frame_PlayerDistance)
+              end
               ITrackU[k][l].Frame_PlayerDebuffed:SetValue(0)
               ITrackU[k][l].Frame_PlayerDebuffed:SetScript("OnUpdate", nil)
               ITrackU[k][l].Text_PlayerDebuffed:SetText("")
               ITrackU[k][l].Text_PlayerStacks:SetText("")
               remove_frame(ITrackU[k][l].Frame_PlayerDebuffed)
-              if ITrackU["DebuffToTrack"][k]["Type"] == "Stack" or ITrackU["DebuffToTrack"][k]["Type"] == "Spread" then
-                remove_frame(ITrackU[k][l].Frame_PlayerDistance)
-              end
             end
           end
         end
@@ -609,7 +681,7 @@ local function table_frame_player_debuffed(Env, type, spell_id, dest_name, aura_
 
             --Frame_PlayerDebuffed StatusBar
             ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetStatusBarTexture([[Interface\ChatFrame\ChatFrameBackground]])
-            ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetStatusBarColor(ITrackU[spell_id]["debuffed"][dest_name]["color_red"],ITrackU[spell_id]["debuffed"][dest_name]["color_green"],ITrackU[spell_id]["debuffed"][dest_name]["color_blue"], 1)
+            ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetStatusBarColor(ITrackU[spell_id]["debuffed"][dest_name]["color_red"],ITrackU[spell_id]["debuffed"][dest_name]["color_green"],ITrackU[spell_id]["debuffed"][dest_name]["color_blue"], db_variable.COLOR_A_DEBUFFED_STATUSBAR)
             ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetFillStyle("REVERSE")
 
           if Env == "TEST" then
@@ -618,7 +690,7 @@ local function table_frame_player_debuffed(Env, type, spell_id, dest_name, aura_
 
             if ITrackU[spell_id][dest_name].Stacks >= ITrackU["DebuffToTrack"][spell_id]["MaxStacksNumber"] then
             	ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetBackdropColor(db_variable.COLOR_R_DEBUFFED_MAXSTACK, db_variable.COLOR_G_DEBUFFED_MAXSTACK, db_variable.COLOR_B_DEBUFFED_MAXSTACK, db_variable.COLOR_A_DEBUFFED_MAXSTACK)
-      			ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetStatusBarColor(db_variable.COLOR_R_DEBUFFED_MAXSTACK, db_variable.COLOR_G_DEBUFFED_MAXSTACK, db_variable.COLOR_B_DEBUFFED_MAXSTACK, 1)
+      			ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetStatusBarColor(db_variable.COLOR_R_DEBUFFED_MAXSTACK, db_variable.COLOR_G_DEBUFFED_MAXSTACK, db_variable.COLOR_B_DEBUFFED_MAXSTACK, db_variable.COLOR_A_DEBUFFED_STATUSBAR)
             end
           end
           
@@ -660,8 +732,8 @@ local function table_frame_player_debuffed(Env, type, spell_id, dest_name, aura_
           --Frame PlayerDistance
           if (ITrackU["DebuffToTrack"][spell_id]["Type"] == "Stack" or ITrackU["DebuffToTrack"][spell_id]["Type"] == "Spread") and dest_name ~= select(1, UnitName("player")) then
             ITrackU[spell_id][dest_name].Frame_PlayerDistance = get_frame()
-            ITrackU[spell_id][dest_name].Frame_PlayerDistance = modify_frame(ITrackU[spell_id][dest_name].Frame_PlayerDistance, Frame_Main, {bgFile = [[Interface\ChatFrame\ChatFrameBackground]]}, db_variable.WIDTH_PLAYER_DISTANCE, db_variable.HEIGHT_DEBUFFED, "TOPRIGHT", 0, i, 0, 0, 0, 1, "LOW")
-            ITrackU[spell_id][dest_name].Frame_PlayerDistance:Show()
+            ITrackU[spell_id][dest_name].Frame_PlayerDistance = modify_frame(ITrackU[spell_id][dest_name].Frame_PlayerDistance, Frame_Main, {bgFile = [[Interface\ChatFrame\ChatFrameBackground]]}, db_variable.WIDTH_PLAYER_DISTANCE, db_variable.HEIGHT_DEBUFFED, "TOPLEFT", db_variable.WIDTH_ECART_GLOBAL_PLAYER_DISTANCE + db_variable.WIDTH_GLOBAL, i, 0, 0, 0, 1, "LOW")
+            ITrackU[spell_id][dest_name].Frame_PlayerDistance:Hide()
             player_distance_script(spell_id,dest_name, Env)
           end
           
@@ -703,7 +775,8 @@ local function order_frame_player_debuff()
                 
                 --Frame PlayerDistance
                 if (ITrackU["DebuffToTrack"][k]["Type"] == "Stack" or ITrackU["DebuffToTrack"][k]["Type"] == "Spread") and l ~= select(1, UnitName("player")) then
-                  ITrackU[k][l].Frame_PlayerDistance:SetPoint("TOPRIGHT", 0, i)
+                  ITrackU[k][l].Frame_PlayerDistance:Show()
+                  ITrackU[k][l].Frame_PlayerDistance:SetPoint("TOPLEFT", db_variable.WIDTH_ECART_GLOBAL_PLAYER_DISTANCE + db_variable.WIDTH_GLOBAL, i)
                 end
                 
                 -- MAJ i
@@ -750,8 +823,7 @@ if ITrackU then
         
           -- On remove la frame si Stack ou Spread
           if (ITrackU["DebuffToTrack"][spell_id]["Type"] == "Stack" or ITrackU["DebuffToTrack"][spell_id]["Type"] == "Spread") and dest_name ~= select(1, UnitName("player")) then
-            	print("That's working")
-		remove_frame(ITrackU[spell_id][dest_name].Frame_PlayerDistance)
+			  remove_frame(ITrackU[spell_id][dest_name].Frame_PlayerDistance)
           end      
         
           -- Vider les tables
@@ -841,6 +913,7 @@ SlashCmdList['ITRACKU_FRAMETEST_SLASHCMD'] = function()
   table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 18499, "Focus", "BUFF")
   table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 18499, "Mate4", "BUFF")
   table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 18499, "Mate5", "BUFF")
+  order_frame_player_debuff()
   print("Addon Open")  
 end
 SLASH_ITRACKU_FRAMETEST_SLASHCMD1 = '/frametest'
