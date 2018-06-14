@@ -69,8 +69,8 @@ local function addon_loaded(event, arg1)
       [132404] = {
         ["IfActive"] = false,
         ["Count"] = 0,
-        ["Type"] = "Classic",
-        ["TypeDistance"] = 0,
+        ["Type"] = "Spread",
+        ["TypeDistance"] = 8,
         ["Rôle"] = "All",
         ["MaxStacks"] = true,
         ["MaxStacksNumber"] = 4,      
@@ -381,9 +381,13 @@ end
 ---------------------------------------------------------------------------------------------------
 
 -- Calculate the distance between the player and the player debuffed. Green if ok, red if not.
-local function player_distance_script(k, l)
+local function player_distance_script(k, l, Env)
   ITrackU[k][l].Frame_PlayerDistance:SetScript("OnUpdate", function(self, elapsed)
-    ITrackU[k][l].Distance = compute_distance(l, select(1, UnitName("player")))
+	if Env = "PROD" then
+    		ITrackU[k][l].Distance = compute_distance(l, select(1, UnitName("player")))
+	elseif Env = "TEST" then
+		ITrackU[k][l].Distance = 1			
+	end
     if ITrackU["DebuffToTrack"][k]["Type"] == "Stack" then
       if ITrackU[k][l].Distance < ITrackU["DebuffToTrack"][k]["TypeDistance"] then
         ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(0,1,0,1)
@@ -658,7 +662,7 @@ local function table_frame_player_debuffed(Env, type, spell_id, dest_name, aura_
             ITrackU[spell_id][dest_name].Frame_PlayerDistance = get_frame()
             ITrackU[spell_id][dest_name].Frame_PlayerDistance = modify_frame(ITrackU[spell_id][dest_name].Frame_PlayerDistance, Frame_Main, {bgFile = [[Interface\ChatFrame\ChatFrameBackground]]}, db_variable.WIDTH_PLAYER_DISTANCE, db_variable.HEIGHT_DEBUFFED, "TOPRIGHT", 0, i, 0, 0, 0, 1, "LOW")
             ITrackU[spell_id][dest_name].Frame_PlayerDistance:Show()
-            player_distance_script(spell_id,dest_name)
+            player_distance_script(spell_id,dest_name, Env)
           end
           
           ITrackU["DebuffToTrack"][spell_id]["Count"] = ITrackU["DebuffToTrack"][spell_id]["Count"] + 1
