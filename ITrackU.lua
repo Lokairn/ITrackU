@@ -740,9 +740,9 @@ if ITrackU then
     
     -- Aura removed
     if type == "SPELL_AURA_REMOVED" and ITrackU then
-      if ITrackU["DebuffToTrack"] ~= nil then
+      if ITrackU["DebuffToTrack"] then
         local _, _, _, _, _, _, _, _, _, _, _, spell_id, aura_type = ...
-        if ITrackU["DebuffToTrack"][spell_id] and ITrackU[spell_id][dest_name] ~= nil then
+        if ITrackU["DebuffToTrack"][spell_id] and ITrackU[spell_id][dest_name] then
         
           -- On remove la frame si Stack ou Spread
           if (ITrackU["DebuffToTrack"][spell_id]["Type"] == "Stack" or ITrackU["DebuffToTrack"][spell_id]["Type"] == "Spread") and dest_name ~= select(1, UnitName("player")) then
