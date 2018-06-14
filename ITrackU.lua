@@ -259,13 +259,13 @@ end
 
 -- Update the main frame position 
 function update_main_frame_x(x_value)
-  if Frame_Main ~= nil then
+  if Frame_Main then
     Frame_Main:SetPoint(db_variable.ANCHOR_POINT,x_value,db_variable.POSITION_Y)
   end
 end
 
 function update_main_frame_y(y_value)
-  if Frame_Main ~= nil then
+  if Frame_Main then
     Frame_Main:SetPoint(db_variable.ANCHOR_POINT, db_variable.POSITION_X, y_value)
   end
 end
@@ -370,7 +370,7 @@ end
 
 -- Update Titre Background Color
 function update_background_color_titre(r, g, b, a)
-  if ITrackU["DebuffToTrack"] ~= nil then
+  if ITrackU["DebuffToTrack"] then
     for k, v in pairs(ITrackU["DebuffToTrack"]) do
       ITrackU[k].Frame_Titre:SetBackdropColor(r, g, b, a)
     end
@@ -383,9 +383,9 @@ end
 -- Calculate the distance between the player and the player debuffed. Green if ok, red if not.
 local function player_distance_script(k, l, Env)
   ITrackU[k][l].Frame_PlayerDistance:SetScript("OnUpdate", function(self, elapsed)
-	if Env = "PROD" then
+	if Env == "PROD" then
     		ITrackU[k][l].Distance = compute_distance(l, select(1, UnitName("player")))
-	elseif Env = "TEST" then
+	elseif Env == "TEST" then
 		ITrackU[k][l].Distance = 1			
 	end
     if ITrackU["DebuffToTrack"][k]["Type"] == "Stack" then
