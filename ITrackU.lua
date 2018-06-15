@@ -300,7 +300,6 @@ local function lock_main_frame()
 
 end
 
-
 function show_lock_dialog()
   if not unlock_dialog then
     local f = CreateFrame("Frame", "UnlockDialog", UIParent)
@@ -428,6 +427,7 @@ function update_background_color_maxstack(r, g, b, a)
 	end
 end
 
+-- Update Alpha StatusBar Background Color.
 function update_alpha_color_statusbar(a)
 	if ITrackU["DebuffToTrack"] then
 	  for k, v in pairs(ITrackU["DebuffToTrack"]) do
@@ -445,6 +445,26 @@ function update_alpha_color_statusbar(a)
 	      end
 	    end
 	  end
+	end
+end
+
+-- Update Global Width
+function update_width_global(width)
+	if ITrackU["DebuffToTrack"] then
+		i = 0
+		Frame_Main:SetWidth(width + db_variable.WIDTH_ECART_GLOBAL_PLAYER_DISTANCE + db_variable.WIDTH_PLAYER_DISTANCE)
+		for k, v in pairs(ITrackU["DebuffToTrack"]) do
+			ITrackU[k].Frame_Titre:SetWidth(width)
+			i = i - db_variable.HEIGHT_TITLE - db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED
+			for l, w in pairs(ITrackU[k]["debuffed"]) do
+				ITrackU[k][l].Frame_PlayerDebuffed:SetWidth(width)
+				if (ITrackU["DebuffToTrack"][k]["Type"] == "Stack" or ITrackU["DebuffToTrack"][k]["Type"] == "Spread") and l ~= select(1, UnitName("player")) then
+					ITrackU[k][l].Frame_PlayerDistance:SetPoint("TOPLEFT", db_variable.WIDTH_ECART_GLOBAL_PLAYER_DISTANCE + width, i)
+				end
+				i = i - db_variable.HEIGHT_DEBUFFED - db_variable.HEIGHT_BETWEEN_DEBUFFED
+			end 
+			i = i - db_variable.HEIGHT_BETWEEN_TITLE
+		end
 	end
 end
 ---------------------------------------------------------------------------------------------------
@@ -851,8 +871,11 @@ end
 -- Called when encounter starts
 local function encounter_start(self, ...)
 if ITrackU == nil or ITrackU == "ITrackU" then ITrackU = {} end
-ITrackU["encounter_id"], _, _, _ = ...
-player_regen_disabled_handler()
+	if ITrackU["DebuffToTrack"] then
+		encounter_end()
+	end
+	ITrackU["encounter_id"], _, _, _ = ...
+	player_regen_disabled_handler()
 end  
 
 ---------------------------------------------------------------------------------------------------
@@ -882,6 +905,9 @@ end)
  
 SlashCmdList['ITRACKU_MAINFRAME_SLASHCMD'] = function()
   if ITrackU == nil then ITrackU = {} end
+		if ITrackU["DebuffToTrack"] then
+			encounter_end()
+		end
   ITrackU["encounter_id"] = 1111
   player_regen_disabled_handler()
   print("Addon Open")
@@ -894,32 +920,28 @@ SlashCmdList['ITRACKU_CLOSEFRAME_SLASHCMD'] = function()
 end
 SLASH_ITRACKU_CLOSEFRAME_SLASHCMD1 = '/closeframe'
 
-SlashCmdList['ITRACKU_ENCOUNTER_SLASHCMD'] = function()
-  local encounter = EJ_GetCreatureInfo()
-  print(encounter)
+---------------------------------------------------------------------------------------------------
+-----------------------------------------   FRAME TEST   ------------------------------------------
+--------------------------------------------------------------------------------------------------- 
+
+-- Open FrameTest for Options
+function open_frame_test()
+	if ITrackU == nil then ITrackU = {} end
+	if ITrackU["DebuffToTrack"] then
+		encounter_end()
+	else
+	  if ITrackU == nil then ITrackU = {} end
+	  ITrackU["encounter_id"] = 1111
+	  player_regen_disabled_handler()
+	  table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 132404, "Player", "BUFF")
+	  table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 132404, "Focus", "BUFF")
+	  table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 132404, "Mate1", "BUFF")
+	  table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 23920, "Mate2", "BUFF")
+	  table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 23920, "Player", "BUFF")
+	  table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 23920, "Mate3", "BUFF")
+	  table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 18499, "Focus", "BUFF")
+	  table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 18499, "Mate4", "BUFF")
+	  table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 18499, "Mate5", "BUFF")
+	  order_frame_player_debuff()
+	end
 end
-SLASH_ITRACKU_ENCOUNTER_SLASHCMD1 = '/encounter'
-
-SlashCmdList['ITRACKU_FRAMETEST_SLASHCMD'] = function()
-  if ITrackU == nil then ITrackU = {} end
-  ITrackU["encounter_id"] = 1111
-  player_regen_disabled_handler()
-  table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 132404, "Player", "BUFF")
-  table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 132404, "Focus", "BUFF")
-  table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 132404, "Mate1", "BUFF")
-  table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 23920, "Mate2", "BUFF")
-  table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 23920, "Player", "BUFF")
-  table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 23920, "Mate3", "BUFF")
-  table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 18499, "Focus", "BUFF")
-  table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 18499, "Mate4", "BUFF")
-  table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 18499, "Mate5", "BUFF")
-  order_frame_player_debuff()
-  print("Addon Open")  
-end
-SLASH_ITRACKU_FRAMETEST_SLASHCMD1 = '/frametest'
-
-
-SlashCmdList['ITRACKU_CLOSETEST_SLASHCMD'] = function()
-
-end
-SLASH_ITRACKU_CLOSETEST_SLASHCMD1 = '/closetest'

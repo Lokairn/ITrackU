@@ -76,42 +76,97 @@ local options = {
 			type = "group",
 			order = 1,
 			args = {
-				HEADER_POS = {
-					type = "header",
-					name = "ITrackU Position"
-				},
-				-- POS_X = {
-					-- type = "range",
-					-- desc = "test",
-					-- name = "Position X",
-					-- min = -1000,
-					-- max = 1000,
-					-- step = 1,
-					-- set = function(info,val)
-						-- db_variable.POSITION_X = val
-						-- update_main_frame_x(val)
-					-- end,
-					-- get = function(info) return db_variable.POSITION_X end,
-				-- },
-				-- POS_Y = {
-					-- type = "range",
-					-- desc = "test",
-					-- name = "Position Y",
-					-- min = -1000,
-					-- max = 1000,
-					-- step = 1,
-					-- set = function(info,val)
-						-- db_variable.POSITION_Y = val
-						-- update_main_frame_y(val)
-					-- end,
-					-- get = function(info) return db_variable.POSITION_Y end,
-				-- },
+        HEADER_FRAME_TEST = {
+          type = "header",
+          name = "Frame",
+          order = 1,
+        },
+        EXECUTE_OPEN_Frame = {
+          type = "execute",
+          name = function() 
+            if ITrackU then
+              if ITrackU["DebuffToTrack"] then
+                return "Close Frame"
+              else
+                return "Open Frame"
+              end
+            else
+              return "Open Frame"
+            end
+          end,
+          order = 2,
+          func = function()
+            open_frame_test()
+          end,
+        },
 				LOCK = {
 					type = "execute",
-          width = "full",
 					name = "Move main frame",
 					func = show_lock_dialog,
-			}
+          order = 3,
+			  },
+        HEADER_POS_DIMENSION = {
+          type = "header",
+          name = "Position & Dimension",
+          order = 4,
+        },
+        DESCRIPTION_POS_DIMENSION = {
+          type = "description",
+          name = "Modify the position and the dimension of all frames.",
+          order = 5,
+        },
+        --DESCRIPTION_POS = {
+        --  type = "description",
+        --  name = "Manually change the position (x, y) of the frame. You can also use the 'Move Main Frame' button to do it with your cursos",
+        --  order = 6,
+        --},
+        -- POS_X = {
+          -- type = "range",
+          -- desc = "test",
+          -- name = "Position X",
+          -- min = -1000,
+          -- max = 1000,
+          -- step = 1,
+          -- order = 7,
+          -- set = function(info,val)
+            -- db_variable.POSITION_X = val
+            -- update_main_frame_x(val)
+          -- end,
+          -- get = function(info) return db_variable.POSITION_X end,
+        -- },
+        -- POS_Y = {
+          -- type = "range",
+          -- desc = "test",
+          -- name = "Position Y",
+          -- min = -1000,
+          -- max = 1000,
+          -- step = 1,
+          -- order = 8,
+          -- set = function(info,val)
+            -- db_variable.POSITION_Y = val
+            -- update_main_frame_y(val)
+          -- end,
+          -- get = function(info) return db_variable.POSITION_Y end,
+        -- },
+        DESCRIPTION_DIMENSION_WIDTH_HEIGHT = {
+          type = "description",
+          name = "Modify Widht and Height of each frames",
+          order = 9,
+        },
+        GLOBAL_WIDTH = {
+          type = "range",
+          name = "Frame & Debuffed Width",
+          order = 10,
+          min = 50,
+          max = 250,
+          step = 1,
+          desc = "",
+          set = function(info, val)
+            db_variable.WIDTH_GLOBAL = val
+            update_width_global(val)
+          end,
+          get = function(val) return db_variable.WIDTH_GLOBAL end,
+        },
 			},
 		},
 		ColorPanel = {
