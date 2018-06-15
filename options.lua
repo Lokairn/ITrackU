@@ -148,14 +148,14 @@ local options = {
           -- end,
           -- get = function(info) return db_variable.POSITION_Y end,
         -- },
-        DESCRIPTION_DIMENSION_WIDTH_HEIGHT = {
-          type = "description",
-          name = "Modify Widht and Height of each frames",
-          order = 9,
-        },
+        --DESCRIPTION_DIMENSION_WIDTH_HEIGHT = {
+        --  type = "description",
+        --  name = "Modify Widht and Height of each frames",
+        --  order = 9,
+        --},
         GLOBAL_WIDTH = {
           type = "range",
-          name = "Frame & Debuffed Width",
+          name = "Title & Debuffed Width",
           order = 10,
           min = 50,
           max = 250,
@@ -163,9 +163,95 @@ local options = {
           desc = "",
           set = function(info, val)
             db_variable.WIDTH_GLOBAL = val
-            update_width_global(val)
+            order_frame_player_debuff()
           end,
           get = function(val) return db_variable.WIDTH_GLOBAL end,
+        },
+        DESCRIPTION_DIMENSION_HEIGHTS = {
+          type = "description",
+          name = "Modify Height of Title Frames or/and height of Debuffed Frames",
+          order = 11,
+          width = "full",
+        },
+        HEIGHT_TITLE = {
+          type = "range",
+          name = "Title Height",
+          order = 12,
+          min = 10,
+          max = 50,
+          step = 1,
+          desc = "",
+          set = function(info, val)
+            db_variable.HEIGHT_TITLE = val
+            order_frame_player_debuff()
+          end,
+          get = function(val) return db_variable.HEIGHT_TITLE end,
+        },
+        HEIGHT_DEBUFFED = {
+          type = "range",
+          name = "Debuffed Height",
+          order = 13,
+          min = 10,
+          max = 50,
+          step = 1,
+          desc = "",
+          set = function(info, val)
+            db_variable.HEIGHT_DEBUFFED = val
+            order_frame_player_debuff()
+          end,
+          get = function(val) return db_variable.HEIGHT_DEBUFFED end,
+        },
+        HEADER_SPACE_BETWEEN_ITEM = {
+          type = "header",
+          name = "Space between items",
+          order = 14,
+        },
+        DESCRIPTION_SPACE_BETWEEN_ITEM = {
+          type = "description",
+          name = "Modify the space between each item",
+          order = 15,
+        },
+        SPACE_TITLE_TITLE = {
+          type = "range",
+          name = "Space Title - Title",
+          order = 16,
+          min = 0,
+          max = 20,
+          step = 0.01,
+          desc = "",
+          set = function(info, val)
+            db_variable.HEIGHT_BETWEEN_TITLE = val
+            order_frame_player_debuff()
+          end,
+          get = function(val) return db_variable.HEIGHT_BETWEEN_TITLE end,
+        },
+        SPACE_TITLE_DEBUFFED = {
+          type = "range",
+          name = "Space Title - Debuffed",
+          order = 17,
+          min = 0,
+          max = 5,
+          step = 0.01,
+          desc = "",
+          set = function(info, val)
+            db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED = val
+            order_frame_player_debuff()
+          end,
+          get = function(val) return db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED end,
+        },
+        SPACE_DEBUFFED_DEBUFFED = {
+          type = "range",
+          name = "Space Debuffed - Debuffed",
+          order = 18,
+          min = 0,
+          max = 5,
+          step = 0.01,
+          desc = "",
+          set = function(info, val)
+            db_variable.HEIGHT_BETWEEN_DEBUFFED = val
+            order_frame_player_debuff()
+          end,
+          get = function(val) return db_variable.HEIGHT_BETWEEN_DEBUFFED end,
         },
 			},
 		},
@@ -304,7 +390,35 @@ local options = {
           type = "description",
           name = "You can modify the color of the frame created when you are tracking a Stack or Spread spell.",
           order = 16,
-        },      
+        }, 
+        COLOR_DISTANCE_OK = {
+          type = "color",
+          desc = "",
+          name = "Distance frame OK",
+          hasAlpha = true,
+          order = 17,
+          set = function(info, val1, val2, val3, val4)
+            db_variable.COLOR_R_DISTANCE_OK = val1
+            db_variable.COLOR_G_DISTANCE_OK = val2
+            db_variable.COLOR_B_DISTANCE_OK = val3
+            db_variable.COLOR_A_DISTANCE_OK = val4
+          end,
+          get = function(info) return db_variable.COLOR_R_DISTANCE_OK, db_variable.COLOR_G_DISTANCE_OK, db_variable.COLOR_B_DISTANCE_OK, db_variable.COLOR_A_DISTANCE_OK end,
+        },
+        COLOR_DISTANCE_KO = {
+          type = "color",
+          desc = "",
+          name = "Distance frame KO",
+          hasAlpha = true,
+          order = 18,
+          set = function(info, val1, val2, val3, val4)
+            db_variable.COLOR_R_DISTANCE_KO = val1
+            db_variable.COLOR_G_DISTANCE_KO = val2
+            db_variable.COLOR_B_DISTANCE_KO = val3
+            db_variable.COLOR_A_DISTANCE_KO = val4
+          end,
+          get = function(info) return db_variable.COLOR_R_DISTANCE_KO, db_variable.COLOR_G_DISTANCE_KO, db_variable.COLOR_B_DISTANCE_KO, db_variable.COLOR_A_DISTANCE_KO end,
+        },    
 			},
 		},
 		DebuffsBDD = {

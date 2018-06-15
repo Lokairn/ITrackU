@@ -54,6 +54,14 @@ local function addon_loaded(event, arg1)
 	if db_variable.COLOR_B_DEBUFFED_MAXSTACK == nil then db_variable.COLOR_B_DEBUFFED_MAXSTACK = 0 end
 	if db_variable.COLOR_A_DEBUFFED_MAXSTACK == nil then db_variable.COLOR_A_DEBUFFED_MAXSTACK = 0.5 end
 	if db_variable.COLOR_A_DEBUFFED_STATUSBAR == nil then db_variable.COLOR_A_DEBUFFED_STATUSBAR = 1 end
+	if db_variable.COLOR_R_DISTANCE_OK == nil then db_variable.COLOR_R_DISTANCE_OK = 0 end
+	if db_variable.COLOR_G_DISTANCE_OK == nil then db_variable.COLOR_G_DISTANCE_OK = 1 end
+	if db_variable.COLOR_B_DISTANCE_OK == nil then db_variable.COLOR_B_DISTANCE_OK = 0 end
+	if db_variable.COLOR_A_DISTANCE_OK == nil then db_variable.COLOR_A_DISTANCE_OK = 1 end
+	if db_variable.COLOR_R_DISTANCE_KO == nil then db_variable.COLOR_R_DISTANCE_KO = 1 end
+	if db_variable.COLOR_G_DISTANCE_KO == nil then db_variable.COLOR_G_DISTANCE_KO = 0 end
+	if db_variable.COLOR_B_DISTANCE_KO == nil then db_variable.COLOR_B_DISTANCE_KO = 0 end
+	if db_variable.COLOR_A_DISTANCE_KO == nil then db_variable.COLOR_A_DISTANCE_KO = 1 end
 
   --set all variables tables for the test frame
   if debuffs_table ~= nil then
@@ -85,11 +93,11 @@ local function addon_loaded(event, arg1)
         ["MaxStacks"] = true,
         ["MaxStacksNumber"] = 4,      
       },
-      [125565] = {
+      [188783] = {
         ["IfActive"] = false,
         ["Count"] = 0,
-        ["Type"] = "Classic",
-        ["TypeDistance"] = 0,
+        ["Type"] = "Stack",
+        ["TypeDistance"] = 8,
         ["Rôle"] = "All",
         ["MaxStacks"] = true,
         ["MaxStacksNumber"] = 4,      
@@ -448,25 +456,6 @@ function update_alpha_color_statusbar(a)
 	end
 end
 
--- Update Global Width
-function update_width_global(width)
-	if ITrackU["DebuffToTrack"] then
-		i = 0
-		Frame_Main:SetWidth(width + db_variable.WIDTH_ECART_GLOBAL_PLAYER_DISTANCE + db_variable.WIDTH_PLAYER_DISTANCE)
-		for k, v in pairs(ITrackU["DebuffToTrack"]) do
-			ITrackU[k].Frame_Titre:SetWidth(width)
-			i = i - db_variable.HEIGHT_TITLE - db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED
-			for l, w in pairs(ITrackU[k]["debuffed"]) do
-				ITrackU[k][l].Frame_PlayerDebuffed:SetWidth(width)
-				if (ITrackU["DebuffToTrack"][k]["Type"] == "Stack" or ITrackU["DebuffToTrack"][k]["Type"] == "Spread") and l ~= select(1, UnitName("player")) then
-					ITrackU[k][l].Frame_PlayerDistance:SetPoint("TOPLEFT", db_variable.WIDTH_ECART_GLOBAL_PLAYER_DISTANCE + width, i)
-				end
-				i = i - db_variable.HEIGHT_DEBUFFED - db_variable.HEIGHT_BETWEEN_DEBUFFED
-			end 
-			i = i - db_variable.HEIGHT_BETWEEN_TITLE
-		end
-	end
-end
 ---------------------------------------------------------------------------------------------------
 -------------------------------   ONUPDATE EVENT HANDLING METHODS   -------------------------------
 ---------------------------------------------------------------------------------------------------
@@ -481,16 +470,16 @@ local function player_distance_script(k, l, Env)
 	end
     if ITrackU["DebuffToTrack"][k]["Type"] == "Stack" then
       if ITrackU[k][l].Distance < ITrackU["DebuffToTrack"][k]["TypeDistance"] then
-        ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(0,1,0,1)
+        ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(db_variable.COLOR_R_DISTANCE_OK,db_variable.COLOR_G_DISTANCE_OK,db_variable.COLOR_B_DISTANCE_OK,db_variable.COLOR_A_DISTANCE_OK)
       else
-        ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(1,0,0,1)
+        ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(db_variable.COLOR_R_DISTANCE_KO,db_variable.COLOR_G_DISTANCE_KO,db_variable.COLOR_B_DISTANCE_KO,db_variable.COLOR_A_DISTANCE_KO)
       end
 
     elseif ITrackU["DebuffToTrack"][k]["Type"] == "Spread" then
       if ITrackU[k][l].Distance < ITrackU["DebuffToTrack"][k]["TypeDistance"] then
-        ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(1,0,0,1)
+        ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(db_variable.COLOR_R_DISTANCE_KO,db_variable.COLOR_G_DISTANCE_KO,db_variable.COLOR_B_DISTANCE_KO,db_variable.COLOR_A_DISTANCE_KO)
       else
-        ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(0,1,0,1)
+        ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(db_variable.COLOR_R_DISTANCE_OK,db_variable.COLOR_G_DISTANCE_OK,db_variable.COLOR_B_DISTANCE_OK,db_variable.COLOR_A_DISTANCE_OK)
       end
     end
   end)
@@ -500,34 +489,49 @@ end
 local function update_timer(k, l, minimum, maximum, auratype)
   ITrackU[k][l].Frame_PlayerDebuffed:SetScript("OnUpdate", function(self, elapsed)  
     if auratype == "BUFF" then
+
       -- Max
-      ITrackU[k][l].ModifMax = select(6, UnitBuff(l, select(1, GetSpellInfo(k))))
+      if maximum then
+      	ITrackU[k][l].ModifMax = select(6, UnitBuff(l, select(1, GetSpellInfo(k))))
+      end
 
       -- Stacks
       ITrackU[k][l].Stacks = select(4, UnitBuff(l, select(1, GetSpellInfo(k))))
 
       -- Timer
-      if maximum ~= ITrackU[k][l].ModifMax then
-        ITrackU[k][l].Timer = (select(7, UnitBuff(l, select(1, GetSpellInfo(k)))) - GetTime()) * maximum / ITrackU[k][l].ModifMax
-      else
-        ITrackU[k][l].Timer = select(7, UnitBuff(l, select(1, GetSpellInfo(k)))) - GetTime()
-      end
+      if maximum then
+	      if maximum ~= ITrackU[k][l].ModifMax then
+	        ITrackU[k][l].Timer = (select(7, UnitBuff(l, select(1, GetSpellInfo(k)))) - GetTime()) * maximum / ITrackU[k][l].ModifMax
+	      else
+	        ITrackU[k][l].Timer = select(7, UnitBuff(l, select(1, GetSpellInfo(k)))) - GetTime()
+	      end
+    	end
 
     elseif auratype == "DEBUFF" then
       -- Max
-      ITrackU[k][l].ModifMax = select(6, UnitDebuff(l, select(1, GetSpellInfo(k))))
+      if maximum then
+      	ITrackU[k][l].ModifMax = select(6, UnitDebuff(l, select(1, GetSpellInfo(k))))
+    	end
 
       -- Stacks
       ITrackU[k][l].Stacks = select(4, UnitDebuff(l, select(1, GetSpellInfo(k))))
 
       -- Timer
-      if maximum ~= ITrackU[k][l].ModifMax then
-        ITrackU[k][l].Timer = (select(7, UnitDebuff(l, select(1, GetSpellInfo(k)))) - GetTime()) * maximum / ITrackU[k][l].ModifMax
-      else
-        ITrackU[k][l].Timer = select(7, UnitDebuff(l, select(1, GetSpellInfo(k)))) - GetTime()
-      end                           
+      if maximum then
+	      if maximum ~= ITrackU[k][l].ModifMax then
+	        ITrackU[k][l].Timer = (select(7, UnitDebuff(l, select(1, GetSpellInfo(k)))) - GetTime()) * maximum / ITrackU[k][l].ModifMax
+	      else
+	        ITrackU[k][l].Timer = select(7, UnitDebuff(l, select(1, GetSpellInfo(k)))) - GetTime()
+	      end 
+      end
+
     end
-    self:SetValue(ITrackU[k][l].Timer)
+    if maximum then
+    	self:SetValue(ITrackU[k][l].Timer)
+    else
+    	self:SetValue(1)
+    end
+
     if ITrackU[k][l].Stacks == 0 or ITrackU[k][l].Stacks == 1 then
       ITrackU[k][l].Text_PlayerStacks:SetText("")
     else
@@ -732,7 +736,11 @@ local function table_frame_player_debuffed(Env, type, spell_id, dest_name, aura_
               end                                            
               
               -- Set MinMax Status Bar
-              ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetMinMaxValues(ITrackU[spell_id][dest_name].Min, ITrackU[spell_id][dest_name].Max)
+              if ITrackU[spell_id][dest_name].Max then
+              	ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetMinMaxValues(ITrackU[spell_id][dest_name].Min, ITrackU[spell_id][dest_name].Max)
+              else
+              	ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetMinMaxValues(ITrackU[spell_id][dest_name].Min, 1)
+              end
               
               -- this function will run repeatedly, incrementing the value of timer as it goes
               update_timer(spell_id,dest_name, ITrackU[spell_id][dest_name].Min, ITrackU[spell_id][dest_name].Max, ITrackU[spell_id]["debuffed"][dest_name]["aura_type"])
@@ -763,13 +771,15 @@ local function table_frame_player_debuffed(Env, type, spell_id, dest_name, aura_
 end
 
 -- Called to order frame 
-local function order_frame_player_debuff()
+function order_frame_player_debuff()
   i = 0
   -- Positionning each frame
   for k, v in pairs(ITrackU["DebuffToTrack"]) do
     if (ITrackU["DebuffToTrack"][k]["Count"] ~= 0 and ITrackU["DebuffToTrack"][k]["IfActive"] == true) or ITrackU["DebuffToTrack"][k]["IfActive"] == false then
       -- Frame_Titre[k]
       ITrackU[k].Frame_Titre:SetPoint("TOPLEFT",0, i)
+      ITrackU[k].Frame_Titre:SetHeight(db_variable.HEIGHT_TITLE)
+      ITrackU[k].Frame_Titre:SetWidth(db_variable.WIDTH_GLOBAL)
 
   -- MAJ i
   if ITrackU["DebuffToTrack"][k]["Count"] > 0 then
@@ -792,11 +802,14 @@ local function order_frame_player_debuff()
                 
                 -- MAJ Frame_PlayerDebuffed Positionning
                 ITrackU[k][l].Frame_PlayerDebuffed:SetPoint("TOPLEFT", 0, i)
+                ITrackU[k][l].Frame_PlayerDebuffed:SetHeight(db_variable.HEIGHT_DEBUFFED)
+                ITrackU[k][l].Frame_PlayerDebuffed:SetWidth(db_variable.WIDTH_GLOBAL)
                 
                 --Frame PlayerDistance
                 if (ITrackU["DebuffToTrack"][k]["Type"] == "Stack" or ITrackU["DebuffToTrack"][k]["Type"] == "Spread") and l ~= select(1, UnitName("player")) then
                   ITrackU[k][l].Frame_PlayerDistance:Show()
                   ITrackU[k][l].Frame_PlayerDistance:SetPoint("TOPLEFT", db_variable.WIDTH_ECART_GLOBAL_PLAYER_DISTANCE + db_variable.WIDTH_GLOBAL, i)
+                  ITrackU[k][l].Frame_PlayerDistance:SetHeight(db_variable.HEIGHT_DEBUFFED)
                 end
                 
                 -- MAJ i
@@ -848,6 +861,7 @@ if ITrackU then
         
           -- Vider les tables
           ITrackU[spell_id]["debuffed"][dest_name] = nil
+          ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetScript("OnUpdate", nil)
           remove_frame(ITrackU[spell_id][dest_name].Frame_PlayerDebuffed)
           ITrackU[spell_id][dest_name].Text_PlayerDebuffed:SetText("")
           ITrackU[spell_id][dest_name].Text_PlayerStacks:SetText("")
@@ -942,6 +956,8 @@ function open_frame_test()
 	  table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 18499, "Focus", "BUFF")
 	  table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 18499, "Mate4", "BUFF")
 	  table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 18499, "Mate5", "BUFF")
+	  table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 188783, "Mate6", "BUFF")
+	  table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 188783, "Player", "BUFF")
 	  order_frame_player_debuff()
 	end
 end
