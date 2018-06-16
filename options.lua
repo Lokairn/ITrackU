@@ -7,30 +7,163 @@ ITrackU = LibStub("AceAddon-3.0"):NewAddon(addonName, "AceConsole-3.0")
 ---------------------------------------------------------------------------------------------------
 
 local raid_select = nil
+local raid_dungeon = {}
 local raid_boss = {}
 local raid_spell = {}
 
+local dungeons = {
+  ["Battle for Azeroth"] = {
+  
+  },
+  ["Legion"] = {
+    ["Black Rook Hold"] = {
+      [1832] = "Amalgam of Souls",
+      [1833] = "Illysanna Ravencrest",
+      [1834] = "Smashspite",
+      [1835] = "Kurtalos Ravencrest"
+    },
+    ["Cathedral of Eternal Night"] = {
+      [2055] = "Agronox",
+      [2057] = "Thrashbite the Scornful",
+      [2053] = "Domatrax",
+      [2039] = "Mephistroth"
+    },
+    ["Court of Stars"] = {
+      [1868] = "Patrol Captain Gerdo",
+      [1869] = "Talixae Flamewreath",
+      [1870] = "Advisor Melandrus"
+    },
+    ["Darkheart Thicket"] = {
+      [1836] = "Archdruid Glaidalis",
+      [1837] = "Oakheart",
+      [1838] = "Dresaron",
+      [1839] = "Shade of Xavius"
+    },
+    ["Eye of Azshara"] = {
+      [1810] = "Warlord Parjesh",
+      [1811] = "Lady Hatecoil",
+      [1813] = "Serpentrix",
+      [1812] = "King Deepbeard",
+      [1814] = "Wrath of Azshara"
+    },
+    ["Halls of Valor"] = {
+      [1805] = "Hymdall",
+      [1807] = "Fenryr",
+      [1806] = "Hyrja",
+      [1808] = "God-King Skovald",
+      [1809] = "Odyn"
+    },
+    ["Maw of Souls"] = {
+      [1822] = "Ymiron",
+      [1823] = "Harbaron",
+      [1824] = "Helya"
+    },
+    ["Neltharion's Lair"] = {
+      [1790] = "Rokmora",
+      [1791] = "Ularogg Cragshaper",
+      [1792] = "Naraxas",
+      [1793] = "Dargrul"
+    },
+    ["Return to Karazhan"] = {
+      [1960] = "Attumen the Huntsman",
+      [1964] = "The Curator",
+      [1954] = "Maiden of Virtue",
+      [1959] = "Mana Devourer",
+      [1961] = "Moroes",
+      [1957] = "Opera Hall",
+      [1965] = "Shade of Medivh",
+      [2017] = "Viz'aduum the Watcher"      
+    },
+    ["The Arcway"] = {
+      [1829] = "Advisor Vandros",
+      [1825] = "Corstilax",
+      [1828] = "General Xakal",
+      [1827] = "Ivanyr",
+      [1826] = "Naltira"
+    },
+    ["Vault of the Wardens"] = {
+      [1816] = "Ashgolm",
+      [1817] = "Glazer",
+      [1818] = "Cordana Felsong",
+      [1850] = "Inquisitor Tormentorum",
+      [1815] = "Tirathon Saltheril"
+    },
+    ["Violet Hold"] = {
+      [1852] = "Anub'esset",
+      [1856] = "Fel Lord Betrug",
+      [1848] = "Festerface",
+      [1846] = "Kaahrj",
+      [1847] = "Millificent Manastorm",
+      [1851] = "Saelorn",
+      [1845] = "Shivermaw",
+      [1855] = "Thalena"
+    },
+    ["Seat of the Triumvirate"] = {
+      [2068] = "L'ura",
+      [2066] = "Saprish",
+      [2067] = "Viceroy Nezhar",
+      [2065] = "Zuraal"
+    }
+  },
+}
+
 local raids = {
-	["Antorus, Burning Throne"] = {
-		[2076] = "Garothi",
-		[2074] = "Felbounds",
-    [2070] = "High Command",
-    [2064] = "Hasabel",
-    [2075] = "Eonar",
-    [2082] = "Imonar",
-    [2088] = "Kin'garoth",
-    [2069] = "Varimathras",
-    [2073] = "Shivarra",
-    [2063] = "Aggramar",
-    [2092] = "Argus"
-	},
+  ["Legion"] = {
+    ["Antorus, Burning Throne"] = {
+      [2076] = "Garothi",
+      [2074] = "Felbounds",
+      [2070] = "High Command",
+      [2064] = "Hasabel",
+      [2075] = "Eonar",
+      [2082] = "Imonar",
+      [2088] = "Kin'garoth",
+      [2069] = "Varimathras",
+      [2073] = "Shivarra",
+      [2063] = "Aggramar",
+      [2092] = "Argus"
+    },
+  },
+  ["Battle for Azeroth"] = {
+  
+  },
 }
 
 ---------------------------------------------------------------------------------------------------
 -----------------------------------------   FUNCTION TOOLS   --------------------------------------
 ---------------------------------------------------------------------------------------------------
 
-local function update_raid_boss(raid)
+function update_select_extension()
+  select_raid_or_dungeon = nil
+  raid_select = nil
+  boss_select = nil
+  spell_select = nil
+  for k, v in pairs(raid_dungeon) do
+    raid_dungeon[k] = nil
+  end
+	for k,v in pairs(raid_boss) do
+		raid_boss[k] = nil
+	end	
+	for k, v in pairs(raid_spell) do
+		raid_spell[k] = nil
+	end
+end
+
+local function update_select_raid_or_dungeon()
+	raid_select = nil
+  boss_select = nil
+  spell_select = nil
+  for k, v in pairs(raid_dungeon) do
+    raid_dungeon[k] = nil
+  end
+	for k,v in pairs(raid_boss) do
+		raid_boss[k] = nil
+	end	
+	for k, v in pairs(raid_spell) do
+		raid_spell[k] = nil
+	end
+end
+
+local function update_raid_boss(raid, select_raid_or_dungeon, select_extension)
 	boss_select = nil
   spell_select = nil
 	for k,v in pairs(raid_boss) do
@@ -39,27 +172,26 @@ local function update_raid_boss(raid)
 	for k, v in pairs(raid_spell) do
 		raid_spell[k] = nil
 	end
-	for k, v in pairs(raids) do
-		if k == raid then
-			for l, w in pairs(raids[k]) do
-				raid_boss[l] = w
-			end
-		end
-	end
+  if select_raid_or_dungeon == "Raid" then
+    for k, v in pairs(raids[select_extension][raid]) do
+      raid_boss[k] = v
+    end
+  elseif select_raid_or_dungeon == "Dungeon" then
+    for k, v in pairs(dungeons[select_extension][raid]) do
+      raid_boss[k] = v
+    end
+  end
 end
 
 local function update_spell_raid_boss(boss)
+  spell_select = nil
 	for k, v in pairs(raid_spell) do
-    spell_select = nil
 		raid_spell[k] = nil
 	end
-	for k, v in pairs(debuffs_table) do
-		if k == boss_select then
-			for l, w in pairs(debuffs_table[k]) do
-				raid_spell[l] = select(1, GetSpellInfo(l))
-			end
-		end
-	end
+  for k, v in pairs(debuffs_table[boss]) do
+    raid_spell[k] = select(1, GetSpellInfo(k))
+    
+  end
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -434,23 +566,59 @@ local options = {
         DESC_DEBUFF_SELECT = {
           type = "description",
           name = "Select the raid and then the boss you want to control buffs and debuffs. You will be able to modify/add/delete spells.",
+          order = 1.5,
+        },
+        SELECT_EXTENSIONS = {
+          type = "select",
+          name = "Extensions",
+          style = "dropdown",
           order = 2,
+          width = "full",
+          values = {
+            ["Legion"] = "Legion", 
+            --["Battle for Azeroth"] = "Battle for Azeroth"
+          },
+          set = function(info, val)
+            select_extension = val
+            update_select_extension()
+          end,
+          get = function(info) return select_extension end,
+        },
+        SELECT_RAID_OR_DUNGEON = {
+          type = "select",
+          name = "Raid or Dungeons",
+          style = "radio",
+          width = "full",
+          order = 3,
+          hidden = function() if select_extension ~= nil then return false else return true end end,
+          values = {["Raid"] = "Raid", ["Dungeon"] = "Dungeon"},
+          set = function(info, val)
+            select_raid_or_dungeon = val
+            update_select_raid_or_dungeon()
+          end,
+          get = function(info) return select_raid_or_dungeon end,
         },
 				SELECT_RAID = {
 					type = "select",
 					name = "",
 					style = "dropdown",
-					order = 3,
+					order = 4,
+          hidden = function() if select_raid_or_dungeon ~= nil then return false else return true end end,
 					values = function()
-						local t = {}
-						for k, v in pairs(raids) do
-							t[k] = k
-						end
-						return t
+            if select_raid_or_dungeon == "Raid" then  
+              for k, v in pairs(raids[select_extension]) do
+                raid_dungeon[k] = k
+              end
+            elseif select_raid_or_dungeon == "Dungeon" then
+              for k, v in pairs(dungeons[select_extension]) do
+                raid_dungeon[k] = k
+              end
+            end
+						return raid_dungeon
 					end,
 					set = function(info, val)
 						raid_select = val
-						update_raid_boss(val)
+						update_raid_boss(val, select_raid_or_dungeon, select_extension)
 					end,
 					get = function(val) return raid_select end,
 				},
@@ -458,11 +626,12 @@ local options = {
 					type = "select",
 					name = "",
 					style = "dropdown",
-					order = 4,
+					order = 5,
           hidden = function() if raid_select ~= nil then return false else return true end end,
 					values = raid_boss,
 					set = function(info, val)
 						boss_select = val
+            if debuffs_table[boss_select] == nil then debuffs_table[boss_select] = {} end
 						update_spell_raid_boss(val)
 					end,
 					get = function(val) return boss_select end,
@@ -471,19 +640,19 @@ local options = {
           type = "header",
           name = "Manage Spells",
           hidden = function() if boss_select ~= nil then return false else return true end end,
-          order = 5,
+          order = 6,
         },
         DESC_SELECT_SPELL = {
           type = "description",
           name = "Manage your spells here, add whatever your want to track during the encounter.",
           hidden = function() if boss_select ~= nil then return false else return true end end,
-          order = 6,
+          order = 7,
         },
 				SELECT_SPELL = {
 					type = "select",
 					name = "Spells tracked",
 					style = "radio",
-					order = 7,
+					order = 8,
 					width = "full",
           hidden = function() if boss_select ~= nil then return false else return true end end,
 					values = raid_spell,
@@ -503,14 +672,14 @@ local options = {
           return select(3, GetSpellInfo(spell_select)), 20, 20
           end,
           hidden = function() if spell_select ~= nil then return false else return true end end,
-          order = 8,
+          order = 9,
         },
         IF_ACTIVE = {
           type = "toggle",
           name = "Open if active",
           tristate = false,
           width = "full",
-          order = 9,
+          order = 10,
           hidden = function() if spell_select ~= nil then return false else return true end end,
           set = function(info, val)
             debuffs_table[boss_select][spell_select]["IfActive"] = val
@@ -521,7 +690,7 @@ local options = {
           type = "select",
           name = "Buff/Debuff Type",
           style = "dropdown",
-          order = 10,
+          order = 11,
           values = {["Classic"] = "Classic", ["Spread"] = "Spread", ["Stack"] = "Stack"},
           hidden = function() if spell_select ~= nil then return false else return true end end,
           set = function(info, val)
@@ -533,7 +702,7 @@ local options = {
         TYPE_DISTANCE = {
           type = "select",
           name = "Buff/Debuff Distance",
-          order = 11,
+          order = 12,
           disabled = function() if debuffs_table[boss_select][spell_select]["Type"] == "Spread" or debuffs_table[boss_select][spell_select]["Type"] == "Stack" then return false else return true end end,
           hidden = function() if spell_select ~= nil then return false else return true end end,
           values = {[5] = 5, [8] = 8},
@@ -545,7 +714,7 @@ local options = {
         PLAYERONLY = {
           type = "select",
           name = "Players to track",
-          order = 12,
+          order = 13,
           width = "full",
           hidden = function() if spell_select ~= nil then return false else return true end end,
           values = {["All"] = "All", ["Player"] = "Player", ["Focus"] = "Focus", ["Player_Focus"] = "Player_Focus"},
@@ -557,7 +726,7 @@ local options = {
         MAXSTACKS = {
           type = "toggle",
           name = "Stacks Alert",
-          order = 13,
+          order = 14,
           hidden = function() if spell_select ~= nil then return false else return true end end,
           set = function(info, val)
             debuffs_table[boss_select][spell_select]["MaxStacks"] = val
@@ -567,7 +736,7 @@ local options = {
         MAXSTACKSNUMBER = {
           type = "range",
           name = "Stacks Number",
-          order = 14,
+          order = 15,
           min = 0,
           max = 50,
           step = 1,
@@ -581,29 +750,29 @@ local options = {
         DELETE_SPELL_BUTTON = {
           type = "execute",
           name = "Delete",
-          order = 15,
+          order = 16,
           hidden = function() if spell_select ~= nil then return false else return true end end,
           func = function()
             debuffs_table[boss_select][spell_select] = nil
             spell_select = nil
-            update_spell_raid_boss()
+            update_spell_raid_boss(boss_select)
           end,
         },
         HEADER_ADD_SPELL = {
           type = "header",
           name = "Add a Spell",
           hidden = function() if boss_select ~= nil then return false else return true end end,
-          order = 16,
+          order = 17,
         },
         DESC_ADD_SPELL = {
           type = "description",
           name = "Add a new spell using the name or the ID.",
           hidden = function() if boss_select ~= nil then return false else return true end end,
-          order = 17,
+          order = 18,
         },
         ADD_SPELL = {
           type = "input",
-          order = 18,
+          order = 19,
           name = "",
           hidden = function() if boss_select ~= nil then return false else return true end end,
           set = function(info, val)
@@ -614,7 +783,7 @@ local options = {
         ADD_SPELL_BUTTON = {
           type = "execute",
           name = "Add spell",
-          order = 19,
+          order = 20,
           hidden = function() if select(7, GetSpellInfo(spell_add)) ~= nil and debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))] == nil then return false else return true end end,
           func = function()
             debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))] = {}
@@ -629,7 +798,7 @@ local options = {
             
             spell_select = select(7, GetSpellInfo(spell_add))
             spell_add = nil
-            update_spell_raid_boss()
+            update_spell_raid_boss(boss_select)
           end,
         },
         ADD_SPELL_VALIDATION = {
@@ -654,7 +823,7 @@ local options = {
               end
             end
           end,
-          order = 20,
+          order = 21,
           hidden = function () if spell_add ~= nil then return false else return true end end,
         },
 			},
@@ -674,14 +843,6 @@ function ITrackU:OnInitialize()
 	self:RegisterChatCommand("ITrackU", "ChatCommand")
  
  if debuffs_table == nil then debuffs_table = {} end
- 
-  for k, v in pairs(raids) do
-    for l,w in pairs(raids[k]) do
-      if debuffs_table[l] == nil then
-        debuffs_table[l] = {}
-      end
-    end
-  end
 end 
 
 function ITrackU:ChatCommand(input)     

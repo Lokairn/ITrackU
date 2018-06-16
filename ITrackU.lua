@@ -20,7 +20,7 @@ local function addon_loaded(event, arg1)
 	if debuffs_table == nil then debuffs_table = {} end
 
   if arg1 == "ITrackU" then
-    print("Bienvenue sur ITrackU version 1.00, tapez /ITU afin d'accéder au menu de configuration en jeu.")
+    print("Bienvenue sur ITrackU version 1.1, tapez /ITU afin d'accéder au menu de configuration en jeu.")
     if debuffs_table == nil then print("CETTE TABLE NE SE CHARGE PAS") end
     if db_variable == nil then db_variable = {} end
     if db_variable.HEIGHT_TITLE == nil then db_variable.HEIGHT_TITLE = 27 end
@@ -889,6 +889,7 @@ if ITrackU == nil or ITrackU == "ITrackU" then ITrackU = {} end
 		encounter_end()
 	end
 	ITrackU["encounter_id"], _, _, _ = ...
+  print(ITrackU["encounter_id"])
 	player_regen_disabled_handler()
 end  
 
