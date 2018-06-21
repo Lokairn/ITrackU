@@ -6,127 +6,15 @@ ITrackU = LibStub("AceAddon-3.0"):NewAddon(addonName, "AceConsole-3.0")
 -------------------------------------   INIT RAID DISPONIBLE   ------------------------------------
 ---------------------------------------------------------------------------------------------------
 
+local select_extension = "Battle for Azeroth"
+
 local raid_select = nil
 local raid_dungeon = {}
 local raid_boss = {}
 local raid_spell = {}
 
-local dungeons = {
-  ["Battle for Azeroth"] = {
-  
-  },
-  ["Legion"] = {
-    ["Black Rook Hold"] = {
-      [1832] = "Amalgam of Souls",
-      [1833] = "Illysanna Ravencrest",
-      [1834] = "Smashspite",
-      [1835] = "Kurtalos Ravencrest"
-    },
-    ["Cathedral of Eternal Night"] = {
-      [2055] = "Agronox",
-      [2057] = "Thrashbite the Scornful",
-      [2053] = "Domatrax",
-      [2039] = "Mephistroth"
-    },
-    ["Court of Stars"] = {
-      [1868] = "Patrol Captain Gerdo",
-      [1869] = "Talixae Flamewreath",
-      [1870] = "Advisor Melandrus"
-    },
-    ["Darkheart Thicket"] = {
-      [1836] = "Archdruid Glaidalis",
-      [1837] = "Oakheart",
-      [1838] = "Dresaron",
-      [1839] = "Shade of Xavius"
-    },
-    ["Eye of Azshara"] = {
-      [1810] = "Warlord Parjesh",
-      [1811] = "Lady Hatecoil",
-      [1813] = "Serpentrix",
-      [1812] = "King Deepbeard",
-      [1814] = "Wrath of Azshara"
-    },
-    ["Halls of Valor"] = {
-      [1805] = "Hymdall",
-      [1807] = "Fenryr",
-      [1806] = "Hyrja",
-      [1808] = "God-King Skovald",
-      [1809] = "Odyn"
-    },
-    ["Maw of Souls"] = {
-      [1822] = "Ymiron",
-      [1823] = "Harbaron",
-      [1824] = "Helya"
-    },
-    ["Neltharion's Lair"] = {
-      [1790] = "Rokmora",
-      [1791] = "Ularogg Cragshaper",
-      [1792] = "Naraxas",
-      [1793] = "Dargrul"
-    },
-    ["Return to Karazhan"] = {
-      [1960] = "Attumen the Huntsman",
-      [1964] = "The Curator",
-      [1954] = "Maiden of Virtue",
-      [1959] = "Mana Devourer",
-      [1961] = "Moroes",
-      [1957] = "Opera Hall",
-      [1965] = "Shade of Medivh",
-      [2017] = "Viz'aduum the Watcher"      
-    },
-    ["The Arcway"] = {
-      [1829] = "Advisor Vandros",
-      [1825] = "Corstilax",
-      [1828] = "General Xakal",
-      [1827] = "Ivanyr",
-      [1826] = "Naltira"
-    },
-    ["Vault of the Wardens"] = {
-      [1816] = "Ashgolm",
-      [1817] = "Glazer",
-      [1818] = "Cordana Felsong",
-      [1850] = "Inquisitor Tormentorum",
-      [1815] = "Tirathon Saltheril"
-    },
-    ["Violet Hold"] = {
-      [1852] = "Anub'esset",
-      [1856] = "Fel Lord Betrug",
-      [1848] = "Festerface",
-      [1846] = "Kaahrj",
-      [1847] = "Millificent Manastorm",
-      [1851] = "Saelorn",
-      [1845] = "Shivermaw",
-      [1855] = "Thalena"
-    },
-    ["Seat of the Triumvirate"] = {
-      [2068] = "L'ura",
-      [2066] = "Saprish",
-      [2067] = "Viceroy Nezhar",
-      [2065] = "Zuraal"
-    }
-  },
-}
-
-local raids = {
-  ["Legion"] = {
-    ["Antorus, Burning Throne"] = {
-      [2076] = "Garothi",
-      [2074] = "Felbounds",
-      [2070] = "High Command",
-      [2064] = "Hasabel",
-      [2075] = "Eonar",
-      [2082] = "Imonar",
-      [2088] = "Kin'garoth",
-      [2069] = "Varimathras",
-      [2073] = "Shivarra",
-      [2063] = "Aggramar",
-      [2092] = "Argus"
-    },
-  },
-  ["Battle for Azeroth"] = {
-  
-  },
-}
+local dungeons = ITrack.dungeons
+local raids = ITrack.raids
 
 ---------------------------------------------------------------------------------------------------
 -----------------------------------------   FUNCTION TOOLS   --------------------------------------
@@ -208,183 +96,197 @@ local options = {
 			type = "group",
 			order = 1,
 			args = {
-        HEADER_FRAME_TEST = {
-          type = "header",
-          name = "Frame",
-          order = 1,
-        },
-        EXECUTE_OPEN_Frame = {
-          type = "execute",
-          name = function() 
-            if ITrackU then
-              if ITrackU["DebuffToTrack"] then
-                return "Close Frame"
-              else
-                return "Open Frame"
-              end
-            else
-              return "Open Frame"
-            end
-          end,
-          order = 2,
-          func = function()
-            open_frame_test()
-          end,
-        },
-				LOCK = {
-					type = "execute",
-					name = "Move main frame",
-					func = show_lock_dialog,
-          order = 3,
-			  },
-        HEADER_POS_DIMENSION = {
-          type = "header",
-          name = "Position & Dimension",
-          order = 4,
-        },
-        DESCRIPTION_POS_DIMENSION = {
-          type = "description",
-          name = "Modify the position and the dimension of all frames.",
-          order = 5,
-        },
-        --DESCRIPTION_POS = {
-        --  type = "description",
-        --  name = "Manually change the position (x, y) of the frame. You can also use the 'Move Main Frame' button to do it with your cursos",
-        --  order = 6,
-        --},
-        -- POS_X = {
-          -- type = "range",
-          -- desc = "test",
-          -- name = "Position X",
-          -- min = -1000,
-          -- max = 1000,
-          -- step = 1,
-          -- order = 7,
-          -- set = function(info,val)
-            -- db_variable.POSITION_X = val
-            -- update_main_frame_x(val)
-          -- end,
-          -- get = function(info) return db_variable.POSITION_X end,
-        -- },
-        -- POS_Y = {
-          -- type = "range",
-          -- desc = "test",
-          -- name = "Position Y",
-          -- min = -1000,
-          -- max = 1000,
-          -- step = 1,
-          -- order = 8,
-          -- set = function(info,val)
-            -- db_variable.POSITION_Y = val
-            -- update_main_frame_y(val)
-          -- end,
-          -- get = function(info) return db_variable.POSITION_Y end,
-        -- },
-        --DESCRIPTION_DIMENSION_WIDTH_HEIGHT = {
-        --  type = "description",
-        --  name = "Modify Widht and Height of each frames",
-        --  order = 9,
-        --},
-        GLOBAL_WIDTH = {
-          type = "range",
-          name = "Title & Debuffed Width",
-          order = 10,
-          min = 50,
-          max = 250,
-          step = 1,
-          desc = "",
-          set = function(info, val)
-            db_variable.WIDTH_GLOBAL = val
-            order_frame_player_debuff()
-          end,
-          get = function(val) return db_variable.WIDTH_GLOBAL end,
-        },
-        DESCRIPTION_DIMENSION_HEIGHTS = {
-          type = "description",
-          name = "Modify Height of Title Frames or/and height of Debuffed Frames",
-          order = 11,
-          width = "full",
-        },
-        HEIGHT_TITLE = {
-          type = "range",
-          name = "Title Height",
-          order = 12,
-          min = 10,
-          max = 50,
-          step = 1,
-          desc = "",
-          set = function(info, val)
-            db_variable.HEIGHT_TITLE = val
-            order_frame_player_debuff()
-          end,
-          get = function(val) return db_variable.HEIGHT_TITLE end,
-        },
-        HEIGHT_DEBUFFED = {
-          type = "range",
-          name = "Debuffed Height",
-          order = 13,
-          min = 10,
-          max = 50,
-          step = 1,
-          desc = "",
-          set = function(info, val)
-            db_variable.HEIGHT_DEBUFFED = val
-            order_frame_player_debuff()
-          end,
-          get = function(val) return db_variable.HEIGHT_DEBUFFED end,
-        },
-        HEADER_SPACE_BETWEEN_ITEM = {
-          type = "header",
-          name = "Space between items",
-          order = 14,
-        },
-        DESCRIPTION_SPACE_BETWEEN_ITEM = {
-          type = "description",
-          name = "Modify the space between each item",
-          order = 15,
-        },
-        SPACE_TITLE_TITLE = {
-          type = "range",
-          name = "Space Title - Title",
-          order = 16,
-          min = 0,
-          max = 20,
-          step = 0.01,
-          desc = "",
-          set = function(info, val)
-            db_variable.HEIGHT_BETWEEN_TITLE = val
-            order_frame_player_debuff()
-          end,
-          get = function(val) return db_variable.HEIGHT_BETWEEN_TITLE end,
-        },
-        SPACE_TITLE_DEBUFFED = {
-          type = "range",
-          name = "Space Title - Debuffed",
-          order = 17,
-          min = 0,
-          max = 5,
-          step = 0.01,
-          desc = "",
-          set = function(info, val)
-            db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED = val
-            order_frame_player_debuff()
-          end,
-          get = function(val) return db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED end,
-        },
-        SPACE_DEBUFFED_DEBUFFED = {
-          type = "range",
-          name = "Space Debuffed - Debuffed",
-          order = 18,
-          min = 0,
-          max = 5,
-          step = 0.01,
-          desc = "",
-          set = function(info, val)
-            db_variable.HEIGHT_BETWEEN_DEBUFFED = val
-            order_frame_player_debuff()
-          end,
-          get = function(val) return db_variable.HEIGHT_BETWEEN_DEBUFFED end,
-        },
+				HEADER_FRAME_TEST = {
+				  type = "header",
+				  name = "Frame",
+				  order = 1,
+				},
+				EXECUTE_OPEN_Frame = {
+				  type = "execute",
+				  name = function() 
+					if ITrackU then
+					  if ITrackU["DebuffToTrack"] then
+						return "Close Frame"
+					  else
+						return "Open Frame"
+					  end
+					else
+					  return "Open Frame"
+					end
+				  end,
+				  order = 2,
+				  func = function()
+					open_frame_test()
+				  end,
+				},
+						LOCK = {
+							type = "execute",
+							name = "Move main frame",
+							func = show_lock_dialog,
+				  order = 3,
+					  },
+				HEADER_POS_DIMENSION = {
+				  type = "header",
+				  name = "Position & Dimension",
+				  order = 4,
+				},
+				DESCRIPTION_POS_DIMENSION = {
+				  type = "description",
+				  name = "Modify the position and the dimension of all frames.",
+				  order = 5,
+				},
+				--DESCRIPTION_POS = {
+				--  type = "description",
+				--  name = "Manually change the position (x, y) of the frame. You can also use the 'Move Main Frame' button to do it with your cursos",
+				--  order = 6,
+				--},
+				-- POS_X = {
+				  -- type = "range",
+				  -- desc = "test",
+				  -- name = "Position X",
+				  -- min = -1000,
+				  -- max = 1000,
+				  -- step = 1,
+				  -- order = 7,
+				  -- set = function(info,val)
+					-- db_variable.POSITION_X = val
+					-- update_main_frame_x(val)
+				  -- end,
+				  -- get = function(info) return db_variable.POSITION_X end,
+				-- },
+				-- POS_Y = {
+				  -- type = "range",
+				  -- desc = "test",
+				  -- name = "Position Y",
+				  -- min = -1000,
+				  -- max = 1000,
+				  -- step = 1,
+				  -- order = 8,
+				  -- set = function(info,val)
+					-- db_variable.POSITION_Y = val
+					-- update_main_frame_y(val)
+				  -- end,
+				  -- get = function(info) return db_variable.POSITION_Y end,
+				-- },
+				--DESCRIPTION_DIMENSION_WIDTH_HEIGHT = {
+				--  type = "description",
+				--  name = "Modify Widht and Height of each frames",
+				--  order = 9,
+				--},
+				GLOBAL_WIDTH = {
+				  type = "range",
+				  name = "Title & Debuffed Width",
+				  order = 10,
+				  min = 50,
+				  max = 250,
+				  step = 1,
+				  desc = "",
+				  set = function(info, val)
+					db_variable.WIDTH_GLOBAL = val
+					order_frame_player_debuff()
+				  end,
+				  get = function(val) return db_variable.WIDTH_GLOBAL end,
+				},
+				DESCRIPTION_DIMENSION_HEIGHTS = {
+				  type = "description",
+				  name = "Modify Height of Title Frames or/and height of Debuffed Frames",
+				  order = 11,
+				  width = "full",
+				},
+				HEIGHT_TITLE = {
+				  type = "range",
+				  name = "Title Height",
+				  order = 12,
+				  min = 10,
+				  max = 50,
+				  step = 1,
+				  desc = "",
+				  set = function(info, val)
+					db_variable.HEIGHT_TITLE = val
+					order_frame_player_debuff()
+				  end,
+				  get = function(val) return db_variable.HEIGHT_TITLE end,
+				},
+				HEIGHT_DEBUFFED = {
+				  type = "range",
+				  name = "Debuffed Height",
+				  order = 13,
+				  min = 10,
+				  max = 50,
+				  step = 1,
+				  desc = "",
+				  set = function(info, val)
+					db_variable.HEIGHT_DEBUFFED = val
+					order_frame_player_debuff()
+				  end,
+				  get = function(val) return db_variable.HEIGHT_DEBUFFED end,
+				},
+				HEADER_SPACE_BETWEEN_ITEM = {
+				  type = "header",
+				  name = "Space between items",
+				  order = 14,
+				},
+				DESCRIPTION_SPACE_BETWEEN_ITEM = {
+				  type = "description",
+				  name = "Modify the space between each item",
+				  order = 15,
+				},
+				SPACE_TITLE_TITLE = {
+				  type = "range",
+				  name = "Space Title - Title",
+				  order = 16,
+				  min = 0,
+				  max = 20,
+				  step = 0.01,
+				  desc = "",
+				  set = function(info, val)
+					db_variable.HEIGHT_BETWEEN_TITLE = val
+					order_frame_player_debuff()
+				  end,
+				  get = function(val) return db_variable.HEIGHT_BETWEEN_TITLE end,
+				},
+				SPACE_TITLE_DEBUFFED = {
+				  type = "range",
+				  name = "Space Title - Debuffed",
+				  order = 17,
+				  min = 0,
+				  max = 5,
+				  step = 0.01,
+				  desc = "",
+				  set = function(info, val)
+					db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED = val
+					order_frame_player_debuff()
+				  end,
+				  get = function(val) return db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED end,
+				},
+				SPACE_DEBUFFED_DEBUFFED = {
+				  type = "range",
+				  name = "Space Debuffed - Debuffed",
+				  order = 18,
+				  min = 0,
+				  max = 5,
+				  step = 0.01,
+				  desc = "",
+				  set = function(info, val)
+					db_variable.HEIGHT_BETWEEN_DEBUFFED = val
+					order_frame_player_debuff()
+				  end,
+				  get = function(val) return db_variable.HEIGHT_BETWEEN_DEBUFFED end,
+				},
+				SPACE_BETWEEN_COLUMNS = {
+					type = "range",
+					name = "Space between Columns",
+					order = 19,
+					min = 50,
+					max = 250,
+					step = 1,
+					desc = "",
+					set = function(info, val)
+						db_variable.WIDTH_BETWEEN_COLUMNS = val
+						order_frame_player_debuff()
+					end,
+					get = function(val) return db_variable.WIDTH_BETWEEN_COLUMNS end,
+				},
 			},
 		},
 		ColorPanel = {
@@ -576,7 +478,7 @@ local options = {
           width = "full",
           values = {
             ["Legion"] = "Legion", 
-            --["Battle for Azeroth"] = "Battle for Azeroth"
+            ["Battle for Azeroth"] = "Battle for Azeroth"
           },
           set = function(info, val)
             select_extension = val
@@ -674,17 +576,59 @@ local options = {
           hidden = function() if spell_select ~= nil then return false else return true end end,
           order = 9,
         },
+        ACTIVATE = {
+        	type = "toggle",
+        	desc = function()
+	        	if spell_select then
+	        		if debuffs_table[boss_select][spell_select]["Activate"] then
+	        			return "Desactivate the spell's track during the encounter."
+	        		else
+	        			return "Activate the spell's track during the encounter."
+	        		end        		
+	        	else 
+	        		return "" 
+	        	end
+        	end,
+        	name = function()
+	        	if spell_select then
+	        		if debuffs_table[boss_select][spell_select]["Activate"] then
+	        			return "Activated"
+	        		else
+	        			return "Desactivated"
+	        		end        		
+	        	else 
+	        		return "" 
+	        	end
+        	end,
+        	tristate = false,
+        	order = 9.5,
+        	hidden = function() if spell_select ~= nil then return false else return true end end,
+        	set = function(info, val)
+        		debuffs_table[boss_select][spell_select]["Activate"] = val
+        	end,
+        	get = function(val) return debuffs_table[boss_select][spell_select]["Activate"] end,
+        },
         IF_ACTIVE = {
           type = "toggle",
-          name = "Open if active",
+          name = "Frame always up",
+          desc = "Open the title frame if buff/debuff is not up.",
           tristate = false,
-          width = "full",
           order = 10,
           hidden = function() if spell_select ~= nil then return false else return true end end,
           set = function(info, val)
-            debuffs_table[boss_select][spell_select]["IfActive"] = val
+          	if val then
+            	debuffs_table[boss_select][spell_select]["IfActive"] = false
+            else
+            	debuffs_table[boss_select][spell_select]["IfActive"] = true
+            end
           end,
-          get = function(val) return debuffs_table[boss_select][spell_select]["IfActive"] end,
+          get = function(val)
+          	if debuffs_table[boss_select][spell_select]["IfActive"] then
+           		return false
+           	else
+           		return true
+           	end
+          end,
         },
         TYPE = {
           type = "select",
@@ -747,6 +691,18 @@ local options = {
           end,
           get = function(val) return debuffs_table[boss_select][spell_select]["MaxStacksNumber"] end,
         },
+        COLUMNS = {
+        	type = "select",
+        	name = "",
+        	desc = "Split your spells into 3 columns",
+        	order = 15.5,
+        	values = {[0] = "Column 1", [1] = "Column 2", [2] = "Column 3"},
+        	hidden = function() if spell_select ~= nil then return false else return true end end,
+        	set = function(info, val)
+        		debuffs_table[boss_select][spell_select]["Columns"] = val
+        	end,
+        	get = function(val) return debuffs_table[boss_select][spell_select]["Columns"] end,
+        },
         DELETE_SPELL_BUTTON = {
           type = "execute",
           name = "Delete",
@@ -795,7 +751,9 @@ local options = {
             debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))]["PlayerOnly"] = "All"
             debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))]["MaxStacks"] = false
             debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))]["MaxStacksNumber"] = 0
-            
+            debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))]["Columns"] = 0
+            debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))]["Activate"] = true
+
             spell_select = select(7, GetSpellInfo(spell_add))
             spell_add = nil
             update_spell_raid_boss(boss_select)

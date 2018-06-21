@@ -17,93 +17,15 @@ local unlock_dialog = nil
 
 -- Set all variables from saved variables or default ones if not available
 local function addon_loaded(event, arg1)
-	if debuffs_table == nil then debuffs_table = {} end
 
   if arg1 == "ITrackU" then
-    print("Bienvenue sur ITrackU version 1.1, tapez /ITU afin d'accéder au menu de configuration en jeu.")
+    print("Bienvenue sur ITrackU version 1.2, tapez /ITU afin d'accéder au menu de configuration en jeu.")
     if debuffs_table == nil then print("CETTE TABLE NE SE CHARGE PAS") end
     if db_variable == nil then db_variable = {} end
-    if db_variable.HEIGHT_TITLE == nil then db_variable.HEIGHT_TITLE = 27 end
-    if db_variable.HEIGHT_DEBUFFED == nil then db_variable.HEIGHT_DEBUFFED = 20 end
-    if db_variable.WIDTH_GLOBAL == nil then db_variable.WIDTH_GLOBAL = 150 end
-    if db_variable.WIDTH_PLAYER_DISTANCE == nil then db_variable.WIDTH_PLAYER_DISTANCE = 10 end
-    if db_variable.WIDTH_ECART_GLOBAL_PLAYER_DISTANCE == nil then db_variable.WIDTH_ECART_GLOBAL_PLAYER_DISTANCE = 3 end
-    if db_variable.HEIGHT_BETWEEN_TITLE == nil then db_variable.HEIGHT_BETWEEN_TITLE = 1 end
-    if db_variable.HEIGHT_BETWEEN_DEBUFFED == nil then db_variable.HEIGHT_BETWEEN_DEBUFFED = 1 end
-    if db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED == nil then db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED = 0 end
-    if db_variable.POSITION_X == nil then db_variable.POSITION_X = 0 end
-    if db_variable.POSITION_Y == nil then db_variable.POSITION_Y = 0 end
-    if db_variable.COLOR_R_TITRE == nil then db_variable.COLOR_R_TITRE = 0.368 end
-    if db_variable.COLOR_G_TITRE == nil then db_variable.COLOR_G_TITRE = 0.368 end
-    if db_variable.COLOR_B_TITRE == nil then db_variable.COLOR_B_TITRE = 0.368 end
-    if db_variable.COLOR_A_TITRE == nil then db_variable.COLOR_A_TITRE = 0.9 end
-	if db_variable.COLOR_R_DEBUFFED_PLAYER == nil then db_variable.COLOR_R_DEBUFFED_PLAYER = 0.208 end
-	if db_variable.COLOR_G_DEBUFFED_PLAYER == nil then db_variable.COLOR_G_DEBUFFED_PLAYER = 0.80 end
-	if db_variable.COLOR_B_DEBUFFED_PLAYER == nil then db_variable.COLOR_B_DEBUFFED_PLAYER = 0.192 end
-	if db_variable.COLOR_A_DEBUFFED_PLAYER == nil then db_variable.COLOR_A_DEBUFFED_PLAYER = 0.5 end
-	if db_variable.COLOR_R_DEBUFFED_FOCUS == nil then db_variable.COLOR_R_DEBUFFED_FOCUS = 0.632 end
-	if db_variable.COLOR_G_DEBUFFED_FOCUS == nil then db_variable.COLOR_G_DEBUFFED_FOCUS = 0.348 end
-	if db_variable.COLOR_B_DEBUFFED_FOCUS == nil then db_variable.COLOR_B_DEBUFFED_FOCUS = 0.828 end
-	if db_variable.COLOR_A_DEBUFFED_FOCUS == nil then db_variable.COLOR_A_DEBUFFED_FOCUS = 0.5 end
-	if db_variable.COLOR_R_DEBUFFED_MATE == nil then db_variable.COLOR_R_DEBUFFED_MATE = 0.78 end
-	if db_variable.COLOR_G_DEBUFFED_MATE == nil then db_variable.COLOR_G_DEBUFFED_MATE = 0.828 end
-	if db_variable.COLOR_B_DEBUFFED_MATE == nil then db_variable.COLOR_B_DEBUFFED_MATE = 0.464 end
-	if db_variable.COLOR_A_DEBUFFED_MATE == nil then db_variable.COLOR_A_DEBUFFED_MATE = 0.5 end
-	if db_variable.COLOR_R_DEBUFFED_MAXSTACK == nil then db_variable.COLOR_R_DEBUFFED_MAXSTACK = 1 end
-	if db_variable.COLOR_G_DEBUFFED_MAXSTACK == nil then db_variable.COLOR_G_DEBUFFED_MAXSTACK = 0 end
-	if db_variable.COLOR_B_DEBUFFED_MAXSTACK == nil then db_variable.COLOR_B_DEBUFFED_MAXSTACK = 0 end
-	if db_variable.COLOR_A_DEBUFFED_MAXSTACK == nil then db_variable.COLOR_A_DEBUFFED_MAXSTACK = 0.5 end
-	if db_variable.COLOR_A_DEBUFFED_STATUSBAR == nil then db_variable.COLOR_A_DEBUFFED_STATUSBAR = 1 end
-	if db_variable.COLOR_R_DISTANCE_OK == nil then db_variable.COLOR_R_DISTANCE_OK = 0 end
-	if db_variable.COLOR_G_DISTANCE_OK == nil then db_variable.COLOR_G_DISTANCE_OK = 1 end
-	if db_variable.COLOR_B_DISTANCE_OK == nil then db_variable.COLOR_B_DISTANCE_OK = 0 end
-	if db_variable.COLOR_A_DISTANCE_OK == nil then db_variable.COLOR_A_DISTANCE_OK = 1 end
-	if db_variable.COLOR_R_DISTANCE_KO == nil then db_variable.COLOR_R_DISTANCE_KO = 1 end
-	if db_variable.COLOR_G_DISTANCE_KO == nil then db_variable.COLOR_G_DISTANCE_KO = 0 end
-	if db_variable.COLOR_B_DISTANCE_KO == nil then db_variable.COLOR_B_DISTANCE_KO = 0 end
-	if db_variable.COLOR_A_DISTANCE_KO == nil then db_variable.COLOR_A_DISTANCE_KO = 1 end
 
-  --set all variables tables for the test frame
-  if debuffs_table ~= nil then
-    debuffs_table[1111] = {
-      [23920] = {
-        ["IfActive"] = false,
-        ["Count"] = 0,
-        ["Type"] = "Classic",
-        ["TypeDistance"] = 0,
-        ["Rôle"] = "All",
-        ["MaxStacks"] = true,
-        ["MaxStacksNumber"] = 4,
-      },
-      [132404] = {
-        ["IfActive"] = false,
-        ["Count"] = 0,
-        ["Type"] = "Spread",
-        ["TypeDistance"] = 8,
-        ["Rôle"] = "All",
-        ["MaxStacks"] = true,
-        ["MaxStacksNumber"] = 4,      
-      },
-      [18499] = {
-        ["IfActive"] = false,
-        ["Count"] = 0,
-        ["Type"] = "Classic",
-        ["TypeDistance"] = 0,
-        ["Rôle"] = "All",
-        ["MaxStacks"] = true,
-        ["MaxStacksNumber"] = 4,      
-      },
-      [188783] = {
-        ["IfActive"] = false,
-        ["Count"] = 0,
-        ["Type"] = "Stack",
-        ["TypeDistance"] = 8,
-        ["Rôle"] = "All",
-        ["MaxStacks"] = true,
-        ["MaxStacksNumber"] = 4,      
-      },
-    }
-  end
+    		for k, v in pairs(ITrack.Defaults) do
+    			if db_variable[k] == nil then db_variable[k] = v end
+    		end
     
     --Set all variable tables from saved variables or default ones if not available    
     if debuffs_table ~= nil then
@@ -120,6 +42,8 @@ local function addon_loaded(event, arg1)
                 if debuffs_table[k][l]["PlayerOnly"] == nil then debuffs_table[k][l]["PlayerOnly"] = "All" end
                 if debuffs_table[k][l]["MaxStacks"] == nil then debuffs_table[k][l]["MaxStacks"] = false end
                 if debuffs_table[k][l]["MaxStacksNumber"] == nil then debuffs_table[k][l]["MaxStacksNumber"] = 0 end
+        				if debuffs_table[k][l]["Columns"] == nil then debuffs_table[k][l]["Columns"] = 0 end
+        				if debuffs_table[k][l]["Activate"] == nil then debuffs_table[k][l]["Activate"] = true end
               end
             end
           end
@@ -242,16 +166,14 @@ end
 local function get_table(from_table, encounter)
   if encounter ~= nil then
     local t = {}
-    for k, _ in pairs(from_table) do
-      if k == encounter then
-        for l, w in pairs(from_table[k]) do
-          t[l] = {}
-          for m, x in pairs(from_table[k][l]) do
-            t[l][m] = x
+      for k, v in pairs(from_table[encounter]) do
+        if from_table[encounter][k]["Activate"] then
+          t[k] = {}
+          for m, x in pairs(from_table[encounter][k]) do
+            t[k][m] = x
           end
         end
-       end
-    end
+      end
     return t
   end
 end
@@ -544,7 +466,7 @@ local function update_timer(k, l, minimum, maximum, auratype)
     end
 
     -- when timer has reached the desired value, as defined by global END (secTnds), restart it by setting it to 0, as defined by global START
-    if ITrackU[k][l].Timer <= minimum then
+    if ITrackU[k][l].Timer <= minimum and maximum then
       self:SetValue(0)
       ITrackU[k][l].Text_PlayerStacks:SetText("")
       ITrackU[k][l].Frame_PlayerDebuffed:SetScript("OnUpdate", nil)
@@ -656,40 +578,51 @@ local function table_frame_player_debuffed(Env, type, spell_id, dest_name, aura_
                         }
           
           -- Get Player Color
-          if Env == "PROD" then
-            if dest_name == select(1, UnitName("player")) then
-              ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = db_variable.COLOR_R_DEBUFFED_PLAYER
-              ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = db_variable.COLOR_G_DEBUFFED_PLAYER
-              ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = db_variable.COLOR_B_DEBUFFED_PLAYER
-              ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_DEBUFFED_PLAYER
-            elseif dest_name == select(1, UnitName("focus")) then
-              ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = db_variable.COLOR_R_DEBUFFED_FOCUS
-              ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = db_variable.COLOR_G_DEBUFFED_FOCUS
-              ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = db_variable.COLOR_B_DEBUFFED_FOCUS
-              ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_DEBUFFED_FOCUS    
-            else
-              ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = db_variable.COLOR_R_DEBUFFED_MATE
-              ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = db_variable.COLOR_G_DEBUFFED_MATE
-              ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = db_variable.COLOR_B_DEBUFFED_MATE
-              ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_DEBUFFED_MATE       
+          if db_variable["ENABLE_CLASS_COLOR"] then
+            if Env == "PROD" then
+              local class = select(2, UnitClass("dest_name"))
+              ITrackU[spell_id]["debuffed"][dest_name]["color_red"], ITrackU[spell_id]["debuffed"][dest_name]["color_green"], ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = ITrack.Raid_Class_Color[class]
+              ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_CLASS_COLOR
+            elseif Env == "TEST" then
+              ITrackU[spell_id]["debuffed"][dest_name]["color_red"], ITrackU[spell_id]["debuffed"][dest_name]["color_green"], ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = ITrack.Raid_Class_Color["WARRIOR"]
+              ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_CLASS_COLOR
             end
-          elseif Env == "TEST" then
-            if dest_name == "Player" then
-              ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = db_variable.COLOR_R_DEBUFFED_PLAYER
-              ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = db_variable.COLOR_G_DEBUFFED_PLAYER
-              ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = db_variable.COLOR_B_DEBUFFED_PLAYER
-              ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_DEBUFFED_PLAYER
-            elseif dest_name == "Focus" then
-              ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = db_variable.COLOR_R_DEBUFFED_FOCUS
-              ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = db_variable.COLOR_G_DEBUFFED_FOCUS
-              ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = db_variable.COLOR_B_DEBUFFED_FOCUS
-              ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_DEBUFFED_FOCUS  
-            else
-              ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = db_variable.COLOR_R_DEBUFFED_MATE
-              ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = db_variable.COLOR_G_DEBUFFED_MATE
-              ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = db_variable.COLOR_B_DEBUFFED_MATE
-              ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_DEBUFFED_MATE       
-            end          
+          else
+            if Env == "PROD" then
+              if dest_name == select(1, UnitName("player")) then
+                ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = db_variable.COLOR_R_DEBUFFED_PLAYER
+                ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = db_variable.COLOR_G_DEBUFFED_PLAYER
+                ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = db_variable.COLOR_B_DEBUFFED_PLAYER
+                ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_DEBUFFED_PLAYER
+              elseif dest_name == select(1, UnitName("focus")) then
+                ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = db_variable.COLOR_R_DEBUFFED_FOCUS
+                ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = db_variable.COLOR_G_DEBUFFED_FOCUS
+                ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = db_variable.COLOR_B_DEBUFFED_FOCUS
+                ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_DEBUFFED_FOCUS    
+              else
+                ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = db_variable.COLOR_R_DEBUFFED_MATE
+                ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = db_variable.COLOR_G_DEBUFFED_MATE
+                ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = db_variable.COLOR_B_DEBUFFED_MATE
+                ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_DEBUFFED_MATE       
+              end
+            elseif Env == "TEST" then
+              if dest_name == "Player" then
+                ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = db_variable.COLOR_R_DEBUFFED_PLAYER
+                ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = db_variable.COLOR_G_DEBUFFED_PLAYER
+                ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = db_variable.COLOR_B_DEBUFFED_PLAYER
+                ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_DEBUFFED_PLAYER
+              elseif dest_name == "Focus" then
+                ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = db_variable.COLOR_R_DEBUFFED_FOCUS
+                ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = db_variable.COLOR_G_DEBUFFED_FOCUS
+                ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = db_variable.COLOR_B_DEBUFFED_FOCUS
+                ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_DEBUFFED_FOCUS  
+              else
+                ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = db_variable.COLOR_R_DEBUFFED_MATE
+                ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = db_variable.COLOR_G_DEBUFFED_MATE
+                ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = db_variable.COLOR_B_DEBUFFED_MATE
+                ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_DEBUFFED_MATE       
+              end          
+            end
           end
           
           -- Create Frame
@@ -772,24 +705,31 @@ end
 
 -- Called to order frame 
 function order_frame_player_debuff()
-  i = 0
+
+  local Height_Main = 0
+  local i = {}
+  i[0] = 0
+  i[1] = 0
+  i[2] = 0
+
   -- Positionning each frame
   for k, v in pairs(ITrackU["DebuffToTrack"]) do
     if (ITrackU["DebuffToTrack"][k]["Count"] ~= 0 and ITrackU["DebuffToTrack"][k]["IfActive"] == true) or ITrackU["DebuffToTrack"][k]["IfActive"] == false then
       -- Frame_Titre[k]
-      ITrackU[k].Frame_Titre:SetPoint("TOPLEFT",0, i)
+      ITrackU[k].Frame_Titre:SetPoint("TOPLEFT", db_variable["WIDTH_BETWEEN_COLUMNS"] * ITrackU["DebuffToTrack"][k]["Columns"], i[ITrackU["DebuffToTrack"][k]["Columns"]])
       ITrackU[k].Frame_Titre:SetHeight(db_variable.HEIGHT_TITLE)
       ITrackU[k].Frame_Titre:SetWidth(db_variable.WIDTH_GLOBAL)
 
   -- MAJ i
   if ITrackU["DebuffToTrack"][k]["Count"] > 0 then
-    i = i - db_variable.HEIGHT_TITLE - db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED
+    i[ITrackU["DebuffToTrack"][k]["Columns"]] = i[ITrackU["DebuffToTrack"][k]["Columns"]] - db_variable.HEIGHT_TITLE - db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED
   else
-    i = i - db_variable.HEIGHT_TITLE
+    i[ITrackU["DebuffToTrack"][k]["Columns"]] = i[ITrackU["DebuffToTrack"][k]["Columns"]] - db_variable.HEIGHT_TITLE
   end
 
   -- MAJ Height Frame Principale
-  Frame_Main:SetHeight((-1)*i)
+  Height_Main = math.min(Height_Main, i[ITrackU["DebuffToTrack"][k]["Columns"]])
+  Frame_Main:SetHeight(Height_Main)
   
   ITrackU[k].Frame_Titre:Show()
                                    
@@ -801,26 +741,27 @@ function order_frame_player_debuff()
                 ITrackU[k][l].Frame_PlayerDebuffed:Show()
                 
                 -- MAJ Frame_PlayerDebuffed Positionning
-                ITrackU[k][l].Frame_PlayerDebuffed:SetPoint("TOPLEFT", 0, i)
+                ITrackU[k][l].Frame_PlayerDebuffed:SetPoint("TOPLEFT", db_variable["WIDTH_BETWEEN_COLUMNS"] * ITrackU["DebuffToTrack"][k]["Columns"], i[ITrackU["DebuffToTrack"][k]["Columns"]])
                 ITrackU[k][l].Frame_PlayerDebuffed:SetHeight(db_variable.HEIGHT_DEBUFFED)
                 ITrackU[k][l].Frame_PlayerDebuffed:SetWidth(db_variable.WIDTH_GLOBAL)
                 
                 --Frame PlayerDistance
                 if (ITrackU["DebuffToTrack"][k]["Type"] == "Stack" or ITrackU["DebuffToTrack"][k]["Type"] == "Spread") and l ~= select(1, UnitName("player")) then
                   ITrackU[k][l].Frame_PlayerDistance:Show()
-                  ITrackU[k][l].Frame_PlayerDistance:SetPoint("TOPLEFT", db_variable.WIDTH_ECART_GLOBAL_PLAYER_DISTANCE + db_variable.WIDTH_GLOBAL, i)
+                  ITrackU[k][l].Frame_PlayerDistance:SetPoint("TOPLEFT", db_variable["WIDTH_BETWEEN_COLUMNS"] * ITrackU["DebuffToTrack"][k]["Columns"] + db_variable.WIDTH_ECART_GLOBAL_PLAYER_DISTANCE + db_variable.WIDTH_GLOBAL, i[ITrackU["DebuffToTrack"][k]["Columns"]])
                   ITrackU[k][l].Frame_PlayerDistance:SetHeight(db_variable.HEIGHT_DEBUFFED)
                 end
                 
                 -- MAJ i
-                i = i - db_variable.HEIGHT_DEBUFFED - db_variable.HEIGHT_BETWEEN_DEBUFFED
+                i[ITrackU["DebuffToTrack"][k]["Columns"]] = i[ITrackU["DebuffToTrack"][k]["Columns"]] - db_variable.HEIGHT_DEBUFFED - db_variable.HEIGHT_BETWEEN_DEBUFFED
                          
                 -- MAJ Height Frame Principale
-                Frame_Main:SetHeight((-1)*i)
+                Height_Main = math.min(Height_Main, i[ITrackU["DebuffToTrack"][k]["Columns"]])
+                Frame_Main:SetHeight(Height_Main)
               end
         end
       end
-      i = i - db_variable.HEIGHT_BETWEEN_TITLE
+      i[ITrackU["DebuffToTrack"][k]["Columns"]] = i[ITrackU["DebuffToTrack"][k]["Columns"]] - db_variable.HEIGHT_BETWEEN_TITLE
     end
   end
 end
@@ -829,10 +770,10 @@ end
 local function combat_log_event_unfiltered_handler(self, ...)
 if ITrackU then
   if ITrackU["DebuffToTrack"] then
-  local timestamp, type, hide_caster, source_GUID, source_name, source_flags, source_flags_2, dest_GUID, dest_name, dest_flags, dest_flags_2 = ...
+  local timestamp, type, hide_caster, source_GUID, source_name, source_flags, source_flags_2, dest_GUID, dest_name, dest_flags, dest_flags_2 = CombatLogGetCurrentEventInfo()
     -- Aura Applied
     if (type == "SPELL_AURA_APPLIED" or type == "SPELL_AURA_APPLIED_DOSE") and ITrackU then
-      local _, _, _, _, _, _, _, _, _, _, _, spell_id, _, _, aura_type  = ...
+      local _, _, _, _, _, _, _, _, _, _, _, spell_id, _, _, aura_type  = CombatLogGetCurrentEventInfo()
 
       	if ITrackU[spell_id] then
 	        -- Create Frame & Table
@@ -851,7 +792,7 @@ if ITrackU then
     -- Aura removed
     if type == "SPELL_AURA_REMOVED" and ITrackU then
       if ITrackU["DebuffToTrack"] then
-        local _, _, _, _, _, _, _, _, _, _, _, spell_id, aura_type = ...
+        local _, _, _, _, _, _, _, _, _, _, _, spell_id, aura_type = CombatLogGetCurrentEventInfo()
         if ITrackU["DebuffToTrack"][spell_id] and ITrackU[spell_id][dest_name] then
         
           -- On remove la frame si Stack ou Spread
@@ -891,6 +832,7 @@ if ITrackU == nil or ITrackU == "ITrackU" then ITrackU = {} end
 	ITrackU["encounter_id"], _, _, _ = ...
   print(ITrackU["encounter_id"])
 	player_regen_disabled_handler()
+  order_frame_player_debuff()
 end  
 
 ---------------------------------------------------------------------------------------------------
@@ -926,6 +868,7 @@ SlashCmdList['ITRACKU_MAINFRAME_SLASHCMD'] = function()
   ITrackU["encounter_id"] = 1111
   player_regen_disabled_handler()
   print("Addon Open")
+  order_frame_player_debuff()
 end
 SLASH_ITRACKU_MAINFRAME_SLASHCMD1 = '/mainframe'
 

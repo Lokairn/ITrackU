@@ -1,4 +1,4 @@
-## Interface: 70300
+## Interface: 80000
 ## Title: ITrackU
 ## Author: Kahinh & Sindalar
 ## Notes: Ceci est un test
@@ -8,6 +8,7 @@
 ## OptionalDeps: Ace3 
 ## X-bindings: Ace3
 
+Init_Table.lua
 ITrackU.lua
 bindings.xml
 options.lua
