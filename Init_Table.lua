@@ -121,8 +121,12 @@ ITrack.raids = {
 
 -- Defauts configuration at the first launch of the addon
 ITrack.Defaults = {
-	["ENABLE_CLASS_COLOR"] = false,
-	["COLOR_A_CLASS_COLOR"] = 0.3,
+	["ENABLE_CLASS_COLOR_PLAYER"] = false,
+	["ENABLE_CLASS_COLOR_FOCUS"] = false,
+	["ENABLE_CLASS_COLOR_MATE"] = false,
+	["COLOR_A_CLASS_COLOR_PLAYER"] = 0.3,
+	["COLOR_A_CLASS_COLOR_FOCUS"] = 0.3,
+	["COLOR_A_CLASS_COLOR_MATE"] = 0.3,
 	["HEIGHT_TITLE"] = 27,
 	["HEIGHT_DEBUFFED"] = 20,
 	["WIDTH_GLOBAL"] = 150,
