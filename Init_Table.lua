@@ -231,3 +231,39 @@ ITrack.Raid_Class_Color = {
   ["MONK"] = { r = 0.0, g = 1.00 , b = 0.59, colorStr = "ff00ff96" },
   ["DEMONHUNTER"] = { r = 0.64, g = 0.19, b = 0.79, colorStr = "ffa330c9" },
 };
+
+-- Test Roster
+ITrack.Roster_Test = {
+	["Player"] = {
+		["Class"] = "WARRIOR",
+		["Role"] = "TANK",
+	},
+	["Focus"] = {
+		["Class"] = "DEATHKNIGHT",
+		["Role"] = "TANK",
+	},
+	["Mate1"] = {
+		["Class"] = "DRUID",
+		["Role"] = "HEAL",
+	},
+	["Mate2"] = {
+		["Class"] = "MONK",
+		["Role"] = "HEAL",
+	},
+	["Mate3"] = {
+		["Class"] = "HUNTER",
+		["Role"] = "DPS",
+	},
+	["Mate4"] = {
+		["Class"] = "ROGUE",
+		["Role"] = "DPS",
+	},
+	["Mate5"] = {
+		["Class"] = "PRIEST",
+		["Role"] = "DPS",
+	},
+	["Mate6"] = {
+		["Class"] = "WARLOCK",
+		["Role"] = "DPS",
+	},
+}
