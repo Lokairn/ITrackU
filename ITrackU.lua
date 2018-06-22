@@ -378,6 +378,60 @@ function update_alpha_color_statusbar(a)
 	end
 end
 
+
+
+
+-- Get Color for Player Debuffed Frame
+function get_debuffed_color(Env, spell_id, dest_name)
+	if dest_name == select(1, UnitName("player")) or dest_name == "Player" then
+		if db_variable["ENABLE_CLASS_COLOR_PLAYER"] then
+			if Env == "PROD" then	
+			      r, g, b = ITrack.Raid_Class_Color[select(2, UnitClass("dest_name")]
+			      a = db_variable.COLOR_A_CLASS_COLOR_PLAYER
+			elseif Env == "TEST" then
+			      r, g, b = ITrack.Raid_Class_Color[ITrack.Roster_Test[dest_name]]
+			      a = db_variable.COLOR_A_CLASS_COLOR_PLAYER					
+			end
+		else
+			r = db_variable.COLOR_R_DEBUFFED_PLAYER
+			g = db_variable.COLOR_G_DEBUFFED_PLAYER
+			b = db_variable.COLOR_B_DEBUFFED_PLAYER
+			a = db_variable.COLOR_A_DEBUFFED_PLAYER			
+		end
+	elseif dest_name == select(1, UnitName("focus")) or dest_name == "Focus" then
+		if db_variable["ENABLE_CLASS_COLOR_FOCUS"] then
+			if Env == "PROD" then
+			      r, g, b = ITrack.Raid_Class_Color[select(2, UnitClass("dest_name")]
+			      a = db_variable.COLOR_A_CLASS_COLOR_FOCUS	
+			elseif Env == "TEST" then
+			      r, g, b = ITrack.Raid_Class_Color[ITrack.Roster_Test[dest_name]]
+			      a = db_variable.COLOR_A_CLASS_COLOR_FOCUS							
+			end	
+		else
+			r = db_variable.COLOR_R_DEBUFFED_FOCUS
+			g = db_variable.COLOR_G_DEBUFFED_FOCUS
+			b = db_variable.COLOR_B_DEBUFFED_FOCUS
+			a = db_variable.COLOR_A_DEBUFFED_FOCUS   			
+		end
+	else
+		if db_variable["ENABLE_CLASS_COLOR_MATE"] then
+			if Env == "PROD" then
+			      r, g, b = ITrack.Raid_Class_Color[select(2, UnitClass("dest_name")]
+			      a = db_variable.COLOR_A_CLASS_COLOR_MATE				
+			elseif Env == "TEST" then
+			      r, g, b = ITrack.Raid_Class_Color[ITrack.Roster_Test[dest_name]]
+			      a = db_variable.COLOR_A_CLASS_COLOR_MATE							
+			end			
+		else
+			r = db_variable.COLOR_R_DEBUFFED_MATE
+			g = db_variable.COLOR_G_DEBUFFED_MATE
+			b = db_variable.COLOR_B_DEBUFFED_MATE
+			a = db_variable.COLOR_A_DEBUFFED_MATE  			
+		end
+	end
+	return r, g, b, a
+end
+
 ---------------------------------------------------------------------------------------------------
 -------------------------------   ONUPDATE EVENT HANDLING METHODS   -------------------------------
 ---------------------------------------------------------------------------------------------------
@@ -578,52 +632,7 @@ local function table_frame_player_debuffed(Env, type, spell_id, dest_name, aura_
                         }
           
           -- Get Player Color
-          if db_variable["ENABLE_CLASS_COLOR"] then
-            if Env == "PROD" then
-              local class = select(2, UnitClass("dest_name"))
-              ITrackU[spell_id]["debuffed"][dest_name]["color_red"], ITrackU[spell_id]["debuffed"][dest_name]["color_green"], ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = ITrack.Raid_Class_Color[class]
-              ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_CLASS_COLOR
-            elseif Env == "TEST" then
-              ITrackU[spell_id]["debuffed"][dest_name]["color_red"], ITrackU[spell_id]["debuffed"][dest_name]["color_green"], ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = ITrack.Raid_Class_Color["WARRIOR"]
-              ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_CLASS_COLOR
-            end
-          else
-            if Env == "PROD" then
-              if dest_name == select(1, UnitName("player")) then
-                ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = db_variable.COLOR_R_DEBUFFED_PLAYER
-                ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = db_variable.COLOR_G_DEBUFFED_PLAYER
-                ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = db_variable.COLOR_B_DEBUFFED_PLAYER
-                ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_DEBUFFED_PLAYER
-              elseif dest_name == select(1, UnitName("focus")) then
-                ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = db_variable.COLOR_R_DEBUFFED_FOCUS
-                ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = db_variable.COLOR_G_DEBUFFED_FOCUS
-                ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = db_variable.COLOR_B_DEBUFFED_FOCUS
-                ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_DEBUFFED_FOCUS    
-              else
-                ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = db_variable.COLOR_R_DEBUFFED_MATE
-                ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = db_variable.COLOR_G_DEBUFFED_MATE
-                ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = db_variable.COLOR_B_DEBUFFED_MATE
-                ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_DEBUFFED_MATE       
-              end
-            elseif Env == "TEST" then
-              if dest_name == "Player" then
-                ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = db_variable.COLOR_R_DEBUFFED_PLAYER
-                ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = db_variable.COLOR_G_DEBUFFED_PLAYER
-                ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = db_variable.COLOR_B_DEBUFFED_PLAYER
-                ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_DEBUFFED_PLAYER
-              elseif dest_name == "Focus" then
-                ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = db_variable.COLOR_R_DEBUFFED_FOCUS
-                ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = db_variable.COLOR_G_DEBUFFED_FOCUS
-                ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = db_variable.COLOR_B_DEBUFFED_FOCUS
-                ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_DEBUFFED_FOCUS  
-              else
-                ITrackU[spell_id]["debuffed"][dest_name]["color_red"] = db_variable.COLOR_R_DEBUFFED_MATE
-                ITrackU[spell_id]["debuffed"][dest_name]["color_green"] = db_variable.COLOR_G_DEBUFFED_MATE
-                ITrackU[spell_id]["debuffed"][dest_name]["color_blue"] = db_variable.COLOR_B_DEBUFFED_MATE
-                ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = db_variable.COLOR_A_DEBUFFED_MATE       
-              end          
-            end
-          end
+	ITrackU[spell_id]["debuffed"][dest_name]["color_red"], ITrackU[spell_id]["debuffed"][dest_name]["color_green"], ITrackU[spell_id]["debuffed"][dest_name]["color_blue"], ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = get_debuffed_color(Env, spell_id, dest_name)       
           
           -- Create Frame
           ITrackU[spell_id][dest_name].Frame_PlayerDebuffed = get_frame()
