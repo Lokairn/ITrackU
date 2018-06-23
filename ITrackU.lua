@@ -302,42 +302,15 @@ function update_background_color_titre(r, g, b, a)
 end
 
 -- Update Player Background Color
-function update_background_color_player(r, g, b, a)
+function update_debuffed_background_color()
 	if ITrackU["DebuffToTrack"] then	
 	  for k, v in pairs(ITrackU["DebuffToTrack"]) do
 	    for l, w in pairs(ITrackU[k]["debuffed"]) do
-	      if w and l == "Player" and ITrackU[k][l].Stacks < ITrackU["DebuffToTrack"][k]["MaxStacksNumber"] then
-	    	ITrackU[k][l].Frame_PlayerDebuffed:SetBackdropColor(r, g, b, a)
-	    	ITrackU[k][l].Frame_PlayerDebuffed:SetStatusBarColor(r, g, b, 1)
-	      end
-	    end
-	  end
-	end
-end
-
--- Update Focus Background Color
-function update_background_color_focus(r, g, b, a)
-	if ITrackU["DebuffToTrack"] then
-	  for k, v in pairs(ITrackU["DebuffToTrack"]) do
-	    for l, w in pairs(ITrackU[k]["debuffed"]) do
-	      if w and l == "Focus" and ITrackU[k][l].Stacks < ITrackU["DebuffToTrack"][k]["MaxStacksNumber"] then
-	    	ITrackU[k][l].Frame_PlayerDebuffed:SetBackdropColor(r, g, b, a)
-	    	ITrackU[k][l].Frame_PlayerDebuffed:SetStatusBarColor(r, g, b, 1)
-	      end
-	    end
-	  end
-	end
-end
-
--- Update Mate Background Color
-function update_background_color_mate(r, g, b, a)
-	if ITrackU["DebuffToTrack"] then
-	  for k, v in pairs(ITrackU["DebuffToTrack"]) do
-	    for l, w in pairs(ITrackU[k]["debuffed"]) do
-	      if w and l ~= "Focus" and l ~= "Player" and ITrackU[k][l].Stacks < ITrackU["DebuffToTrack"][k]["MaxStacksNumber"] then
-	    	ITrackU[k][l].Frame_PlayerDebuffed:SetBackdropColor(r, g, b, a)
-	    	ITrackU[k][l].Frame_PlayerDebuffed:SetStatusBarColor(r, g, b, 1)
-	      end
+	      if w and ITrackU[k][l].Stacks < ITrackU["DebuffToTrack"][k]["MaxStacksNumber"] then
+          ITrackU[k]["debuffed"][l]["color_red"], ITrackU[k]["debuffed"][l]["color_green"], ITrackU[k]["debuffed"][l]["color_blue"], ITrackU[k]["debuffed"][l]["color_alpha"] = get_debuffed_color("TEST", k, l)
+          ITrackU[k][l].Frame_PlayerDebuffed:SetBackdropColor(ITrackU[k]["debuffed"][l]["color_red"], ITrackU[k]["debuffed"][l]["color_green"], ITrackU[k]["debuffed"][l]["color_blue"], ITrackU[k]["debuffed"][l]["color_alpha"])
+          ITrackU[k][l].Frame_PlayerDebuffed:SetStatusBarColor(ITrackU[k]["debuffed"][l]["color_red"], ITrackU[k]["debuffed"][l]["color_green"], ITrackU[k]["debuffed"][l]["color_blue"], db_variable.COLOR_A_DEBUFFED_STATUSBAR)
+        end
 	    end
 	  end
 	end
@@ -386,10 +359,14 @@ function get_debuffed_color(Env, spell_id, dest_name)
 	if dest_name == select(1, UnitName("player")) or dest_name == "Player" then
 		if db_variable["ENABLE_CLASS_COLOR_PLAYER"] then
 			if Env == "PROD" then	
-			      r, g, b = ITrack.Raid_Class_Color[select(2, UnitClass("dest_name")]
+			      r = ITrack.Raid_Class_Color[select(2, UnitClass("dest_name"))].r
+			      g = ITrack.Raid_Class_Color[select(2, UnitClass("dest_name"))].g
+			      b = ITrack.Raid_Class_Color[select(2, UnitClass("dest_name"))].b
 			      a = db_variable.COLOR_A_CLASS_COLOR_PLAYER
 			elseif Env == "TEST" then
-			      r, g, b = ITrack.Raid_Class_Color[ITrack.Roster_Test[dest_name]]
+			      r = ITrack.Raid_Class_Color[ITrack.Roster_Test[dest_name]["Class"]].r
+			      g = ITrack.Raid_Class_Color[ITrack.Roster_Test[dest_name]["Class"]].g
+			      b = ITrack.Raid_Class_Color[ITrack.Roster_Test[dest_name]["Class"]].b
 			      a = db_variable.COLOR_A_CLASS_COLOR_PLAYER					
 			end
 		else
@@ -401,10 +378,14 @@ function get_debuffed_color(Env, spell_id, dest_name)
 	elseif dest_name == select(1, UnitName("focus")) or dest_name == "Focus" then
 		if db_variable["ENABLE_CLASS_COLOR_FOCUS"] then
 			if Env == "PROD" then
-			      r, g, b = ITrack.Raid_Class_Color[select(2, UnitClass("dest_name")]
+			      r = ITrack.Raid_Class_Color[select(2, UnitClass("dest_name"))].r
+			      g = ITrack.Raid_Class_Color[select(2, UnitClass("dest_name"))].g
+			      b = ITrack.Raid_Class_Color[select(2, UnitClass("dest_name"))].b
 			      a = db_variable.COLOR_A_CLASS_COLOR_FOCUS	
 			elseif Env == "TEST" then
-			      r, g, b = ITrack.Raid_Class_Color[ITrack.Roster_Test[dest_name]]
+			      r = ITrack.Raid_Class_Color[ITrack.Roster_Test[dest_name]["Class"]].r
+			      g = ITrack.Raid_Class_Color[ITrack.Roster_Test[dest_name]["Class"]].g
+			      b = ITrack.Raid_Class_Color[ITrack.Roster_Test[dest_name]["Class"]].b
 			      a = db_variable.COLOR_A_CLASS_COLOR_FOCUS							
 			end	
 		else
@@ -416,10 +397,14 @@ function get_debuffed_color(Env, spell_id, dest_name)
 	else
 		if db_variable["ENABLE_CLASS_COLOR_MATE"] then
 			if Env == "PROD" then
-			      r, g, b = ITrack.Raid_Class_Color[select(2, UnitClass("dest_name")]
+			      r = ITrack.Raid_Class_Color[select(2, UnitClass("dest_name"))].r
+			      g = ITrack.Raid_Class_Color[select(2, UnitClass("dest_name"))].g
+			      b = ITrack.Raid_Class_Color[select(2, UnitClass("dest_name"))].b
 			      a = db_variable.COLOR_A_CLASS_COLOR_MATE				
 			elseif Env == "TEST" then
-			      r, g, b = ITrack.Raid_Class_Color[ITrack.Roster_Test[dest_name]]
+			      r = ITrack.Raid_Class_Color[ITrack.Roster_Test[dest_name]["Class"]].r
+			      g = ITrack.Raid_Class_Color[ITrack.Roster_Test[dest_name]["Class"]].g
+			      b = ITrack.Raid_Class_Color[ITrack.Roster_Test[dest_name]["Class"]].b
 			      a = db_variable.COLOR_A_CLASS_COLOR_MATE							
 			end			
 		else

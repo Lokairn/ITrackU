@@ -329,54 +329,135 @@ local options = {
           name = "You can modify the color of player debuffed frames if You / Focus / Another Player / Max Stacks",
           order = 5,
         },
+        ENABLE_CLASS_COLOR_PLAYER = {
+          type = "toggle",
+          order = 5.5,
+          name = "Enable Class Color Player",
+          desc = "Enable Class Color Player",
+          set = function(info, val)
+            db_variable.ENABLE_CLASS_COLOR_PLAYER = val
+            update_debuffed_background_color()
+          end,
+          get = function(info) return db_variable.ENABLE_CLASS_COLOR_PLAYER end,
+        },
+        ALPHA_CLASS_COLOR_PLAYER = {
+          type = "range",
+          order = 5.6,
+          name = "Class Color Player Alpha",
+          desc = "Class Color Player Alpha",
+          min = 0,
+          max = 1,
+          step = 0.01,
+          hidden = function() if db_variable.ENABLE_CLASS_COLOR_PLAYER then return false else return true end end,
+          set = function(info, val)
+            db_variable.COLOR_A_CLASS_COLOR_PLAYER = val
+            update_debuffed_background_color()
+          end,
+          get = function(info) return db_variable.COLOR_A_CLASS_COLOR_PLAYER end,
+        },
         COLOR_BACKGROUND_PLAYER = {
           type = "color",
           desc = "",
           name = "Player Color",
           hasAlpha = true,
+          hidden = function() if db_variable.ENABLE_CLASS_COLOR_PLAYER then return true else return false end end,
           order = 6,
           set = function(info, val1, val2, val3, val4)
             db_variable.COLOR_R_DEBUFFED_PLAYER = val1
             db_variable.COLOR_G_DEBUFFED_PLAYER = val2
             db_variable.COLOR_B_DEBUFFED_PLAYER = val3
             db_variable.COLOR_A_DEBUFFED_PLAYER = val4
-            update_background_color_player(val1, val2, val3, val4)
+            update_debuffed_background_color()
           end,
           get = function(info) return db_variable.COLOR_R_DEBUFFED_PLAYER, db_variable.COLOR_G_DEBUFFED_PLAYER, db_variable.COLOR_B_DEBUFFED_PLAYER, db_variable.COLOR_A_DEBUFFED_PLAYER end,
         },
         --ALPHA_STATUSBAR_PLAYER = {
         --order = 7,
         --},
+        ENABLE_CLASS_COLOR_FOCUS = {
+          type = "toggle",
+          order = 6.5,
+          name = "Enable Class Color Focus",
+          desc = "Enable Class Color Focus",
+          set = function(info, val)
+            db_variable.ENABLE_CLASS_COLOR_FOCUS = val
+            update_debuffed_background_color()
+          end,
+          get = function(info) return db_variable.ENABLE_CLASS_COLOR_FOCUS end,
+        },
+        ALPHA_CLASS_COLOR_FOCUS = {
+          type = "range",
+          order = 6.6,
+          name = "Class Color Focus Alpha",
+          desc = "Class Color Focus Alpha",
+          min = 0,
+          max = 1,
+          step = 0.01,
+          hidden = function() if db_variable.ENABLE_CLASS_COLOR_FOCUS then return false else return true end end,
+          set = function(info, val)
+            db_variable.COLOR_A_CLASS_COLOR_FOCUS = val
+            update_debuffed_background_color()
+          end,
+          get = function(info) return db_variable.COLOR_A_CLASS_COLOR_FOCUS end,
+        },
         COLOR_BACKGROUND_FOCUS = {
           type = "color",
           desc = "",
           name = "Focus Color",
           hasAlpha = true,
+          hidden = function() if db_variable.ENABLE_CLASS_COLOR_FOCUS then return true else return false end end,
           order = 8,
           set = function(info, val1, val2, val3, val4)
             db_variable.COLOR_R_DEBUFFED_FOCUS = val1
             db_variable.COLOR_G_DEBUFFED_FOCUS = val2
             db_variable.COLOR_B_DEBUFFED_FOCUS = val3
             db_variable.COLOR_A_DEBUFFED_FOCUS = val4
-            update_background_color_focus(val1, val2, val3, val4)
+            update_debuffed_background_color()
           end,
           get = function(info) return db_variable.COLOR_R_DEBUFFED_FOCUS, db_variable.COLOR_G_DEBUFFED_FOCUS, db_variable.COLOR_B_DEBUFFED_FOCUS, db_variable.COLOR_A_DEBUFFED_FOCUS end,
         },
         --ALPHA_STATUSBAR_FOCUS = {
         --order = 9,
         --},
+        ENABLE_CLASS_COLOR_MATE = {
+          type = "toggle",
+          order = 8.5,
+          name = "Enable Class Color Mate",
+          desc = "Enable Class Color Mate",
+          set = function(info, val)
+            db_variable.ENABLE_CLASS_COLOR_MATE = val
+            update_debuffed_background_color()
+          end,
+          get = function(info) return db_variable.ENABLE_CLASS_COLOR_MATE end,
+        },
+        ALPHA_CLASS_COLOR_MATE = {
+          type = "range",
+          order = 8.6,
+          name = "Class Color Mate Alpha",
+          desc = "Class Color Mate Alpha",
+          min = 0,
+          max = 1,
+          step = 0.01,
+          hidden = function() if db_variable.ENABLE_CLASS_COLOR_MATE then return false else return true end end,
+          set = function(info, val)
+            db_variable.COLOR_A_CLASS_COLOR_MATE = val
+            update_debuffed_background_color()
+          end,
+          get = function(info) return db_variable.COLOR_A_CLASS_COLOR_MATE end,
+        },
         COLOR_BACKGROUND_MATE = {
           type = "color",
           desc = "",
           name = "Mate Color",
           hasAlpha = true,
+          hidden = function() if db_variable.ENABLE_CLASS_COLOR_MATE then return true else return false end end,
           order = 10,
           set = function(info, val1, val2, val3, val4)
             db_variable.COLOR_R_DEBUFFED_MATE = val1
             db_variable.COLOR_G_DEBUFFED_MATE = val2
             db_variable.COLOR_B_DEBUFFED_MATE = val3
             db_variable.COLOR_A_DEBUFFED_MATE = val4
-            update_background_color_mate(val1, val2, val3, val4)
+            update_debuffed_background_color()
           end,
           get = function(info) return db_variable.COLOR_R_DEBUFFED_MATE, db_variable.COLOR_G_DEBUFFED_MATE, db_variable.COLOR_B_DEBUFFED_MATE, db_variable.COLOR_A_DEBUFFED_MATE end,
         },

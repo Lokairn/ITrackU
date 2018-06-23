@@ -13,3 +13,4 @@ ITrackU.lua
 bindings.xml
 options.lua
 
+media\load_media.xml
