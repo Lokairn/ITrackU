@@ -19,7 +19,7 @@ local unlock_dialog = nil
 local function addon_loaded(event, arg1)
 
   if arg1 == "ITrackU" then
-    print("Bienvenue sur ITrackU version 1.2, tapez /ITU afin d'accéder au menu de configuration en jeu.")
+    print("Bienvenue sur ITrackU version 1.3, tapez /ITU afin d'accéder au menu de configuration en jeu.")
     if debuffs_table == nil then print("CETTE TABLE NE SE CHARGE PAS") end
     if db_variable == nil then db_variable = {} end
 
@@ -351,9 +351,6 @@ function update_alpha_color_statusbar(a)
 	end
 end
 
-
-
-
 -- Get Color for Player Debuffed Frame
 function get_debuffed_color(Env, spell_id, dest_name)
 	if dest_name == select(1, UnitName("player")) or dest_name == "Player" then
@@ -415,6 +412,24 @@ function get_debuffed_color(Env, spell_id, dest_name)
 		end
 	end
 	return r, g, b, a
+end
+
+-- Update Fonts
+function update_fonts()
+  if ITrackU["DebuffToTrack"] then
+    for k, v in pairs(ITrackU["DebuffToTrack"]) do 
+      ITrackU[k].Text_Frame_Titre:SetFont(db_variable.FONT_TITRE, db_variable.FONT_TITRE_SIZE, "MONOCHROME")
+      ITrackU[k].Text_Frame_Titre:SetTextColor(db_variable.FONT_TITRE_R_COLOR, db_variable.FONT_TITRE_G_COLOR, db_variable.FONT_TITRE_B_COLOR, db_variable.FONT_TITRE_A_COLOR) 
+      for l, w in pairs(ITrackU[k]["debuffed"]) do
+        if w then
+          ITrackU[k][l].Text_PlayerStacks:SetFont(db_variable.FONT_DEBUFFED_STACK, db_variable.FONT_DEBUFFED_STACK_SIZE, "MONOCHROME")
+          ITrackU[k][l].Text_PlayerStacks:SetTextColor(db_variable.FONT_DEBUFFED_STACK_R_COLOR, db_variable.FONT_DEBUFFED_STACK_G_COLOR, db_variable.FONT_DEBUFFED_STACK_B_COLOR, db_variable.FONT_DEBUFFED_STACK_A_COLOR)          
+          ITrackU[k][l].Text_PlayerDebuffed:SetFont(db_variable.FONT_DEBUFFED_NAME, db_variable.FONT_DEBUFFED_NAME_SIZE, "MONOCHROME")
+          ITrackU[k][l].Text_PlayerDebuffed:SetTextColor(db_variable.FONT_DEBUFFED_NAME_R_COLOR, db_variable.FONT_DEBUFFED_NAME_G_COLOR, db_variable.FONT_DEBUFFED_NAME_B_COLOR, db_variable.FONT_DEBUFFED_NAME_G_COLOR)        
+        end 
+      end 
+    end
+  end
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -542,7 +557,9 @@ local function player_regen_disabled_handler(self, ...)
       -- Text_Frame_Titre
       ITrackU[k].Text_Frame_Titre = ITrackU[k].Frame_Titre:CreateFontString("Text_Frame_Titre", "OVERLAY", "GameFontNormal")
       ITrackU[k].Text_Frame_Titre:SetPoint("LEFT", db_variable.HEIGHT_TITLE + 4, 0)
-      ITrackU[k].Text_Frame_Titre:SetText(select(1, GetSpellInfo(k)))    
+      ITrackU[k].Text_Frame_Titre:SetText(select(1, GetSpellInfo(k)))
+      ITrackU[k].Text_Frame_Titre:SetFont(db_variable.FONT_TITRE, db_variable.FONT_TITRE_SIZE, "MONOCHROME")
+      ITrackU[k].Text_Frame_Titre:SetTextColor(db_variable.FONT_TITRE_R_COLOR, db_variable.FONT_TITRE_G_COLOR, db_variable.FONT_TITRE_B_COLOR, db_variable.FONT_TITRE_A_COLOR)    
 
       -- Icon_Frame_Titre
       ITrackU[k].Icon_Frame_Titre = ITrackU[k].Frame_Titre:CreateTexture(nil,"MEDIUM")
@@ -627,8 +644,8 @@ local function table_frame_player_debuffed(Env, type, spell_id, dest_name, aura_
           --PlayerStacksText
           ITrackU[spell_id][dest_name].Text_PlayerStacks = ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:CreateFontString("Text_PlayerStacks", "OVERLAY", "GameFontNormal")
           ITrackU[spell_id][dest_name].Text_PlayerStacks:SetPoint("RIGHT", -5, 0)
-          ITrackU[spell_id][dest_name].Text_PlayerStacks:SetFont("Fonts\\FRIZQT__.TTF", 15, "MONOCHROME")
-          -- ITrackU[spell_id][dest_name].Text_PlayerStacks:SetTextColor(1, 1, 1, 1)
+          ITrackU[spell_id][dest_name].Text_PlayerStacks:SetFont(db_variable.FONT_DEBUFFED_STACK, db_variable.FONT_DEBUFFED_STACK_SIZE, "MONOCHROME")
+          ITrackU[spell_id][dest_name].Text_PlayerStacks:SetTextColor(db_variable.FONT_DEBUFFED_STACK_R_COLOR, db_variable.FONT_DEBUFFED_STACK_G_COLOR, db_variable.FONT_DEBUFFED_STACK_B_COLOR, db_variable.FONT_DEBUFFED_STACK_A_COLOR)
 
             --Frame_PlayerDebuffed StatusBar
             ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetStatusBarTexture([[Interface\ChatFrame\ChatFrameBackground]])
@@ -648,6 +665,8 @@ local function table_frame_player_debuffed(Env, type, spell_id, dest_name, aura_
           -- PlayerDebuffedText
           ITrackU[spell_id][dest_name].Text_PlayerDebuffed = ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:CreateFontString("Text_PlayerDebuffed", "OVERLAY", "GameFontNormal")
           ITrackU[spell_id][dest_name].Text_PlayerDebuffed:SetPoint("CENTER", 0, 0)
+          ITrackU[spell_id][dest_name].Text_PlayerDebuffed:SetFont(db_variable.FONT_DEBUFFED_NAME, db_variable.FONT_DEBUFFED_NAME_SIZE, "MONOCHROME")
+          ITrackU[spell_id][dest_name].Text_PlayerDebuffed:SetTextColor(db_variable.FONT_DEBUFFED_NAME_R_COLOR, db_variable.FONT_DEBUFFED_NAME_G_COLOR, db_variable.FONT_DEBUFFED_NAME_B_COLOR, db_variable.FONT_DEBUFFED_NAME_G_COLOR)
           ITrackU[spell_id][dest_name].Text_PlayerDebuffed:SetText(dest_name)
           
           -- Status Bar

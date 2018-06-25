@@ -12,5 +12,6 @@ Init_Table.lua
 ITrackU.lua
 bindings.xml
 options.lua
+Stuns.lua
 
 media\load_media.xml

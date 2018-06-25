@@ -167,11 +167,28 @@ ITrack.Defaults = {
 	["COLOR_R_DISTANCE_KO"] = 0,
 	["COLOR_R_DISTANCE_KO"] = 0,
 	["COLOR_R_DISTANCE_KO"] = 1,
+  ["FONT_TITRE"] = "PT Sans Narrow",
+  ["FONT_DEBUFFED_NAME"] = "PT Sans Narrow",
+  ["FONT_DEBUFFED_STACK"] = "PT Sans Narrow",
+  ["FONT_TITRE_SIZE"] = 15,
+  ["FONT_DEBUFFED_NAME_SIZE"] = 15,
+  ["FONT_DEBUFFED_STACK_SIZE"] = 15,
+  ["FONT_TITRE_R_COLOR"] = 1,
+  ["FONT_TITRE_G_COLOR"] = 0,
+  ["FONT_TITRE_B_COLOR"] = 0,
+  ["FONT_TITRE_A_COLOR"] = 1,
+  ["FONT_DEBUFFED_NAME_R_COLOR"] = 0,
+  ["FONT_DEBUFFED_NAME_G_COLOR"] = 1,
+  ["FONT_DEBUFFED_NAME_B_COLOR"] = 0,
+  ["FONT_DEBUFFED_NAME_A_COLOR"] = 1,
+  ["FONT_DEBUFFED_STACK_R_COLOR"] = 0,
+  ["FONT_DEBUFFED_STACK_G_COLOR"] = 0,
+  ["FONT_DEBUFFED_STACK_B_COLOR"] = 1,
+  ["FONT_DEBUFFED_STACK_A_COLOR"] = 1,
 }
 
   --set all variables tables for the test frame
   if debuffs_table == nil then debuffs_table = {} end
-  if debuffs_table ~= nil then
     debuffs_table[1111] = {
       [23920] = {
         ["IfActive"] = false,
@@ -180,7 +197,7 @@ ITrack.Defaults = {
         ["TypeDistance"] = 0,
         ["Rôle"] = "All",
         ["MaxStacks"] = true,
-        ["MaxStacksNumber"] = 4,
+        ["MaxStacksNumber"] = 5,
     		["Columns"] = 1,
     		["Activate"] = true,
       },
@@ -191,7 +208,7 @@ ITrack.Defaults = {
         ["TypeDistance"] = 8,
         ["Rôle"] = "All",
         ["MaxStacks"] = true,
-        ["MaxStacksNumber"] = 4,
+        ["MaxStacksNumber"] = 5,
     		["Columns"] = 0,
     		["Activate"] = true,
       },
@@ -202,7 +219,7 @@ ITrack.Defaults = {
         ["TypeDistance"] = 0,
         ["Rôle"] = "All",
         ["MaxStacks"] = true,
-        ["MaxStacksNumber"] = 4,
+        ["MaxStacksNumber"] = 5,
     		["Columns"] = 0,
     		["Activate"] = true,
       },
@@ -213,13 +230,21 @@ ITrack.Defaults = {
         ["TypeDistance"] = 8,
         ["Rôle"] = "All",
         ["MaxStacks"] = true,
-        ["MaxStacksNumber"] = 4,
+        ["MaxStacksNumber"] = 5,
     		["Columns"] = 0,
     		["Activate"] = true,
       },
     }
-  end
 
+-- Fonts
+ITrack.Fonts = {
+  ["Interface\\Addons\\ITrackU\\media\\fonts\\Homespun.ttf"] = "Homespun",
+  ["Interface\\Addons\\ITrackU\\media\\fonts\\PT_Sans_Narrow.ttf"] = "PT Sans Narrow",
+  ["Interface\\Addons\\ITrackU\\media\\fonts\\Expressway.ttf"] = "Expressway",
+  ["Interface\\Addons\\ITrackU\\media\\fonts\\Action_Man.ttf"] = "Action Man",
+  ["Interface\\Addons\\ITrackU\\media\\fonts\\DieDieDie.ttf"] = "Die Die Die!",
+  ["Interface\\Addons\\ITrackU\\media\\fonts\\Continuum_Medium.ttf"] = "Continuum Medium",
+}
 -- Class colors
 ITrack.Raid_Class_Color = {
   ["HUNTER"] = { r = 0.67, g = 0.83, b = 0.45, colorStr = "ffabd473" },

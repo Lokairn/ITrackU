@@ -533,7 +533,144 @@ local options = {
             db_variable.COLOR_A_DISTANCE_KO = val4
           end,
           get = function(info) return db_variable.COLOR_R_DISTANCE_KO, db_variable.COLOR_G_DISTANCE_KO, db_variable.COLOR_B_DISTANCE_KO, db_variable.COLOR_A_DISTANCE_KO end,
-        },    
+        },
+        HEADER_FONTS = {
+        	type = "header",
+        	name = "Fonts",
+        	order = 19,
+        },
+        FONTS_TITRE = {
+        	type = "select",
+        	name = "Font Title",
+        	order = 20,
+        	style = "dropdown",
+        	desc = "",
+        	values = ITrack.Fonts,
+        	set = function(info, val)
+        		db_variable.FONT_TITRE = val
+        		update_fonts()
+        	end,
+        	get = function(info) return db_variable.FONT_TITRE end,
+        },
+        FONT_TITRE_SIZE = {
+        	type = "range",
+        	order = 21,
+        	name = "Font Title Size",
+        	desc = "",
+        	width = "half",
+        	min = 8,
+        	max = 32,
+        	step = 0.01,
+        	set = function(info, val)
+	        	db_variable.FONT_TITRE_SIZE = val
+	        	update_fonts()
+        	end,
+        	get = function(info) return db_variable.FONT_TITRE_SIZE end,
+        },
+        FONT_TITRE_COLOR = {
+        	type = "color",
+        	name = "",
+        	order = 22,
+        	width = "half",
+        	desc = "",
+        	hasAlpha = true,
+        	set = function(info, val1, val2, val3, val4)
+        		db_variable.FONT_TITRE_R_COLOR = val1
+        		db_variable.FONT_TITRE_G_COLOR = val2
+        		db_variable.FONT_TITRE_B_COLOR = val3
+        		db_variable.FONT_TITRE_A_COLOR = val4
+        		update_fonts()
+        	end,
+        	get = function(info) return db_variable.FONT_TITRE_R_COLOR, db_variable.FONT_TITRE_G_COLOR, db_variable.FONT_TITRE_B_COLOR, db_variable.FONT_TITRE_A_COLOR end,
+        },
+        FONTS_DEBUFFED_NAME = {
+        	type = "select",
+        	name = "Font Debuffed",
+        	order = 23,
+        	style = "dropdown",
+        	desc = "",
+        	values = ITrack.Fonts,
+        	set = function(info, val)
+        		db_variable.FONT_DEBUFFED_NAME = val
+        		update_fonts()
+        	end,
+        	get = function(info) return db_variable.FONT_DEBUFFED_NAME end,
+        },
+        FONT_DEBUFFED_NAME_SIZE = {
+        	type = "range",
+        	order = 24,
+        	name = "Font Debuffed Size",
+        	desc = "",
+        	width = "half",
+        	min = 8,
+        	max = 32,
+        	step = 0.01,
+        	set = function(info, val)
+	        	db_variable.FONT_DEBUFFED_NAME_SIZE = val
+	        	update_fonts()
+        	end,
+        	get = function(info) return db_variable.FONT_DEBUFFED_NAME_SIZE end,
+        },
+        FONT_DEBUFFED_NAME_COLOR = {
+        	type = "color",
+        	name = "",
+        	order = 25,
+        	width = "half",
+        	desc = "",
+        	hasAlpha = true,
+        	set = function(info, val1, val2, val3, val4)
+        		db_variable.FONT_DEBUFFED_NAME_R_COLOR = val1
+        		db_variable.FONT_DEBUFFED_NAME_G_COLOR = val2
+        		db_variable.FONT_DEBUFFED_NAME_B_COLOR = val3
+        		db_variable.FONT_DEBUFFED_NAME_A_COLOR = val4
+        		update_fonts()
+        	end,
+        	get = function(info) return db_variable.FONT_DEBUFFED_NAME_R_COLOR, db_variable.FONT_DEBUFFED_NAME_G_COLOR, db_variable.FONT_DEBUFFED_NAME_B_COLOR, db_variable.FONT_DEBUFFED_NAME_A_COLOR end,
+        },
+        FONTS_DEBUFFED_STACK = {
+        	type = "select",
+        	name = "Font Debuffed Stack",
+        	order = 26,
+        	style = "dropdown",
+        	desc = "",
+        	values = ITrack.Fonts,
+        	set = function(info, val)
+        		db_variable.FONT_DEBUFFED_STACK = val
+        		update_fonts()
+        	end,
+        	get = function(info) return db_variable.FONT_DEBUFFED_STACK end,
+        },
+        FONT_DEBUFFED_STACK_SIZE = {
+        	type = "range",
+        	order = 27,
+        	name = "Font Debuffed Stack Size",
+        	desc = "",
+        	width = "half",
+        	min = 8,
+        	max = 32,
+        	step = 0.01,
+        	set = function(info, val)
+	        	db_variable.FONT_DEBUFFED_STACK_SIZE = val
+	        	update_fonts()
+        	end,
+        	get = function(info) return db_variable.FONT_DEBUFFED_STACK_SIZE end,
+        },
+        FONT_DEBUFFED_STACK_COLOR = {
+        	type = "color",
+        	name = "",
+        	order = 28,
+        	width = "half",
+        	desc = "",
+        	hasAlpha = true,
+        	set = function(info, val1, val2, val3, val4)
+        		db_variable.FONT_DEBUFFED_STACK_R_COLOR = val1
+        		db_variable.FONT_DEBUFFED_STACK_G_COLOR = val2
+        		db_variable.FONT_DEBUFFED_STACK_B_COLOR = val3
+        		db_variable.FONT_DEBUFFED_STACK_A_COLOR = val4
+        		update_fonts()
+        	end,
+        	get = function(info) return db_variable.FONT_DEBUFFED_STACK_R_COLOR, db_variable.FONT_DEBUFFED_STACK_G_COLOR, db_variable.FONT_DEBUFFED_STACK_B_COLOR, db_variable.FONT_DEBUFFED_STACK_A_COLOR end,
+        },       
 			},
 		},
 		DebuffsBDD = {
