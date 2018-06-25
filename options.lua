@@ -1004,6 +1004,55 @@ local options = {
         },
 			},
 		},
+		Stuns = {
+			name = "Stunnable",
+			order = 4,
+			type = "group",
+			args = {
+				HEADER_STUN = {
+					name = "Stunnable",
+					order = 1,
+					type = "header",
+				},
+				STUN_ACTIVATION = {
+					type = "toggle",
+					order = 2,
+					name = "Activate",
+					desc = "Activate the stun's tracker in dungeon",
+					set = function(info, val)
+						db_variable.STUN_ACTIVATE = val
+					end,
+					get = function(info) return db_variable.STUN_ACTIVATE end,
+				},
+				STUN_OPEN_FRAME = {
+					type = "execute",
+					order = 3,
+					name = "Open Frame",
+					desc = "Open a frame test",
+				},
+				HEADER_STUN_POSITION = {
+					name = "Position",
+					order = 4,
+					type = "header",
+				},
+				STUN_POSITION_X = {
+					order = 5,
+					name = "Position X",
+					type = "range",
+					min = 0,
+					max = 400,
+					step = 1,
+				},
+				STUN_POSITION_Y = {
+					order = 6,
+					name = "Position Y",
+					type = "range",
+					min = 0,
+					max = 400,
+					step = 1,
+				},
+			},
+		},
 	},
 }	
 

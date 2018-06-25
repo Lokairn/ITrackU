@@ -97,6 +97,14 @@ ITrack.dungeons = {
   },
 }
 
+-- BDD des MapIDs
+ITrack.dungeons_mapid = {
+    [1501] = {
+      ["extension"] = "Légion",
+      ["dungeon"] = "Black Rook Hold",
+    },
+}
+
 -- BDD of raids
 ITrack.raids = {
   ["Legion"] = {
@@ -185,6 +193,11 @@ ITrack.Defaults = {
   ["FONT_DEBUFFED_STACK_G_COLOR"] = 0,
   ["FONT_DEBUFFED_STACK_B_COLOR"] = 1,
   ["FONT_DEBUFFED_STACK_A_COLOR"] = 1,
+  ["STUN_ACTIVATE"] = false,
+  ["WIDTH_STUN"] = 200,
+  ["HEIGHT_STUN"] = 20,
+  ["POSITION_X_STUN"] = 0,
+  ["POSITION_Y_STUN"] = -100,
 }
 
   --set all variables tables for the test frame

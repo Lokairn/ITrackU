@@ -2,7 +2,14 @@
 --------------------------------   SAVED VARIABLES DECLARATIONS   ---------------------------------
 ---------------------------------------------------------------------------------------------------
 
+-- Set all variables from saved variables or default ones if not available
+local function addon_loaded(event, arg1)
 
+  if arg1 == "ITrackU" then
+    if ITrackUStuns == nil then ITrackUStuns = {} end
+  end
+
+end
 
 ---------------------------------------------------------------------------------------------------
 ----------------------------------   FRAMEPOOL IMPLEMENTATION   -----------------------------------
@@ -46,18 +53,22 @@ end
 
 local function open_stun_frame(unit_guid)
 
-  if ITrackUStuns == nil then ITrackUStuns = {} end
-
   ITrackUStuns.frame_stun_target = get_frame()
-  ITrackUStuns.frame_stun_target = modify_frame(ITrackUStuns.frame_stun_target, UIParent, {bgFile = [[Interface\ChatFrame\ChatFrameBackground]]}, 100, 100, "CENTER", 0, 0, 1, 0, 0, 1, "BACKGROUND")
+  ITrackUStuns.frame_stun_target = modify_frame(ITrackUStuns.frame_stun_target, TargetFrame, {bgFile = [[Interface\ChatFrame\ChatFrameBackground]]}, 200, 20, "CENTER", 0, -100, 1, 0, 0, 1, "BACKGROUND")
+  ITrackUStuns.frame_stun_target:Show()
+  
   ITrackUStuns.text_frame_stun_target = ITrackUStuns.frame_stun_target:CreateFontString("GUID_Text", "OVERLAY", "GameFontNormal")
   ITrackUStuns.text_frame_stun_target:SetPoint("CENTER", 0, 0)
   ITrackUStuns.text_frame_stun_target:SetText(unit_guid)
-  
+
 end
 
 local function close_stun_frame()
-
+  if ITrackUStuns.frame_stun_target then
+    ITrackUStuns.text_frame_stun_target:SetText("")
+    remove_frame(ITrackUStuns.frame_stun_target)
+    ITrackUStuns.frame_stun_target = nil
+  end
 end
 
 ---------------------------------------------------------------------------------------------------
@@ -65,8 +76,12 @@ end
 ---------------------------------------------------------------------------------------------------
 
 local function player_target_changed_handler()
+
+  close_stun_frame()
+
   if UnitIsEnemy("player","target") then
     if UnitGUID("target"):sub(0, 8) == "Creature" then
+
       local unit_guid = UnitGUID("target"):sub(25,29)
 
       open_stun_frame(unit_guid)
@@ -84,6 +99,7 @@ local AllEventHandlers = {
     ["PLAYER_REGEN_ENABLED"] = player_regen_enabled_handler,
     ["COMBAT_LOG_EVENT_UNFILTERED"] = combat_log_event_unfiltered_handler,
     ["PLAYER_TARGET_CHANGED"] = player_target_changed_handler,
+    ["ADDON_LOADED"] = addon_loaded,
 }
  
 -- ITrackUFrame
