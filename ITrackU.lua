@@ -72,6 +72,10 @@ local function addon_initialization(self, ...)
     db_variable.POSITION_Y = 0
   end
 
+  if db_variable.ZOOM_PERCENTAGE == nil then
+    db_variable.ZOOM_PERCENTAGE = 0.07
+  end
+
   Frame_Main:SetBackdrop({bgFile = [[Interface\ChatFrame\ChatFrameBackground]]});
   Frame_Main:SetWidth(db_variable.WIDTH_GLOBAL + db_variable.WIDTH_ECART_GLOBAL_PLAYER_DISTANCE + db_variable.WIDTH_PLAYER_DISTANCE)
   Frame_Main:SetHeight(0)
@@ -432,6 +436,23 @@ function update_fonts()
   end
 end
 
+
+-- Update texture zoom 
+function update_icon_zoom(zoom_value)
+  if ITrackU["DebuffToTrack"] ~= nil then
+    for k, v in pairs(ITrackU["DebuffToTrack"]) do
+      local new_left, new_right, new_top, new_bottom
+      new_left = zoom_value
+      new_right = 1 - zoom_value
+      new_top = zoom_value
+      new_bottom = 1 - zoom_value
+
+      ITrackU[k].Icon_Frame_Titre:SetTexCoord(new_left,new_right,new_top,new_bottom)
+    end
+  end
+
+end
+
 ---------------------------------------------------------------------------------------------------
 -------------------------------   ONUPDATE EVENT HANDLING METHODS   -------------------------------
 ---------------------------------------------------------------------------------------------------
@@ -563,7 +584,12 @@ local function player_regen_disabled_handler(self, ...)
 
       -- Icon_Frame_Titre
       ITrackU[k].Icon_Frame_Titre = ITrackU[k].Frame_Titre:CreateTexture(nil,"MEDIUM")
-      ITrackU[k].Icon_Frame_Titre:SetTexture(select(3, GetSpellInfo(k)))
+      ITrackU[k].Icon_Frame_Titre:SetTexture(select(3, GetSpellInfo(k)))    
+
+      -- Set the icon zoom level  
+      local zoom_level = db_variable.ZOOM_PERCENTAGE
+      ITrackU[k].Icon_Frame_Titre:SetTexCoord(zoom_level, 1 - zoom_level, zoom_level, 1 - zoom_level)
+
       ITrackU[k].Icon_Frame_Titre:SetPoint("LEFT", 0, 0)
       ITrackU[k].Icon_Frame_Titre:SetWidth(db_variable.HEIGHT_TITLE)
       ITrackU[k].Icon_Frame_Titre:SetHeight(db_variable.HEIGHT_TITLE)

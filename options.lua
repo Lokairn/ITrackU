@@ -287,6 +287,21 @@ local options = {
 					end,
 					get = function(val) return db_variable.WIDTH_BETWEEN_COLUMNS end,
 				},
+				ICON_ZOOM_PERCENTAGE = {
+					type = "range",
+					name = "Icon zoom percentage",
+					order = 20,
+					min = 0,
+					max = 0.15,
+					step = 0.01,
+					desc = "",
+					isPercent=true,
+					set = function(info, val)
+						db_variable.ZOOM_PERCENTAGE = val
+						update_icon_zoom(val)
+					end,
+					get = function(val) return db_variable.ZOOM_PERCENTAGE end,
+				},
 			},
 		},
 		ColorPanel = {
