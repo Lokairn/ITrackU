@@ -1,5 +1,19 @@
 ﻿ITrack = {}
 
+-- BDD of dungeons difficulty
+ITrack.dungeons_difficulty = {
+  [1] = "Normal",
+  [2] = "Heroic",
+  [23] = "Mythic",
+  [8] = "Mythic +",
+}
+-- BDD of raids difficulty
+ITrack.raids_difficulty = {
+  [14] = "Normal",
+  [15] = "Heroic",
+  [16] = "Mythic",
+}
+
 -- BDD of dungeons
 ITrack.dungeons = {
   ["Battle for Azeroth"] = {
@@ -202,50 +216,56 @@ ITrack.Defaults = {
 
   --set all variables tables for the test frame
   if debuffs_table == nil then debuffs_table = {} end
-    debuffs_table[1111] = {
-      [23920] = {
-        ["IfActive"] = false,
-        ["Count"] = 0,
-        ["Type"] = "Classic",
-        ["TypeDistance"] = 0,
-        ["Rôle"] = "All",
-        ["MaxStacks"] = true,
-        ["MaxStacksNumber"] = 5,
-    		["Columns"] = 1,
-    		["Activate"] = true,
-      },
-      [132404] = {
-        ["IfActive"] = false,
-        ["Count"] = 0,
-        ["Type"] = "Spread",
-        ["TypeDistance"] = 8,
-        ["Rôle"] = "All",
-        ["MaxStacks"] = true,
-        ["MaxStacksNumber"] = 5,
-    		["Columns"] = 0,
-    		["Activate"] = true,
-      },
-      [18499] = {
-        ["IfActive"] = false,
-        ["Count"] = 0,
-        ["Type"] = "Classic",
-        ["TypeDistance"] = 0,
-        ["Rôle"] = "All",
-        ["MaxStacks"] = true,
-        ["MaxStacksNumber"] = 5,
-    		["Columns"] = 0,
-    		["Activate"] = true,
-      },
-      [188783] = {
-        ["IfActive"] = false,
-        ["Count"] = 0,
-        ["Type"] = "Stack",
-        ["TypeDistance"] = 8,
-        ["Rôle"] = "All",
-        ["MaxStacks"] = true,
-        ["MaxStacksNumber"] = 5,
-    		["Columns"] = 0,
-    		["Activate"] = true,
+    debuffs_table[2222] = {
+      [2] = {
+        [23920] = {
+          ["IfActive"] = false,
+          ["PlayerOnly"] = "All",
+          ["Count"] = 0,
+          ["Type"] = "Classic",
+          ["TypeDistance"] = 0,
+          ["Rôle"] = "All",
+          ["MaxStacks"] = true,
+          ["MaxStacksNumber"] = 5,
+          ["Columns"] = 1,
+          ["Activate"] = true,
+        },
+        [132404] = {
+          ["IfActive"] = false,
+          ["PlayerOnly"] = "All",
+          ["Count"] = 0,
+          ["Type"] = "Spread",
+          ["TypeDistance"] = 8,
+          ["Rôle"] = "All",
+          ["MaxStacks"] = true,
+          ["MaxStacksNumber"] = 5,
+          ["Columns"] = 0,
+          ["Activate"] = true,
+        },
+        [18499] = {
+          ["IfActive"] = false,
+          ["PlayerOnly"] = "All",
+          ["Count"] = 0,
+          ["Type"] = "Classic",
+          ["TypeDistance"] = 0,
+          ["Rôle"] = "All",
+          ["MaxStacks"] = true,
+          ["MaxStacksNumber"] = 5,
+          ["Columns"] = 0,
+          ["Activate"] = true,
+        },
+        [188783] = {
+          ["IfActive"] = false,
+          ["PlayerOnly"] = "All",
+          ["Count"] = 0,
+          ["Type"] = "Stack",
+          ["TypeDistance"] = 8,
+          ["Rôle"] = "All",
+          ["MaxStacks"] = true,
+          ["MaxStacksNumber"] = 5,
+          ["Columns"] = 0,
+          ["Activate"] = true,
+        },
       },
     }
 

@@ -22,33 +22,9 @@ local function addon_loaded(event, arg1)
     print("Bienvenue sur ITrackU version 1.3, tapez /ITU afin d'accéder au menu de configuration en jeu.")
     if debuffs_table == nil then print("CETTE TABLE NE SE CHARGE PAS") end
     if db_variable == nil then db_variable = {} end
-
     		for k, v in pairs(ITrack.Defaults) do
     			if db_variable[k] == nil then db_variable[k] = v end
     		end
-    
-    --Set all variable tables from saved variables or default ones if not available    
-    if debuffs_table ~= nil then
-        for k, v in pairs(debuffs_table) do
-          if v ~= nil then
-            for l, w in pairs(debuffs_table[k]) do
-              --debuffs_table[k][l] = {}
-              if w ~= nil then
-                if debuffs_table[k][l]["IfActive"] == nil then debuffs_table[k][l]["IfActive"] = false end
-                if debuffs_table[k][l]["Count"] == nil then debuffs_table[k][l]["Count"] = 0 end
-                if debuffs_table[k][l]["Type"] == nil then debuffs_table[k][l]["Type"] = "Classic" end
-                if debuffs_table[k][l]["TypeDistance"] == nil then debuffs_table[k][l]["TypeDistance"] = 0 end
-                if debuffs_table[k][l]["Rôle"] == nil then debuffs_table[k][l]["Rôle"] = "All" end
-                if debuffs_table[k][l]["PlayerOnly"] == nil then debuffs_table[k][l]["PlayerOnly"] = "All" end
-                if debuffs_table[k][l]["MaxStacks"] == nil then debuffs_table[k][l]["MaxStacks"] = false end
-                if debuffs_table[k][l]["MaxStacksNumber"] == nil then debuffs_table[k][l]["MaxStacksNumber"] = 0 end
-        				if debuffs_table[k][l]["Columns"] == nil then debuffs_table[k][l]["Columns"] = 0 end
-        				if debuffs_table[k][l]["Activate"] == nil then debuffs_table[k][l]["Activate"] = true end
-              end
-            end
-          end
-        end
-    end
   end
 end
 
@@ -167,13 +143,13 @@ local function compute_distance(unit2)
 end
 
 -- Get Table
-local function get_table(from_table, encounter)
+local function get_table(from_table, encounter, difficulty)
   if encounter ~= nil then
     local t = {}
-      for k, v in pairs(from_table[encounter]) do
-        if from_table[encounter][k]["Activate"] then
+      for k, v in pairs(from_table[encounter][difficulty]) do
+        if from_table[encounter][difficulty][k]["Activate"] then
           t[k] = {}
-          for m, x in pairs(from_table[encounter][k]) do
+          for m, x in pairs(from_table[encounter][difficulty][k]) do
             t[k][m] = x
           end
         end
@@ -225,7 +201,6 @@ local function lock_main_frame()
   Frame_Main:SetMovable(false)
   unlock_dialog:Hide()
 
-  print(Frame_Main:GetPoint())
 
   point, _, _, xOfs, yOfs = Frame_Main:GetPoint()
   db_variable.ANCHOR_POINT = point
@@ -557,7 +532,7 @@ end
 local function player_regen_disabled_handler(self, ...)
 
   if ITrackU == nil or ITrackU == "ITrackU" then ITrackU = {} end
-  if debuffs_table ~= nil then ITrackU["DebuffToTrack"] = get_table(debuffs_table, ITrackU["encounter_id"]) end
+  if debuffs_table ~= nil then ITrackU["DebuffToTrack"] = get_table(debuffs_table, ITrackU["encounter_id"], ITrackU["difficulty"]) end
 
   if ITrackU["DebuffToTrack"] ~= nil then
     if Frame_Main == nil then
@@ -648,7 +623,6 @@ local function table_frame_player_debuffed(Env, type, spell_id, dest_name, aura_
   if ITrackU["DebuffToTrack"] then
       -- to be continued
       if ITrackU["DebuffToTrack"][spell_id] and (ITrackU["DebuffToTrack"][spell_id]["PlayerOnly"] == "All" or (ITrackU["DebuffToTrack"][spell_id]["PlayerOnly"] == "Player" and dest_name == select(1, UnitName("player"))) or (ITrackU["DebuffToTrack"][spell_id]["PlayerOnly"] == "Focus" and dest_name == select(1, UnitName("focus"))) or (ITrackU["DebuffToTrack"][spell_id]["PlayerOnly"] == "Player_Focus" and (dest_name == select(1, UnitName("player")) or dest_name == select(1, UnitName("focus"))))) then
-        
         local i = 0
           ITrackU[spell_id][dest_name] = {}
 
@@ -660,7 +634,7 @@ local function table_frame_player_debuffed(Env, type, spell_id, dest_name, aura_
                         }
           
           -- Get Player Color
-	ITrackU[spell_id]["debuffed"][dest_name]["color_red"], ITrackU[spell_id]["debuffed"][dest_name]["color_green"], ITrackU[spell_id]["debuffed"][dest_name]["color_blue"], ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = get_debuffed_color(Env, spell_id, dest_name)       
+          ITrackU[spell_id]["debuffed"][dest_name]["color_red"], ITrackU[spell_id]["debuffed"][dest_name]["color_green"], ITrackU[spell_id]["debuffed"][dest_name]["color_blue"], ITrackU[spell_id]["debuffed"][dest_name]["color_alpha"] = get_debuffed_color(Env, spell_id, dest_name)       
           
           -- Create Frame
           ITrackU[spell_id][dest_name].Frame_PlayerDebuffed = get_frame()
@@ -679,7 +653,7 @@ local function table_frame_player_debuffed(Env, type, spell_id, dest_name, aura_
             ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetFillStyle("REVERSE")
 
           if Env == "TEST" then
-			ITrackU[spell_id][dest_name].Stacks = math.random(5)
+            ITrackU[spell_id][dest_name].Stacks = math.random(5)
             ITrackU[spell_id][dest_name].Text_PlayerStacks:SetText(ITrackU[spell_id][dest_name].Stacks)
 
             if ITrackU[spell_id][dest_name].Stacks >= ITrackU["DebuffToTrack"][spell_id]["MaxStacksNumber"] then
@@ -806,7 +780,7 @@ function order_frame_player_debuff()
 end
 
 -- Called when a combat log event is detected
-local function combat_log_event_unfiltered_handler(self, ...)
+local function combat_log_event_unfiltered_handler()
 if ITrackU then
   if ITrackU["DebuffToTrack"] then
   local timestamp, type, hide_caster, source_GUID, source_name, source_flags, source_flags_2, dest_GUID, dest_name, dest_flags, dest_flags_2 = CombatLogGetCurrentEventInfo()
@@ -869,7 +843,7 @@ if ITrackU == nil or ITrackU == "ITrackU" then ITrackU = {} end
 		encounter_end()
 	end
 	ITrackU["encounter_id"], _, _, _ = ...
-  print(ITrackU["encounter_id"])
+  ITrackU["difficulty"] = select(3, GetInstanceInfo())
 	player_regen_disabled_handler()
   order_frame_player_debuff()
 end  
@@ -904,16 +878,15 @@ SlashCmdList['ITRACKU_MAINFRAME_SLASHCMD'] = function()
 		if ITrackU["DebuffToTrack"] then
 			encounter_end()
 		end
-  ITrackU["encounter_id"] = 1111
+  ITrackU["difficulty"] = 2
+  ITrackU["encounter_id"] = 2222
   player_regen_disabled_handler()
-  print("Addon Open")
   order_frame_player_debuff()
 end
 SLASH_ITRACKU_MAINFRAME_SLASHCMD1 = '/mainframe'
 
 SlashCmdList['ITRACKU_CLOSEFRAME_SLASHCMD'] = function()
   encounter_end()
-  print("Addon fermé")
 end
 SLASH_ITRACKU_CLOSEFRAME_SLASHCMD1 = '/closeframe'
 
@@ -928,7 +901,8 @@ function open_frame_test()
 		encounter_end()
 	else
 	  if ITrackU == nil then ITrackU = {} end
-	  ITrackU["encounter_id"] = 1111
+	  ITrackU["encounter_id"] = 2222
+    ITrackU["difficulty"] = 2
 	  player_regen_disabled_handler()
 	  table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 132404, "Player", "BUFF")
 	  table_frame_player_debuffed("TEST", "SPELL_AURA_APPLIED", 132404, "Focus", "BUFF")

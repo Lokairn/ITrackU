@@ -25,6 +25,7 @@ function update_select_extension()
   raid_select = nil
   boss_select = nil
   spell_select = nil
+  difficulty_select = nil
   for k, v in pairs(raid_dungeon) do
     raid_dungeon[k] = nil
   end
@@ -40,6 +41,7 @@ local function update_select_raid_or_dungeon()
 	raid_select = nil
   boss_select = nil
   spell_select = nil
+  difficulty_select = nil
   for k, v in pairs(raid_dungeon) do
     raid_dungeon[k] = nil
   end
@@ -54,6 +56,7 @@ end
 local function update_raid_boss(raid, select_raid_or_dungeon, select_extension)
 	boss_select = nil
   spell_select = nil
+  difficulty_select = nil
 	for k,v in pairs(raid_boss) do
 		raid_boss[k] = nil
 	end	
@@ -71,12 +74,12 @@ local function update_raid_boss(raid, select_raid_or_dungeon, select_extension)
   end
 end
 
-local function update_spell_raid_boss(boss)
+local function update_spell_raid_boss(boss, difficulty)
   spell_select = nil
 	for k, v in pairs(raid_spell) do
 		raid_spell[k] = nil
 	end
-  for k, v in pairs(debuffs_table[boss]) do
+  for k, v in pairs(debuffs_table[boss][difficulty]) do
     raid_spell[k] = select(1, GetSpellInfo(k))
     
   end
@@ -767,20 +770,42 @@ local options = {
 					set = function(info, val)
 						boss_select = val
             if debuffs_table[boss_select] == nil then debuffs_table[boss_select] = {} end
-						update_spell_raid_boss(val)
+            difficulty_select = nil
 					end,
 					get = function(val) return boss_select end,
 				},
+        SELECT_DIFFICULTY = {
+          type = "select",
+          order = 5.5,
+          name = "Difficulty",
+          style = "radio",
+          hidden = function() if boss_select ~= nil then return false else return true end end,
+          values = function() 
+            if select_raid_or_dungeon then
+              if select_raid_or_dungeon == "Raid" then
+                return ITrack.raids_difficulty
+              elseif select_raid_or_dungeon == "Dungeon" then
+                return ITrack.dungeons_difficulty
+              end
+            end
+          end,
+          set = function(info, val)
+            difficulty_select = val
+            if debuffs_table[boss_select][difficulty_select] == nil then debuffs_table[boss_select][difficulty_select] = {} end
+            update_spell_raid_boss(boss_select, val)
+          end,
+          get = function(val) return difficulty_select end,
+        },
         HEADER_SELECT_SPELL = {
           type = "header",
           name = "Manage Spells",
-          hidden = function() if boss_select ~= nil then return false else return true end end,
+          hidden = function() if difficulty_select ~= nil then return false else return true end end,
           order = 6,
         },
         DESC_SELECT_SPELL = {
           type = "description",
           name = "Manage your spells here, add whatever your want to track during the encounter.",
-          hidden = function() if boss_select ~= nil then return false else return true end end,
+          hidden = function() if difficulty_select ~= nil then return false else return true end end,
           order = 7,
         },
 				SELECT_SPELL = {
@@ -789,7 +814,7 @@ local options = {
 					style = "radio",
 					order = 8,
 					width = "full",
-          hidden = function() if boss_select ~= nil then return false else return true end end,
+          hidden = function() if difficulty_select ~= nil then return false else return true end end,
 					values = raid_spell,
 					set = function(info, val)
             if val == spell_select then
@@ -813,7 +838,7 @@ local options = {
         	type = "toggle",
         	desc = function()
 	        	if spell_select then
-	        		if debuffs_table[boss_select][spell_select]["Activate"] then
+	        		if debuffs_table[boss_select][difficulty_select][spell_select]["Activate"] then
 	        			return "Desactivate the spell's track during the encounter."
 	        		else
 	        			return "Activate the spell's track during the encounter."
@@ -824,7 +849,7 @@ local options = {
         	end,
         	name = function()
 	        	if spell_select then
-	        		if debuffs_table[boss_select][spell_select]["Activate"] then
+	        		if debuffs_table[boss_select][difficulty_select][spell_select]["Activate"] then
 	        			return "Activated"
 	        		else
 	        			return "Desactivated"
@@ -837,9 +862,9 @@ local options = {
         	order = 9.5,
         	hidden = function() if spell_select ~= nil then return false else return true end end,
         	set = function(info, val)
-        		debuffs_table[boss_select][spell_select]["Activate"] = val
+        		debuffs_table[boss_select][difficulty_select][spell_select]["Activate"] = val
         	end,
-        	get = function(val) return debuffs_table[boss_select][spell_select]["Activate"] end,
+        	get = function(val) return debuffs_table[boss_select][difficulty_select][spell_select]["Activate"] end,
         },
         IF_ACTIVE = {
           type = "toggle",
@@ -850,13 +875,13 @@ local options = {
           hidden = function() if spell_select ~= nil then return false else return true end end,
           set = function(info, val)
           	if val then
-            	debuffs_table[boss_select][spell_select]["IfActive"] = false
+            	debuffs_table[boss_select][difficulty_select][spell_select]["IfActive"] = false
             else
-            	debuffs_table[boss_select][spell_select]["IfActive"] = true
+            	debuffs_table[boss_select][difficulty_select][spell_select]["IfActive"] = true
             end
           end,
           get = function(val)
-          	if debuffs_table[boss_select][spell_select]["IfActive"] then
+          	if debuffs_table[boss_select][difficulty_select][spell_select]["IfActive"] then
            		return false
            	else
            		return true
@@ -871,22 +896,22 @@ local options = {
           values = {["Classic"] = "Classic", ["Spread"] = "Spread", ["Stack"] = "Stack"},
           hidden = function() if spell_select ~= nil then return false else return true end end,
           set = function(info, val)
-            debuffs_table[boss_select][spell_select]["Type"] = val
-            debuffs_table[boss_select][spell_select]["TypeDistance"] = nil
+            debuffs_table[boss_select][difficulty_select][spell_select]["Type"] = val
+            debuffs_table[boss_select][difficulty_select][spell_select]["TypeDistance"] = nil
           end,
-          get = function(val) return debuffs_table[boss_select][spell_select]["Type"] end,
+          get = function(val) return debuffs_table[boss_select][difficulty_select][spell_select]["Type"] end,
         },
         TYPE_DISTANCE = {
           type = "select",
           name = "Buff/Debuff Distance",
           order = 12,
-          disabled = function() if debuffs_table[boss_select][spell_select]["Type"] == "Spread" or debuffs_table[boss_select][spell_select]["Type"] == "Stack" then return false else return true end end,
+          disabled = function() if debuffs_table[boss_select][difficulty_select][spell_select]["Type"] == "Spread" or debuffs_table[boss_select][difficulty_select][spell_select]["Type"] == "Stack" then return false else return true end end,
           hidden = function() if spell_select ~= nil then return false else return true end end,
           values = {[5] = 5, [8] = 8},
           set = function(info, val)
-            debuffs_table[boss_select][spell_select]["TypeDistance"] = val
+            debuffs_table[boss_select][difficulty_select][spell_select]["TypeDistance"] = val
           end,
-          get = function(val) return debuffs_table[boss_select][spell_select]["TypeDistance"] end,
+          get = function(val) return debuffs_table[boss_select][difficulty_select][spell_select]["TypeDistance"] end,
         },
         PLAYERONLY = {
           type = "select",
@@ -896,9 +921,9 @@ local options = {
           hidden = function() if spell_select ~= nil then return false else return true end end,
           values = {["All"] = "All", ["Player"] = "Player", ["Focus"] = "Focus", ["Player_Focus"] = "Player_Focus"},
           set = function(info, val)
-            debuffs_table[boss_select][spell_select]["PlayerOnly"] = val
+            debuffs_table[boss_select][difficulty_select][spell_select]["PlayerOnly"] = val
           end,
-          get = function(val) return debuffs_table[boss_select][spell_select]["PlayerOnly"] end,
+          get = function(val) return debuffs_table[boss_select][difficulty_select][spell_select]["PlayerOnly"] end,
         },
         MAXSTACKS = {
           type = "toggle",
@@ -906,9 +931,9 @@ local options = {
           order = 14,
           hidden = function() if spell_select ~= nil then return false else return true end end,
           set = function(info, val)
-            debuffs_table[boss_select][spell_select]["MaxStacks"] = val
+            debuffs_table[boss_select][difficulty_select][spell_select]["MaxStacks"] = val
           end,
-          get = function(val) return debuffs_table[boss_select][spell_select]["MaxStacks"] end,
+          get = function(val) return debuffs_table[boss_select][difficulty_select][spell_select]["MaxStacks"] end,
         },
         MAXSTACKSNUMBER = {
           type = "range",
@@ -918,11 +943,11 @@ local options = {
           max = 50,
           step = 1,
           hidden = function() if spell_select ~= nil then return false else return true end end,
-          disabled = function() if debuffs_table[boss_select][spell_select]["MaxStacks"] == true then return false else return true end end,
+          disabled = function() if debuffs_table[boss_select][difficulty_select][spell_select]["MaxStacks"] == true then return false else return true end end,
           set = function(info, val)
-            debuffs_table[boss_select][spell_select]["MaxStacksNumber"] = val
+            debuffs_table[boss_select][difficulty_select][spell_select]["MaxStacksNumber"] = val
           end,
-          get = function(val) return debuffs_table[boss_select][spell_select]["MaxStacksNumber"] end,
+          get = function(val) return debuffs_table[boss_select][difficulty_select][spell_select]["MaxStacksNumber"] end,
         },
         COLUMNS = {
         	type = "select",
@@ -932,9 +957,9 @@ local options = {
         	values = {[0] = "Column 1", [1] = "Column 2", [2] = "Column 3"},
         	hidden = function() if spell_select ~= nil then return false else return true end end,
         	set = function(info, val)
-        		debuffs_table[boss_select][spell_select]["Columns"] = val
+        		debuffs_table[boss_select][difficulty_select][spell_select]["Columns"] = val
         	end,
-        	get = function(val) return debuffs_table[boss_select][spell_select]["Columns"] end,
+        	get = function(val) return debuffs_table[boss_select][difficulty_select][spell_select]["Columns"] end,
         },
         DELETE_SPELL_BUTTON = {
           type = "execute",
@@ -942,28 +967,28 @@ local options = {
           order = 16,
           hidden = function() if spell_select ~= nil then return false else return true end end,
           func = function()
-            debuffs_table[boss_select][spell_select] = nil
+            debuffs_table[boss_select][difficulty_select][spell_select] = nil
             spell_select = nil
-            update_spell_raid_boss(boss_select)
+            update_spell_raid_boss(boss_select, difficulty_select)
           end,
         },
         HEADER_ADD_SPELL = {
           type = "header",
           name = "Add a Spell",
-          hidden = function() if boss_select ~= nil then return false else return true end end,
+          hidden = function() if difficulty_select ~= nil then return false else return true end end,
           order = 17,
         },
         DESC_ADD_SPELL = {
           type = "description",
           name = "Add a new spell using the name or the ID.",
-          hidden = function() if boss_select ~= nil then return false else return true end end,
+          hidden = function() if difficulty_select ~= nil then return false else return true end end,
           order = 18,
         },
         ADD_SPELL = {
           type = "input",
           order = 19,
           name = "",
-          hidden = function() if boss_select ~= nil then return false else return true end end,
+          hidden = function() if difficulty_select ~= nil then return false else return true end end,
           set = function(info, val)
             spell_add = val
           end,
@@ -975,21 +1000,21 @@ local options = {
           order = 20,
           hidden = function() if select(7, GetSpellInfo(spell_add)) ~= nil and debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))] == nil then return false else return true end end,
           func = function()
-            debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))] = {}
-            debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))]["IfActive"] = false
-            debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))]["Count"] = 0
-            debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))]["Type"] = "Classic"
-            debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))]["TypeDistance"] = 0
-            debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))]["Rôle"] = "All"
-            debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))]["PlayerOnly"] = "All"
-            debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))]["MaxStacks"] = false
-            debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))]["MaxStacksNumber"] = 0
-            debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))]["Columns"] = 0
-            debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))]["Activate"] = true
+            debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))] = {}
+            debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))]["IfActive"] = false
+            debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))]["Count"] = 0
+            debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))]["Type"] = "Classic"
+            debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))]["TypeDistance"] = 0
+            debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))]["Rôle"] = "All"
+            debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))]["PlayerOnly"] = "All"
+            debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))]["MaxStacks"] = false
+            debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))]["MaxStacksNumber"] = 0
+            debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))]["Columns"] = 0
+            debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))]["Activate"] = true
 
             spell_select = select(7, GetSpellInfo(spell_add))
             spell_add = nil
-            update_spell_raid_boss(boss_select)
+            update_spell_raid_boss(boss_select, difficulty_select)
           end,
         },
         ADD_SPELL_VALIDATION = {
