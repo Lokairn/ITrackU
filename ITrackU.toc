@@ -8,10 +8,12 @@
 ## OptionalDeps: Ace3 
 ## X-bindings: Ace3
 
-Init_Table.lua
+locales\load_locales.xml
+
+tables\load_tables.xml
 ITrackU.lua
 bindings.xml
-options.lua
-Stuns.lua
+configuration\options.lua
+modules\Stuns.lua
 
 media\load_media.xml

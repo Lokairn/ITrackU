@@ -17,9 +17,9 @@ local unlock_dialog = nil
 
 -- Set all variables from saved variables or default ones if not available
 local function addon_loaded(event, arg1)
-
   if arg1 == "ITrackU" then
-    print("Bienvenue sur ITrackU version 1.4, tapez /ITU afin d'accéder au menu de configuration en jeu.")
+    local L = LibStub("AceLocale-3.0"):GetLocale("ITrackU")
+    print(L["LOADING_ADDON"])
     if debuffs_table == nil then print("CETTE TABLE NE SE CHARGE PAS") end
     if db_variable == nil then db_variable = {} end
     		for k, v in pairs(ITrack.Defaults) do
