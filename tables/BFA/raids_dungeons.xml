@@ -1,0 +1,20 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+
+  <Script file="raids_dungeons.lua"/>
+
+<!-- Battle for Azeroth -->
+  <!-- Dungeons -->
+    <Script file="dungeons\AtalDazar\debuffs_table.lua"/>
+    <Script file="dungeons\Freehold\debuffs_table.lua"/>
+    <Script file="dungeons\KingsRest\debuffs_table.lua"/>
+    <Script file="dungeons\ShrineOfTheStorm\debuffs_table.lua"/>
+    <Script file="dungeons\SiegeOfBoralus\debuffs_table.lua"/>
+    <Script file="dungeons\TempleOfSethraliss\debuffs_table.lua"/>
+    <Script file="dungeons\TheMotherlode\debuffs_table.lua"/>
+    <Script file="dungeons\TolDagor\debuffs_table.lua"/>
+    <Script file="dungeons\Underrot\debuffs_table.lua"/>
+    <Script file="dungeons\WaycrestManor\debuffs_table.lua"/>
+    
+  <!-- Raids -->
+
+</Ui>
