@@ -5,15 +5,18 @@
 ## Version: 1.0
 ## SavedVariables: debuffs_table
 ## SavedVariables: db_variable
+## SavedVariables: db_ITrackU
 ## OptionalDeps: Ace3 
 ## X-bindings: Ace3
+
+ITrackU.lua
 
 locales\load_locales.xml
 
 tables\load_tables.xml
-ITrackU.lua
+
 bindings.xml
 configuration\options.lua
-modules\Stuns.lua
+modules\load_modules.xml
 
 media\load_media.xml

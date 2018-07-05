@@ -78,8 +78,8 @@ local function update_spell_raid_boss(boss, difficulty)
 	for k, v in pairs(raid_spell) do
 		raid_spell[k] = nil
 	end
-  for k, v in pairs(debuffs_table[boss][difficulty]) do
-    if debuffs_table[boss][difficulty][k]["Activate"] then
+  for k, v in pairs(db_ITrackU.profiles[ITrack.profile].debuffs_table[boss][difficulty]) do
+    if db_ITrackU.profiles[ITrack.profile].debuffs_table[boss][difficulty][k].Activate then
       raid_spell[k] = select(1, GetSpellInfo(k))
     else
       raid_spell[k] = select(1, GetSpellInfo(k)).." (Desactivated)"
@@ -92,611 +92,625 @@ end
 ---------------------------------------------------------------------------------------------------
 
 local options = {
-     name = "ITrackU",
-     handler = ITrackU,
-     type = 'group',
-     args = {
-		GeneralPanel = {
-			name = "General",
-			type = "group",
-			order = 1,
-			args = {
-				HEADER_FRAME_TEST = {
-				  type = "header",
-				  name = "Frame",
-				  order = 1,
-				},
-				EXECUTE_OPEN_Frame = {
-				  type = "execute",
-				  name = function() 
-					if ITrackU then
-					  if ITrackU["DebuffToTrack"] then
-						return "Close Frame"
-					  else
-						return "Open Frame"
-					  end
-					else
-					  return "Open Frame"
-					end
-				  end,
-				  order = 2,
-				  func = function()
-					open_frame_test()
-				  end,
-				},
-						LOCK = {
-							type = "execute",
-							name = "Move main frame",
-							func = show_lock_dialog,
-				  order = 3,
-					  },
-				HEADER_POS_DIMENSION = {
-				  type = "header",
-				  name = "Position & Dimension",
-				  order = 4,
-				},
-				DESCRIPTION_POS_DIMENSION = {
-				  type = "description",
-				  name = "Modify the position and the dimension of all frames.",
-				  order = 5,
-				},
-				--DESCRIPTION_POS = {
-				--  type = "description",
-				--  name = "Manually change the position (x, y) of the frame. You can also use the 'Move Main Frame' button to do it with your cursos",
-				--  order = 6,
-				--},
-				-- POS_X = {
-				  -- type = "range",
-				  -- desc = "test",
-				  -- name = "Position X",
-				  -- min = -1000,
-				  -- max = 1000,
-				  -- step = 1,
-				  -- order = 7,
-				  -- set = function(info,val)
-					-- db_variable.POSITION_X = val
-					-- update_main_frame_x(val)
-				  -- end,
-				  -- get = function(info) return db_variable.POSITION_X end,
-				-- },
-				-- POS_Y = {
-				  -- type = "range",
-				  -- desc = "test",
-				  -- name = "Position Y",
-				  -- min = -1000,
-				  -- max = 1000,
-				  -- step = 1,
-				  -- order = 8,
-				  -- set = function(info,val)
-					-- db_variable.POSITION_Y = val
-					-- update_main_frame_y(val)
-				  -- end,
-				  -- get = function(info) return db_variable.POSITION_Y end,
-				-- },
-				--DESCRIPTION_DIMENSION_WIDTH_HEIGHT = {
-				--  type = "description",
-				--  name = "Modify Widht and Height of each frames",
-				--  order = 9,
-				--},
-				GLOBAL_WIDTH = {
-				  type = "range",
-				  name = "Title & Debuffed Width",
-				  order = 10,
-				  min = 50,
-				  max = 250,
-				  step = 1,
-				  desc = "",
-				  set = function(info, val)
-					db_variable.WIDTH_GLOBAL = val
-					order_frame_player_debuff()
-				  end,
-				  get = function(val) return db_variable.WIDTH_GLOBAL end,
-				},
-				DESCRIPTION_DIMENSION_HEIGHTS = {
-				  type = "description",
-				  name = "Modify Height of Title Frames or/and height of Debuffed Frames",
-				  order = 11,
-				  width = "full",
-				},
-				HEIGHT_TITLE = {
-				  type = "range",
-				  name = "Title Height",
-				  order = 12,
-				  min = 10,
-				  max = 50,
-				  step = 1,
-				  desc = "",
-				  set = function(info, val)
-					db_variable.HEIGHT_TITLE = val
-					order_frame_player_debuff()
-				  end,
-				  get = function(val) return db_variable.HEIGHT_TITLE end,
-				},
-				HEIGHT_DEBUFFED = {
-				  type = "range",
-				  name = "Debuffed Height",
-				  order = 13,
-				  min = 10,
-				  max = 50,
-				  step = 1,
-				  desc = "",
-				  set = function(info, val)
-					db_variable.HEIGHT_DEBUFFED = val
-					order_frame_player_debuff()
-				  end,
-				  get = function(val) return db_variable.HEIGHT_DEBUFFED end,
-				},
-				HEADER_SPACE_BETWEEN_ITEM = {
-				  type = "header",
-				  name = "Space between items",
-				  order = 14,
-				},
-				DESCRIPTION_SPACE_BETWEEN_ITEM = {
-				  type = "description",
-				  name = "Modify the space between each item",
-				  order = 15,
-				},
-				SPACE_TITLE_TITLE = {
-				  type = "range",
-				  name = "Space Title - Title",
-				  order = 16,
-				  min = 0,
-				  max = 20,
-				  step = 0.01,
-				  desc = "",
-				  set = function(info, val)
-					db_variable.HEIGHT_BETWEEN_TITLE = val
-					order_frame_player_debuff()
-				  end,
-				  get = function(val) return db_variable.HEIGHT_BETWEEN_TITLE end,
-				},
-				SPACE_TITLE_DEBUFFED = {
-				  type = "range",
-				  name = "Space Title - Debuffed",
-				  order = 17,
-				  min = 0,
-				  max = 5,
-				  step = 0.01,
-				  desc = "",
-				  set = function(info, val)
-					db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED = val
-					order_frame_player_debuff()
-				  end,
-				  get = function(val) return db_variable.HEIGHT_BETWEEN_TITLE_DEBUFFED end,
-				},
-				SPACE_DEBUFFED_DEBUFFED = {
-				  type = "range",
-				  name = "Space Debuffed - Debuffed",
-				  order = 18,
-				  min = 0,
-				  max = 5,
-				  step = 0.01,
-				  desc = "",
-				  set = function(info, val)
-					db_variable.HEIGHT_BETWEEN_DEBUFFED = val
-					order_frame_player_debuff()
-				  end,
-				  get = function(val) return db_variable.HEIGHT_BETWEEN_DEBUFFED end,
-				},
-				SPACE_BETWEEN_COLUMNS = {
-					type = "range",
-					name = "Space between Columns",
-					order = 19,
-					min = 50,
-					max = 250,
-					step = 1,
-					desc = "",
-					set = function(info, val)
-						db_variable.WIDTH_BETWEEN_COLUMNS = val
-						order_frame_player_debuff()
-					end,
-					get = function(val) return db_variable.WIDTH_BETWEEN_COLUMNS end,
-				},
-				ICON_ZOOM_PERCENTAGE = {
-					type = "range",
-					name = "Icon zoom percentage",
-					order = 20,
-					min = 0,
-					max = 0.15,
-					step = 0.01,
-					desc = "",
-					isPercent=true,
-					set = function(info, val)
-						db_variable.ZOOM_PERCENTAGE = val
-						update_icon_zoom(val)
-					end,
-					get = function(val) return db_variable.ZOOM_PERCENTAGE end,
-				},
-			},
-		},
-		ColorPanel = {
-			name = "Colors",
+  name = "ITrackU",
+  handler = ITrackU,
+  type = 'group',
+  args = {
+    Module_Debuffs = {
+      name = "Debuffs",
+      order = 1,
+      type = "group",
+      args = {
+        DEBUFFS_HEADER = {
+          type = "header",
+          order = 1,
+          name = "Module : Debuffs",
+        },
+        -- Bouton activé
+        -- Description
+          WidthPosition = {
+            name = "Width & Position",
+            type = "group",
+            order = 1,
+            args = {
+              HEADER_FRAME_TEST = {
+                type = "header",
+                name = "Frame",
+                order = 1,
+              },
+              EXECUTE_OPEN_Frame = {
+                type = "execute",
+                name = function() 
+                if ITrackU then
+                  if ITrackU.DebuffToTrack then
+                  return "Close Frame"
+                  else
+                  return "Open Frame"
+                  end
+                else
+                  return "Open Frame"
+                end
+                end,
+                order = 2,
+                func = function()
+                open_frame_test()
+                end,
+              },
+              LOCK = {
+                type = "execute",
+                name = "Move main frame",
+                func = function()
+                  show_lock_dialog()
+                end,
+                order = 3,
+              },
+              HEADER_POS_DIMENSION = {
+                type = "header",
+                name = "Position & Dimension",
+                order = 4,
+              },
+              DESCRIPTION_POS_DIMENSION = {
+                type = "description",
+                name = "Modify the position and the dimension of all frames.",
+                order = 5,
+              },
+              --DESCRIPTION_POS = {
+              --  type = "description",
+              --  name = "Manually change the position (x, y) of the frame. You can also use the 'Move Main Frame' button to do it with your cursos",
+              --  order = 6,
+              --},
+              -- POS_X = {
+                -- type = "range",
+                -- desc = "test",
+                -- name = "Position X",
+                -- min = -1000,
+                -- max = 1000,
+                -- step = 1,
+                -- order = 7,
+                -- set = function(info,val)
+                -- db_ITrackU.profiles[ITrack.profile].POSITION_X = val
+                -- update_main_frame_x(val)
+                -- end,
+                -- get = function(info) return db_ITrackU.profiles[ITrack.profile].POSITION_X end,
+              -- },
+              -- POS_Y = {
+                -- type = "range",
+                -- desc = "test",
+                -- name = "Position Y",
+                -- min = -1000,
+                -- max = 1000,
+                -- step = 1,
+                -- order = 8,
+                -- set = function(info,val)
+                -- db_ITrackU.profiles[ITrack.profile].POSITION_Y = val
+                -- update_main_frame_y(val)
+                -- end,
+                -- get = function(info) return db_ITrackU.profiles[ITrack.profile].POSITION_Y end,
+              -- },
+              --DESCRIPTION_DIMENSION_WIDTH_HEIGHT = {
+              --  type = "description",
+              --  name = "Modify Widht and Height of each frames",
+              --  order = 9,
+              --},
+              GLOBAL_WIDTH = {
+                type = "range",
+                name = "Title & Debuffed Width",
+                order = 10,
+                min = 50,
+                max = 250,
+                step = 1,
+                desc = "",
+                set = function(info, val)
+                db_ITrackU.profiles[ITrack.profile].WIDTH_GLOBAL = val
+                order_frame_player_debuff()
+                end,
+                get = function(val) return db_ITrackU.profiles[ITrack.profile].WIDTH_GLOBAL end,
+              },
+              DESCRIPTION_DIMENSION_HEIGHTS = {
+                type = "description",
+                name = "Modify Height of Title Frames or/and height of Debuffed Frames",
+                order = 11,
+                width = "full",
+              },
+              HEIGHT_TITLE = {
+                type = "range",
+                name = "Title Height",
+                order = 12,
+                min = 10,
+                max = 50,
+                step = 1,
+                desc = "",
+                set = function(info, val)
+                db_ITrackU.profiles[ITrack.profile].HEIGHT_TITLE = val
+                order_frame_player_debuff()
+                end,
+                get = function(val) return db_ITrackU.profiles[ITrack.profile].HEIGHT_TITLE end,
+              },
+              HEIGHT_DEBUFFED = {
+                type = "range",
+                name = "Debuffed Height",
+                order = 13,
+                min = 10,
+                max = 50,
+                step = 1,
+                desc = "",
+                set = function(info, val)
+                db_ITrackU.profiles[ITrack.profile].HEIGHT_DEBUFFED = val
+                order_frame_player_debuff()
+                end,
+                get = function(val) return db_ITrackU.profiles[ITrack.profile].HEIGHT_DEBUFFED end,
+              },
+              HEADER_SPACE_BETWEEN_ITEM = {
+                type = "header",
+                name = "Space between items",
+                order = 14,
+              },
+              DESCRIPTION_SPACE_BETWEEN_ITEM = {
+                type = "description",
+                name = "Modify the space between each item",
+                order = 15,
+              },
+              SPACE_TITLE_TITLE = {
+                type = "range",
+                name = "Space Title - Title",
+                order = 16,
+                min = 0,
+                max = 20,
+                step = 0.01,
+                desc = "",
+                set = function(info, val)
+                db_ITrackU.profiles[ITrack.profile].HEIGHT_BETWEEN_TITLE = val
+                order_frame_player_debuff()
+                end,
+                get = function(val) return db_ITrackU.profiles[ITrack.profile].HEIGHT_BETWEEN_TITLE end,
+              },
+              SPACE_TITLE_DEBUFFED = {
+                type = "range",
+                name = "Space Title - Debuffed",
+                order = 17,
+                min = 0,
+                max = 5,
+                step = 0.01,
+                desc = "",
+                set = function(info, val)
+                db_ITrackU.profiles[ITrack.profile].HEIGHT_BETWEEN_TITLE_DEBUFFED = val
+                order_frame_player_debuff()
+                end,
+                get = function(val) return db_ITrackU.profiles[ITrack.profile].HEIGHT_BETWEEN_TITLE_DEBUFFED end,
+              },
+              SPACE_DEBUFFED_DEBUFFED = {
+                type = "range",
+                name = "Space Debuffed - Debuffed",
+                order = 18,
+                min = 0,
+                max = 5,
+                step = 0.01,
+                desc = "",
+                set = function(info, val)
+                db_ITrackU.profiles[ITrack.profile].HEIGHT_BETWEEN_DEBUFFED = val
+                order_frame_player_debuff()
+                end,
+                get = function(val) return db_ITrackU.profiles[ITrack.profile].HEIGHT_BETWEEN_DEBUFFED end,
+              },
+              SPACE_BETWEEN_COLUMNS = {
+                type = "range",
+                name = "Space between Columns",
+                order = 19,
+                min = 50,
+                max = 250,
+                step = 1,
+                desc = "",
+                set = function(info, val)
+                  db_ITrackU.profiles[ITrack.profile].WIDTH_BETWEEN_COLUMNS = val
+                  order_frame_player_debuff()
+                end,
+                get = function(val) return db_ITrackU.profiles[ITrack.profile].WIDTH_BETWEEN_COLUMNS end,
+              },
+              ICON_ZOOM_PERCENTAGE = {
+                type = "range",
+                name = "Icon zoom percentage",
+                order = 20,
+                min = 0,
+                max = 0.15,
+                step = 0.01,
+                desc = "",
+                isPercent=true,
+                set = function(info, val)
+                  db_ITrackU.profiles[ITrack.profile].ZOOM_PERCENTAGE = val
+                  update_icon_zoom(val)
+                end,
+                get = function(val) return db_ITrackU.profiles[ITrack.profile].ZOOM_PERCENTAGE end,
+              },
+            },
+          },
+          ColorPanel = {
+            name = "Colors",
+            type = "group",
+            order = 2,
+            args = {
+              HEADER_COLOR_TITRE = {
+                type = "header",
+                name = "Titres",
+                order = 1,
+              },
+              HEADER_COLOR_TITRE_DESCRIPTION = {
+                type = "description",
+                name = "You can modify the color of the title frames and the police.",
+                order = 2,
+              },
+              COLOR_BACKGROUND_TITRE = {
+                type = "color",
+                desc = "",
+                name = "Title Color",
+                hasAlpha = true,
+                order = 3,
+                set = function(info, val1, val2, val3, val4)
+                  db_ITrackU.profiles[ITrack.profile].COLOR_R_TITRE = val1
+                  db_ITrackU.profiles[ITrack.profile].COLOR_G_TITRE = val2
+                  db_ITrackU.profiles[ITrack.profile].COLOR_B_TITRE = val3
+                  db_ITrackU.profiles[ITrack.profile].COLOR_A_TITRE = val4
+                  update_background_color_titre(val1, val2, val3, val4)
+                end,
+                get = function(info) return db_ITrackU.profiles[ITrack.profile].COLOR_R_TITRE, db_ITrackU.profiles[ITrack.profile].COLOR_G_TITRE, db_ITrackU.profiles[ITrack.profile].COLOR_B_TITRE, db_ITrackU.profiles[ITrack.profile].COLOR_A_TITRE end,
+              },
+              HEADER_COLOR_PLAYERDEBUFFED = {
+                type = "header",
+                name = "Player Debuffed",
+                order = 4,
+              },
+              HEADER_COLOR_PLAYERDEBUFFED_DESCRIPTION = {
+                type = "description",
+                name = "You can modify the color of player debuffed frames if You / Focus / Another Player / Max Stacks",
+                order = 5,
+              },
+              ENABLE_CLASS_COLOR_PLAYER = {
+                type = "toggle",
+                order = 5.5,
+                name = "Enable Class Color Player",
+                desc = "Enable Class Color Player",
+                set = function(info, val)
+                  db_ITrackU.profiles[ITrack.profile].ENABLE_CLASS_COLOR_PLAYER = val
+                  update_debuffed_background_color()
+                end,
+                get = function(info) return db_ITrackU.profiles[ITrack.profile].ENABLE_CLASS_COLOR_PLAYER end,
+              },
+              ALPHA_CLASS_COLOR_PLAYER = {
+                type = "range",
+                order = 5.6,
+                name = "Class Color Player Alpha",
+                desc = "Class Color Player Alpha",
+                min = 0,
+                max = 1,
+                step = 0.01,
+                hidden = function() if db_ITrackU.profiles[ITrack.profile].ENABLE_CLASS_COLOR_PLAYER then return false else return true end end,
+                set = function(info, val)
+                  db_ITrackU.profiles[ITrack.profile].COLOR_A_CLASS_COLOR_PLAYER = val
+                  update_debuffed_background_color()
+                end,
+                get = function(info) return db_ITrackU.profiles[ITrack.profile].COLOR_A_CLASS_COLOR_PLAYER end,
+              },
+              COLOR_BACKGROUND_PLAYER = {
+                type = "color",
+                desc = "",
+                name = "Player Color",
+                hasAlpha = true,
+                hidden = function() if db_ITrackU.profiles[ITrack.profile].ENABLE_CLASS_COLOR_PLAYER then return true else return false end end,
+                order = 6,
+                set = function(info, val1, val2, val3, val4)
+                  db_ITrackU.profiles[ITrack.profile].COLOR_R_DEBUFFED_PLAYER = val1
+                  db_ITrackU.profiles[ITrack.profile].COLOR_G_DEBUFFED_PLAYER = val2
+                  db_ITrackU.profiles[ITrack.profile].COLOR_B_DEBUFFED_PLAYER = val3
+                  db_ITrackU.profiles[ITrack.profile].COLOR_A_DEBUFFED_PLAYER = val4
+                  update_debuffed_background_color()
+                end,
+                get = function(info) return db_ITrackU.profiles[ITrack.profile].COLOR_R_DEBUFFED_PLAYER, db_ITrackU.profiles[ITrack.profile].COLOR_G_DEBUFFED_PLAYER, db_ITrackU.profiles[ITrack.profile].COLOR_B_DEBUFFED_PLAYER, db_ITrackU.profiles[ITrack.profile].COLOR_A_DEBUFFED_PLAYER end,
+              },
+              --ALPHA_STATUSBAR_PLAYER = {
+              --order = 7,
+              --},
+              ENABLE_CLASS_COLOR_FOCUS = {
+                type = "toggle",
+                order = 6.5,
+                name = "Enable Class Color Focus",
+                desc = "Enable Class Color Focus",
+                set = function(info, val)
+                  db_ITrackU.profiles[ITrack.profile].ENABLE_CLASS_COLOR_FOCUS = val
+                  update_debuffed_background_color()
+                end,
+                get = function(info) return db_ITrackU.profiles[ITrack.profile].ENABLE_CLASS_COLOR_FOCUS end,
+              },
+              ALPHA_CLASS_COLOR_FOCUS = {
+                type = "range",
+                order = 6.6,
+                name = "Class Color Focus Alpha",
+                desc = "Class Color Focus Alpha",
+                min = 0,
+                max = 1,
+                step = 0.01,
+                hidden = function() if db_ITrackU.profiles[ITrack.profile].ENABLE_CLASS_COLOR_FOCUS then return false else return true end end,
+                set = function(info, val)
+                  db_ITrackU.profiles[ITrack.profile].COLOR_A_CLASS_COLOR_FOCUS = val
+                  update_debuffed_background_color()
+                end,
+                get = function(info) return db_ITrackU.profiles[ITrack.profile].COLOR_A_CLASS_COLOR_FOCUS end,
+              },
+              COLOR_BACKGROUND_FOCUS = {
+                type = "color",
+                desc = "",
+                name = "Focus Color",
+                hasAlpha = true,
+                hidden = function() if db_ITrackU.profiles[ITrack.profile].ENABLE_CLASS_COLOR_FOCUS then return true else return false end end,
+                order = 8,
+                set = function(info, val1, val2, val3, val4)
+                  db_ITrackU.profiles[ITrack.profile].COLOR_R_DEBUFFED_FOCUS = val1
+                  db_ITrackU.profiles[ITrack.profile].COLOR_G_DEBUFFED_FOCUS = val2
+                  db_ITrackU.profiles[ITrack.profile].COLOR_B_DEBUFFED_FOCUS = val3
+                  db_ITrackU.profiles[ITrack.profile].COLOR_A_DEBUFFED_FOCUS = val4
+                  update_debuffed_background_color()
+                end,
+                get = function(info) return db_ITrackU.profiles[ITrack.profile].COLOR_R_DEBUFFED_FOCUS, db_ITrackU.profiles[ITrack.profile].COLOR_G_DEBUFFED_FOCUS, db_ITrackU.profiles[ITrack.profile].COLOR_B_DEBUFFED_FOCUS, db_ITrackU.profiles[ITrack.profile].COLOR_A_DEBUFFED_FOCUS end,
+              },
+              --ALPHA_STATUSBAR_FOCUS = {
+              --order = 9,
+              --},
+              ENABLE_CLASS_COLOR_MATE = {
+                type = "toggle",
+                order = 8.5,
+                name = "Enable Class Color Mate",
+                desc = "Enable Class Color Mate",
+                set = function(info, val)
+                  db_ITrackU.profiles[ITrack.profile].ENABLE_CLASS_COLOR_MATE = val
+                  update_debuffed_background_color()
+                end,
+                get = function(info) return db_ITrackU.profiles[ITrack.profile].ENABLE_CLASS_COLOR_MATE end,
+              },
+              ALPHA_CLASS_COLOR_MATE = {
+                type = "range",
+                order = 8.6,
+                name = "Class Color Mate Alpha",
+                desc = "Class Color Mate Alpha",
+                min = 0,
+                max = 1,
+                step = 0.01,
+                hidden = function() if db_ITrackU.profiles[ITrack.profile].ENABLE_CLASS_COLOR_MATE then return false else return true end end,
+                set = function(info, val)
+                  db_ITrackU.profiles[ITrack.profile].COLOR_A_CLASS_COLOR_MATE = val
+                  update_debuffed_background_color()
+                end,
+                get = function(info) return db_ITrackU.profiles[ITrack.profile].COLOR_A_CLASS_COLOR_MATE end,
+              },
+              COLOR_BACKGROUND_MATE = {
+                type = "color",
+                desc = "",
+                name = "Mate Color",
+                hasAlpha = true,
+                hidden = function() if db_ITrackU.profiles[ITrack.profile].ENABLE_CLASS_COLOR_MATE then return true else return false end end,
+                order = 10,
+                set = function(info, val1, val2, val3, val4)
+                  db_ITrackU.profiles[ITrack.profile].COLOR_R_DEBUFFED_MATE = val1
+                  db_ITrackU.profiles[ITrack.profile].COLOR_G_DEBUFFED_MATE = val2
+                  db_ITrackU.profiles[ITrack.profile].COLOR_B_DEBUFFED_MATE = val3
+                  db_ITrackU.profiles[ITrack.profile].COLOR_A_DEBUFFED_MATE = val4
+                  update_debuffed_background_color()
+                end,
+                get = function(info) return db_ITrackU.profiles[ITrack.profile].COLOR_R_DEBUFFED_MATE, db_ITrackU.profiles[ITrack.profile].COLOR_G_DEBUFFED_MATE, db_ITrackU.profiles[ITrack.profile].COLOR_B_DEBUFFED_MATE, db_ITrackU.profiles[ITrack.profile].COLOR_A_DEBUFFED_MATE end,
+              },
+              --ALPHA_STATUSBAR_FOCUS = {
+              --order = 11,
+              --}, 
+              COLOR_BACKGROUND_MAXSTACKS = {
+                type = "color",
+                desc = "",
+                name = "MaxStacks Color",
+                hasAlpha = true,
+                order = 12,
+                set = function(info, val1, val2, val3, val4)
+                  db_ITrackU.profiles[ITrack.profile].COLOR_R_DEBUFFED_MAXSTACK = val1
+                  db_ITrackU.profiles[ITrack.profile].COLOR_G_DEBUFFED_MAXSTACK = val2
+                  db_ITrackU.profiles[ITrack.profile].COLOR_B_DEBUFFED_MAXSTACK = val3
+                  db_ITrackU.profiles[ITrack.profile].COLOR_A_DEBUFFED_MAXSTACK = val4
+                  update_background_color_maxstack(val1, val2, val3, val4)
+                end,
+                get = function(info) return db_ITrackU.profiles[ITrack.profile].COLOR_R_DEBUFFED_MAXSTACK, db_ITrackU.profiles[ITrack.profile].COLOR_G_DEBUFFED_MAXSTACK, db_ITrackU.profiles[ITrack.profile].COLOR_B_DEBUFFED_MAXSTACK, db_ITrackU.profiles[ITrack.profile].COLOR_A_DEBUFFED_MAXSTACK end,
+              },  
+              --ALPHA_STATUSBAR_FOCUS = {
+              --order = 13,
+              --},
+              ALPHA_BACKGROUND_PLAYERDEBUFFED = {
+                type = "range",
+                name = "StatusBar Alpha",
+                desc = "",
+                order = 14,
+                min = 0,
+                max = 1,
+                step = 0.01,
+                set = function(info, val)
+                  db_ITrackU.profiles[ITrack.profile].COLOR_A_DEBUFFED_STATUSBAR = val
+                  update_alpha_color_statusbar(val)
+                end,
+                get = function(val) return db_ITrackU.profiles[ITrack.profile].COLOR_A_DEBUFFED_STATUSBAR end,
+              },  
+              HEADER_PLAYERDISTANCE = {
+                type = "header",
+                name = "Player Distance",
+                order = 15,
+              },
+              DESCRIPTION_PLAYERDISTANCE = {
+                type = "description",
+                name = "You can modify the color of the frame created when you are tracking a Stack or Spread spell.",
+                order = 16,
+              }, 
+              COLOR_DISTANCE_OK = {
+                type = "color",
+                desc = "",
+                name = "Distance frame OK",
+                hasAlpha = true,
+                order = 17,
+                set = function(info, val1, val2, val3, val4)
+                  db_ITrackU.profiles[ITrack.profile].COLOR_R_DISTANCE_OK = val1
+                  db_ITrackU.profiles[ITrack.profile].COLOR_G_DISTANCE_OK = val2
+                  db_ITrackU.profiles[ITrack.profile].COLOR_B_DISTANCE_OK = val3
+                  db_ITrackU.profiles[ITrack.profile].COLOR_A_DISTANCE_OK = val4
+                end,
+                get = function(info) return db_ITrackU.profiles[ITrack.profile].COLOR_R_DISTANCE_OK, db_ITrackU.profiles[ITrack.profile].COLOR_G_DISTANCE_OK, db_ITrackU.profiles[ITrack.profile].COLOR_B_DISTANCE_OK, db_ITrackU.profiles[ITrack.profile].COLOR_A_DISTANCE_OK end,
+              },
+              COLOR_DISTANCE_KO = {
+                type = "color",
+                desc = "",
+                name = "Distance frame KO",
+                hasAlpha = true,
+                order = 18,
+                set = function(info, val1, val2, val3, val4)
+                  db_ITrackU.profiles[ITrack.profile].COLOR_R_DISTANCE_KO = val1
+                  db_ITrackU.profiles[ITrack.profile].COLOR_G_DISTANCE_KO = val2
+                  db_ITrackU.profiles[ITrack.profile].COLOR_B_DISTANCE_KO = val3
+                  db_ITrackU.profiles[ITrack.profile].COLOR_A_DISTANCE_KO = val4
+                end,
+                get = function(info) return db_ITrackU.profiles[ITrack.profile].COLOR_R_DISTANCE_KO, db_ITrackU.profiles[ITrack.profile].COLOR_G_DISTANCE_KO, db_ITrackU.profiles[ITrack.profile].COLOR_B_DISTANCE_KO, db_ITrackU.profiles[ITrack.profile].COLOR_A_DISTANCE_KO end,
+              },
+              HEADER_FONTS = {
+                type = "header",
+                name = "Fonts",
+                order = 19,
+              },
+              FONTS_TITRE = {
+                type = "select",
+                name = "Font Title",
+                order = 20,
+                style = "dropdown",
+                desc = "",
+                values = ITrack.Fonts,
+                set = function(info, val)
+                  db_ITrackU.profiles[ITrack.profile].FONT_TITRE = val
+                  update_fonts()
+                end,
+                get = function(info) return db_ITrackU.profiles[ITrack.profile].FONT_TITRE end,
+              },
+              FONT_TITRE_SIZE = {
+                type = "range",
+                order = 21,
+                name = "Font Title Size",
+                desc = "",
+                width = "half",
+                min = 8,
+                max = 32,
+                step = 0.01,
+                set = function(info, val)
+                  db_ITrackU.profiles[ITrack.profile].FONT_TITRE_SIZE = val
+                  update_fonts()
+                end,
+                get = function(info) return db_ITrackU.profiles[ITrack.profile].FONT_TITRE_SIZE end,
+              },
+              FONT_TITRE_COLOR = {
+                type = "color",
+                name = "",
+                order = 22,
+                width = "half",
+                desc = "",
+                hasAlpha = true,
+                set = function(info, val1, val2, val3, val4)
+                  db_ITrackU.profiles[ITrack.profile].FONT_TITRE_R_COLOR = val1
+                  db_ITrackU.profiles[ITrack.profile].FONT_TITRE_G_COLOR = val2
+                  db_ITrackU.profiles[ITrack.profile].FONT_TITRE_B_COLOR = val3
+                  db_ITrackU.profiles[ITrack.profile].FONT_TITRE_A_COLOR = val4
+                  update_fonts()
+                end,
+                get = function(info) return db_ITrackU.profiles[ITrack.profile].FONT_TITRE_R_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_TITRE_G_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_TITRE_B_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_TITRE_A_COLOR end,
+              },
+              FONTS_DEBUFFED_NAME = {
+                type = "select",
+                name = "Font Debuffed",
+                order = 23,
+                style = "dropdown",
+                desc = "",
+                values = ITrack.Fonts,
+                set = function(info, val)
+                  db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME = val
+                  update_fonts()
+                end,
+                get = function(info) return db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME end,
+              },
+              FONT_DEBUFFED_NAME_SIZE = {
+                type = "range",
+                order = 24,
+                name = "Font Debuffed Size",
+                desc = "",
+                width = "half",
+                min = 8,
+                max = 32,
+                step = 0.01,
+                set = function(info, val)
+                  db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_SIZE = val
+                  update_fonts()
+                end,
+                get = function(info) return db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_SIZE end,
+              },
+              FONT_DEBUFFED_NAME_COLOR = {
+                type = "color",
+                name = "",
+                order = 25,
+                width = "half",
+                desc = "",
+                hasAlpha = true,
+                set = function(info, val1, val2, val3, val4)
+                  db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_R_COLOR = val1
+                  db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_G_COLOR = val2
+                  db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_B_COLOR = val3
+                  db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_A_COLOR = val4
+                  update_fonts()
+                end,
+                get = function(info) return db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_R_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_G_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_B_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_A_COLOR end,
+              },
+              FONTS_DEBUFFED_STACK = {
+                type = "select",
+                name = "Font Debuffed Stack",
+                order = 26,
+                style = "dropdown",
+                desc = "",
+                values = ITrack.Fonts,
+                set = function(info, val)
+                  db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK = val
+                  update_fonts()
+                end,
+                get = function(info) return db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK end,
+              },
+              FONT_DEBUFFED_STACK_SIZE = {
+                type = "range",
+                order = 27,
+                name = "Font Debuffed Stack Size",
+                desc = "",
+                width = "half",
+                min = 8,
+                max = 32,
+                step = 0.01,
+                set = function(info, val)
+                  db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK_SIZE = val
+                  update_fonts()
+                end,
+                get = function(info) return db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK_SIZE end,
+              },
+              FONT_DEBUFFED_STACK_COLOR = {
+                type = "color",
+                name = "",
+                order = 28,
+                width = "half",
+                desc = "",
+                hasAlpha = true,
+                set = function(info, val1, val2, val3, val4)
+                  db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK_R_COLOR = val1
+                  db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK_G_COLOR = val2
+                  db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK_B_COLOR = val3
+                  db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK_A_COLOR = val4
+                  update_fonts()
+                end,
+                get = function(info) return db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK_R_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK_G_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK_B_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK_A_COLOR end,
+              },       
+            },
+          },
+          Spells = {
+			name = "Spells",
 			type = "group",
 			order = 3,
-			args = {
-				HEADER_COLOR_TITRE = {
-  				type = "header",
-  				name = "Titres",
-  				order = 1,
-				},
-        HEADER_COLOR_TITRE_DESCRIPTION = {
-          type = "description",
-          name = "You can modify the color of the title frames and the police.",
-          order = 2,
-        },
-				COLOR_BACKGROUND_TITRE = {
-					type = "color",
-					desc = "",
-					name = "Title Color",
-					hasAlpha = true,
-					order = 3,
-					set = function(info, val1, val2, val3, val4)
-						db_variable.COLOR_R_TITRE = val1
-						db_variable.COLOR_G_TITRE = val2
-						db_variable.COLOR_B_TITRE = val3
-						db_variable.COLOR_A_TITRE = val4
-						update_background_color_titre(val1, val2, val3, val4)
-					end,
-					get = function(info) return db_variable.COLOR_R_TITRE, db_variable.COLOR_G_TITRE, db_variable.COLOR_B_TITRE, db_variable.COLOR_A_TITRE end,
-				},
-        HEADER_COLOR_PLAYERDEBUFFED = {
-          type = "header",
-          name = "Player Debuffed",
-          order = 4,
-        },
-        HEADER_COLOR_PLAYERDEBUFFED_DESCRIPTION = {
-          type = "description",
-          name = "You can modify the color of player debuffed frames if You / Focus / Another Player / Max Stacks",
-          order = 5,
-        },
-        ENABLE_CLASS_COLOR_PLAYER = {
-          type = "toggle",
-          order = 5.5,
-          name = "Enable Class Color Player",
-          desc = "Enable Class Color Player",
-          set = function(info, val)
-            db_variable.ENABLE_CLASS_COLOR_PLAYER = val
-            update_debuffed_background_color()
-          end,
-          get = function(info) return db_variable.ENABLE_CLASS_COLOR_PLAYER end,
-        },
-        ALPHA_CLASS_COLOR_PLAYER = {
-          type = "range",
-          order = 5.6,
-          name = "Class Color Player Alpha",
-          desc = "Class Color Player Alpha",
-          min = 0,
-          max = 1,
-          step = 0.01,
-          hidden = function() if db_variable.ENABLE_CLASS_COLOR_PLAYER then return false else return true end end,
-          set = function(info, val)
-            db_variable.COLOR_A_CLASS_COLOR_PLAYER = val
-            update_debuffed_background_color()
-          end,
-          get = function(info) return db_variable.COLOR_A_CLASS_COLOR_PLAYER end,
-        },
-        COLOR_BACKGROUND_PLAYER = {
-          type = "color",
-          desc = "",
-          name = "Player Color",
-          hasAlpha = true,
-          hidden = function() if db_variable.ENABLE_CLASS_COLOR_PLAYER then return true else return false end end,
-          order = 6,
-          set = function(info, val1, val2, val3, val4)
-            db_variable.COLOR_R_DEBUFFED_PLAYER = val1
-            db_variable.COLOR_G_DEBUFFED_PLAYER = val2
-            db_variable.COLOR_B_DEBUFFED_PLAYER = val3
-            db_variable.COLOR_A_DEBUFFED_PLAYER = val4
-            update_debuffed_background_color()
-          end,
-          get = function(info) return db_variable.COLOR_R_DEBUFFED_PLAYER, db_variable.COLOR_G_DEBUFFED_PLAYER, db_variable.COLOR_B_DEBUFFED_PLAYER, db_variable.COLOR_A_DEBUFFED_PLAYER end,
-        },
-        --ALPHA_STATUSBAR_PLAYER = {
-        --order = 7,
-        --},
-        ENABLE_CLASS_COLOR_FOCUS = {
-          type = "toggle",
-          order = 6.5,
-          name = "Enable Class Color Focus",
-          desc = "Enable Class Color Focus",
-          set = function(info, val)
-            db_variable.ENABLE_CLASS_COLOR_FOCUS = val
-            update_debuffed_background_color()
-          end,
-          get = function(info) return db_variable.ENABLE_CLASS_COLOR_FOCUS end,
-        },
-        ALPHA_CLASS_COLOR_FOCUS = {
-          type = "range",
-          order = 6.6,
-          name = "Class Color Focus Alpha",
-          desc = "Class Color Focus Alpha",
-          min = 0,
-          max = 1,
-          step = 0.01,
-          hidden = function() if db_variable.ENABLE_CLASS_COLOR_FOCUS then return false else return true end end,
-          set = function(info, val)
-            db_variable.COLOR_A_CLASS_COLOR_FOCUS = val
-            update_debuffed_background_color()
-          end,
-          get = function(info) return db_variable.COLOR_A_CLASS_COLOR_FOCUS end,
-        },
-        COLOR_BACKGROUND_FOCUS = {
-          type = "color",
-          desc = "",
-          name = "Focus Color",
-          hasAlpha = true,
-          hidden = function() if db_variable.ENABLE_CLASS_COLOR_FOCUS then return true else return false end end,
-          order = 8,
-          set = function(info, val1, val2, val3, val4)
-            db_variable.COLOR_R_DEBUFFED_FOCUS = val1
-            db_variable.COLOR_G_DEBUFFED_FOCUS = val2
-            db_variable.COLOR_B_DEBUFFED_FOCUS = val3
-            db_variable.COLOR_A_DEBUFFED_FOCUS = val4
-            update_debuffed_background_color()
-          end,
-          get = function(info) return db_variable.COLOR_R_DEBUFFED_FOCUS, db_variable.COLOR_G_DEBUFFED_FOCUS, db_variable.COLOR_B_DEBUFFED_FOCUS, db_variable.COLOR_A_DEBUFFED_FOCUS end,
-        },
-        --ALPHA_STATUSBAR_FOCUS = {
-        --order = 9,
-        --},
-        ENABLE_CLASS_COLOR_MATE = {
-          type = "toggle",
-          order = 8.5,
-          name = "Enable Class Color Mate",
-          desc = "Enable Class Color Mate",
-          set = function(info, val)
-            db_variable.ENABLE_CLASS_COLOR_MATE = val
-            update_debuffed_background_color()
-          end,
-          get = function(info) return db_variable.ENABLE_CLASS_COLOR_MATE end,
-        },
-        ALPHA_CLASS_COLOR_MATE = {
-          type = "range",
-          order = 8.6,
-          name = "Class Color Mate Alpha",
-          desc = "Class Color Mate Alpha",
-          min = 0,
-          max = 1,
-          step = 0.01,
-          hidden = function() if db_variable.ENABLE_CLASS_COLOR_MATE then return false else return true end end,
-          set = function(info, val)
-            db_variable.COLOR_A_CLASS_COLOR_MATE = val
-            update_debuffed_background_color()
-          end,
-          get = function(info) return db_variable.COLOR_A_CLASS_COLOR_MATE end,
-        },
-        COLOR_BACKGROUND_MATE = {
-          type = "color",
-          desc = "",
-          name = "Mate Color",
-          hasAlpha = true,
-          hidden = function() if db_variable.ENABLE_CLASS_COLOR_MATE then return true else return false end end,
-          order = 10,
-          set = function(info, val1, val2, val3, val4)
-            db_variable.COLOR_R_DEBUFFED_MATE = val1
-            db_variable.COLOR_G_DEBUFFED_MATE = val2
-            db_variable.COLOR_B_DEBUFFED_MATE = val3
-            db_variable.COLOR_A_DEBUFFED_MATE = val4
-            update_debuffed_background_color()
-          end,
-          get = function(info) return db_variable.COLOR_R_DEBUFFED_MATE, db_variable.COLOR_G_DEBUFFED_MATE, db_variable.COLOR_B_DEBUFFED_MATE, db_variable.COLOR_A_DEBUFFED_MATE end,
-        },
-        --ALPHA_STATUSBAR_FOCUS = {
-        --order = 11,
-        --}, 
-        COLOR_BACKGROUND_MAXSTACKS = {
-          type = "color",
-          desc = "",
-          name = "MaxStacks Color",
-          hasAlpha = true,
-          order = 12,
-          set = function(info, val1, val2, val3, val4)
-            db_variable.COLOR_R_DEBUFFED_MAXSTACK = val1
-            db_variable.COLOR_G_DEBUFFED_MAXSTACK = val2
-            db_variable.COLOR_B_DEBUFFED_MAXSTACK = val3
-            db_variable.COLOR_A_DEBUFFED_MAXSTACK = val4
-            update_background_color_maxstack(val1, val2, val3, val4)
-          end,
-          get = function(info) return db_variable.COLOR_R_DEBUFFED_MAXSTACK, db_variable.COLOR_G_DEBUFFED_MAXSTACK, db_variable.COLOR_B_DEBUFFED_MAXSTACK, db_variable.COLOR_A_DEBUFFED_MAXSTACK end,
-        },  
-        --ALPHA_STATUSBAR_FOCUS = {
-        --order = 13,
-        --},
-        ALPHA_BACKGROUND_PLAYERDEBUFFED = {
-          type = "range",
-          name = "StatusBar Alpha",
-          desc = "",
-          order = 14,
-          min = 0,
-          max = 1,
-          step = 0.01,
-          set = function(info, val)
-            db_variable.COLOR_A_DEBUFFED_STATUSBAR = val
-            update_alpha_color_statusbar(val)
-          end,
-          get = function(val) return db_variable.COLOR_A_DEBUFFED_STATUSBAR end,
-        },  
-        HEADER_PLAYERDISTANCE = {
-          type = "header",
-          name = "Player Distance",
-          order = 15,
-        },
-        DESCRIPTION_PLAYERDISTANCE = {
-          type = "description",
-          name = "You can modify the color of the frame created when you are tracking a Stack or Spread spell.",
-          order = 16,
-        }, 
-        COLOR_DISTANCE_OK = {
-          type = "color",
-          desc = "",
-          name = "Distance frame OK",
-          hasAlpha = true,
-          order = 17,
-          set = function(info, val1, val2, val3, val4)
-            db_variable.COLOR_R_DISTANCE_OK = val1
-            db_variable.COLOR_G_DISTANCE_OK = val2
-            db_variable.COLOR_B_DISTANCE_OK = val3
-            db_variable.COLOR_A_DISTANCE_OK = val4
-          end,
-          get = function(info) return db_variable.COLOR_R_DISTANCE_OK, db_variable.COLOR_G_DISTANCE_OK, db_variable.COLOR_B_DISTANCE_OK, db_variable.COLOR_A_DISTANCE_OK end,
-        },
-        COLOR_DISTANCE_KO = {
-          type = "color",
-          desc = "",
-          name = "Distance frame KO",
-          hasAlpha = true,
-          order = 18,
-          set = function(info, val1, val2, val3, val4)
-            db_variable.COLOR_R_DISTANCE_KO = val1
-            db_variable.COLOR_G_DISTANCE_KO = val2
-            db_variable.COLOR_B_DISTANCE_KO = val3
-            db_variable.COLOR_A_DISTANCE_KO = val4
-          end,
-          get = function(info) return db_variable.COLOR_R_DISTANCE_KO, db_variable.COLOR_G_DISTANCE_KO, db_variable.COLOR_B_DISTANCE_KO, db_variable.COLOR_A_DISTANCE_KO end,
-        },
-        HEADER_FONTS = {
-        	type = "header",
-        	name = "Fonts",
-        	order = 19,
-        },
-        FONTS_TITRE = {
-        	type = "select",
-        	name = "Font Title",
-        	order = 20,
-        	style = "dropdown",
-        	desc = "",
-        	values = ITrack.Fonts,
-        	set = function(info, val)
-        		db_variable.FONT_TITRE = val
-        		update_fonts()
-        	end,
-        	get = function(info) return db_variable.FONT_TITRE end,
-        },
-        FONT_TITRE_SIZE = {
-        	type = "range",
-        	order = 21,
-        	name = "Font Title Size",
-        	desc = "",
-        	width = "half",
-        	min = 8,
-        	max = 32,
-        	step = 0.01,
-        	set = function(info, val)
-	        	db_variable.FONT_TITRE_SIZE = val
-	        	update_fonts()
-        	end,
-        	get = function(info) return db_variable.FONT_TITRE_SIZE end,
-        },
-        FONT_TITRE_COLOR = {
-        	type = "color",
-        	name = "",
-        	order = 22,
-        	width = "half",
-        	desc = "",
-        	hasAlpha = true,
-        	set = function(info, val1, val2, val3, val4)
-        		db_variable.FONT_TITRE_R_COLOR = val1
-        		db_variable.FONT_TITRE_G_COLOR = val2
-        		db_variable.FONT_TITRE_B_COLOR = val3
-        		db_variable.FONT_TITRE_A_COLOR = val4
-        		update_fonts()
-        	end,
-        	get = function(info) return db_variable.FONT_TITRE_R_COLOR, db_variable.FONT_TITRE_G_COLOR, db_variable.FONT_TITRE_B_COLOR, db_variable.FONT_TITRE_A_COLOR end,
-        },
-        FONTS_DEBUFFED_NAME = {
-        	type = "select",
-        	name = "Font Debuffed",
-        	order = 23,
-        	style = "dropdown",
-        	desc = "",
-        	values = ITrack.Fonts,
-        	set = function(info, val)
-        		db_variable.FONT_DEBUFFED_NAME = val
-        		update_fonts()
-        	end,
-        	get = function(info) return db_variable.FONT_DEBUFFED_NAME end,
-        },
-        FONT_DEBUFFED_NAME_SIZE = {
-        	type = "range",
-        	order = 24,
-        	name = "Font Debuffed Size",
-        	desc = "",
-        	width = "half",
-        	min = 8,
-        	max = 32,
-        	step = 0.01,
-        	set = function(info, val)
-	        	db_variable.FONT_DEBUFFED_NAME_SIZE = val
-	        	update_fonts()
-        	end,
-        	get = function(info) return db_variable.FONT_DEBUFFED_NAME_SIZE end,
-        },
-        FONT_DEBUFFED_NAME_COLOR = {
-        	type = "color",
-        	name = "",
-        	order = 25,
-        	width = "half",
-        	desc = "",
-        	hasAlpha = true,
-        	set = function(info, val1, val2, val3, val4)
-        		db_variable.FONT_DEBUFFED_NAME_R_COLOR = val1
-        		db_variable.FONT_DEBUFFED_NAME_G_COLOR = val2
-        		db_variable.FONT_DEBUFFED_NAME_B_COLOR = val3
-        		db_variable.FONT_DEBUFFED_NAME_A_COLOR = val4
-        		update_fonts()
-        	end,
-        	get = function(info) return db_variable.FONT_DEBUFFED_NAME_R_COLOR, db_variable.FONT_DEBUFFED_NAME_G_COLOR, db_variable.FONT_DEBUFFED_NAME_B_COLOR, db_variable.FONT_DEBUFFED_NAME_A_COLOR end,
-        },
-        FONTS_DEBUFFED_STACK = {
-        	type = "select",
-        	name = "Font Debuffed Stack",
-        	order = 26,
-        	style = "dropdown",
-        	desc = "",
-        	values = ITrack.Fonts,
-        	set = function(info, val)
-        		db_variable.FONT_DEBUFFED_STACK = val
-        		update_fonts()
-        	end,
-        	get = function(info) return db_variable.FONT_DEBUFFED_STACK end,
-        },
-        FONT_DEBUFFED_STACK_SIZE = {
-        	type = "range",
-        	order = 27,
-        	name = "Font Debuffed Stack Size",
-        	desc = "",
-        	width = "half",
-        	min = 8,
-        	max = 32,
-        	step = 0.01,
-        	set = function(info, val)
-	        	db_variable.FONT_DEBUFFED_STACK_SIZE = val
-	        	update_fonts()
-        	end,
-        	get = function(info) return db_variable.FONT_DEBUFFED_STACK_SIZE end,
-        },
-        FONT_DEBUFFED_STACK_COLOR = {
-        	type = "color",
-        	name = "",
-        	order = 28,
-        	width = "half",
-        	desc = "",
-        	hasAlpha = true,
-        	set = function(info, val1, val2, val3, val4)
-        		db_variable.FONT_DEBUFFED_STACK_R_COLOR = val1
-        		db_variable.FONT_DEBUFFED_STACK_G_COLOR = val2
-        		db_variable.FONT_DEBUFFED_STACK_B_COLOR = val3
-        		db_variable.FONT_DEBUFFED_STACK_A_COLOR = val4
-        		update_fonts()
-        	end,
-        	get = function(info) return db_variable.FONT_DEBUFFED_STACK_R_COLOR, db_variable.FONT_DEBUFFED_STACK_G_COLOR, db_variable.FONT_DEBUFFED_STACK_B_COLOR, db_variable.FONT_DEBUFFED_STACK_A_COLOR end,
-        },       
-			},
-		},
-		DebuffsBDD = {
-			name = "Debuffs",
-			type = "group",
-			order = 2,
 			args = {
         HEADER_DEBUFF_SELECT = {
           type = "header",
@@ -715,7 +729,7 @@ local options = {
           order = 2,
           width = "full",
           values = {
-            ["Legion"] = "Legion", 
+            Legion = "Legion", 
             ["Battle for Azeroth"] = "Battle for Azeroth"
           },
           set = function(info, val)
@@ -731,7 +745,7 @@ local options = {
           width = "full",
           order = 3,
           hidden = function() if select_extension ~= nil then return false else return true end end,
-          values = {["Raid"] = "Raid", ["Dungeon"] = "Dungeon"},
+          values = {Raid = "Raid", Dungeon = "Dungeon"},
           set = function(info, val)
             select_raid_or_dungeon = val
             update_select_raid_or_dungeon()
@@ -771,7 +785,7 @@ local options = {
 					values = raid_boss,
 					set = function(info, val)
 						boss_select = val
-            if debuffs_table[boss_select] == nil then debuffs_table[boss_select] = {} end
+            if db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select] == nil then db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select] = {} end
             difficulty_select = nil
 					end,
 					get = function(val) return boss_select end,
@@ -794,7 +808,7 @@ local options = {
           set = function(info, val)
             spell_select = nil
             difficulty_select = val
-            if debuffs_table[boss_select][difficulty_select] == nil then debuffs_table[boss_select][difficulty_select] = {} end
+            if db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select] == nil then db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select] = {} end
             update_spell_raid_boss(boss_select, val)
           end,
           get = function(val) return difficulty_select end,
@@ -841,7 +855,7 @@ local options = {
         	type = "toggle",
         	desc = function()
 	        	if spell_select then
-	        		if debuffs_table[boss_select][difficulty_select][spell_select]["Activate"] then
+	        		if db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].Activate then
 	        			return "Desactivate the spell's track during the encounter."
 	        		else
 	        			return "Activate the spell's track during the encounter."
@@ -852,7 +866,7 @@ local options = {
         	end,
         	name = function()
 	        	if spell_select then
-	        		if debuffs_table[boss_select][difficulty_select][spell_select]["Activate"] then
+	        		if db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].Activate then
 	        			return "Activated"
 	        		else
 	        			return "Desactivated"
@@ -865,10 +879,10 @@ local options = {
         	order = 9.5,
         	hidden = function() if spell_select ~= nil then return false else return true end end,
         	set = function(info, val)
-        		debuffs_table[boss_select][difficulty_select][spell_select]["Activate"] = val
+        		db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].Activate = val
             update_spell_raid_boss(boss_select, difficulty_select)
         	end,
-        	get = function(val) return debuffs_table[boss_select][difficulty_select][spell_select]["Activate"] end,
+        	get = function(val) return db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].Activate end,
         },
         IF_ACTIVE = {
           type = "toggle",
@@ -879,13 +893,13 @@ local options = {
           hidden = function() if spell_select ~= nil then return false else return true end end,
           set = function(info, val)
           	if val then
-            	debuffs_table[boss_select][difficulty_select][spell_select]["IfActive"] = false
+            	db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].IfActive = false
             else
-            	debuffs_table[boss_select][difficulty_select][spell_select]["IfActive"] = true
+            	db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].IfActive = true
             end
           end,
           get = function(val)
-          	if debuffs_table[boss_select][difficulty_select][spell_select]["IfActive"] then
+          	if db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].IfActive then
            		return false
            	else
            		return true
@@ -897,25 +911,25 @@ local options = {
           name = "Buff/Debuff Type",
           style = "dropdown",
           order = 11,
-          values = {["Classic"] = "Classic", ["Spread"] = "Spread", ["Stack"] = "Stack"},
+          values = {Classic = "Classic", Spread = "Spread", Stack = "Stack"},
           hidden = function() if spell_select ~= nil then return false else return true end end,
           set = function(info, val)
-            debuffs_table[boss_select][difficulty_select][spell_select]["Type"] = val
-            debuffs_table[boss_select][difficulty_select][spell_select]["TypeDistance"] = nil
+            db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].Type = val
+            db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].TypeDistance = nil
           end,
-          get = function(val) return debuffs_table[boss_select][difficulty_select][spell_select]["Type"] end,
+          get = function(val) return db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].Type end,
         },
         TYPE_DISTANCE = {
           type = "select",
           name = "Buff/Debuff Distance",
           order = 12,
-          disabled = function() if debuffs_table[boss_select][difficulty_select][spell_select]["Type"] == "Spread" or debuffs_table[boss_select][difficulty_select][spell_select]["Type"] == "Stack" then return false else return true end end,
+          disabled = function() if db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].Type == "Spread" or db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].Type == "Stack" then return false else return true end end,
           hidden = function() if spell_select ~= nil then return false else return true end end,
           values = {[5] = 5, [8] = 8},
           set = function(info, val)
-            debuffs_table[boss_select][difficulty_select][spell_select]["TypeDistance"] = val
+            db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].TypeDistance = val
           end,
-          get = function(val) return debuffs_table[boss_select][difficulty_select][spell_select]["TypeDistance"] end,
+          get = function(val) return db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].TypeDistance end,
         },
         PLAYERONLY = {
           type = "select",
@@ -923,11 +937,11 @@ local options = {
           order = 13,
           width = "full",
           hidden = function() if spell_select ~= nil then return false else return true end end,
-          values = {["All"] = "All", ["Player"] = "Player", ["Focus"] = "Focus", ["Player_Focus"] = "Player_Focus"},
+          values = {All = "All", Player = "Player", Focus = "Focus", Player_Focus = "Player_Focus"},
           set = function(info, val)
-            debuffs_table[boss_select][difficulty_select][spell_select]["PlayerOnly"] = val
+            db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].PlayerOnly = val
           end,
-          get = function(val) return debuffs_table[boss_select][difficulty_select][spell_select]["PlayerOnly"] end,
+          get = function(val) return db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].PlayerOnly end,
         },
         MAXSTACKS = {
           type = "toggle",
@@ -935,9 +949,9 @@ local options = {
           order = 14,
           hidden = function() if spell_select ~= nil then return false else return true end end,
           set = function(info, val)
-            debuffs_table[boss_select][difficulty_select][spell_select]["MaxStacks"] = val
+            db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].MaxStacks = val
           end,
-          get = function(val) return debuffs_table[boss_select][difficulty_select][spell_select]["MaxStacks"] end,
+          get = function(val) return db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].MaxStacks end,
         },
         MAXSTACKSNUMBER = {
           type = "range",
@@ -947,11 +961,11 @@ local options = {
           max = 50,
           step = 1,
           hidden = function() if spell_select ~= nil then return false else return true end end,
-          disabled = function() if debuffs_table[boss_select][difficulty_select][spell_select]["MaxStacks"] == true then return false else return true end end,
+          disabled = function() if db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].MaxStacks == true then return false else return true end end,
           set = function(info, val)
-            debuffs_table[boss_select][difficulty_select][spell_select]["MaxStacksNumber"] = val
+            db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].MaxStacksNumber = val
           end,
-          get = function(val) return debuffs_table[boss_select][difficulty_select][spell_select]["MaxStacksNumber"] end,
+          get = function(val) return db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].MaxStacksNumber end,
         },
         COLUMNS = {
         	type = "select",
@@ -961,17 +975,27 @@ local options = {
         	values = {[0] = "Column 1", [1] = "Column 2", [2] = "Column 3"},
         	hidden = function() if spell_select ~= nil then return false else return true end end,
         	set = function(info, val)
-        		debuffs_table[boss_select][difficulty_select][spell_select]["Columns"] = val
+        		db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].Columns = val
         	end,
-        	get = function(val) return debuffs_table[boss_select][difficulty_select][spell_select]["Columns"] end,
+        	get = function(val) return db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].Columns end,
         },
         DELETE_SPELL_BUTTON = {
           type = "execute",
           name = "Delete",
           order = 16,
-          hidden = function() if spell_select ~= nil then return false else return true end end,
+          hidden = function()
+            if spell_select ~= nil then
+              if db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].Base then
+                return true
+              else
+                return false 
+              end
+            else 
+              return true 
+            end
+          end,
           func = function()
-            debuffs_table[boss_select][difficulty_select][spell_select] = nil
+            db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select] = nil
             spell_select = nil
             update_spell_raid_boss(boss_select, difficulty_select)
           end,
@@ -1002,19 +1026,20 @@ local options = {
           type = "execute",
           name = "Add spell",
           order = 20,
-          hidden = function() if select(7, GetSpellInfo(spell_add)) ~= nil and debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))] == nil then return false else return true end end,
+          hidden = function() if select(7, GetSpellInfo(spell_add)) ~= nil and db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))] == nil then return false else return true end end,
           func = function()
-            debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))] = {}
-            debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))]["IfActive"] = false
-            debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))]["Count"] = 0
-            debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))]["Type"] = "Classic"
-            debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))]["TypeDistance"] = 0
-            debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))]["Rôle"] = "All"
-            debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))]["PlayerOnly"] = "All"
-            debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))]["MaxStacks"] = false
-            debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))]["MaxStacksNumber"] = 0
-            debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))]["Columns"] = 0
-            debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))]["Activate"] = true
+            db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))] = {}
+            db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))].IfActive = false
+            db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))].Count = 0
+            db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))].Type = "Classic"
+            db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))].TypeDistance = 0
+            db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))]["Rôle"] = "All"
+            db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))].PlayerOnly = "All"
+            db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))].MaxStacks = false
+            db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))].MaxStacksNumber = 0
+            db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))].Columns = 0
+            db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))].Activate = true
+            db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][select(7, GetSpellInfo(spell_add))].Base = false
 
             spell_select = select(7, GetSpellInfo(spell_add))
             spell_add = nil
@@ -1024,22 +1049,24 @@ local options = {
         ADD_SPELL_VALIDATION = {
           type = "description",
           image = function()
-            if select(7, GetSpellInfo(spell_add)) ~= nil and debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))] == nil then
+            if select(7, GetSpellInfo(spell_add)) ~= nil and db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))] == nil then
               return select(3, GetSpellInfo(spell_add)), 20, 20
             end          
           end,
           name = function()
-            if select(7, GetSpellInfo(spell_add)) == nil then
-              if spell_add == "" then
-                return "" 
+            if spell_add then
+              if select(7, GetSpellInfo(spell_add)) == nil then
+                if spell_add == "" then
+                  return "" 
+                else
+                  return "The spell you want to add doesn't exist"
+                end
               else
-                return "The spell you want to add doesn't exist"
-              end
-            else
-              if debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))] == nil then
-                return select(1, GetSpellInfo(spell_add))
-              else
-                return ("You have already registered this spell")
+                if db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))] == nil then
+                  return select(1, GetSpellInfo(spell_add))
+                else
+                  return ("You have already registered this spell")
+                end
               end
             end
           end,
@@ -1048,57 +1075,82 @@ local options = {
         },
 			},
 		},
-		Stuns = {
-			name = "Stunnable",
-			order = 4,
-			type = "group",
-			args = {
-				HEADER_STUN = {
-					name = "Stunnable",
-					order = 1,
-					type = "header",
-				},
-				STUN_ACTIVATION = {
-					type = "toggle",
-					order = 2,
-					name = "Activate",
-					desc = "Activate the stun's tracker in dungeon",
-					set = function(info, val)
-						db_variable.STUN_ACTIVATE = val
-					end,
-					get = function(info) return db_variable.STUN_ACTIVATE end,
-				},
-				STUN_OPEN_FRAME = {
-					type = "execute",
-					order = 3,
-					name = "Open Frame",
-					desc = "Open a frame test",
-				},
-				HEADER_STUN_POSITION = {
-					name = "Position",
-					order = 4,
-					type = "header",
-				},
-				STUN_POSITION_X = {
-					order = 5,
-					name = "Position X",
-					type = "range",
-					min = 0,
-					max = 400,
-					step = 1,
-				},
-				STUN_POSITION_Y = {
-					order = 6,
-					name = "Position Y",
-					type = "range",
-					min = 0,
-					max = 400,
-					step = 1,
-				},
+      },
+    },
+    Module_Stuns = {
+      name = "Stuns",
+      order = 2,
+      type = "group",
+      args = {
+      STUN_ACTIVATION = {
+        type = "toggle",
+        order = 2,
+        name = "Activate",
+        desc = "Activate the stun's tracker in dungeon",
+        set = function(info, val)
+          db_ITrackU.profiles[ITrack.profile].STUN_ACTIVATE = val
+        end,
+        get = function(info) return db_ITrackU.profiles[ITrack.profile].STUN_ACTIVATE end,
+      },
+        WidthPosition = {
+          type = "group",
+          order = 1,
+          name = " Width & Position",
+          args = {
+            HEADER_STUN = {
+              name = "Frame",
+              order = 1,
+              type = "header",
+            },
+            STUN_OPEN_FRAME = {
+              type = "execute",
+              order = 3,
+              name = "Open Frame",
+              desc = "Open a frame test",
+            },
+            HEADER_STUN_POSITION = {
+              name = "Position",
+              order = 4,
+              type = "header",
+            },
+            STUN_POSITION_X = {
+              order = 5,
+              name = "Position X",
+              type = "range",
+              min = 0,
+              max = 400,
+              step = 1,
+            },
+            STUN_POSITION_Y = {
+              order = 6,
+              name = "Position Y",
+              type = "range",
+              min = 0,
+              max = 400,
+              step = 1,
+            },
+          },
+        },
 			},
-		},
-	},
-}	
+    },
+		Profiles = {
+			name = "Profiles",
+			type = "group",
+			order = 5,
+			args = {
+        SELECT_PROFILE = {
+          type = "select",
+          name = "Select profile",
+          values = function()
+            return db_ITrackU.profileKeys
+          end,
+          order = 5,
+          width = "full",
+        },
+      },
+    },
+  }	
+}
 
 ---------------------------------------------------------------------------------------------------
 -------------------------------------------   INITIALIZE   ----------------------------------------
@@ -1110,8 +1162,6 @@ function ITrackU:OnInitialize()
 	self.optionsFrame = LibStub("AceConfigDialog-3.0"):AddToBlizOptions(addonName, addonName)     
 	self:RegisterChatCommand("ITU", "ChatCommand")     
 	self:RegisterChatCommand("ITrackU", "ChatCommand")
- 
- if debuffs_table == nil then debuffs_table = {} end
 end 
 
 function ITrackU:ChatCommand(input)     
