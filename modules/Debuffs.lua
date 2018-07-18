@@ -89,6 +89,17 @@ end
 -----------------------------------------   TOOL METHODS   ----------------------------------------
 ---------------------------------------------------------------------------------------------------
 
+local function find_unit_aura(unit, spell, filter)
+    for i = 1, 40 do
+        local name, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossDebuff, nameplateShowAll, timeMod, value1, value2, value3 = UnitAura(unit, i, filter)
+        if not name then return end
+        if spell == spellId or spell == name then
+            return name, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossDebuff, nameplateShowAll, timeMod, value1, value2, value3, i
+        end
+    end
+end
+
+
 -- Distance between 2 players
 local function compute_distance(unit2)
   if IsItemInRange(37727, unit2) then
@@ -441,46 +452,19 @@ local function player_distance_script(k, l, Env)
 end
 
 -- Calculate the stacks and remaining duration of the debuff/buff
-local function update_timer(k, l, minimum, maximum, auratype)
+local function update_timer(k, l, minimum, maximum, auratype, filter)
   ITrackU[k][l].Frame_PlayerDebuffed:SetScript("OnUpdate", function(self, elapsed)  
-    if auratype == "BUFF" then
+    
+    _, _, ITrackU[k][l].Stacks, _, ITrackU[k][l].ModifMax, ITrackU[k][l].ExpirationTime, _, _, _, _, _, _, _, _, _, _, _, _ = find_unit_aura(l, k, filter)  
 
-      -- Max
-      if maximum then
-      	ITrackU[k][l].ModifMax = select(6, UnitBuff(l, select(1, GetSpellInfo(k))))
+    if maximum then
+      if maximum ~= ITrackU[k][l].ModifMax then
+        ITrackU[k][l].Timer = (ITrackU[k][l].ExpirationTime - GetTime()) * maximum / ITrackU[k][l].ModifMax
+      else
+        ITrackU[k][l].Timer = ITrackU[k][l].ExpirationTime - GetTime()
       end
-
-      -- Stacks
-      ITrackU[k][l].Stacks = select(4, UnitBuff(l, select(1, GetSpellInfo(k))))
-
-      -- Timer
-      if maximum then
-	      if maximum ~= ITrackU[k][l].ModifMax then
-	        ITrackU[k][l].Timer = (select(7, UnitBuff(l, select(1, GetSpellInfo(k)))) - GetTime()) * maximum / ITrackU[k][l].ModifMax
-	      else
-	        ITrackU[k][l].Timer = select(7, UnitBuff(l, select(1, GetSpellInfo(k)))) - GetTime()
-	      end
-    	end
-
-    elseif auratype == "DEBUFF" then
-      -- Max
-      if maximum then
-      	ITrackU[k][l].ModifMax = select(6, UnitDebuff(l, select(1, GetSpellInfo(k))))
-    	end
-
-      -- Stacks
-      ITrackU[k][l].Stacks = select(4, UnitDebuff(l, select(1, GetSpellInfo(k))))
-
-      -- Timer
-      if maximum then
-	      if maximum ~= ITrackU[k][l].ModifMax then
-	        ITrackU[k][l].Timer = (select(7, UnitDebuff(l, select(1, GetSpellInfo(k)))) - GetTime()) * maximum / ITrackU[k][l].ModifMax
-	      else
-	        ITrackU[k][l].Timer = select(7, UnitDebuff(l, select(1, GetSpellInfo(k)))) - GetTime()
-	      end 
-      end
-
     end
+
     if maximum then
     	self:SetValue(ITrackU[k][l].Timer)
     else
@@ -515,7 +499,7 @@ end
 local function player_regen_disabled_handler(self, ...)
 
   if ITrackU == nil or ITrackU == "ITrackU" then ITrackU = {} end
-  if debuffs_table ~= nil then ITrackU.DebuffToTrack = get_table(db_ITrackU.profiles[ITrack.profile].debuffs_table, ITrackU.encounter_id, ITrackU.difficulty) end
+  ITrackU.DebuffToTrack = get_table(db_ITrackU.profiles[ITrack.profile].debuffs_table, ITrackU.encounter_id, ITrackU.difficulty)
 
   if ITrackU.DebuffToTrack ~= nil then
     if Frame_Main == nil then
@@ -604,6 +588,7 @@ end
 -- Called to create table and frame when player buffed / debuffed 
 local function table_frame_player_debuffed(Env, type, spell_id, dest_name, aura_type)
   if ITrackU.DebuffToTrack then
+
       -- to be continued
       if ITrackU.DebuffToTrack[spell_id] and (ITrackU.DebuffToTrack[spell_id].PlayerOnly == "All" or (ITrackU.DebuffToTrack[spell_id].PlayerOnly == "Player" and dest_name == select(1, UnitName("player"))) or (ITrackU.DebuffToTrack[spell_id].PlayerOnly == "Focus" and dest_name == select(1, UnitName("focus"))) or (ITrackU.DebuffToTrack[spell_id].PlayerOnly == "Player_Focus" and (dest_name == select(1, UnitName("player")) or dest_name == select(1, UnitName("focus"))))) then
         local i = 0
@@ -651,18 +636,21 @@ local function table_frame_player_debuffed(Env, type, spell_id, dest_name, aura_
           ITrackU[spell_id][dest_name].Text_PlayerDebuffed:SetFont(db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_SIZE, "MONOCHROME")
           ITrackU[spell_id][dest_name].Text_PlayerDebuffed:SetTextColor(db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_R_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_G_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_B_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_G_COLOR)
           ITrackU[spell_id][dest_name].Text_PlayerDebuffed:SetText(dest_name)
-          
+
+          -- Filter
+          if auratype == "BUFF" then
+            ITrackU[spell_id][dest_name].Filter = "HELPFUL"
+          elseif auratype == "DEBUFF" then
+            ITrackU[spell_id][dest_name].Filter = "HARMFUL"
+          end  
+
           -- Status Bar
             if Env == "PROD" then
               -- Variable Max
               ITrackU[spell_id][dest_name].Min = 0
-              if aura_type == "BUFF" then
-                -- Max
-                ITrackU[spell_id][dest_name].Max = select(6, UnitBuff(dest_name, select(1, GetSpellInfo(spell_id))))
-              elseif aura_type == "DEBUFF" then
-                -- Max
-                ITrackU[spell_id][dest_name].Max = select(6, UnitDebuff(dest_name, select(1, GetSpellInfo(spell_id))))
-              end                                            
+
+              -- Max
+               _, _, _, _, ITrackU[spell_id][dest_name].Max, _, _, _, _, _, _, _, _, _, _, _, _, _ = find_unit_aura(dest_name, spell_id, ITrackU[spell_id][dest_name].Filter)                                         
               
               -- Set MinMax Status Bar
               if ITrackU[spell_id][dest_name].Max then
@@ -672,7 +660,7 @@ local function table_frame_player_debuffed(Env, type, spell_id, dest_name, aura_
               end
               
               -- this function will run repeatedly, incrementing the value of timer as it goes
-              update_timer(spell_id,dest_name, ITrackU[spell_id][dest_name].Min, ITrackU[spell_id][dest_name].Max, ITrackU[spell_id].debuffed[dest_name].aura_type)
+              update_timer(spell_id,dest_name, ITrackU[spell_id][dest_name].Min, ITrackU[spell_id][dest_name].Max, ITrackU[spell_id].debuffed[dest_name].aura_type, ITrackU[spell_id][dest_name].Filter)
             
             elseif Env == "TEST" then
               ITrackU[spell_id][dest_name].Timer = 4

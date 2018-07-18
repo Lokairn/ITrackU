@@ -1,5 +1,5 @@
-local addonName, L = ...
-
+local addonName = ...
+local L = LibStub("AceLocale-3.0"):GetLocale("ITrackU")
 ITrackU = LibStub("AceAddon-3.0"):NewAddon(addonName, "AceConsole-3.0") 
 
 ---------------------------------------------------------------------------------------------------
@@ -97,14 +97,47 @@ local options = {
   type = 'group',
   args = {
     Module_Debuffs = {
-      name = "Debuffs",
+      name = L["Module_Debuff_Name"],
       order = 1,
       type = "group",
       args = {
         DEBUFFS_HEADER = {
           type = "header",
           order = 1,
-          name = "Module : Debuffs",
+          name = L["Module_Debuff_Title"],
+        },
+        DEBUFFS_ACTIVATION = {
+          type = "toggle",
+          name = "Activate",
+          order = 1.5,
+        },
+        EXECUTE_OPEN_FRAME = {
+          type = "execute",
+          name = function() 
+          if ITrackU then
+            if ITrackU.DebuffToTrack then
+            return L["Module_Debuff_Close_Frame"]
+            else
+            return L["Module_Debuff_Open_Frame"]
+            end
+          else
+            return L["Module_Debuff_Open_Frame"]
+          end
+          end,
+          order = 2,
+          func = function()
+          open_frame_test()
+          end,
+        },
+        DEBUFFS_DESCRIPTION_HEADER = {
+          type = "header",
+          order = 3,
+          name = L["Module_Debuff_Description_Header"],
+        },
+        DEBUFFS_DESCRIPTION = {
+          type = "description",
+          order = 4,
+          name = L["Module_Debuff_Description"],
         },
         -- Bouton activé
         -- Description
@@ -115,43 +148,26 @@ local options = {
             args = {
               HEADER_FRAME_TEST = {
                 type = "header",
-                name = "Frame",
+                name = L["Module_Debuff_Move_Frame_Header"],
                 order = 1,
-              },
-              EXECUTE_OPEN_Frame = {
-                type = "execute",
-                name = function() 
-                if ITrackU then
-                  if ITrackU.DebuffToTrack then
-                  return "Close Frame"
-                  else
-                  return "Open Frame"
-                  end
-                else
-                  return "Open Frame"
-                end
-                end,
-                order = 2,
-                func = function()
-                open_frame_test()
-                end,
               },
               LOCK = {
                 type = "execute",
-                name = "Move main frame",
+                name = L["Module_Debuff_Lock_Frame"],
                 func = function()
                   show_lock_dialog()
                 end,
                 order = 3,
+                width = "full",
               },
               HEADER_POS_DIMENSION = {
                 type = "header",
-                name = "Position & Dimension",
+                name = L["Module_Debuff_Header_Pos_Dimension"],
                 order = 4,
               },
               DESCRIPTION_POS_DIMENSION = {
                 type = "description",
-                name = "Modify the position and the dimension of all frames.",
+                name = L["Module_Debuff_Description_Pos_Dimension"],
                 order = 5,
               },
               --DESCRIPTION_POS = {
@@ -194,7 +210,7 @@ local options = {
               --},
               GLOBAL_WIDTH = {
                 type = "range",
-                name = "Title & Debuffed Width",
+                name = L["Module_Debuff_Global_Width"],
                 order = 10,
                 min = 50,
                 max = 250,
@@ -208,13 +224,13 @@ local options = {
               },
               DESCRIPTION_DIMENSION_HEIGHTS = {
                 type = "description",
-                name = "Modify Height of Title Frames or/and height of Debuffed Frames",
+                name = L["Module_Debuff_Description_Dimension_Heights"],
                 order = 11,
                 width = "full",
               },
               HEIGHT_TITLE = {
                 type = "range",
-                name = "Title Height",
+                name = L["Module_Debuff_Height_Title"],
                 order = 12,
                 min = 10,
                 max = 50,
@@ -228,7 +244,7 @@ local options = {
               },
               HEIGHT_DEBUFFED = {
                 type = "range",
-                name = "Debuffed Height",
+                name = L["Module_Debuff_Height_Debuffed"],
                 order = 13,
                 min = 10,
                 max = 50,
@@ -242,7 +258,7 @@ local options = {
               },
               HEADER_SPACE_BETWEEN_ITEM = {
                 type = "header",
-                name = "Space between items",
+                name = L["Module_Debuff_Header_Space_Between_Item"],
                 order = 14,
               },
               DESCRIPTION_SPACE_BETWEEN_ITEM = {

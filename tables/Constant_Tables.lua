@@ -17,7 +17,7 @@ ITrack.raids_difficulty = {
 -- BDD des MapIDs
 ITrack.dungeons_mapid = {
     [1501] = {
-      ["extension"] = "Légion",
+      ["extension"] = "Legion",
       ["dungeon"] = "Black Rook Hold",
     },
 }
@@ -80,5 +80,16 @@ ITrack.Roster_Test = {
 	["Mate6"] = {
 		["Class"] = "WARLOCK",
 		["Role"] = "DPS",
+	},
+}
+
+-- Stun spellID
+ITrack.Stun_SpellID = {
+	[132168] = true,
+}
+
+ITrack.SpellStun_SpellID = {
+	["WARRIOR"] = {
+		[46968] = true,
 	},
 }
