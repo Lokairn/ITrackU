@@ -16,9 +16,9 @@ ITrack.raids_difficulty = {
 
 -- BDD des MapIDs
 ITrack.dungeons_mapid = {
-    [1501] = {
+    [1466] = {
       ["extension"] = "Legion",
-      ["dungeon"] = "Black Rook Hold",
+      ["dungeon"] = "Darkheat Trincket",
     },
 }
 
@@ -89,7 +89,6 @@ ITrack.Stun_SpellID = {
 }
 
 ITrack.SpellStun_SpellID = {
-	["WARRIOR"] = {
-		[46968] = true,
-	},
+	[46968] = true,
+	[255654] = true,
 }

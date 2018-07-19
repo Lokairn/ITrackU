@@ -24,3 +24,13 @@ L["Module_Debuff_Height_Title"] = "Title Height"
 L["Module_Debuff_Height_Debuffed"] = "Debuffed Height"
 L["Module_Debuff_Header_Space_Between_Item"] = "Space between items"
 
+
+-- Stuns module presentation
+L["Module_Stuns_Name"] = "Stuns Module"
+L["Module_Stuns_Title"] = "Module : Stuns"
+L["Module_Stuns_Description_Header"] = "Stun Module : Description"
+L["Module_Stuns_Description"] = "ITrackU Stun Module is aimed to ..."
+L["Module_Stuns_Activate_Name"] = "Activate"
+L["Module_Stuns_Activate_Description"] = "Activate the stun's tracker in dungeon"
+L["Module_Stuns_Header_Pos"] = "Position"
+L["Module_Stuns_Header_Dimension"] = "Dimension"

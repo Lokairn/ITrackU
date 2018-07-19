@@ -1094,56 +1094,146 @@ local options = {
       },
     },
     Module_Stuns = {
-      name = "Stuns",
+      name = L["Module_Stuns_Name"],
       order = 2,
       type = "group",
       args = {
+      STUN_HEADER = {
+        type = "header",
+        name = L["Module_Stuns_Title"],
+        order = 1,
+      },
       STUN_ACTIVATION = {
         type = "toggle",
         order = 2,
-        name = "Activate",
-        desc = "Activate the stun's tracker in dungeon",
+        name = L["Module_Stuns_Activate_Name"],
+        desc = L["Module_Stuns_Activate_Description"],
         set = function(info, val)
           db_ITrackU.profiles[ITrack.profile].STUN_ACTIVATE = val
         end,
         get = function(info) return db_ITrackU.profiles[ITrack.profile].STUN_ACTIVATE end,
       },
-        WidthPosition = {
+      STUN_OPEN_FRAME = {
+        type = "execute",
+        order = 3,
+        name = function()
+          if ITrack.SpellKnown then
+            return L["Module_Debuff_Close_Frame"]
+          else
+            return L["Module_Debuff_Open_Frame"]
+          end
+        end,
+        desc = "",
+        func = function()
+          if ITrack.SpellKnown then
+            ITrackU_Stuns_close_test_frame()
+          else
+            ITrackU_Stuns_open_test_frame()
+          end
+        end,
+      },
+      STUN_DESCRIPTION_HEADER = {
+        type = "header",
+        name = L["Module_Stuns_Description_Header"],
+        order = 4
+      },
+      STUN_DESCRIPTION_DESCRIPTION = {
+        type = "description",
+        order = 5,
+        name = L["Module_Stuns_Description"],
+      },
+        -- Onglet Width & Position
+        WIDTHPOSITION = {
           type = "group",
           order = 1,
-          name = " Width & Position",
+          name = "Width & Position",
           args = {
-            HEADER_STUN = {
-              name = "Frame",
+            HEADER_STUN_POSITION = {
+              name = L["Module_Stuns_Header_Pos"],
               order = 1,
               type = "header",
             },
-            STUN_OPEN_FRAME = {
-              type = "execute",
-              order = 3,
-              name = "Open Frame",
-              desc = "Open a frame test",
-            },
-            HEADER_STUN_POSITION = {
-              name = "Position",
-              order = 4,
-              type = "header",
-            },
             STUN_POSITION_X = {
-              order = 5,
+              order = 2,
               name = "Position X",
               type = "range",
-              min = 0,
-              max = 400,
+              min = -1000,
+              max = 1000,
               step = 1,
+              set = function(info, val)
+                db_ITrackU.profiles[ITrack.profile].STUNS_POSITION_X = val
+                ITrackU_Stuns_Modify_Frames()
+              end,
+              get = function(info) return db_ITrackU.profiles[ITrack.profile].STUNS_POSITION_X end,              
             },
             STUN_POSITION_Y = {
-              order = 6,
+              order = 3,
               name = "Position Y",
               type = "range",
-              min = 0,
-              max = 400,
+              min = -1000,
+              max = 1000,
               step = 1,
+              set = function(info, val)
+                db_ITrackU.profiles[ITrack.profile].STUNS_POSITION_Y = val
+                ITrackU_Stuns_Modify_Frames()
+              end,
+              get = function(info) return db_ITrackU.profiles[ITrack.profile].STUNS_POSITION_Y end,  
+            },
+            HEADER_STUN_DIMENSION = {
+              type = "header",
+              order = 4,
+              name = L["Module_Stuns_Header_Dimension"],
+            },
+            STUN_WIDTH = {
+              type = "range",
+              order = 5,
+              name = "Width",
+              min = 100,
+              max = 400,
+              step = 0.01,
+              set = function(info, val)
+                db_ITrackU.profiles[ITrack.profile].WIDTH_STUNS = val
+                ITrackU_Stuns_Modify_Frames()
+              end,
+              get = function(info) return db_ITrackU.profiles[ITrack.profile].WIDTH_STUNS end,
+            },
+            STUN_HEIGHT = {
+              type = "range",
+              order = 6,
+              name = "Height",
+              min = 10,
+              max = 40,
+              step = 0.01,
+              set = function(info, val)
+                db_ITrackU.profiles[ITrack.profile].HEIGHT_STUNS = val
+                ITrackU_Stuns_Modify_Frames()
+              end,
+              get = function(info) return db_ITrackU.profiles[ITrack.profile].HEIGHT_STUNS end,             
+            },
+            STUN_HEIGHT_BETWEEN_STUNS = {
+              type = "range",
+              order = 7,
+              name = "Height between Frames",
+              min = 0,
+              max = 10,
+              step = 0.01,
+              set = function(info, val)
+                db_ITrackU.profiles[ITrack.profile].HEIGHT_BETWEEN_STUNS = val
+                ITrackU_Stuns_Modify_Frames()
+              end,
+              get = function(info) return db_ITrackU.profiles[ITrack.profile].HEIGHT_BETWEEN_STUNS end,                
+            },
+          },
+        },
+        COLORS = {
+          type = "group",
+          order = 2,
+          name = "Colors",
+          args = {
+            COLORS_HEADER = {
+              type = "header",
+              name = "Colors",
+              order = 1,
             },
           },
         },
