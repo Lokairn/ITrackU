@@ -16,7 +16,7 @@ ITrack.raids_difficulty = {
 
 -- BDD des MapIDs
 ITrack.dungeons_mapid = {
-    [1466] = {
+    [1456] = {
       ["extension"] = "Legion",
       ["dungeon"] = "Darkheat Trincket",
     },
@@ -86,9 +86,4 @@ ITrack.Roster_Test = {
 -- Stun spellID
 ITrack.Stun_SpellID = {
 	[132168] = true,
-}
-
-ITrack.SpellStun_SpellID = {
-	[46968] = true,
-	[255654] = true,
 }

@@ -77,18 +77,29 @@ end
 
 local function get_table_spellknown(table)
 	local t = {}
-	for k, v in pairs(ITrack.SpellStun_SpellID) do
+	for k, v in pairs(table) do
 		if IsSpellKnown(k) then
 			t[k] = true
 		end
 	end
 	return t
 end
+local function get_table_itemusable(table)
+	local t = {}
+		for k, v in pairs(table) do
+			if IsEquippedItem(k) then
+				t[k] = true
+			end
+		end 
+	return t
+end
 
 local function open_stun_frame()
-	ITrack.SpellKnown = get_table_spellknown(ITrack.SpellStun_SpellID)
-  if ITrack.SpellStun_SpellID and ITrack.SpellKnown then
+	ITrack.SpellKnown = get_table_spellknown(db_ITrackU.profiles[ITrack.profile].spells_stun_table)
+	ITrack.ItemEquipped = get_table_spellknown(db_ITrackU.profiles[ITrack.profile].items_stun_table)
+  if ITrack.SpellKnown or ITrack.ItemEquipped then
     i = 0
+    if ITrack.SpellKnown then
     --Pour chaque sort de la table ITrack.SpellStun_SpellID on affiche une frame
       for k, v in pairs(ITrack.SpellKnown) do
         if ITrackUStuns[k] == nil then ITrackUStuns[k] = {} end
@@ -114,20 +125,28 @@ local function open_stun_frame()
         ITrackUStuns[k].frame_stun_target:SetStatusBarColor(0, 1, 0, 1) 
         ITrackUStuns[k].frame_stun_target:SetMinMaxValues(0, 1)
         ITrackUStuns[k].frame_stun_target:SetScript("OnUpdate", function(self, elapsed)
-        	ITrackUStuns[k].Timer = select(1, GetSpellCooldown(k))
-        		if ITrackUStuns[k].Timer == 0 then
+        	ITrackUStuns[k].Timer = select(2, GetSpellCooldown(k))
+        		if ITrackUStuns[k].Timer <= 1.5 then
         			self:SetValue(1)
+        			ITrackUStuns[k].frame_stun_target:SetStatusBarColor(db_ITrackU.profiles[ITrack.profile].COLOR_R_STUN_SPELL_OK, db_ITrackU.profiles[ITrack.profile].COLOR_G_STUN_SPELL_OK, db_ITrackU.profiles[ITrack.profile].COLOR_B_STUN_SPELL_OK, db_ITrackU.profiles[ITrack.profile].COLOR_A_STUN_SPELL_OK)
+        			ITrackUStuns[k].frame_stun_target:SetBackdropColor(db_ITrackU.profiles[ITrack.profile].COLOR_R_STUN_SPELL_OK, db_ITrackU.profiles[ITrack.profile].COLOR_G_STUN_SPELL_OK, db_ITrackU.profiles[ITrack.profile].COLOR_B_STUN_SPELL_OK, 0)
         		else
         			self:SetValue(1 - (((select(1, GetSpellCooldown(k)) + select(2, GetSpellCooldown(k))) - GetTime())/ select(2, GetSpellCooldown(k))))
+        			ITrackUStuns[k].frame_stun_target:SetStatusBarColor(db_ITrackU.profiles[ITrack.profile].COLOR_R_STUN_SPELL_KO, db_ITrackU.profiles[ITrack.profile].COLOR_G_STUN_SPELL_KO, db_ITrackU.profiles[ITrack.profile].COLOR_B_STUN_SPELL_KO, db_ITrackU.profiles[ITrack.profile].COLOR_A_STUN_STATUSBAR_SPELL_KO)
+        			ITrackUStuns[k].frame_stun_target:SetBackdropColor(db_ITrackU.profiles[ITrack.profile].COLOR_R_STUN_SPELL_KO, db_ITrackU.profiles[ITrack.profile].COLOR_G_STUN_SPELL_KO, db_ITrackU.profiles[ITrack.profile].COLOR_B_STUN_SPELL_KO, db_ITrackU.profiles[ITrack.profile].COLOR_A_STUN_SPELL_KO)
         		end
      		end)
 
         i = i + 1
     	end
+    end
+    if ITrack.ItemEquipped then
+
+    end
   else
     -- Pas de sorts de stun donc on affiche juste "stunnable"
         ITrackUStuns.frame_stun_target = get_frame()
-        ITrackUStuns.frame_stun_target = modify_frame(ITrackUStuns.frame_stun_target, UIParent, {bgFile = [[Interface\ChatFrame\ChatFrameBackground]]}, db_ITrackU.profiles[ITrack.profile].WIDTH_STUNS, db_ITrackU.profiles[ITrack.profile].HEIGHT_STUNS, "CENTER", db_ITrackU.profiles[ITrack.profile].STUNS_POSITION_X , db_ITrackU.profiles[ITrack.profile].STUNS_POSITION_Y - ((db_ITrackU.profiles[ITrack.profile].HEIGHT_STUNS + db_ITrackU.profiles[ITrack.profile].HEIGHT_BETWEEN_STUNS) * i), 1, 0, 0, 1, "BACKGROUND")
+        ITrackUStuns.frame_stun_target = modify_frame(ITrackUStuns.frame_stun_target, UIParent, {bgFile = [[Interface\ChatFrame\ChatFrameBackground]]}, db_ITrackU.profiles[ITrack.profile].WIDTH_STUNS, db_ITrackU.profiles[ITrack.profile].HEIGHT_STUNS, "CENTER", db_ITrackU.profiles[ITrack.profile].STUNS_POSITION_X , db_ITrackU.profiles[ITrack.profile].STUNS_POSITION_Y, 1, 0, 0, 1, "BACKGROUND")
         ITrackUStuns.frame_stun_target:Show()
 
         ITrackUStuns.text_frame_stun_target = ITrackUStuns.frame_stun_target:CreateFontString("GUID_Text", "OVERLAY", "GameFontNormal")
@@ -151,9 +170,9 @@ local function close_stun_frame()
     remove_frame(ITrackUStuns.frame_stun_target)
     ITrackUStuns.frame_stun_target = nil
   else  	
-    if ITrack.SpellStun_SpellID then
-      for k, v in pairs(ITrack.SpellStun_SpellID) do
-      		if IsSpellKnown(k) and ITrackUStuns[k] then
+    if ITrack.SpellKnown then
+      for k, v in pairs(ITrack.SpellKnown) do
+      		if ITrackUStuns[k] then
       			if ITrackUStuns[k].frame_stun_target then
       				ITrackUStuns[k].frame_stun_target:SetScript("OnUpdate", nil)
       				ITrackUStuns[k].icon_frame_stun_target:SetTexture(nil)
@@ -188,24 +207,28 @@ end
 local function player_target_changed_handler()
 
   close_stun_frame()
+  if db_ITrackU.profiles[ITrack.profile].STUN_ACTIVATE then
+    if not UnitIsDead("target") then
+  	  if UnitIsEnemy("player","target") then
+  	    if UnitGUID("target"):sub(0, 8) == "Creature" then
 
-  if UnitIsEnemy("player","target") then
-    if UnitGUID("target"):sub(0, 8) == "Creature" then
-
-      local unit_guid = UnitGUID("target"):sub(27,31)
-      	if db_ITrackU_Stun then
-      		if db_ITrackU_Stun[select(8, GetInstanceInfo())] then
-      			if db_ITrackU_Stun[select(8, GetInstanceInfo())][select(3, GetInstanceInfo())] then
-      				if db_ITrackU_Stun[select(8, GetInstanceInfo())][select(3, GetInstanceInfo())][unit_guid] then
-				      	if db_ITrackU_Stun[select(8, GetInstanceInfo())][select(3, GetInstanceInfo())][unit_guid].Stunnable then
-				      		open_stun_frame()
+	      local unit_guid = UnitGUID("target"):sub(28,32)
+	      	if db_ITrackU_Stun then
+	      		if db_ITrackU_Stun[select(8, GetInstanceInfo())] then
+	      			if db_ITrackU_Stun[select(8, GetInstanceInfo())][select(3, GetInstanceInfo())] then
+	      				if db_ITrackU_Stun[select(8, GetInstanceInfo())][select(3, GetInstanceInfo())][unit_guid] then
+					      	if db_ITrackU_Stun[select(8, GetInstanceInfo())][select(3, GetInstanceInfo())][unit_guid].Stunnable then
+					      		open_stun_frame()
+					      	end
 				      	end
 			      	end
 		      	end
-	      	end
-      end
+	        end
+          
+  	    end
+  	  end
     end
-  end
+	end
 end
 
 local function combat_log_event_unfiltered_handler(self, ...)
@@ -218,7 +241,7 @@ local function combat_log_event_unfiltered_handler(self, ...)
           if db_ITrackU_Stun[select(8, GetInstanceInfo())][select(3, GetInstanceInfo())] == nil then db_ITrackU_Stun[select(8, GetInstanceInfo())][select(3, GetInstanceInfo())] = {} end
 
           --Extract GUID
-          local unit_guid_log = dest_GUID:sub(27,31)
+          local unit_guid_log = dest_GUID:sub(28,32)
 
           if db_ITrackU_Stun[select(8, GetInstanceInfo())][select(3, GetInstanceInfo())][unit_guid_log] == nil then 
           	db_ITrackU_Stun[select(8, GetInstanceInfo())][select(3, GetInstanceInfo())][unit_guid_log] = {} 
@@ -227,7 +250,7 @@ local function combat_log_event_unfiltered_handler(self, ...)
           	
           	if db_ITrackU_Stun[select(8, GetInstanceInfo())][select(3, GetInstanceInfo())][unit_guid_log].Stunnable == nil then
 		          db_ITrackU_Stun[select(8, GetInstanceInfo())][select(3, GetInstanceInfo())][unit_guid_log].Stunnable = true
-		          print("Un nouvel add a été rajouté à votre table de stuns : ", unit_guid_log, " - ", dest_name)
+		          print("Un nouvel add a été ajouté à votre table de stuns : ", unit_guid_log, " - ", dest_name)
 
 		          -- Call changement de target si MAJ de la table
 		          player_target_changed_handler()

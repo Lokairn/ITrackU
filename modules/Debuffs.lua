@@ -812,19 +812,21 @@ end
 -- Called when encounter starts
 local function encounter_start(self, ...)
 if ITrackU == nil or ITrackU == "ITrackU" then ITrackU = {} end
-	if ITrackU.DebuffToTrack then
-		encounter_end()
-	end
-	ITrackU.encounter_id, _, _, _ = ...
-  ITrackU.difficulty = select(3, GetInstanceInfo())
+  if db_ITrackU.profiles[ITrack.profile].DEBUFF_ACTIVATE then
+  	if ITrackU.DebuffToTrack then
+  		encounter_end()
+  	end
+  	ITrackU.encounter_id, _, _, _ = ...
+    ITrackU.difficulty = select(3, GetInstanceInfo())
 
-    -- Ne se lances que si répertorié
-    if db_ITrackU.profiles[ITrack.profile].debuffs_table[ITrackU.encounter_id] then
-      if db_ITrackU.profiles[ITrack.profile].debuffs_table[ITrackU.encounter_id][ITrackU.difficulty] then
-      	player_regen_disabled_handler()
-        order_frame_player_debuff()
+      -- Ne se lances que si répertorié
+      if db_ITrackU.profiles[ITrack.profile].debuffs_table[ITrackU.encounter_id] then
+        if db_ITrackU.profiles[ITrack.profile].debuffs_table[ITrackU.encounter_id][ITrackU.difficulty] then
+        	player_regen_disabled_handler()
+          order_frame_player_debuff()
+        end
       end
-    end
+  end
 end  
 
 ---------------------------------------------------------------------------------------------------

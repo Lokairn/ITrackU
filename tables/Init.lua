@@ -2,6 +2,7 @@
 
 ITrack.defaults = {
   profile = {
+    DEBUFF_ACTIVATE = true,
     FONT_DEBUFFED_STACK_SIZE = 17,
     ANCHOR_POINT = "LEFT",
     COLOR_A_DEBUFFED_MATE = 0.300000011920929,
@@ -65,7 +66,25 @@ ITrack.defaults = {
     HEIGHT_BETWEEN_STUNS = 2,
     STUNS_POSITION_X = 0,
     STUNS_POSITION_Y = 0,
+    COLOR_R_STUN_SPELL_OK = 0,
+    COLOR_G_STUN_SPELL_OK = 1,
+    COLOR_B_STUN_SPELL_OK = 0,
+    COLOR_A_STUN_SPELL_OK = 0.3,
+    COLOR_A_STUN_STATUSBAR_SPELL_OK = 1,
+    COLOR_R_STUN_SPELL_KO = 1,
+    COLOR_G_STUN_SPELL_KO = 0,
+    COLOR_B_STUN_SPELL_KO = 0,
+    COLOR_A_STUN_SPELL_KO = 0.3,
+    COLOR_A_STUN_STATUSBAR_SPELL_KO = 1,
+    STUN_ACTIVATE = true,
       debuffs_table = {},
+      spells_stun_table = {
+        [46968] = "WARRIOR",
+        [255654] = "ALL",        
+      },
+      items_stun_table = {
+        [151974] = "ALL",
+      },
    },
 }
 

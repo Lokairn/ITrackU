@@ -107,9 +107,14 @@ local options = {
           name = L["Module_Debuff_Title"],
         },
         DEBUFFS_ACTIVATION = {
-          type = "toggle",
-          name = "Activate",
-          order = 1.5,
+        type = "toggle",
+        order = 1.5,
+        name = L["Module_Stuns_Activate_Name"],
+        desc = L["Module_Debuff_Activate_Description"],
+        set = function(info, val)
+          db_ITrackU.profiles[ITrack.profile].DEBUFF_ACTIVATE = val
+        end,
+        get = function(info) return db_ITrackU.profiles[ITrack.profile].DEBUFF_ACTIVATE end,
         },
         EXECUTE_OPEN_FRAME = {
           type = "execute",
@@ -263,12 +268,12 @@ local options = {
               },
               DESCRIPTION_SPACE_BETWEEN_ITEM = {
                 type = "description",
-                name = "Modify the space between each item",
+                name = L["DESCRIPTION_SPACE_BETWEEN_ITEM"],
                 order = 15,
               },
               SPACE_TITLE_TITLE = {
                 type = "range",
-                name = "Space Title - Title",
+                name = L["SPACE_TITLE_TITLE"],
                 order = 16,
                 min = 0,
                 max = 20,
@@ -282,7 +287,7 @@ local options = {
               },
               SPACE_TITLE_DEBUFFED = {
                 type = "range",
-                name = "Space Title - Debuffed",
+                name = L["SPACE_TITLE_DEBUFFED"],
                 order = 17,
                 min = 0,
                 max = 5,
@@ -296,7 +301,7 @@ local options = {
               },
               SPACE_DEBUFFED_DEBUFFED = {
                 type = "range",
-                name = "Space Debuffed - Debuffed",
+                name = L["SPACE_DEBUFFED_DEBUFFED"],
                 order = 18,
                 min = 0,
                 max = 5,
@@ -310,7 +315,7 @@ local options = {
               },
               SPACE_BETWEEN_COLUMNS = {
                 type = "range",
-                name = "Space between Columns",
+                name = L["SPACE_BETWEEN_COLUMNS"],
                 order = 19,
                 min = 50,
                 max = 250,
@@ -324,7 +329,7 @@ local options = {
               },
               ICON_ZOOM_PERCENTAGE = {
                 type = "range",
-                name = "Icon zoom percentage",
+                name = L["ICON_ZOOM_PERCENTAGE"],
                 order = 20,
                 min = 0,
                 max = 0.15,
@@ -340,24 +345,24 @@ local options = {
             },
           },
           ColorPanel = {
-            name = "Colors",
+            name = L["ColorPanel"],
             type = "group",
             order = 2,
             args = {
               HEADER_COLOR_TITRE = {
                 type = "header",
-                name = "Titres",
+                name = L["HEADER_COLOR_TITRE"],
                 order = 1,
               },
               HEADER_COLOR_TITRE_DESCRIPTION = {
                 type = "description",
-                name = "You can modify the color of the title frames and the police.",
+                name = L["HEADER_COLOR_TITRE_DESCRIPTION"],
                 order = 2,
               },
               COLOR_BACKGROUND_TITRE = {
                 type = "color",
                 desc = "",
-                name = "Title Color",
+                name = L["COLOR_BACKGROUND_TITRE"],
                 hasAlpha = true,
                 order = 3,
                 set = function(info, val1, val2, val3, val4)
@@ -371,19 +376,19 @@ local options = {
               },
               HEADER_COLOR_PLAYERDEBUFFED = {
                 type = "header",
-                name = "Player Debuffed",
+                name = L["HEADER_COLOR_PLAYERDEBUFFED"],
                 order = 4,
               },
               HEADER_COLOR_PLAYERDEBUFFED_DESCRIPTION = {
                 type = "description",
-                name = "You can modify the color of player debuffed frames if You / Focus / Another Player / Max Stacks",
+                name = L["HEADER_COLOR_PLAYERDEBUFFED_DESCRIPTION"],
                 order = 5,
               },
               ENABLE_CLASS_COLOR_PLAYER = {
                 type = "toggle",
                 order = 5.5,
-                name = "Enable Class Color Player",
-                desc = "Enable Class Color Player",
+                name = L["ENABLE_CLASS_COLOR_PLAYER"],
+                desc = "",
                 set = function(info, val)
                   db_ITrackU.profiles[ITrack.profile].ENABLE_CLASS_COLOR_PLAYER = val
                   update_debuffed_background_color()
@@ -393,8 +398,8 @@ local options = {
               ALPHA_CLASS_COLOR_PLAYER = {
                 type = "range",
                 order = 5.6,
-                name = "Class Color Player Alpha",
-                desc = "Class Color Player Alpha",
+                name = L["ALPHA_CLASS_COLOR_PLAYER"],
+                desc = "",
                 min = 0,
                 max = 1,
                 step = 0.01,
@@ -408,7 +413,7 @@ local options = {
               COLOR_BACKGROUND_PLAYER = {
                 type = "color",
                 desc = "",
-                name = "Player Color",
+                name = L["COLOR_BACKGROUND_PLAYER"],
                 hasAlpha = true,
                 hidden = function() if db_ITrackU.profiles[ITrack.profile].ENABLE_CLASS_COLOR_PLAYER then return true else return false end end,
                 order = 6,
@@ -427,8 +432,8 @@ local options = {
               ENABLE_CLASS_COLOR_FOCUS = {
                 type = "toggle",
                 order = 6.5,
-                name = "Enable Class Color Focus",
-                desc = "Enable Class Color Focus",
+                name = L["ENABLE_CLASS_COLOR_FOCUS"],
+                desc = "",
                 set = function(info, val)
                   db_ITrackU.profiles[ITrack.profile].ENABLE_CLASS_COLOR_FOCUS = val
                   update_debuffed_background_color()
@@ -438,8 +443,8 @@ local options = {
               ALPHA_CLASS_COLOR_FOCUS = {
                 type = "range",
                 order = 6.6,
-                name = "Class Color Focus Alpha",
-                desc = "Class Color Focus Alpha",
+                name = L["ALPHA_CLASS_COLOR_FOCUS"],
+                desc = "",
                 min = 0,
                 max = 1,
                 step = 0.01,
@@ -453,7 +458,7 @@ local options = {
               COLOR_BACKGROUND_FOCUS = {
                 type = "color",
                 desc = "",
-                name = "Focus Color",
+                name = L["COLOR_BACKGROUND_FOCUS"],
                 hasAlpha = true,
                 hidden = function() if db_ITrackU.profiles[ITrack.profile].ENABLE_CLASS_COLOR_FOCUS then return true else return false end end,
                 order = 8,
@@ -472,8 +477,8 @@ local options = {
               ENABLE_CLASS_COLOR_MATE = {
                 type = "toggle",
                 order = 8.5,
-                name = "Enable Class Color Mate",
-                desc = "Enable Class Color Mate",
+                name = L["ENABLE_CLASS_COLOR_MATE"],
+                desc = "",
                 set = function(info, val)
                   db_ITrackU.profiles[ITrack.profile].ENABLE_CLASS_COLOR_MATE = val
                   update_debuffed_background_color()
@@ -483,8 +488,8 @@ local options = {
               ALPHA_CLASS_COLOR_MATE = {
                 type = "range",
                 order = 8.6,
-                name = "Class Color Mate Alpha",
-                desc = "Class Color Mate Alpha",
+                name = L["ALPHA_CLASS_COLOR_MATE"],
+                desc = "",
                 min = 0,
                 max = 1,
                 step = 0.01,
@@ -498,7 +503,7 @@ local options = {
               COLOR_BACKGROUND_MATE = {
                 type = "color",
                 desc = "",
-                name = "Mate Color",
+                name = L["COLOR_BACKGROUND_MATE"],
                 hasAlpha = true,
                 hidden = function() if db_ITrackU.profiles[ITrack.profile].ENABLE_CLASS_COLOR_MATE then return true else return false end end,
                 order = 10,
@@ -517,7 +522,7 @@ local options = {
               COLOR_BACKGROUND_MAXSTACKS = {
                 type = "color",
                 desc = "",
-                name = "MaxStacks Color",
+                name = L["COLOR_BACKGROUND_MAXSTACKS"],
                 hasAlpha = true,
                 order = 12,
                 set = function(info, val1, val2, val3, val4)
@@ -534,7 +539,7 @@ local options = {
               --},
               ALPHA_BACKGROUND_PLAYERDEBUFFED = {
                 type = "range",
-                name = "StatusBar Alpha",
+                name = L["ALPHA_BACKGROUND_PLAYERDEBUFFED"],
                 desc = "",
                 order = 14,
                 min = 0,
@@ -548,18 +553,18 @@ local options = {
               },  
               HEADER_PLAYERDISTANCE = {
                 type = "header",
-                name = "Player Distance",
+                name = L["HEADER_PLAYERDISTANCE"],
                 order = 15,
               },
               DESCRIPTION_PLAYERDISTANCE = {
                 type = "description",
-                name = "You can modify the color of the frame created when you are tracking a Stack or Spread spell.",
+                name = L["DESCRIPTION_PLAYERDISTANCE"],
                 order = 16,
               }, 
               COLOR_DISTANCE_OK = {
                 type = "color",
                 desc = "",
-                name = "Distance frame OK",
+                name = L["COLOR_DISTANCE_OK"],
                 hasAlpha = true,
                 order = 17,
                 set = function(info, val1, val2, val3, val4)
@@ -573,7 +578,7 @@ local options = {
               COLOR_DISTANCE_KO = {
                 type = "color",
                 desc = "",
-                name = "Distance frame KO",
+                name = L["COLOR_DISTANCE_KO"],
                 hasAlpha = true,
                 order = 18,
                 set = function(info, val1, val2, val3, val4)
@@ -586,12 +591,12 @@ local options = {
               },
               HEADER_FONTS = {
                 type = "header",
-                name = "Fonts",
+                name = L["HEADER_FONTS"],
                 order = 19,
               },
               FONTS_TITRE = {
                 type = "select",
-                name = "Font Title",
+                name = L["FONTS_TITRE"],
                 order = 20,
                 style = "dropdown",
                 desc = "",
@@ -635,7 +640,7 @@ local options = {
               },
               FONTS_DEBUFFED_NAME = {
                 type = "select",
-                name = "Font Debuffed",
+                name = L["FONTS_DEBUFFED_NAME"],
                 order = 23,
                 style = "dropdown",
                 desc = "",
@@ -649,7 +654,7 @@ local options = {
               FONT_DEBUFFED_NAME_SIZE = {
                 type = "range",
                 order = 24,
-                name = "Font Debuffed Size",
+                name = L["FONT_DEBUFFED_NAME_SIZE"],
                 desc = "",
                 width = "half",
                 min = 8,
@@ -693,7 +698,7 @@ local options = {
               FONT_DEBUFFED_STACK_SIZE = {
                 type = "range",
                 order = 27,
-                name = "Font Debuffed Stack Size",
+                name = L["FONT_DEBUFFED_STACK_SIZE"],
                 desc = "",
                 width = "half",
                 min = 8,
@@ -730,22 +735,21 @@ local options = {
 			args = {
         HEADER_DEBUFF_SELECT = {
           type = "header",
-          name = "Select Raid and Boss",
+          name = L["HEADER_DEBUFF_SELECT"],
           order = 1,
         },
         DESC_DEBUFF_SELECT = {
           type = "description",
-          name = "Select the raid and then the boss you want to control buffs and debuffs. You will be able to modify/add/delete spells.",
+          name = L["DESC_DEBUFF_SELECT"],
           order = 1.5,
         },
         SELECT_EXTENSIONS = {
           type = "select",
-          name = "Extensions",
+          name = L["SELECT_EXTENSIONS"],
           style = "dropdown",
           order = 2,
           width = "full",
           values = {
-            Legion = "Legion", 
             ["Battle for Azeroth"] = "Battle for Azeroth"
           },
           set = function(info, val)
@@ -756,7 +760,7 @@ local options = {
         },
         SELECT_RAID_OR_DUNGEON = {
           type = "select",
-          name = "Raid or Dungeons",
+          name = L["SELECT_RAID_OR_DUNGEON"],
           style = "radio",
           width = "full",
           order = 3,
@@ -809,7 +813,7 @@ local options = {
         SELECT_DIFFICULTY = {
           type = "select",
           order = 5.5,
-          name = "Difficulty",
+          name = L["SELECT_DIFFICULTY"],
           style = "radio",
           hidden = function() if boss_select ~= nil then return false else return true end end,
           values = function() 
@@ -831,19 +835,19 @@ local options = {
         },
         HEADER_SELECT_SPELL = {
           type = "header",
-          name = "Manage Spells",
+          name = L["HEADER_SELECT_SPELL"],
           hidden = function() if difficulty_select ~= nil then return false else return true end end,
           order = 6,
         },
         DESC_SELECT_SPELL = {
           type = "description",
-          name = "Manage your spells here, add whatever your want to track during the encounter.",
+          name = L["DESC_SELECT_SPELL"],
           hidden = function() if difficulty_select ~= nil then return false else return true end end,
           order = 7,
         },
 				SELECT_SPELL = {
 					type = "select",
-					name = "Spells tracked",
+					name = L["SELECT_SPELL"],
 					style = "radio",
 					order = 8,
 					width = "full",
@@ -872,9 +876,9 @@ local options = {
         	desc = function()
 	        	if spell_select then
 	        		if db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].Activate then
-	        			return "Desactivate the spell's track during the encounter."
+	        			return L["DESACTIVATE"]
 	        		else
-	        			return "Activate the spell's track during the encounter."
+	        			return L["ACTIVATE"]
 	        		end        		
 	        	else 
 	        		return "" 
@@ -883,9 +887,9 @@ local options = {
         	name = function()
 	        	if spell_select then
 	        		if db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].Activate then
-	        			return "Activated"
+	        			return L["Activated"]
 	        		else
-	        			return "Desactivated"
+	        			return L["Desactivated"]
 	        		end        		
 	        	else 
 	        		return "" 
@@ -902,8 +906,8 @@ local options = {
         },
         IF_ACTIVE = {
           type = "toggle",
-          name = "Frame always up",
-          desc = "Open the title frame if buff/debuff is not up.",
+          name = L["IF_ACTIVE"],
+          desc = L["IF_ACTIVE_DESCRIPTION"],
           tristate = false,
           order = 10,
           hidden = function() if spell_select ~= nil then return false else return true end end,
@@ -924,7 +928,7 @@ local options = {
         },
         TYPE = {
           type = "select",
-          name = "Buff/Debuff Type",
+          name = L["TYPE"],
           style = "dropdown",
           order = 11,
           values = {Classic = "Classic", Spread = "Spread", Stack = "Stack"},
@@ -937,7 +941,7 @@ local options = {
         },
         TYPE_DISTANCE = {
           type = "select",
-          name = "Buff/Debuff Distance",
+          name = L["TYPE_DISTANCE"],
           order = 12,
           disabled = function() if db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].Type == "Spread" or db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].Type == "Stack" then return false else return true end end,
           hidden = function() if spell_select ~= nil then return false else return true end end,
@@ -949,7 +953,7 @@ local options = {
         },
         PLAYERONLY = {
           type = "select",
-          name = "Players to track",
+          name = L["PLAYERONLY"],
           order = 13,
           width = "full",
           hidden = function() if spell_select ~= nil then return false else return true end end,
@@ -961,7 +965,7 @@ local options = {
         },
         MAXSTACKS = {
           type = "toggle",
-          name = "Stacks Alert",
+          name = L["MAXSTACKS"],
           order = 14,
           hidden = function() if spell_select ~= nil then return false else return true end end,
           set = function(info, val)
@@ -971,7 +975,7 @@ local options = {
         },
         MAXSTACKSNUMBER = {
           type = "range",
-          name = "Stacks Number",
+          name = L["MAXSTACKSNUMBER"],
           order = 15,
           min = 0,
           max = 50,
@@ -986,7 +990,7 @@ local options = {
         COLUMNS = {
         	type = "select",
         	name = "",
-        	desc = "Split your spells into 3 columns",
+        	desc = L["COLUMNS"],
         	order = 15.5,
         	values = {[0] = "Column 1", [1] = "Column 2", [2] = "Column 3"},
         	hidden = function() if spell_select ~= nil then return false else return true end end,
@@ -997,7 +1001,7 @@ local options = {
         },
         DELETE_SPELL_BUTTON = {
           type = "execute",
-          name = "Delete",
+          name = L["DELETE_SPELL_BUTTON"],
           order = 16,
           hidden = function()
             if spell_select ~= nil then
@@ -1018,7 +1022,7 @@ local options = {
         },
         HEADER_ADD_SPELL = {
           type = "header",
-          name = "Add a Spell",
+          name = L["HEADER_ADD_SPELL"],
           hidden = function() if difficulty_select ~= nil then return false else return true end end,
           order = 17,
         },
@@ -1040,7 +1044,7 @@ local options = {
         },
         ADD_SPELL_BUTTON = {
           type = "execute",
-          name = "Add spell",
+          name = L["ADD_SPELL_BUTTON"],
           order = 20,
           hidden = function() if select(7, GetSpellInfo(spell_add)) ~= nil and db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))] == nil then return false else return true end end,
           func = function()
@@ -1075,13 +1079,13 @@ local options = {
                 if spell_add == "" then
                   return "" 
                 else
-                  return "The spell you want to add doesn't exist"
+                  return L["SPELL_DOESNT_EXIST"]
                 end
               else
                 if db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][select(7, GetSpellInfo(spell_add))] == nil then
                   return select(1, GetSpellInfo(spell_add))
                 else
-                  return ("You have already registered this spell")
+                  return L["SPELL_ALREADY_REGISTRED"]
                 end
               end
             end
@@ -1234,6 +1238,53 @@ local options = {
               type = "header",
               name = "Colors",
               order = 1,
+            },
+            COLORS_STUNS_SPELLS_OK = {
+                type = "color",
+                desc = "",
+                name = "Spell Color Ready",
+                hasAlpha = true,
+                width = "full",
+                order = 2,
+                set = function(info, val1, val2, val3, val4)
+                  db_ITrackU.profiles[ITrack.profile].COLOR_R_STUN_SPELL_OK = val1
+                  db_ITrackU.profiles[ITrack.profile].COLOR_G_STUN_SPELL_OK = val2
+                  db_ITrackU.profiles[ITrack.profile].COLOR_B_STUN_SPELL_OK = val3
+                  db_ITrackU.profiles[ITrack.profile].COLOR_A_STUN_SPELL_OK = val4
+                end,
+                get = function(info) return db_ITrackU.profiles[ITrack.profile].COLOR_R_STUN_SPELL_OK, db_ITrackU.profiles[ITrack.profile].COLOR_G_STUN_SPELL_OK, db_ITrackU.profiles[ITrack.profile].COLOR_B_STUN_SPELL_OK, db_ITrackU.profiles[ITrack.profile].COLOR_A_STUN_SPELL_OK end,
+              },
+            COLORS_STUNS_SPELLS_KO = {
+                type = "color",
+                desc = "",
+                name = "Spell Color on CD",
+                hasAlpha = true,
+                order = 4,
+                set = function(info, val1, val2, val3, val4)
+                  db_ITrackU.profiles[ITrack.profile].COLOR_R_STUN_SPELL_KO = val1
+                  db_ITrackU.profiles[ITrack.profile].COLOR_G_STUN_SPELL_KO = val2
+                  db_ITrackU.profiles[ITrack.profile].COLOR_B_STUN_SPELL_KO = val3
+                  db_ITrackU.profiles[ITrack.profile].COLOR_A_STUN_SPELL_KO = val4
+                end,
+                get = function(info) return db_ITrackU.profiles[ITrack.profile].COLOR_R_STUN_SPELL_KO, db_ITrackU.profiles[ITrack.profile].COLOR_G_STUN_SPELL_KO, db_ITrackU.profiles[ITrack.profile].COLOR_B_STUN_SPELL_KO, db_ITrackU.profiles[ITrack.profile].COLOR_A_STUN_SPELL_KO end,
+              },
+            COLORS_A_STUNS_SPELL_STATUSBAR_KO = {
+              type = "range",
+              desc = "",
+              min = 0,
+              max = 1,
+              step = 0.01,
+              name = "StatusBar Color on CD",
+              order = 5,
+              set = function(info, val)
+                db_ITrackU.profiles[ITrack.profile].COLOR_A_STUN_STATUSBAR_SPELL_KO = val
+              end,
+              get = function(info) return db_ITrackU.profiles[ITrack.profile].COLOR_A_STUN_STATUSBAR_SPELL_KO end,
+            },
+            FONT_STUNS_HEADER = {
+              type = "header",
+              name = "FONTS",
+              order = 6,
             },
           },
         },
