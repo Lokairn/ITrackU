@@ -455,8 +455,15 @@ end
 local function update_timer(k, l, minimum, maximum, auratype, filter)
   ITrackU[k][l].Frame_PlayerDebuffed:SetScript("OnUpdate", function(self, elapsed)  
     
-    _, _, ITrackU[k][l].Stacks, _, ITrackU[k][l].ModifMax, ITrackU[k][l].ExpirationTime, _, _, _, _, _, _, _, _, _, _, _, _ = find_unit_aura(l, k, filter)  
+    local _, _, aura_stacks, _, aura_max, aura_expiration, _, _, _, _, _, _, _, _, _, _, _, _ = find_unit_aura(l, k, filter)
 
+    --Stacks
+    if aura_stacks then ITrackU[k][l].Stacks = aura_stacks end
+    -- Max
+    if aura_max then ITrackU[k][l].ModifMax = aura_max end
+    -- ExpirationTime
+    if aura_expiration then ITrackU[k][l].ExpirationTime = aura_expiration end
+    
     if maximum then
       if maximum ~= ITrackU[k][l].ModifMax then
         ITrackU[k][l].Timer = (ITrackU[k][l].ExpirationTime - GetTime()) * maximum / ITrackU[k][l].ModifMax
@@ -783,7 +790,7 @@ if ITrackU then
         
           -- On remove la frame si Stack ou Spread
           if (ITrackU.DebuffToTrack[spell_id].Type == "Stack" or ITrackU.DebuffToTrack[spell_id].Type == "Spread") and dest_name ~= select(1, UnitName("player")) then
-			  remove_frame(ITrackU[spell_id][dest_name].Frame_PlayerDistance)
+            remove_frame(ITrackU[spell_id][dest_name].Frame_PlayerDistance)
           end      
         
           -- Vider les tables
@@ -804,6 +811,41 @@ if ITrackU then
           
         end
       end
+    end
+
+    -- Ally dead
+    if type == "UNIT_DIED" and ITrackU then
+      if ITrackU.DebuffToTrack then
+        for k, v in pairs(ITrackU.DebuffToTrack) do
+          if ITrackU[k].debuffed[dest_name] then
+
+
+            -- On remove la frame si Stack ou Spread
+            if (ITrackU.DebuffToTrack[k].Type == "Stack" or ITrackU.DebuffToTrack[k].Type == "Spread") and dest_name ~= select(1, UnitName("player")) then
+              remove_frame(ITrackU[k][dest_name].Frame_PlayerDistance)
+            end      
+          
+            -- Vider les tables
+            ITrackU[k].debuffed[dest_name] = nil
+            ITrackU[k][dest_name].Frame_PlayerDebuffed:SetScript("OnUpdate", nil)
+            remove_frame(ITrackU[k][dest_name].Frame_PlayerDebuffed)
+            ITrackU[k][dest_name].Text_PlayerDebuffed:SetText("")
+            ITrackU[k][dest_name].Text_PlayerStacks:SetText("")
+            
+            -- On hide la frame titre si Count = 0
+            ITrackU.DebuffToTrack[k].Count = ITrackU.DebuffToTrack[k].Count - 1
+            if ITrackU.DebuffToTrack[k].IfActive == true and ITrackU.DebuffToTrack[k].Count == 0 then
+              ITrackU[k].Frame_Titre:Hide()
+            end
+            
+            -- Order Frame
+            order_frame_player_debuff()
+
+
+          end
+        end
+      end
+
     end
   end
 end
@@ -829,6 +871,14 @@ if ITrackU == nil or ITrackU == "ITrackU" then ITrackU = {} end
   end
 end  
 
+local function party_member_disable_handler(self, player_name)
+  if ITrackU then
+    if ITrackU.DebuffToTrack then
+
+    end
+  end
+end
+
 ---------------------------------------------------------------------------------------------------
 -----------------------------------   EVENT HANDLER BINDINGS   ------------------------------------
 ---------------------------------------------------------------------------------------------------
@@ -838,6 +888,7 @@ local AllEventHandlers = {
     --.PLAYER_REGEN_DISABLED = player_regen_disabled_handler,
     ENCOUNTER_END = encounter_end,
     COMBAT_LOG_EVENT_UNFILTERED = combat_log_event_unfiltered_handler,
+    PARTY_MEMBER_DISABLE = party_member_disable_handler,
 }
  
 -- ITrackUFrame
