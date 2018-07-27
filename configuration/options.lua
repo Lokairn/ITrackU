@@ -945,7 +945,7 @@ local options = {
           order = 12,
           disabled = function() if db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].Type == "Spread" or db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].Type == "Stack" then return false else return true end end,
           hidden = function() if spell_select ~= nil then return false else return true end end,
-          values = {[5] = 5, [8] = 8},
+          values = {[5] = 5, [6] = 6, [8] = 8, [10] = 10, [20] = 20, [25] = 25},
           set = function(info, val)
             db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].TypeDistance = val
           end,
@@ -1159,7 +1159,7 @@ local options = {
             },
             STUN_POSITION_X = {
               order = 2,
-              name = "Position X",
+              name = L["STUN_POSITION_X"],
               type = "range",
               min = -1000,
               max = 1000,
@@ -1172,7 +1172,7 @@ local options = {
             },
             STUN_POSITION_Y = {
               order = 3,
-              name = "Position Y",
+              name = L["STUN_POSITION_Y"],
               type = "range",
               min = -1000,
               max = 1000,
@@ -1204,7 +1204,7 @@ local options = {
             STUN_HEIGHT = {
               type = "range",
               order = 6,
-              name = "Height",
+              name = L["STUN_HEIGHT"],
               min = 10,
               max = 40,
               step = 0.01,
@@ -1217,7 +1217,7 @@ local options = {
             STUN_HEIGHT_BETWEEN_STUNS = {
               type = "range",
               order = 7,
-              name = "Height between Frames",
+              name = L["STUN_HEIGHT_BETWEEN_STUNS"],
               min = 0,
               max = 10,
               step = 0.01,
@@ -1232,17 +1232,17 @@ local options = {
         COLORS = {
           type = "group",
           order = 2,
-          name = "Colors",
+          name = L["ColorPanel"],
           args = {
             COLORS_HEADER = {
               type = "header",
-              name = "Colors",
+              name = L["ColorPanel"],
               order = 1,
             },
             COLORS_STUNS_SPELLS_OK = {
                 type = "color",
                 desc = "",
-                name = "Spell Color Ready",
+                name = L["COLORS_STUNS_SPELLS_OK"],
                 hasAlpha = true,
                 width = "full",
                 order = 2,
@@ -1257,7 +1257,7 @@ local options = {
             COLORS_STUNS_SPELLS_KO = {
                 type = "color",
                 desc = "",
-                name = "Spell Color on CD",
+                name = L["COLORS_STUNS_SPELLS_KO"],
                 hasAlpha = true,
                 order = 4,
                 set = function(info, val1, val2, val3, val4)
@@ -1274,7 +1274,7 @@ local options = {
               min = 0,
               max = 1,
               step = 0.01,
-              name = "StatusBar Color on CD",
+              name = L["COLORS_A_STUNS_SPELL_STATUSBAR_KO"],
               order = 5,
               set = function(info, val)
                 db_ITrackU.profiles[ITrack.profile].COLOR_A_STUN_STATUSBAR_SPELL_KO = val
@@ -1283,7 +1283,7 @@ local options = {
             },
             FONT_STUNS_HEADER = {
               type = "header",
-              name = "FONTS",
+              name = L["FONT_STUNS_HEADER"],
               order = 6,
             },
           },
@@ -1291,13 +1291,13 @@ local options = {
 			},
     },
 		Profiles = {
-			name = "Profiles",
+			name = L["Profiles"],
 			type = "group",
 			order = 5,
 			args = {
         SELECT_PROFILE = {
           type = "select",
-          name = "Select profile",
+          name = L["SELECT_PROFILE"],
           values = function()
             return db_ITrackU.profileKeys
           end,

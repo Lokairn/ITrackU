@@ -4,7 +4,7 @@ local L = AceLocale:NewLocale("ITrackU", "enUS", true)
 if not L then return end
 
 -- Generic
-L["LOADING_ADDON"] = "Welcome on ITrackU. Version 1.4. To open the configuration panel in game, type /ITU."
+L["LOADING_ADDON"] = "Welcome on ITrackU. Version 1.5.0 To open the configuration panel in game, type /ITU."
 
 
 -- Debuff module presentation
@@ -96,3 +96,20 @@ L["Module_Stuns_Activate_Name"] = "Activate"
 L["Module_Stuns_Activate_Description"] = "Activate the stun's tracker in dungeon"
 L["Module_Stuns_Header_Pos"] = "Position"
 L["Module_Stuns_Header_Dimension"] = "Dimension"
+L["STUN_POSITION_X"] = "Position X"
+L["STUN_POSITION_Y"] = "Position Y"
+L["STUN_HEIGHT"] = "Height"
+L["STUN_HEIGHT_BETWEEN_STUNS"] = "Height between Frames"
+L["COLORS_STUNS_SPELLS_OK"] = "Spell Color Ready"
+L["COLORS_STUNS_SPELLS_KO"] = "Spell Color on CD"
+L["COLORS_A_STUNS_SPELL_STATUSBAR_KO"] = "StatusBar Color on CD"
+L["FONT_STUNS_HEADER"] = "Fonts"
+
+L["ADD_ADDED_TO_BDD"] = "A new mob has been added to the stun table : "
+
+
+
+-- Profiles module
+L["Profiles"] = "Profiles"
+L["SELECT_PROFILE"] = "Select profile"
+
