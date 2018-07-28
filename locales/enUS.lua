@@ -113,3 +113,79 @@ L["ADD_ADDED_TO_BDD"] = "A new mob has been added to the stun table : "
 L["Profiles"] = "Profiles"
 L["SELECT_PROFILE"] = "Select profile"
 
+
+
+--Dungeons
+L["Atal Dazar"] = "Atal Dazar"
+  L["Alunza"] = "Alunza"
+  L["Rezan"] = "Rezan"
+  L["Vol'kaal"] = "Vol'kaal"
+  L["Yazma"] = "Yazma"
+
+L["Freehold"] = "Freehold"
+  L["Ring of Booty"] = "Ring of Booty"
+  L["Council o' Captains"] = "Council o' Captains"
+  L["Skycap'n Kragg"] = "Skycap'n Kragg"
+  L["Harlan Sweete"] = "Harlan Sweete"
+
+L["Kings Rest"] = "Kings Rest"
+  L["Dazar"] = "Dazar, The First King"
+  L["The Golden Serpent"] = "The Golden Serpent"
+  L["Mummification Construct"] = "Mummification Construct"
+  L["The Warring Warlords"] = "The Warring Warlords"
+  
+L["Shrine Of The Storm"] = "Shrine Of The Storm"
+  L["Aqu'sirr"] = "Aqu'sirr"
+  L["Tidesage Coucil"] = "Tidesage Coucil"
+  L["Lord Stormsong"] = "Lord Stormsong"
+  L["Volzith"] = "Vol'zith the Whisperer"
+  
+L["Siege Of Boralus"] = "Siege Of Boralus"
+  L["Behamat"] = "Behamat"
+  L["Sergeant Bainbridge"] = "Sergeant Bainbridge"
+  L["Hadal Darkfathom"] = "Hadal Darkfathom"
+  L["Dread Captain Lockwood"] = "Dread Captain Lockwood"
+  
+L["Temple Of Sethraliss"] = "Temple Of Sethraliss"
+  L["Adderis and Aspix"] = "Adderis and Aspix"
+  L["Avatar of Sethraliss"] = "Avatar of Sethraliss"
+  L["Galvazzt"] = "Galvazzt"
+  L["Merektha"] = "Merektha"
+  
+L["The Motherlode"] = "The Motherlode"
+  L["Tik'ali"] = "Tik'ali"
+  L["Rixxa Fluxflame"] = "Rixxa Fluxflame"
+  L["Mogul Razzdunk"] = "Mogul Razzdunk"
+  L["Coin-Operated Crowd Pummeler"] = "Coin-Operated Crowd Pummeler"
+  
+L["Tol Dagor"] = "Tol Dagor"
+  L["Jes Howlis"] = "Jes Howlis"
+  L["Overseer Korgus"] = "Overseer Korgus"
+  L["The Sand Queen"] = "The Sand Queen"
+  L["Knight Captain Valyri"] = "Knight Captain Valyri"
+  
+L["Underrot"] = "Underrot"
+  L["Unbound Abomination"] = "Unbound Abomination"
+  L["Infested Crawg"] = "Infested Crawg"
+  L["Elder Leaxa"] = "Elder Leaxa"
+  L["Sporecaller Zancha"] = "Sporecaller Zancha"
+  
+L["Waycrest Manor"] = "Waycrest Manor"
+  L["Soulbound Goliath"] = "Soulbound Goliath"
+  L["Gorak Tul"] = "Gorak Tul"
+  L["Heartsbane Triad"] = "Heartsbane Triad"
+  L["Raal the Gluttonous"] = "Raal the Gluttonous"
+  L["Lord and Lady Waycrest"] = "Lord and Lady Waycrest"
+  
+-- Raids
+L["Uldir"] = "Uldir"
+  L["Devourer"] = "Devourer"
+  L["Ghuun"] = "Ghuun"
+  L["Mother"] = "Mother"
+  L["Mythrax"] = "Mythrax"
+  L["Taloc"] = "Taloc"
+  L["Vectis"] = "Vectis"
+  L["Zekvoz"] = "Zekvoz"
+  L["Zul"] = "Zul"
+
+

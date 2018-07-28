@@ -767,7 +767,9 @@ if ITrackU then
     -- Aura Applied
     if (type == "SPELL_AURA_APPLIED" or type == "SPELL_AURA_APPLIED_DOSE") and ITrackU then
       local _, _, _, _, _, _, _, _, _, _, _, spell_id, _, _, aura_type  = CombatLogGetCurrentEventInfo()
-
+        
+        ITrackU_showauras.bdd[spell_id] = aura_type
+        
       	if ITrackU[spell_id] then
 	        -- Create Frame & Table
 	        if ITrackU[spell_id].debuffed[dest_name] == nil then
@@ -861,6 +863,15 @@ if ITrackU == nil or ITrackU == "ITrackU" then ITrackU = {} end
   	ITrackU.encounter_id, _, _, _ = ...
     ITrackU.difficulty = select(3, GetInstanceInfo())
 
+    --Set ShowAuras
+    ITrackU_showauras = {}
+    ITrackU_showauras.bdd = {}
+    ITrackU_showauras.encounter = ITrackU.encounter_id 
+    ITrackU_showauras.difficulty = ITrackU.difficulty
+    
+    print("Encounter_ID = ", ITrackU.encounter_id)
+    print("Difficulty = ", ITrackU.difficulty)
+
       -- Ne se lances que si répertorié
       if db_ITrackU.profiles[ITrack.profile].debuffs_table[ITrackU.encounter_id] then
         if db_ITrackU.profiles[ITrack.profile].debuffs_table[ITrackU.encounter_id][ITrackU.difficulty] then
@@ -871,14 +882,6 @@ if ITrackU == nil or ITrackU == "ITrackU" then ITrackU = {} end
   end
 end  
 
-local function party_member_disable_handler(self, player_name)
-  if ITrackU then
-    if ITrackU.DebuffToTrack then
-
-    end
-  end
-end
-
 ---------------------------------------------------------------------------------------------------
 -----------------------------------   EVENT HANDLER BINDINGS   ------------------------------------
 ---------------------------------------------------------------------------------------------------
@@ -888,7 +891,6 @@ local AllEventHandlers = {
     --.PLAYER_REGEN_DISABLED = player_regen_disabled_handler,
     ENCOUNTER_END = encounter_end,
     COMBAT_LOG_EVENT_UNFILTERED = combat_log_event_unfiltered_handler,
-    PARTY_MEMBER_DISABLE = party_member_disable_handler,
 }
  
 -- ITrackUFrame
@@ -920,6 +922,11 @@ SlashCmdList['ITRACKU_CLOSEFRAME_SLASHCMD'] = function()
   encounter_end()
 end
 SLASH_ITRACKU_CLOSEFRAME_SLASHCMD1 = '/closeframe'
+
+SlashCmdList['ITRACKU_SHOWAURAS_SLASHCMD'] = function()
+  print("héhé")
+end
+SLASH_ITRACKU_SHOWAURAS_SLASHCMD1 = '/showauras'
 
 ---------------------------------------------------------------------------------------------------
 -----------------------------------------   FRAME TEST   ------------------------------------------
