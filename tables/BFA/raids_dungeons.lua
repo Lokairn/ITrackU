@@ -69,5 +69,14 @@ ITrack.dungeons["Battle for Azeroth"] = {
 
 -- BDD of raids
 ITrack.raids["Battle for Azeroth"] = {
-  
+  ["Uldir"] = {
+    [2128] = "Devourer",
+    [2122] = "Ghuun",
+    [2141] = "Mother",
+    [2135] = "Mythrax",
+    [2144] = "Taloc",
+    [2134] = "Vectis",
+    [2136] = "Zekvoz",
+    [2145] = "Zul",
+  }
 }

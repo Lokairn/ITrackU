@@ -16,5 +16,6 @@
     <Script file="dungeons\WaycrestManor\debuffs_table.lua"/>
     
   <!-- Raids -->
+    <Script file="raids\Uldir\debuffs_table.lua"/>
 
 </Ui>

@@ -945,7 +945,7 @@ local options = {
           order = 12,
           disabled = function() if db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].Type == "Spread" or db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].Type == "Stack" then return false else return true end end,
           hidden = function() if spell_select ~= nil then return false else return true end end,
-          values = {[5] = 5, [6] = 6, [8] = 8, [10] = 10, [20] = 20, [25] = 25},
+          values = {[5] = 5, [6] = 6, [8] = 8, [10] = 10, [15] = 15, [20] = 20, [25] = 25, [60] = 60},
           set = function(info, val)
             db_ITrackU.profiles[ITrack.profile].debuffs_table[boss_select][difficulty_select][spell_select].TypeDistance = val
           end,
