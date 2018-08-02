@@ -1,6 +1,6 @@
 ## Interface: 80000
 ## Title: ITrackU
-## Author: Kahinh & Sindalar
+## Author: Kahinh, Sindalar & Lokairn
 ## Notes: Ceci est un test
 ## Version: 1.5
 ## SavedVariables: db_ITrackU

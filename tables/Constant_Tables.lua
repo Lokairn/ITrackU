@@ -86,4 +86,5 @@ ITrack.Roster_Test = {
 -- Stun spellID
 ITrack.Stun_SpellID = {
 	[132168] = true,
+	[118905] = true,
 }

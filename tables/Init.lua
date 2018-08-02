@@ -80,7 +80,8 @@ ITrack.defaults = {
       debuffs_table = {},
       spells_stun_table = {
         [46968] = "WARRIOR",
-        [255654] = "ALL",        
+        [255654] = "ALL",  
+        [192058] = "SHAMAN",      
       },
       items_stun_table = {
         [151974] = "ALL",
