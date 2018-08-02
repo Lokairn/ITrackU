@@ -136,7 +136,7 @@ L["Kings Rest"] = "Kings Rest"
   
 L["Shrine Of The Storm"] = "Shrine Of The Storm"
   L["Aqu'sirr"] = "Aqu'sirr"
-  L["Tidesage Coucil"] = "Tidesage Coucil"
+  L["Tidesage Council"] = "Tidesage Coucil"
   L["Lord Stormsong"] = "Lord Stormsong"
   L["Volzith"] = "Vol'zith the Whisperer"
   

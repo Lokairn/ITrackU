@@ -8,7 +8,7 @@
   -- [8] = "Mythic +",
 
 -- Alunza
-table.insert(ITrack.defaults.profile.debuffs_table , 2084,{
+table.insert(ITrack.defaults.profile.debuffs_table , 9999,{
   -- Normal
   [1] = {
     -- Corruption Sanguine

@@ -112,7 +112,7 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2084,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-  -- Or en fusion
+    -- Or en fusion
     [255584] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
@@ -126,7 +126,7 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2084,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-  -- Transfusion
+    -- Transfusion
     [255577] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
@@ -140,7 +140,7 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2084,{
       ["Activate"] = true,
       ["Base"] = true,
     },  
-  -- Griffes dorées
+    -- Griffes dorées
     [255579] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
@@ -154,7 +154,7 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2084,{
       ["Activate"] = true,
       ["Base"] = true,
     },  
-  -- Or corrompu
+    -- Or corrompu
     [258709] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
@@ -168,7 +168,7 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2084,{
       ["Activate"] = true,
       ["Base"] = true,
     },  
-  -- Esprits d'or
+    -- Esprits d'or
     [259205] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
@@ -199,7 +199,7 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2084,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-  -- Or en fusion
+    -- Or en fusion
     [255584] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
@@ -213,7 +213,7 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2084,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-  -- Transfusion
+    -- Transfusion
     [255577] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
@@ -227,7 +227,7 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2084,{
       ["Activate"] = true,
       ["Base"] = true,
     },  
-  -- Griffes dorées
+    -- Griffes dorées
     [255579] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
@@ -241,7 +241,7 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2084,{
       ["Activate"] = true,
       ["Base"] = true,
     },  
-  -- Or corrompu
+    -- Or corrompu
     [258709] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
@@ -255,7 +255,7 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2084,{
       ["Activate"] = true,
       ["Base"] = true,
     },  
-  -- Esprits d'or
+    -- Esprits d'or
     [259205] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
@@ -286,7 +286,7 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2084,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-  -- Or en fusion
+    -- Or en fusion
     [255584] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
@@ -300,7 +300,7 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2084,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-  -- Transfusion
+    -- Transfusion
     [255577] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
@@ -314,7 +314,7 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2084,{
       ["Activate"] = true,
       ["Base"] = true,
     },  
-  -- Griffes dorées
+    -- Griffes dorées
     [255579] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
@@ -328,7 +328,7 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2084,{
       ["Activate"] = true,
       ["Base"] = true,
     },  
-  -- Or corrompu
+    -- Or corrompu
     [258709] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
@@ -342,7 +342,7 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2084,{
       ["Activate"] = true,
       ["Base"] = true,
     },  
-  -- Esprits d'or
+    -- Esprits d'or
     [259205] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",

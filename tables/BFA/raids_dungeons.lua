@@ -1,4 +1,4 @@
-﻿if ITrack == nil then ITrack = {} end
+if ITrack == nil then ITrack = {} end
 if ITrack.dungeons == nil then ITrack.dungeons = {} end
 if ITrack.raids == nil then ITrack.raids = {} end
 
@@ -26,7 +26,7 @@ ITrack.dungeons["Battle for Azeroth"] = {
   },
   [L["Shrine Of The Storm"]] = {
     [2130] = L["Aqu'sirr"],
-    [2131] = L["Tidesage Coucil"],
+    [2131] = L["Tidesage Council"],
     [2132] = L["Lord Stormsong"],
     [2133] = L["Volzith"],
   },
