@@ -768,7 +768,9 @@ if ITrackU then
     if (type == "SPELL_AURA_APPLIED" or type == "SPELL_AURA_APPLIED_DOSE") and ITrackU then
       local _, _, _, _, _, _, _, _, _, _, _, spell_id, _, _, aura_type  = CombatLogGetCurrentEventInfo()
         
-        ITrackU_showauras.bdd[spell_id] = aura_type
+        if ITrackU_showauras then
+          ITrackU_showauras.bdd[spell_id] = aura_type
+        end
         
       	if ITrackU[spell_id] then
 	        -- Create Frame & Table
