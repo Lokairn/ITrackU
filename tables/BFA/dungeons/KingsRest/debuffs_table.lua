@@ -1064,7 +1064,7 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2140,{
 })
 
   --Dazar, The First King
-table.insert(ITrack.defaults.profile.debuffs_table , 0000,{
+table.insert(ITrack.defaults.profile.debuffs_table , 2143,{
   -- Normal
   [1] = {
     -- Gardien éternel

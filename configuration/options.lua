@@ -327,20 +327,38 @@ local options = {
                 end,
                 get = function(val) return db_ITrackU.profiles[ITrack.profile].WIDTH_BETWEEN_COLUMNS end,
               },
-              ICON_ZOOM_PERCENTAGE = {
-                type = "range",
-                name = L["ICON_ZOOM_PERCENTAGE"],
-                order = 20,
-                min = 0,
-                max = 0.15,
-                step = 0.01,
+              --ICON_ZOOM_PERCENTAGE = {
+              --  type = "range",
+              --  name = L["ICON_ZOOM_PERCENTAGE"],
+              --  order = 20,
+              --  min = 0,
+              --  max = 0.15,
+              --  step = 0.01,
+              --  desc = "",
+              --  isPercent=true,
+              --  set = function(info, val)
+              --    db_ITrackU.profiles[ITrack.profile].ZOOM_PERCENTAGE = val
+              --    update_icon_zoom(val)
+              --  end,
+              --  get = function(val) return db_ITrackU.profiles[ITrack.profile].ZOOM_PERCENTAGE end,
+              --},
+              HORIZONTAL_ALIGNEMENT_HEADER = {
+                type = "header",
+                name = L["HORIZONTAL_ALIGNEMENT_HEADER"],
+                order = 20.5,
+              },
+              HORIZONTAL_ALIGNEMENT_SELECT = {
+                type = "select",
+                name = L["HORIZONTAL_ALIGNEMENT_SELECT"],
+                order = 21,
+                values = ITrack.ModuleDebuff_HorizontalAlignement,
+                style = "dropdown",
                 desc = "",
-                isPercent=true,
                 set = function(info, val)
-                  db_ITrackU.profiles[ITrack.profile].ZOOM_PERCENTAGE = val
-                  update_icon_zoom(val)
+                  db_ITrackU.profiles[ITrack.profile].MODULE_DEBUFF.HORIZONTAL_OPENING = val
+                  order_frame_player_debuff()
                 end,
-                get = function(val) return db_ITrackU.profiles[ITrack.profile].ZOOM_PERCENTAGE end,
+                get = function(info) return db_ITrackU.profiles[ITrack.profile].MODULE_DEBUFF.HORIZONTAL_OPENING end,
               },
             },
           },
@@ -594,19 +612,19 @@ local options = {
                 name = L["HEADER_FONTS"],
                 order = 19,
               },
-              FONTS_TITRE = {
-                type = "select",
-                name = L["FONTS_TITRE"],
-                order = 20,
-                style = "dropdown",
-                desc = "",
-                values = ITrack.Fonts,
-                set = function(info, val)
-                  db_ITrackU.profiles[ITrack.profile].FONT_TITRE = val
-                  update_fonts()
-                end,
-                get = function(info) return db_ITrackU.profiles[ITrack.profile].FONT_TITRE end,
-              },
+              --FONTS_TITRE = {
+              --  type = "select",
+              --  name = L["FONTS_TITRE"],
+              --  order = 20,
+              --  style = "dropdown",
+              --  desc = "",
+              --  values = ITrack.Fonts,
+              --  set = function(info, val)
+              --    db_ITrackU.profiles[ITrack.profile].FONT_TITRE = val
+              --    update_fonts()
+              --  end,
+              --  get = function(info) return db_ITrackU.profiles[ITrack.profile].FONT_TITRE end,
+              --},
               FONT_TITRE_SIZE = {
                 type = "range",
                 order = 21,
@@ -638,19 +656,19 @@ local options = {
                 end,
                 get = function(info) return db_ITrackU.profiles[ITrack.profile].FONT_TITRE_R_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_TITRE_G_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_TITRE_B_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_TITRE_A_COLOR end,
               },
-              FONTS_DEBUFFED_NAME = {
-                type = "select",
-                name = L["FONTS_DEBUFFED_NAME"],
-                order = 23,
-                style = "dropdown",
-                desc = "",
-                values = ITrack.Fonts,
-                set = function(info, val)
-                  db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME = val
-                  update_fonts()
-                end,
-                get = function(info) return db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME end,
-              },
+              --FONTS_DEBUFFED_NAME = {
+              --  type = "select",
+              --  name = L["FONTS_DEBUFFED_NAME"],
+              --  order = 23,
+              --  style = "dropdown",
+              --  desc = "",
+              --  values = ITrack.Fonts,
+              --  set = function(info, val)
+              --    db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME = val
+              --    update_fonts()
+              --  end,
+              --  get = function(info) return db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME end,
+              --},
               FONT_DEBUFFED_NAME_SIZE = {
                 type = "range",
                 order = 24,
@@ -682,19 +700,19 @@ local options = {
                 end,
                 get = function(info) return db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_R_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_G_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_B_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_A_COLOR end,
               },
-              FONTS_DEBUFFED_STACK = {
-                type = "select",
-                name = "Font Debuffed Stack",
-                order = 26,
-                style = "dropdown",
-                desc = "",
-                values = ITrack.Fonts,
-                set = function(info, val)
-                  db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK = val
-                  update_fonts()
-                end,
-                get = function(info) return db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK end,
-              },
+              --FONTS_DEBUFFED_STACK = {
+              --  type = "select",
+              --  name = "Font Debuffed Stack",
+              --  order = 26,
+              --  style = "dropdown",
+              --  desc = "",
+              --  values = ITrack.Fonts,
+              -- set = function(info, val)
+              --    db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK = val
+              --    update_fonts()
+              --  end,
+              --  get = function(info) return db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK end,
+              --},
               FONT_DEBUFFED_STACK_SIZE = {
                 type = "range",
                 order = 27,

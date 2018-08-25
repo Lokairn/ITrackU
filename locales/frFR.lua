@@ -84,6 +84,8 @@ L["DESC_ADD_SPELL"] = "Add a new spell using the name or the ID."
 L["ADD_SPELL_BUTTON"] = "Add spell"
 L["SPELL_DOESNT_EXIST"] = "The spell you want to add doesn't exist"
 L["SPELL_ALREADY_REGISTRED"] = "You have already registered this spell"
+L["HORIZONTAL_ALIGNEMENT_HEADER"] = "Alignement Horizontal"
+L["HORIZONTAL_ALIGNEMENT_SELECT"] = "Alignement"
 
 
 

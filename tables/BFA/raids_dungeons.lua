@@ -19,7 +19,7 @@ ITrack.dungeons["Battle for Azeroth"] = {
     [2096] = L["Harlan Sweete"],
   },
   [L["Kings Rest"]] = {
-    --[XXXX] = L["Dazar"],
+    [2143] = L["Dazar"],
     [2139] = L["The Golden Serpent"],
     [2142] = L["Mummification Construct"],
     [2140] = L["The Warring Warlords"],

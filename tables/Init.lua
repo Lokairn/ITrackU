@@ -2,6 +2,9 @@
 
 ITrack.defaults = {
   profile = {
+    MODULE_DEBUFF = {
+      HORIZONTAL_OPENING = "RIGHT",
+    },
     DEBUFF_ACTIVATE = true,
     FONT_DEBUFFED_STACK_SIZE = 17,
     ANCHOR_POINT = "LEFT",
@@ -112,7 +115,7 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2222,{
       ["Rôle"] = "All",
       ["MaxStacks"] = true,
       ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
+      ["Columns"] = 2,
       ["Activate"] = true,
     },
     [18499] = {

@@ -88,3 +88,9 @@ ITrack.Stun_SpellID = {
 	[132168] = true,
 	[118905] = true,
 }
+
+-- Horizontal Alignement pour Debuff Module
+ITrack.ModuleDebuff_HorizontalAlignement = {
+	RIGHT = "RIGHT",
+	LEFT = "LEFT",
+}

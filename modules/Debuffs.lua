@@ -90,10 +90,13 @@ end
 ---------------------------------------------------------------------------------------------------
 
 local function find_unit_aura(unit, spell, filter)
+    --print(unit, spell, filter)
     for i = 1, 40 do
         local name, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossDebuff, nameplateShowAll, timeMod, value1, value2, value3 = UnitAura(unit, i, filter)
+        --print(spellId, spell)
         if not name then return end
         if spell == spellId or spell == name then
+            --print("Ca marche")
             return name, icon, count, debuffType, duration, expirationTime, unitCaster, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossDebuff, nameplateShowAll, timeMod, value1, value2, value3, i
         end
     end
@@ -391,13 +394,13 @@ end
 function update_fonts()
   if ITrackU.DebuffToTrack then
     for k, v in pairs(ITrackU.DebuffToTrack) do 
-      ITrackU[k].Text_Frame_Titre:SetFont(db_ITrackU.profiles[ITrack.profile].FONT_TITRE, db_ITrackU.profiles[ITrack.profile].FONT_TITRE_SIZE, "MONOCHROME")
+      ITrackU[k].Text_Frame_Titre:SetFont("Fonts\\FRIZQT__.TTF", db_ITrackU.profiles[ITrack.profile].FONT_TITRE_SIZE, "MONOCHROME")
       ITrackU[k].Text_Frame_Titre:SetTextColor(db_ITrackU.profiles[ITrack.profile].FONT_TITRE_R_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_TITRE_G_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_TITRE_B_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_TITRE_A_COLOR) 
       for l, w in pairs(ITrackU[k].debuffed) do
         if w then
-          ITrackU[k][l].Text_PlayerStacks:SetFont(db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK_SIZE, "MONOCHROME")
+          ITrackU[k][l].Text_PlayerStacks:SetFont("Fonts\\FRIZQT__.TTF", db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK_SIZE, "MONOCHROME")
           ITrackU[k][l].Text_PlayerStacks:SetTextColor(db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK_R_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK_G_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK_B_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK_A_COLOR)          
-          ITrackU[k][l].Text_PlayerDebuffed:SetFont(db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_SIZE, "MONOCHROME")
+          ITrackU[k][l].Text_PlayerDebuffed:SetFont("Fonts\\FRIZQT__.TTF", db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_SIZE, "MONOCHROME")
           ITrackU[k][l].Text_PlayerDebuffed:SetTextColor(db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_R_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_G_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_B_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_G_COLOR)        
         end 
       end 
@@ -434,20 +437,22 @@ local function player_distance_script(k, l, Env)
 	elseif Env == "TEST" then
 		ITrackU[k][l].Distance = 1			
 	end
-    if ITrackU.DebuffToTrack[k].Type == "Stack" then
-      if ITrackU[k][l].Distance < ITrackU.DebuffToTrack[k].TypeDistance then
-        ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(db_ITrackU.profiles[ITrack.profile].COLOR_R_DISTANCE_OK,db_ITrackU.profiles[ITrack.profile].COLOR_G_DISTANCE_OK,db_ITrackU.profiles[ITrack.profile].COLOR_B_DISTANCE_OK,db_ITrackU.profiles[ITrack.profile].COLOR_A_DISTANCE_OK)
-      else
-        ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(db_ITrackU.profiles[ITrack.profile].COLOR_R_DISTANCE_KO,db_ITrackU.profiles[ITrack.profile].COLOR_G_DISTANCE_KO,db_ITrackU.profiles[ITrack.profile].COLOR_B_DISTANCE_KO,db_ITrackU.profiles[ITrack.profile].COLOR_A_DISTANCE_KO)
-      end
+      if ITrackU[k][l].Distance then
+        if ITrackU.DebuffToTrack[k].Type == "Stack" then
+          if ITrackU[k][l].Distance < ITrackU.DebuffToTrack[k].TypeDistance then
+            ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(db_ITrackU.profiles[ITrack.profile].COLOR_R_DISTANCE_OK,db_ITrackU.profiles[ITrack.profile].COLOR_G_DISTANCE_OK,db_ITrackU.profiles[ITrack.profile].COLOR_B_DISTANCE_OK,db_ITrackU.profiles[ITrack.profile].COLOR_A_DISTANCE_OK)
+          else
+            ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(db_ITrackU.profiles[ITrack.profile].COLOR_R_DISTANCE_KO,db_ITrackU.profiles[ITrack.profile].COLOR_G_DISTANCE_KO,db_ITrackU.profiles[ITrack.profile].COLOR_B_DISTANCE_KO,db_ITrackU.profiles[ITrack.profile].COLOR_A_DISTANCE_KO)
+          end
 
-    elseif ITrackU.DebuffToTrack[k].Type == "Spread" then
-      if ITrackU[k][l].Distance < ITrackU.DebuffToTrack[k].TypeDistance then
-        ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(db_ITrackU.profiles[ITrack.profile].COLOR_R_DISTANCE_KO,db_ITrackU.profiles[ITrack.profile].COLOR_G_DISTANCE_KO,db_ITrackU.profiles[ITrack.profile].COLOR_B_DISTANCE_KO,db_ITrackU.profiles[ITrack.profile].COLOR_A_DISTANCE_KO)
-      else
-        ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(db_ITrackU.profiles[ITrack.profile].COLOR_R_DISTANCE_OK,db_ITrackU.profiles[ITrack.profile].COLOR_G_DISTANCE_OK,db_ITrackU.profiles[ITrack.profile].COLOR_B_DISTANCE_OK,db_ITrackU.profiles[ITrack.profile].COLOR_A_DISTANCE_OK)
+        elseif ITrackU.DebuffToTrack[k].Type == "Spread" then
+          if ITrackU[k][l].Distance < ITrackU.DebuffToTrack[k].TypeDistance then
+            ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(db_ITrackU.profiles[ITrack.profile].COLOR_R_DISTANCE_KO,db_ITrackU.profiles[ITrack.profile].COLOR_G_DISTANCE_KO,db_ITrackU.profiles[ITrack.profile].COLOR_B_DISTANCE_KO,db_ITrackU.profiles[ITrack.profile].COLOR_A_DISTANCE_KO)
+          else
+            ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(db_ITrackU.profiles[ITrack.profile].COLOR_R_DISTANCE_OK,db_ITrackU.profiles[ITrack.profile].COLOR_G_DISTANCE_OK,db_ITrackU.profiles[ITrack.profile].COLOR_B_DISTANCE_OK,db_ITrackU.profiles[ITrack.profile].COLOR_A_DISTANCE_OK)
+          end
+        end
       end
-    end
   end)
 end
 
@@ -490,10 +495,15 @@ local function update_timer(k, l, minimum, maximum, auratype, filter)
     end
 
     -- when timer has reached the desired value, as defined by global END (secTnds), restart it by setting it to 0, as defined by global START
-    if ITrackU[k][l].Timer <= minimum and maximum then
-      self:SetValue(0)
-      ITrackU[k][l].Text_PlayerStacks:SetText("")
-      ITrackU[k][l].Frame_PlayerDebuffed:SetScript("OnUpdate", nil)
+    --print("Timer = ", ITrackU[k][l].Timer)
+    --print("Minimum = ", minimum)
+    --print("Maximum = ", maximum)
+    if minimum and ITrackU[k][l].Timer then
+      if ITrackU[k][l].Timer <= minimum and maximum then
+        self:SetValue(0)
+        ITrackU[k][l].Text_PlayerStacks:SetText("")
+        ITrackU[k][l].Frame_PlayerDebuffed:SetScript("OnUpdate", nil)
+      end
     end
   end)
 end
@@ -528,7 +538,7 @@ local function player_regen_disabled_handler(self, ...)
       ITrackU[k].Text_Frame_Titre = ITrackU[k].Frame_Titre:CreateFontString("Text_Frame_Titre", "OVERLAY", "GameFontNormal")
       ITrackU[k].Text_Frame_Titre:SetPoint("LEFT", db_ITrackU.profiles[ITrack.profile].HEIGHT_TITLE + 4, 0)
       ITrackU[k].Text_Frame_Titre:SetText(select(1, GetSpellInfo(k)))
-      ITrackU[k].Text_Frame_Titre:SetFont(db_ITrackU.profiles[ITrack.profile].FONT_TITRE, db_ITrackU.profiles[ITrack.profile].FONT_TITRE_SIZE, "MONOCHROME")
+      ITrackU[k].Text_Frame_Titre:SetFont("Fonts\\FRIZQT__.TTF", db_ITrackU.profiles[ITrack.profile].FONT_TITRE_SIZE, "MONOCHROME")
       ITrackU[k].Text_Frame_Titre:SetTextColor(db_ITrackU.profiles[ITrack.profile].FONT_TITRE_R_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_TITRE_G_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_TITRE_B_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_TITRE_A_COLOR)    
 
       -- Icon_Frame_Titre
@@ -619,7 +629,7 @@ local function table_frame_player_debuffed(Env, type, spell_id, dest_name, aura_
           --PlayerStacksText
           ITrackU[spell_id][dest_name].Text_PlayerStacks = ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:CreateFontString("Text_PlayerStacks", "OVERLAY", "GameFontNormal")
           ITrackU[spell_id][dest_name].Text_PlayerStacks:SetPoint("RIGHT", -5, 0)
-          ITrackU[spell_id][dest_name].Text_PlayerStacks:SetFont(db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK_SIZE, "MONOCHROME")
+          ITrackU[spell_id][dest_name].Text_PlayerStacks:SetFont("Fonts\\FRIZQT__.TTF", db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK_SIZE, "MONOCHROME")
           ITrackU[spell_id][dest_name].Text_PlayerStacks:SetTextColor(db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK_R_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK_G_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK_B_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_STACK_A_COLOR)
 
             --Frame_PlayerDebuffed StatusBar
@@ -640,14 +650,14 @@ local function table_frame_player_debuffed(Env, type, spell_id, dest_name, aura_
           -- PlayerDebuffedText
           ITrackU[spell_id][dest_name].Text_PlayerDebuffed = ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:CreateFontString("Text_PlayerDebuffed", "OVERLAY", "GameFontNormal")
           ITrackU[spell_id][dest_name].Text_PlayerDebuffed:SetPoint("CENTER", 0, 0)
-          ITrackU[spell_id][dest_name].Text_PlayerDebuffed:SetFont(db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_SIZE, "MONOCHROME")
+          ITrackU[spell_id][dest_name].Text_PlayerDebuffed:SetFont("Fonts\\FRIZQT__.TTF", db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_SIZE, "MONOCHROME")
           ITrackU[spell_id][dest_name].Text_PlayerDebuffed:SetTextColor(db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_R_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_G_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_B_COLOR, db_ITrackU.profiles[ITrack.profile].FONT_DEBUFFED_NAME_G_COLOR)
           ITrackU[spell_id][dest_name].Text_PlayerDebuffed:SetText(dest_name)
 
           -- Filter
-          if auratype == "BUFF" then
+          if aura_type == "BUFF" then
             ITrackU[spell_id][dest_name].Filter = "HELPFUL"
-          elseif auratype == "DEBUFF" then
+          elseif aura_type == "DEBUFF" then
             ITrackU[spell_id][dest_name].Filter = "HARMFUL"
           end  
 
@@ -658,7 +668,6 @@ local function table_frame_player_debuffed(Env, type, spell_id, dest_name, aura_
 
               -- Max
                _, _, _, _, ITrackU[spell_id][dest_name].Max, _, _, _, _, _, _, _, _, _, _, _, _, _ = find_unit_aura(dest_name, spell_id, ITrackU[spell_id][dest_name].Filter)                                         
-              
               -- Set MinMax Status Bar
               if ITrackU[spell_id][dest_name].Max then
               	ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetMinMaxValues(ITrackU[spell_id][dest_name].Min, ITrackU[spell_id][dest_name].Max)
@@ -679,8 +688,9 @@ local function table_frame_player_debuffed(Env, type, spell_id, dest_name, aura_
                   ITrackU[spell_id][dest_name].Timer = 4
                 end            
               end)
+
             end
-            
+                       
           --Frame PlayerDistance
           if (ITrackU.DebuffToTrack[spell_id].Type == "Stack" or ITrackU.DebuffToTrack[spell_id].Type == "Spread") and dest_name ~= select(1, UnitName("player")) then
             ITrackU[spell_id][dest_name].Frame_PlayerDistance = get_frame()
@@ -708,7 +718,13 @@ function order_frame_player_debuff()
       
         if (ITrackU.DebuffToTrack[k].Count ~= 0 and ITrackU.DebuffToTrack[k].IfActive == true) or ITrackU.DebuffToTrack[k].IfActive == false then
           -- Frame_Titre[k]
-          ITrackU[k].Frame_Titre:SetPoint("TOPLEFT", db_ITrackU.profiles[ITrack.profile].WIDTH_BETWEEN_COLUMNS * ITrackU.DebuffToTrack[k].Columns, i[ITrackU.DebuffToTrack[k].Columns])
+
+          if db_ITrackU.profiles[ITrack.profile].MODULE_DEBUFF.HORIZONTAL_OPENING == "RIGHT" then
+            ITrackU[k].Frame_Titre:SetPoint("TOPLEFT", db_ITrackU.profiles[ITrack.profile].WIDTH_BETWEEN_COLUMNS * ITrackU.DebuffToTrack[k].Columns, i[ITrackU.DebuffToTrack[k].Columns])
+          elseif db_ITrackU.profiles[ITrack.profile].MODULE_DEBUFF.HORIZONTAL_OPENING == "LEFT" then
+            ITrackU[k].Frame_Titre:SetPoint("TOPLEFT", -(db_ITrackU.profiles[ITrack.profile].WIDTH_BETWEEN_COLUMNS * ITrackU.DebuffToTrack[k].Columns), i[ITrackU.DebuffToTrack[k].Columns])
+          end
+
           ITrackU[k].Frame_Titre:SetHeight(db_ITrackU.profiles[ITrack.profile].HEIGHT_TITLE)
           ITrackU[k].Frame_Titre:SetWidth(db_ITrackU.profiles[ITrack.profile].WIDTH_GLOBAL)
 
@@ -733,14 +749,26 @@ function order_frame_player_debuff()
                     ITrackU[k][l].Frame_PlayerDebuffed:Show()
                     
                     -- MAJ Frame_PlayerDebuffed Positionning
-                    ITrackU[k][l].Frame_PlayerDebuffed:SetPoint("TOPLEFT", db_ITrackU.profiles[ITrack.profile].WIDTH_BETWEEN_COLUMNS * ITrackU.DebuffToTrack[k].Columns, i[ITrackU.DebuffToTrack[k].Columns])
+
+                    if db_ITrackU.profiles[ITrack.profile].MODULE_DEBUFF.HORIZONTAL_OPENING == "RIGHT" then
+                      ITrackU[k][l].Frame_PlayerDebuffed:SetPoint("TOPLEFT", db_ITrackU.profiles[ITrack.profile].WIDTH_BETWEEN_COLUMNS * ITrackU.DebuffToTrack[k].Columns, i[ITrackU.DebuffToTrack[k].Columns])
+                    elseif db_ITrackU.profiles[ITrack.profile].MODULE_DEBUFF.HORIZONTAL_OPENING == "LEFT" then
+                      ITrackU[k][l].Frame_PlayerDebuffed:SetPoint("TOPLEFT", -(db_ITrackU.profiles[ITrack.profile].WIDTH_BETWEEN_COLUMNS * ITrackU.DebuffToTrack[k].Columns), i[ITrackU.DebuffToTrack[k].Columns])
+                    end
+
                     ITrackU[k][l].Frame_PlayerDebuffed:SetHeight(db_ITrackU.profiles[ITrack.profile].HEIGHT_DEBUFFED)
                     ITrackU[k][l].Frame_PlayerDebuffed:SetWidth(db_ITrackU.profiles[ITrack.profile].WIDTH_GLOBAL)
                     
                     --Frame PlayerDistance
                     if (ITrackU.DebuffToTrack[k].Type == "Stack" or ITrackU.DebuffToTrack[k].Type == "Spread") and l ~= select(1, UnitName("player")) then
                       ITrackU[k][l].Frame_PlayerDistance:Show()
-                      ITrackU[k][l].Frame_PlayerDistance:SetPoint("TOPLEFT", db_ITrackU.profiles[ITrack.profile].WIDTH_BETWEEN_COLUMNS * ITrackU.DebuffToTrack[k].Columns + db_ITrackU.profiles[ITrack.profile].WIDTH_ECART_GLOBAL_PLAYER_DISTANCE + db_ITrackU.profiles[ITrack.profile].WIDTH_GLOBAL, i[ITrackU.DebuffToTrack[k].Columns])
+
+                      if db_ITrackU.profiles[ITrack.profile].MODULE_DEBUFF.HORIZONTAL_OPENING == "RIGHT" then
+                        ITrackU[k][l].Frame_PlayerDistance:SetPoint("TOPLEFT", db_ITrackU.profiles[ITrack.profile].WIDTH_BETWEEN_COLUMNS * ITrackU.DebuffToTrack[k].Columns + db_ITrackU.profiles[ITrack.profile].WIDTH_ECART_GLOBAL_PLAYER_DISTANCE + db_ITrackU.profiles[ITrack.profile].WIDTH_GLOBAL, i[ITrackU.DebuffToTrack[k].Columns])
+                      elseif db_ITrackU.profiles[ITrack.profile].MODULE_DEBUFF.HORIZONTAL_OPENING == "LEFT" then
+                        ITrackU[k][l].Frame_PlayerDistance:SetPoint("TOPLEFT", -(db_ITrackU.profiles[ITrack.profile].WIDTH_BETWEEN_COLUMNS * ITrackU.DebuffToTrack[k].Columns) + db_ITrackU.profiles[ITrack.profile].WIDTH_ECART_GLOBAL_PLAYER_DISTANCE + db_ITrackU.profiles[ITrack.profile].WIDTH_GLOBAL, i[ITrackU.DebuffToTrack[k].Columns])
+                      end
+
                       ITrackU[k][l].Frame_PlayerDistance:SetHeight(db_ITrackU.profiles[ITrack.profile].HEIGHT_DEBUFFED)
                     end
                     
