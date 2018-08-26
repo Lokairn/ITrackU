@@ -5,6 +5,7 @@
 ## Version: 1.5
 ## SavedVariables: db_ITrackU
 ## SavedVariables: db_ITrackU_Stun
+## SavedVariables: ITrackU_showauras
 ## OptionalDeps: Ace3 
 ## X-bindings: Ace3
 

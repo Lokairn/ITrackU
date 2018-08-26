@@ -120,6 +120,10 @@ local function open_stun_frame()
         ITrackUStuns[k].text_frame_stun_target:SetPoint("CENTER", 0, 0)
         ITrackUStuns[k].text_frame_stun_target:SetText(select(1, GetSpellInfo(k)))
 
+        -- SetFont
+        ITrackUStuns[k].text_frame_stun_target:SetFont("Fonts\\FRIZQT__.TTF", db_ITrackU.profiles[ITrack.profile].MODULE_STUN.FONT_SIZE, "MONOCHROME")
+        ITrackUStuns[k].text_frame_stun_target:SetTextColor(db_ITrackU.profiles[ITrack.profile].MODULE_STUN.FONT_R_COLOR, db_ITrackU.profiles[ITrack.profile].MODULE_STUN.FONT_G_COLOR, db_ITrackU.profiles[ITrack.profile].MODULE_STUN.FONT_B_COLOR, db_ITrackU.profiles[ITrack.profile].MODULE_STUN.FONT_A_COLOR)
+
 	      -- Icon_Frame_Titre
 	      ITrackUStuns[k].icon_frame_stun_target = ITrackUStuns[k].frame_stun_target:CreateTexture(nil,"MEDIUM")
 	      ITrackUStuns[k].icon_frame_stun_target:SetTexture(select(3, GetSpellInfo(k)))

@@ -109,6 +109,7 @@ L["FONT_STUNS_HEADER"] = "Fonts"
 L["VERTICAL_ALIGNEMENT_HEADER"] = "Vertical Alignement"
 L["VERTICAL_ALIGNEMENT_SELECT"] = "Alignement"
 L["STUN_DIFFICULTY_ACTIVATION_HEADER"] = "Dungeon activation difficulty"
+L["FONT_STUNS_SIZE"] = "Font size"
 
 L["ADD_ADDED_TO_BDD"] = "A new mob has been added to the stun table : "
 

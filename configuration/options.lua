@@ -1363,6 +1363,37 @@ local options = {
               name = L["FONT_STUNS_HEADER"],
               order = 6,
             },
+            FONT_STUNS_SIZE = {
+              type = "range",
+              order = 7,
+              name = L["FONT_STUNS_SIZE"],
+              desc = "",
+              width = "half",
+              min = 8,
+              max = 32,
+              step = 0.01,
+              set = function(info, val)
+                db_ITrackU.profiles[ITrack.profile].MODULE_STUN.FONT_SIZE = val
+                ITrackU_Stuns_Modify_Vertical_Alignement()
+              end,
+              get = function(info) return db_ITrackU.profiles[ITrack.profile].MODULE_STUN.FONT_SIZE end,
+            },
+            FONT_STUNS_COLOR = {
+              type = "color",
+              name = "",
+              order = 22,
+              width = "half",
+              desc = "",
+              hasAlpha = true,
+              set = function(info, val1, val2, val3, val4)
+                db_ITrackU.profiles[ITrack.profile].MODULE_STUN.FONT_R_COLOR = val1
+                db_ITrackU.profiles[ITrack.profile].MODULE_STUN.FONT_G_COLOR = val2
+                db_ITrackU.profiles[ITrack.profile].MODULE_STUN.FONT_B_COLOR = val3
+                db_ITrackU.profiles[ITrack.profile].MODULE_STUN.FONT_A_COLOR = val4
+                ITrackU_Stuns_Modify_Vertical_Alignement()
+              end,
+              get = function(info) return db_ITrackU.profiles[ITrack.profile].MODULE_STUN.FONT_R_COLOR, db_ITrackU.profiles[ITrack.profile].MODULE_STUN.FONT_G_COLOR, db_ITrackU.profiles[ITrack.profile].MODULE_STUN.FONT_B_COLOR, db_ITrackU.profiles[ITrack.profile].MODULE_STUN.FONT_A_COLOR end,
+            },
           },
         },
 			},
