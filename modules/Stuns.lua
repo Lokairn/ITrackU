@@ -71,6 +71,8 @@ function ITrackU_Stuns_Modify_Frames()
 	end 
 end
 
+
+
 ---------------------------------------------------------------------------------------------------
 -----------------------------------------   TOOL METHODS   ----------------------------------------
 ---------------------------------------------------------------------------------------------------
@@ -105,7 +107,13 @@ local function open_stun_frame()
         if ITrackUStuns[k] == nil then ITrackUStuns[k] = {} end
 
         ITrackUStuns[k].frame_stun_target = get_frame()
-        ITrackUStuns[k].frame_stun_target = modify_frame(ITrackUStuns[k].frame_stun_target, UIParent, {bgFile = [[Interface\ChatFrame\ChatFrameBackground]]}, db_ITrackU.profiles[ITrack.profile].WIDTH_STUNS, db_ITrackU.profiles[ITrack.profile].HEIGHT_STUNS, "CENTER", db_ITrackU.profiles[ITrack.profile].STUNS_POSITION_X , db_ITrackU.profiles[ITrack.profile].STUNS_POSITION_Y - ((db_ITrackU.profiles[ITrack.profile].HEIGHT_STUNS + db_ITrackU.profiles[ITrack.profile].HEIGHT_BETWEEN_STUNS) * i), 1, 0, 0, 1, "BACKGROUND")
+
+        if db_ITrackU.profiles[ITrack.profile].MODULE_STUN.VERTICAL_OPENING == "BOTTOM" then
+        	ITrackUStuns[k].frame_stun_target = modify_frame(ITrackUStuns[k].frame_stun_target, UIParent, {bgFile = [[Interface\ChatFrame\ChatFrameBackground]]}, db_ITrackU.profiles[ITrack.profile].WIDTH_STUNS, db_ITrackU.profiles[ITrack.profile].HEIGHT_STUNS, "CENTER", db_ITrackU.profiles[ITrack.profile].STUNS_POSITION_X , db_ITrackU.profiles[ITrack.profile].STUNS_POSITION_Y - ((db_ITrackU.profiles[ITrack.profile].HEIGHT_STUNS + db_ITrackU.profiles[ITrack.profile].HEIGHT_BETWEEN_STUNS) * i), 1, 0, 0, 1, "BACKGROUND")
+        elseif db_ITrackU.profiles[ITrack.profile].MODULE_STUN.VERTICAL_OPENING == "TOP" then
+        	ITrackUStuns[k].frame_stun_target = modify_frame(ITrackUStuns[k].frame_stun_target, UIParent, {bgFile = [[Interface\ChatFrame\ChatFrameBackground]]}, db_ITrackU.profiles[ITrack.profile].WIDTH_STUNS, db_ITrackU.profiles[ITrack.profile].HEIGHT_STUNS, "CENTER", db_ITrackU.profiles[ITrack.profile].STUNS_POSITION_X , db_ITrackU.profiles[ITrack.profile].STUNS_POSITION_Y + ((db_ITrackU.profiles[ITrack.profile].HEIGHT_STUNS + db_ITrackU.profiles[ITrack.profile].HEIGHT_BETWEEN_STUNS) * i), 1, 0, 0, 1, "BACKGROUND")
+        end
+
         ITrackUStuns[k].frame_stun_target:Show()
 
         ITrackUStuns[k].text_frame_stun_target = ITrackUStuns[k].frame_stun_target:CreateFontString("GUID_Text", "OVERLAY", "GameFontNormal")
@@ -200,6 +208,13 @@ function ITrackU_Stuns_close_test_frame()
 	close_stun_frame()
 end
 
+function ITrackU_Stuns_Modify_Vertical_Alignement()
+	if ITrack.SpellKnown then
+		close_stun_frame()
+		open_stun_frame()
+	end
+end
+
 ---------------------------------------------------------------------------------------------------
 -------------------------------   INGAME EVENT HANDLING METHODS   ---------------------------------
 ---------------------------------------------------------------------------------------------------
@@ -215,11 +230,9 @@ local function player_target_changed_handler()
 	      local unit_guid = UnitGUID("target"):sub(28,32)
 	      	if db_ITrackU_Stun then
 	      		if db_ITrackU_Stun[select(8, GetInstanceInfo())] then
-	      			if db_ITrackU_Stun[select(8, GetInstanceInfo())][select(3, GetInstanceInfo())] then
-	      				if db_ITrackU_Stun[select(8, GetInstanceInfo())][select(3, GetInstanceInfo())][unit_guid] then
-					      	if db_ITrackU_Stun[select(8, GetInstanceInfo())][select(3, GetInstanceInfo())][unit_guid].Stunnable then
-					      		open_stun_frame()
-					      	end
+      				if db_ITrackU_Stun[select(8, GetInstanceInfo())][unit_guid] then
+				      	if db_ITrackU_Stun[select(8, GetInstanceInfo())][unit_guid].Stunnable then
+				      		open_stun_frame()
 				      	end
 			      	end
 		      	end
@@ -238,18 +251,17 @@ local function combat_log_event_unfiltered_handler(self, ...)
         local _, _, _, _, _, _, _, _, _, _, _, spell_id, _, _, _  = CombatLogGetCurrentEventInfo()
         if ITrack.Stun_SpellID[spell_id] then
           if db_ITrackU_Stun[select(8, GetInstanceInfo())] == nil then db_ITrackU_Stun[select(8, GetInstanceInfo())] = {} end
-          if db_ITrackU_Stun[select(8, GetInstanceInfo())][select(3, GetInstanceInfo())] == nil then db_ITrackU_Stun[select(8, GetInstanceInfo())][select(3, GetInstanceInfo())] = {} end
 
           --Extract GUID
           local unit_guid_log = dest_GUID:sub(28,32)
 
-          if db_ITrackU_Stun[select(8, GetInstanceInfo())][select(3, GetInstanceInfo())][unit_guid_log] == nil then 
-          	db_ITrackU_Stun[select(8, GetInstanceInfo())][select(3, GetInstanceInfo())][unit_guid_log] = {} 
-          	db_ITrackU_Stun[select(8, GetInstanceInfo())][select(3, GetInstanceInfo())][unit_guid_log].Name = dest_name
+          if db_ITrackU_Stun[select(8, GetInstanceInfo())][unit_guid_log] == nil then 
+          	 db_ITrackU_Stun[select(8, GetInstanceInfo())][unit_guid_log] = {} 
+          	 db_ITrackU_Stun[select(8, GetInstanceInfo())][unit_guid_log].Name = dest_name
          	end
           	
-          	if db_ITrackU_Stun[select(8, GetInstanceInfo())][select(3, GetInstanceInfo())][unit_guid_log].Stunnable == nil then
-		          db_ITrackU_Stun[select(8, GetInstanceInfo())][select(3, GetInstanceInfo())][unit_guid_log].Stunnable = true
+          	if db_ITrackU_Stun[select(8, GetInstanceInfo())][unit_guid_log].Stunnable == nil then
+		          db_ITrackU_Stun[select(8, GetInstanceInfo())][unit_guid_log].Stunnable = true
 		          print(L["ADD_ADDED_TO_BDD"], unit_guid_log, " - ", dest_name)
 
 		          -- Call changement de target si MAJ de la table

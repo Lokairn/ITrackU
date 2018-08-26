@@ -106,6 +106,9 @@ L["COLORS_STUNS_SPELLS_OK"] = "Spell Color Ready"
 L["COLORS_STUNS_SPELLS_KO"] = "Spell Color on CD"
 L["COLORS_A_STUNS_SPELL_STATUSBAR_KO"] = "StatusBar Color on CD"
 L["FONT_STUNS_HEADER"] = "Fonts"
+L["VERTICAL_ALIGNEMENT_HEADER"] = "Vertical Alignement"
+L["VERTICAL_ALIGNEMENT_SELECT"] = "Alignement"
+L["STUN_DIFFICULTY_ACTIVATION_HEADER"] = "Dungeon activation difficulty"
 
 L["ADD_ADDED_TO_BDD"] = "A new mob has been added to the stun table : "
 

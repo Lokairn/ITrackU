@@ -1164,6 +1164,47 @@ local options = {
         order = 5,
         name = L["Module_Stuns_Description"],
       },
+      STUN_DIFFICULTY_ACTIVATION_HEADER = {
+        type = "header",
+        name = L["STUN_DIFFICULTY_ACTIVATION_HEADER"],
+        order = 6,
+      },
+      STUN_DIFFICULTY_ACTIVATION_NM = {
+        type = "toggle",
+        name = "NM",
+        order = 7,
+        set = function(info, val)
+          db_ITrackU.profiles[ITrack.profile].MODULE_STUN.DIFFICULTY_ACTIVATION[1] = val
+        end,
+        get = function(info) return db_ITrackU.profiles[ITrack.profile].MODULE_STUN.DIFFICULTY_ACTIVATION[1] end,
+      },
+      STUN_DIFFICULTY_ACTIVATION_HM = {
+        type = "toggle",
+        name = "HM",
+        order = 8,
+        set = function(info, val)
+          db_ITrackU.profiles[ITrack.profile].MODULE_STUN.DIFFICULTY_ACTIVATION[2] = val
+        end,
+        get = function(info) return db_ITrackU.profiles[ITrack.profile].MODULE_STUN.DIFFICULTY_ACTIVATION[2] end,
+      },
+      STUN_DIFFICULTY_ACTIVATION_MM = {
+        type = "toggle",
+        name = "MM",
+        order = 9,
+        set = function(info, val)
+          db_ITrackU.profiles[ITrack.profile].MODULE_STUN.DIFFICULTY_ACTIVATION[23] = val
+        end,
+        get = function(info) return db_ITrackU.profiles[ITrack.profile].MODULE_STUN.DIFFICULTY_ACTIVATION[23] end,
+      },
+      STUN_DIFFICULTY_ACTIVATION_MMP = {
+        type = "toggle",
+        name = "MM+",
+        order = 10,
+        set = function(info, val)
+          db_ITrackU.profiles[ITrack.profile].MODULE_STUN.DIFFICULTY_ACTIVATION[8] = val
+        end,
+        get = function(info) return db_ITrackU.profiles[ITrack.profile].MODULE_STUN.DIFFICULTY_ACTIVATION[8] end,
+      },
         -- Onglet Width & Position
         WIDTHPOSITION = {
           type = "group",
@@ -1244,6 +1285,24 @@ local options = {
                 ITrackU_Stuns_Modify_Frames()
               end,
               get = function(info) return db_ITrackU.profiles[ITrack.profile].HEIGHT_BETWEEN_STUNS end,                
+            },
+            VERTICAL_ALIGNEMENT_HEADER = {
+              type = "header",
+              name = L["VERTICAL_ALIGNEMENT_HEADER"],
+              order = 8,
+            },
+            VERTICAL_ALIGNEMENT_SELECT = {
+              type = "select",
+              name = L["VERTICAL_ALIGNEMENT_SELECT"],
+              order = 9,
+              values = ITrack.ModuleDebuff_HorizontalAlignement,
+              style = "dropdown",
+              desc = "",
+              set = function(info, val)
+                db_ITrackU.profiles[ITrack.profile].MODULE_STUN.VERTICAL_OPENING = val
+                ITrackU_Stuns_Modify_Vertical_Alignement()
+              end,
+              get = function(info) return db_ITrackU.profiles[ITrack.profile].MODULE_STUN.VERTICAL_OPENING end,
             },
           },
         },

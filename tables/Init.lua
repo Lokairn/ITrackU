@@ -5,6 +5,15 @@ ITrack.defaults = {
     MODULE_DEBUFF = {
       HORIZONTAL_OPENING = "RIGHT",
     },
+    MODULE_STUN = {
+      VERTICAL_OPENING = "BOTTOM",
+      DIFFICULTY_ACTIVATION = {
+        [1] = false,
+        [2] = false,
+        [23] = false,
+        [8] = true,
+      },
+    },
     DEBUFF_ACTIVATE = true,
     FONT_DEBUFFED_STACK_SIZE = 17,
     ANCHOR_POINT = "LEFT",

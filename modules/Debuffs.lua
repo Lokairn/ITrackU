@@ -434,6 +434,7 @@ local function player_distance_script(k, l, Env)
   ITrackU[k][l].Frame_PlayerDistance:SetScript("OnUpdate", function(self, elapsed)
 	if Env == "PROD" then
     		ITrackU[k][l].Distance = compute_distance(l, select(1, UnitName("player")))
+        print("Le joueur est à : ", ITrackU[k][l].Distance)
 	elseif Env == "TEST" then
 		ITrackU[k][l].Distance = 1			
 	end

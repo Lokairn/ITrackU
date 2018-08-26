@@ -94,3 +94,9 @@ ITrack.ModuleDebuff_HorizontalAlignement = {
 	RIGHT = "RIGHT",
 	LEFT = "LEFT",
 }
+
+-- Vertical Alignement pour Debuff Module
+ITrack.ModuleDebuff_HorizontalAlignement = {
+	TOP = "TOP",
+	BOTTOM = "BOTTOM",
+}
