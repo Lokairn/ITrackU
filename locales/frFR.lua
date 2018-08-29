@@ -81,6 +81,10 @@ L["DESC_ADD_SPELL"] = "Ajouter un sort en utilisant le Nom ou l'ID."
 L["ADD_SPELL_BUTTON"] = "Ajouter un Sort"
 L["SPELL_DOESNT_EXIST"] = "Le sort que vous essayez d'ajouter n'existe pas"
 L["SPELL_ALREADY_REGISTRED"] = "Vous avez déjà répertorié ce sort"
+L["HORIZONTAL_ALIGNEMENT_HEADER"] = "Alignement Horizontal"
+L["HORIZONTAL_ALIGNEMENT_SELECT"] = "Alignement"
+
+
  -- Stuns module presentation
 L["Module_Stuns_Name"] = "Module des Stuns"
 L["Module_Stuns_Title"] = "Module : Stuns"
