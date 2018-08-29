@@ -2,8 +2,11 @@
 local AceLocale = LibStub:GetLibrary("AceLocale-3.0")
 local L = AceLocale:NewLocale("ITrackU", "frFR")
 if not L then return end
+
  -- Generic
 L["LOADING_ADDON"] = "Welcome on ITrackU. Version 1.5.0 To open the configuration panel in game, type /ITU."
+
+
  -- Debuff module presentation
 L["Module_Debuff_Name"] = "Module des Debuffs"
 L["Module_Debuff_Title"] = "Module : Debuffs"
@@ -102,10 +105,20 @@ L["COLORS_STUNS_SPELLS_OK"] = "Couleur de Sort Prêt"
 L["COLORS_STUNS_SPELLS_KO"] = "Couleur de Sort en Recharge"
 L["COLORS_A_STUNS_SPELL_STATUSBAR_KO"] = "Transparence du sort en Recharge"
 L["FONT_STUNS_HEADER"] = "Police"
+L["VERTICAL_ALIGNEMENT_HEADER"] = "Alignement Vertical"
+L["VERTICAL_ALIGNEMENT_SELECT"] = "Alignement"
+L["STUN_DIFFICULTY_ACTIVATION_HEADER"] = "Activation du module par difficulté de donjons"
+L["FONT_STUNS_SIZE"] = "Taille de police"
+
  L["ADD_ADDED_TO_BDD"] = "Une nouvel ennemi a été ajouté à la liste des stuns : "
+
+
  -- Profiles module
 L["Profiles"] = "Profils"
 L["SELECT_PROFILE"] = "Selectionner un profil"
+
+
+
  --Dungeons 
 L["Atal Dazar"] = "Atal'Dazar"
   L["Alunza"] = "Prêtresse Alun'za"
