@@ -25,62 +25,6 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2111,{
       ["Activate"] = true,
       ["Base"] = true,
     },  
-    -- Effigies de sang
-    [264603] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Putréfaction insidieuse
-    [260894] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Miroir de sang
-    [264603] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Trait de sang
-    [260879] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
   },
   -- Heroic
   [2] = {
@@ -98,62 +42,6 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2111,{
       ["Activate"] = true,
       ["Base"] = true,
     },  
-    -- Effigies de sang
-    [264603] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Putréfaction insidieuse
-    [260894] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Miroir de sang
-    [264603] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Trait de sang
-    [260879] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
   },
   -- Mythic
   [23] = {
@@ -171,62 +59,6 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2111,{
       ["Activate"] = true,
       ["Base"] = true,
     },  
-    -- Effigies de sang
-    [264603] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Putréfaction insidieuse
-    [260894] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Miroir de sang
-    [264603] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Trait de sang
-    [260879] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
   },
   -- Mythic +
   [8] = {
@@ -244,309 +76,17 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2111,{
       ["Activate"] = true,
       ["Base"] = true,
     },  
-    -- Effigies de sang
-    [264603] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Putréfaction insidieuse
-    [260894] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Miroir de sang
-    [264603] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Trait de sang
-    [260879] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
   },
 })
 
   --Infested Crawg
-table.insert(ITrack.defaults.profile.debuffs_table , 2118,{
-  -- Normal
-  [1] = {
-    -- Métamorphose
-    [260416] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },  
-    -- Crise de colère
-    [260333] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Indigestion
-    [260793] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-  },
-  -- Heroic
-  [2] = {
-    -- Métamorphose
-    [260416] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },  
-    -- Crise de colère
-    [260333] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Indigestion
-    [260793] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-  },
-  -- Mythic
-  [23] = {
-    -- Métamorphose
-    [260416] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },  
-    -- Crise de colère
-    [260333] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Indigestion
-    [260793] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-  },
-  -- Mythic +
-  [8] = {
-    -- Métamorphose
-    [260416] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },  
-    -- Crise de colère
-    [260333] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Indigestion
-    [260793] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-  },
-}) 
+--table.insert(ITrack.defaults.profile.debuffs_table , 2118,{
+--}) 
 
 --Sporecaller Zancha
 table.insert(ITrack.defaults.profile.debuffs_table , 2112,{
   -- Normal
   [1] = {
-    -- Pourriture infinie
-    [259830] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 8,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },  
-    -- Récolte purulente
-    [259732] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Spores pourrissantes
-    [273226] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Spores putréfiées
-    [259714] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
     -- Soulèvement
     [259718] = {
       ["IfActive"] = false,
@@ -561,8 +101,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2112,{
       ["Activate"] = true,
       ["Base"] = true,
     }, 
-    -- Onde de choc
-    [272457] = {
+    -- ?????
+    [273226] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -578,62 +118,6 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2112,{
   },
   -- Heroic
   [2] = {
-    -- Pourriture infinie
-    [259830] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 8,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },  
-    -- Récolte purulente
-    [259732] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Spores pourrissantes
-    [273226] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Spores putréfiées
-    [259714] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
     -- Soulèvement
     [259718] = {
       ["IfActive"] = false,
@@ -648,8 +132,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2112,{
       ["Activate"] = true,
       ["Base"] = true,
     }, 
-    -- Onde de choc
-    [272457] = {
+    -- ?????
+    [273226] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -665,62 +149,6 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2112,{
   },
   -- Mythic
   [23] = {
-    -- Pourriture infinie
-    [259830] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 8,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },  
-    -- Récolte purulente
-    [259732] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Spores pourrissantes
-    [273226] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Spores putréfiées
-    [259714] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
     -- Soulèvement
     [259718] = {
       ["IfActive"] = false,
@@ -735,8 +163,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2112,{
       ["Activate"] = true,
       ["Base"] = true,
     }, 
-    -- Onde de choc
-    [272457] = {
+    -- ?????
+    [273226] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -752,62 +180,6 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2112,{
   },
   -- Mythic +
   [8] = {
-    -- Pourriture infinie
-    [259830] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 8,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },  
-    -- Récolte purulente
-    [259732] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Spores pourrissantes
-    [273226] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Spores putréfiées
-    [259714] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
     -- Soulèvement
     [259718] = {
       ["IfActive"] = false,
@@ -822,8 +194,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2112,{
       ["Activate"] = true,
       ["Base"] = true,
     }, 
-    -- Onde de choc
-    [272457] = {
+    -- ?????
+    [273226] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -843,8 +215,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2112,{
 table.insert(ITrack.defaults.profile.debuffs_table , 2123,{
   -- Normal
   [1] = {
-    -- Barrière de sang
-    [255558] = {
+    -- ????
+    [269838] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -857,67 +229,11 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2123,{
       ["Activate"] = true,
       ["Base"] = true,
     },  
-    -- Lien fatal
-    [255558] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Sanie
-    [255558] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Lumière purifiante
-    [255558] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 10,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Purger la corruption
-    [255558] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
   },
   -- Heroic
   [2] = {
-    -- Barrière de sang
-    [255558] = {
+    -- ????
+    [269838] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -930,67 +246,11 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2123,{
       ["Activate"] = true,
       ["Base"] = true,
     },  
-    -- Lien fatal
-    [255558] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Sanie
-    [255558] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Lumière purifiante
-    [255558] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 10,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Purger la corruption
-    [255558] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
   },
   -- Mythic
   [23] = {
-    -- Barrière de sang
-    [255558] = {
+    -- ????
+    [269838] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -1003,67 +263,11 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2123,{
       ["Activate"] = true,
       ["Base"] = true,
     },  
-    -- Lien fatal
-    [255558] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Sanie
-    [255558] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Lumière purifiante
-    [255558] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 10,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Purger la corruption
-    [255558] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
   },
   -- Mythic +
   [8] = {
-    -- Barrière de sang
-    [255558] = {
+    -- ????
+    [269838] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -1076,61 +280,5 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2123,{
       ["Activate"] = true,
       ["Base"] = true,
     },  
-    -- Lien fatal
-    [255558] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Sanie
-    [255558] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Lumière purifiante
-    [255558] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 10,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Purger la corruption
-    [255558] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
   },
 }) 

@@ -4,7 +4,7 @@ local L = AceLocale:NewLocale("ITrackU", "enUS", true)
 if not L then return end
 
 -- Generic
-L["LOADING_ADDON"] = "Welcome on ITrackU. Version 1.5.0 To open the configuration panel in game, type /ITU."
+L["LOADING_ADDON"] = "Welcome on ITrackU. Version 1.6.0 To open the configuration panel in game, type /ITU."
 
 
 -- Debuff module presentation

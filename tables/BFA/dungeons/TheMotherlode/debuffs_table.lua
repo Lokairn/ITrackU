@@ -101,11 +101,39 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2107,{
       ["Activate"] = true,
       ["Base"] = true,
     },
+    -- ????
+    [259853] = {
+      ["IfActive"] = false,
+      ["PlayerOnly"] = "All",
+      ["Count"] = 0,
+      ["Type"] = "Classic",
+      ["TypeDistance"] = 0,
+      ["Rôle"] = "All",
+      ["MaxStacks"] = false,
+      ["MaxStacksNumber"] = 5,
+      ["Columns"] = 0,
+      ["Activate"] = true,
+      ["Base"] = true,
+    },
   },
   -- Heroic
   [2] = {
     -- ????
     [259533] = {
+      ["IfActive"] = false,
+      ["PlayerOnly"] = "All",
+      ["Count"] = 0,
+      ["Type"] = "Classic",
+      ["TypeDistance"] = 0,
+      ["Rôle"] = "All",
+      ["MaxStacks"] = false,
+      ["MaxStacksNumber"] = 5,
+      ["Columns"] = 0,
+      ["Activate"] = true,
+      ["Base"] = true,
+    },
+    -- ????
+    [259853] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -135,11 +163,39 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2107,{
       ["Activate"] = true,
       ["Base"] = true,
     },
+    -- ????
+    [259853] = {
+      ["IfActive"] = false,
+      ["PlayerOnly"] = "All",
+      ["Count"] = 0,
+      ["Type"] = "Classic",
+      ["TypeDistance"] = 0,
+      ["Rôle"] = "All",
+      ["MaxStacks"] = false,
+      ["MaxStacksNumber"] = 5,
+      ["Columns"] = 0,
+      ["Activate"] = true,
+      ["Base"] = true,
+    },
   },
   -- Mythic +
   [8] = {
     -- ?????
     [259533] = {
+      ["IfActive"] = false,
+      ["PlayerOnly"] = "All",
+      ["Count"] = 0,
+      ["Type"] = "Classic",
+      ["TypeDistance"] = 0,
+      ["Rôle"] = "All",
+      ["MaxStacks"] = false,
+      ["MaxStacksNumber"] = 5,
+      ["Columns"] = 0,
+      ["Activate"] = true,
+      ["Base"] = true,
+    },
+    -- ????
+    [259853] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -173,11 +229,39 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2108,{
       ["Activate"] = true,
       ["Base"] = true,
     },
+    -- ????
+    [260838] = {
+      ["IfActive"] = false,
+      ["PlayerOnly"] = "All",
+      ["Count"] = 0,
+      ["Type"] = "Classic",
+      ["TypeDistance"] = 0,
+      ["Rôle"] = "All",
+      ["MaxStacks"] = false,
+      ["MaxStacksNumber"] = 5,
+      ["Columns"] = 0,
+      ["Activate"] = true,
+      ["Base"] = true,
+    },
   },
   -- Heroic
   [2] = {
     -- ????
     [262513] = {
+      ["IfActive"] = false,
+      ["PlayerOnly"] = "All",
+      ["Count"] = 0,
+      ["Type"] = "Classic",
+      ["TypeDistance"] = 0,
+      ["Rôle"] = "All",
+      ["MaxStacks"] = false,
+      ["MaxStacksNumber"] = 5,
+      ["Columns"] = 0,
+      ["Activate"] = true,
+      ["Base"] = true,
+    },
+    -- ????
+    [260838] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -207,11 +291,39 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2108,{
       ["Activate"] = true,
       ["Base"] = true,
     },
+    -- ????
+    [260838] = {
+      ["IfActive"] = false,
+      ["PlayerOnly"] = "All",
+      ["Count"] = 0,
+      ["Type"] = "Classic",
+      ["TypeDistance"] = 0,
+      ["Rôle"] = "All",
+      ["MaxStacks"] = false,
+      ["MaxStacksNumber"] = 5,
+      ["Columns"] = 0,
+      ["Activate"] = true,
+      ["Base"] = true,
+    },
   },
   -- Mythic +
   [8] = {
     -- ????
     [262513] = {
+      ["IfActive"] = false,
+      ["PlayerOnly"] = "All",
+      ["Count"] = 0,
+      ["Type"] = "Classic",
+      ["TypeDistance"] = 0,
+      ["Rôle"] = "All",
+      ["MaxStacks"] = false,
+      ["MaxStacksNumber"] = 5,
+      ["Columns"] = 0,
+      ["Activate"] = true,
+      ["Base"] = true,
+    },
+    -- ????
+    [260838] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,

@@ -11,22 +11,8 @@
 table.insert(ITrack.defaults.profile.debuffs_table , 2084,{
   -- Normal
   [1] = {
-    -- Corruption Sanguine
-    [255558] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Or en fusion
-    [255584] = {
+    -- ???
+    [255836] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -40,7 +26,7 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2084,{
       ["Base"] = true,
     },
     -- Transfusion
-    [255577] = {
+    [255582] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -52,68 +38,12 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2084,{
       ["Columns"] = 0,
       ["Activate"] = true,
       ["Base"] = true,
-    },  
-    -- Griffes dorées
-    [255579] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },  
-    -- Or corrompu
-    [258709] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },  
-    -- Esprits d'or
-    [259205] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },    
+    },     
   },
   -- Heroic
   [2] = {
-    -- Corruption Sanguine
-    [255558] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Or en fusion
-    [255584] = {
+    -- ???
+    [255836] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -127,7 +57,7 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2084,{
       ["Base"] = true,
     },
     -- Transfusion
-    [255577] = {
+    [255582] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -139,68 +69,12 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2084,{
       ["Columns"] = 0,
       ["Activate"] = true,
       ["Base"] = true,
-    },  
-    -- Griffes dorées
-    [255579] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },  
-    -- Or corrompu
-    [258709] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },  
-    -- Esprits d'or
-    [259205] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },    
+    },   
   },
   -- Mythic
   [23] = {
-    -- Corruption Sanguine
-    [255558] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Or en fusion
-    [255584] = {
+    -- ???
+    [255836] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -214,7 +88,7 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2084,{
       ["Base"] = true,
     },
     -- Transfusion
-    [255577] = {
+    [255582] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -226,68 +100,12 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2084,{
       ["Columns"] = 0,
       ["Activate"] = true,
       ["Base"] = true,
-    },  
-    -- Griffes dorées
-    [255579] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },  
-    -- Or corrompu
-    [258709] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },  
-    -- Esprits d'or
-    [259205] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },    
+    },   
   },
   -- Mythic +
   [8] = {
-    -- Corruption Sanguine
-    [255558] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Or en fusion
-    [255584] = {
+    -- ???
+    [255836] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -301,49 +119,7 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2084,{
       ["Base"] = true,
     },
     -- Transfusion
-    [255577] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },  
-    -- Griffes dorées
-    [255579] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },  
-    -- Or corrompu
-    [258709] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },  
-    -- Esprits d'or
-    [259205] = {
+    [255582] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -363,8 +139,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2084,{
 table.insert(ITrack.defaults.profile.debuffs_table, 2085, {
   -- Normal
   [1] = {
-    -- Mauvais Vaudou
-    [250192] = {
+    -- ???
+    [250372] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -377,50 +153,8 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2085, {
       ["Activate"] = true,
       ["Base"] = true,
     },	
-    -- Décomposition rapide
-    [250241] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Bond toxique
-    [250258] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 8,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
     -- Bassins toxiques
     [250585] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Puanteur nocive
-    [250368] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -436,8 +170,8 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2085, {
   },
   -- Heroic
   [2] = {
-    -- Mauvais Vaudou
-    [250192] = {
+    -- ???
+    [250372] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -449,51 +183,9 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2085, {
       ["Columns"] = 0,
       ["Activate"] = true,
       ["Base"] = true,
-    },	
-    -- Décomposition rapide
-    [250241] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Bond toxique
-    [250258] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 8,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
+    },  
     -- Bassins toxiques
     [250585] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Puanteur nocive
-    [250368] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -509,8 +201,8 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2085, {
   },
   -- Mythic
   [23] = {
-    -- Mauvais Vaudou
-    [250192] = {
+    -- ???
+    [250372] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -522,51 +214,9 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2085, {
       ["Columns"] = 0,
       ["Activate"] = true,
       ["Base"] = true,
-    },	
-    -- Décomposition rapide
-    [250241] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Bond toxique
-    [250258] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 8,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
+    },  
     -- Bassins toxiques
     [250585] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Puanteur nocive
-    [250368] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -582,8 +232,8 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2085, {
   },
   -- Mythic +
   [8] = {
-    -- Mauvais Vaudou
-    [250192] = {
+    -- ???
+    [250372] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -595,51 +245,9 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2085, {
       ["Columns"] = 0,
       ["Activate"] = true,
       ["Base"] = true,
-    },	
-    -- Décomposition rapide
-    [250241] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Bond toxique
-    [250258] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 8,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
+    },  
     -- Bassins toxiques
     [250585] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Puanteur nocive
-    [250368] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -673,20 +281,6 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2086, {
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Dévorer
-    [255421] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
     -- Visage terrifiant
     [255371] = {
       ["IfActive"] = false,
@@ -703,20 +297,6 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2086, {
     },
     -- Poursuite
     [257407] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Os antique desséchés
-    [255365] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -746,20 +326,6 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2086, {
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Dévorer
-    [255421] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
     -- Visage terrifiant
     [255371] = {
       ["IfActive"] = false,
@@ -776,20 +342,6 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2086, {
     },
     -- Poursuite
     [257407] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Os antique desséchés
-    [255365] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -819,20 +371,6 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2086, {
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Dévorer
-    [255421] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
     -- Visage terrifiant
     [255371] = {
       ["IfActive"] = false,
@@ -849,20 +387,6 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2086, {
     },
     -- Poursuite
     [257407] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Os antique desséchés
-    [255365] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -892,20 +416,6 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2086, {
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Dévorer
-    [255421] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
     -- Visage terrifiant
     [255371] = {
       ["IfActive"] = false,
@@ -934,20 +444,6 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2086, {
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Os antique desséchés
-    [255365] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
   },
 })  
 
@@ -955,8 +451,8 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2086, {
 table.insert(ITrack.defaults.profile.debuffs_table, 2087, {
   -- Normal
   [1] = {
-    -- Déchiqueter l'âme
-    [249924] = {
+    -- ???
+    [250036] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -969,36 +465,8 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2087, {
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Manifestation d'âme
-    [249926] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Echos de Shadra
-    [250050] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 5,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Embrocher
-    [249919] = {
+    -- ???
+    [256577] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -1014,8 +482,8 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2087, {
   },
   -- Heroic
   [2] = {
-    -- Déchiqueter l'âme
-    [249924] = {
+    -- ???
+    [250036] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -1028,36 +496,8 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2087, {
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Manifestation d'âme
-    [249926] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Echos de Shadra
-    [250050] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 5,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Embrocher
-    [249919] = {
+    -- ???
+    [256577] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -1073,8 +513,8 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2087, {
   },
   -- Mythic
   [23] = {
-    -- Déchiqueter l'âme
-    [249924] = {
+    -- ???
+    [250036] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -1087,36 +527,8 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2087, {
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Manifestation d'âme
-    [249926] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Echos de Shadra
-    [250050] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 5,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Embrocher
-    [249919] = {
+    -- ???
+    [256577] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -1132,8 +544,8 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2087, {
   },
   -- Mythic +
   [8] = {
-    -- Déchiqueter l'âme
-    [249924] = {
+    -- ???
+    [256577] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -1146,36 +558,8 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2087, {
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Manifestation d'âme
-    [249926] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Echos de Shadra
-    [250050] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 5,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Embrocher
-    [249919] = {
+    -- ???
+    [250036] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,

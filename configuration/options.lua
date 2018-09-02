@@ -747,7 +747,7 @@ local options = {
             },
           },
           Spells = {
-			name = "Spells",
+			name = "Buffs/Debuffs",
 			type = "group",
 			order = 3,
 			args = {
@@ -1295,7 +1295,7 @@ local options = {
               type = "select",
               name = L["VERTICAL_ALIGNEMENT_SELECT"],
               order = 9,
-              values = ITrack.ModuleDebuff_HorizontalAlignement,
+              values = ITrack.ModuleDebuff_VerticalAlignement,
               style = "dropdown",
               desc = "",
               set = function(info, val)
@@ -1403,15 +1403,19 @@ local options = {
 			type = "group",
 			order = 5,
 			args = {
-        SELECT_PROFILE = {
-          type = "select",
-          name = L["SELECT_PROFILE"],
-          values = function()
-            return db_ITrackU.profileKeys
-          end,
-          order = 5,
-          width = "full",
-        },
+        --SELECT_PROFILE = {
+        --  type = "select",
+        --  name = L["SELECT_PROFILE"],
+        --  values = function()
+        --    return db_ITrackU.profileKeys
+        --  end,
+        --  order = 5,
+        --  width = "full",
+        --	set = function(info, val)
+	      --    db_ITrackU.profileKeys[ITrack.profile] = val
+	      -- end,
+	      --  get = function(info) return db_ITrackU.profileKeys[ITrack.profile] end,
+        --},
       },
     },
   }	

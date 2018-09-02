@@ -25,34 +25,6 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2139,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Appel du lucre
-    [265923] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Lustre
-    [265991] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
     -- Crachat d'or
     [265773] = {
       ["IfActive"] = false,
@@ -67,20 +39,6 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2139,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Battement de queue
-    [265908] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },  
   },
   -- Heroic
   [2] = {
@@ -98,34 +56,6 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2139,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Appel du lucre
-    [265923] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Lustre
-    [265991] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
     -- Crachat d'or
     [265773] = {
       ["IfActive"] = false,
@@ -140,20 +70,6 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2139,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Battement de queue
-    [265908] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },  
   },
   -- Mythic
   [23] = {
@@ -171,34 +87,6 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2139,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Appel du lucre
-    [265923] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Lustre
-    [265991] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
     -- Crachat d'or
     [265773] = {
       ["IfActive"] = false,
@@ -213,20 +101,6 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2139,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Battement de queue
-    [265908] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },  
   },
   -- Mythic +
   [8] = {
@@ -244,34 +118,6 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2139,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Appel du lucre
-    [265923] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Lustre
-    [265991] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
     -- Crachat d'or
     [265773] = {
       ["IfActive"] = false,
@@ -286,20 +132,6 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2139,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Battement de queue
-    [265908] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },  
   },
 })
 
@@ -307,20 +139,6 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2139,{
 table.insert(ITrack.defaults.profile.debuffs_table , 2142,{
   -- Normal
   [1] = {
-    -- Dessèchement
-    [267626] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
     -- Enfermer
     [267702] = {
       ["IfActive"] = false,
@@ -335,41 +153,13 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2142,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Débattre
-    [267764] = {
+    -- ????
+    [267874] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
       ["Type"] = "Classic",
       ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Drain des fluides
-    [267618] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Brulure de la corruption
-    [267639] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 10,
       ["Rôle"] = "All",
       ["MaxStacks"] = false,
       ["MaxStacksNumber"] = 5,
@@ -380,20 +170,6 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2142,{
   },
   -- Heroic
   [2] = {
-    -- Dessèchement
-    [267626] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
     -- Enfermer
     [267702] = {
       ["IfActive"] = false,
@@ -408,41 +184,13 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2142,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Débattre
-    [267764] = {
+    -- ????
+    [267874] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
       ["Type"] = "Classic",
       ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Drain des fluides
-    [267618] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Brulure de la corruption
-    [267639] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 10,
       ["Rôle"] = "All",
       ["MaxStacks"] = false,
       ["MaxStacksNumber"] = 5,
@@ -453,20 +201,6 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2142,{
   },
   -- Mythic
   [23] = {
-    -- Dessèchement
-    [267626] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
     -- Enfermer
     [267702] = {
       ["IfActive"] = false,
@@ -481,41 +215,13 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2142,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Débattre
-    [267764] = {
+    -- ????
+    [267874] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
       ["Type"] = "Classic",
       ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Drain des fluides
-    [267618] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Brulure de la corruption
-    [267639] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 10,
       ["Rôle"] = "All",
       ["MaxStacks"] = false,
       ["MaxStacksNumber"] = 5,
@@ -526,20 +232,6 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2142,{
   },
   -- Mythic +
   [8] = {
-    -- Dessèchement
-    [267626] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
     -- Enfermer
     [267702] = {
       ["IfActive"] = false,
@@ -554,41 +246,13 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2142,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Débattre
-    [267764] = {
+    -- ????
+    [267874] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
       ["Type"] = "Classic",
       ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Drain des fluides
-    [267618] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Brulure de la corruption
-    [267639] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 10,
       ["Rôle"] = "All",
       ["MaxStacks"] = false,
       ["MaxStacksNumber"] = 5,
@@ -603,20 +267,6 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2142,{
 table.insert(ITrack.defaults.profile.debuffs_table , 2140,{
   -- Normal
   [1] = {
-    -- Revers débilitant
-    [266237] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
     -- Hache tranchante
     [266231] = {
       ["IfActive"] = false,
@@ -631,78 +281,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2140,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Fracas foudroyant
-    [267257] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Nova de poison
-    [267273] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Appel des éléments
-    [267060] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Débarouler
-    [266951] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
     -- Défenses brisées
     [266238] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Haches tourbillonnantes
-    [266206] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -718,20 +298,6 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2140,{
   },
   -- Heroic
   [2] = {
-    -- Revers débilitant
-    [266237] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
     -- Hache tranchante
     [266231] = {
       ["IfActive"] = false,
@@ -746,78 +312,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2140,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Fracas foudroyant
-    [267257] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Nova de poison
-    [267273] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Appel des éléments
-    [267060] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Débarouler
-    [266951] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
     -- Défenses brisées
     [266238] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Haches tourbillonnantes
-    [266206] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -833,20 +329,6 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2140,{
   },
   -- Mythic
   [23] = {
-    -- Revers débilitant
-    [266237] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
     -- Hache tranchante
     [266231] = {
       ["IfActive"] = false,
@@ -861,78 +343,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2140,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Fracas foudroyant
-    [267257] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Nova de poison
-    [267273] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Appel des éléments
-    [267060] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Débarouler
-    [266951] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
     -- Défenses brisées
     [266238] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Haches tourbillonnantes
-    [266206] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -948,20 +360,6 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2140,{
   },
   -- Mythic +
   [8] = {
-    -- Revers débilitant
-    [266237] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
     -- Hache tranchante
     [266231] = {
       ["IfActive"] = false,
@@ -976,78 +374,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2140,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Fracas foudroyant
-    [267257] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Nova de poison
-    [267273] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Appel des éléments
-    [267060] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Débarouler
-    [266951] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
     -- Défenses brisées
     [266238] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Haches tourbillonnantes
-    [266206] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -1112,8 +440,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2143,{
   },
   -- Heroic
   [2] = {
-    -- Gardien éternel
-    [269351] = {
+    -- ???
+    [268411] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -1126,22 +454,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2143,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Combo de lames
-    [268586] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Bond sismique
-    [268932] = {
+    -- ???
+    [268419] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -1157,8 +471,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2143,{
   },
   -- Mythic
   [23] = {
-    -- Gardien éternel
-    [269351] = {
+    -- ???
+    [268411] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -1171,22 +485,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2143,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Combo de lames
-    [268586] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Bond sismique
-    [268932] = {
+    -- ???
+    [268419] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -1202,8 +502,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2143,{
   },
   -- Mythic +
   [8] = {
-    -- Gardien éternel
-    [269351] = {
+    -- ???
+    [268411] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -1216,22 +516,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2143,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Combo de lames
-    [268586] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Bond sismique
-    [268932] = {
+    -- ???
+    [268419] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,

@@ -434,20 +434,19 @@ local function player_distance_script(k, l, Env)
   ITrackU[k][l].Frame_PlayerDistance:SetScript("OnUpdate", function(self, elapsed)
 	if Env == "PROD" then
     		ITrackU[k][l].Distance = compute_distance(l, select(1, UnitName("player")))
-        print("Le joueur est à : ", ITrackU[k][l].Distance)
 	elseif Env == "TEST" then
 		ITrackU[k][l].Distance = 1			
 	end
       if ITrackU[k][l].Distance then
         if ITrackU.DebuffToTrack[k].Type == "Stack" then
-          if ITrackU[k][l].Distance < ITrackU.DebuffToTrack[k].TypeDistance then
+          if ITrackU[k][l].Distance <= ITrackU.DebuffToTrack[k].TypeDistance then
             ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(db_ITrackU.profiles[ITrack.profile].COLOR_R_DISTANCE_OK,db_ITrackU.profiles[ITrack.profile].COLOR_G_DISTANCE_OK,db_ITrackU.profiles[ITrack.profile].COLOR_B_DISTANCE_OK,db_ITrackU.profiles[ITrack.profile].COLOR_A_DISTANCE_OK)
           else
             ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(db_ITrackU.profiles[ITrack.profile].COLOR_R_DISTANCE_KO,db_ITrackU.profiles[ITrack.profile].COLOR_G_DISTANCE_KO,db_ITrackU.profiles[ITrack.profile].COLOR_B_DISTANCE_KO,db_ITrackU.profiles[ITrack.profile].COLOR_A_DISTANCE_KO)
           end
 
         elseif ITrackU.DebuffToTrack[k].Type == "Spread" then
-          if ITrackU[k][l].Distance < ITrackU.DebuffToTrack[k].TypeDistance then
+          if ITrackU[k][l].Distance <= ITrackU.DebuffToTrack[k].TypeDistance then
             ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(db_ITrackU.profiles[ITrack.profile].COLOR_R_DISTANCE_KO,db_ITrackU.profiles[ITrack.profile].COLOR_G_DISTANCE_KO,db_ITrackU.profiles[ITrack.profile].COLOR_B_DISTANCE_KO,db_ITrackU.profiles[ITrack.profile].COLOR_A_DISTANCE_KO)
           else
             ITrackU[k][l].Frame_PlayerDistance:SetBackdropColor(db_ITrackU.profiles[ITrack.profile].COLOR_R_DISTANCE_OK,db_ITrackU.profiles[ITrack.profile].COLOR_G_DISTANCE_OK,db_ITrackU.profiles[ITrack.profile].COLOR_B_DISTANCE_OK,db_ITrackU.profiles[ITrack.profile].COLOR_A_DISTANCE_OK)
@@ -470,7 +469,7 @@ local function update_timer(k, l, minimum, maximum, auratype, filter)
     -- ExpirationTime
     if aura_expiration then ITrackU[k][l].ExpirationTime = aura_expiration end
     
-    if maximum then
+    if maximum > 0 then
       if maximum ~= ITrackU[k][l].ModifMax then
         ITrackU[k][l].Timer = (ITrackU[k][l].ExpirationTime - GetTime()) * maximum / ITrackU[k][l].ModifMax
       else
@@ -478,7 +477,7 @@ local function update_timer(k, l, minimum, maximum, auratype, filter)
       end
     end
 
-    if maximum then
+    if maximum > 0 then
     	self:SetValue(ITrackU[k][l].Timer)
     else
     	self:SetValue(1)
@@ -500,7 +499,7 @@ local function update_timer(k, l, minimum, maximum, auratype, filter)
     --print("Minimum = ", minimum)
     --print("Maximum = ", maximum)
     if minimum and ITrackU[k][l].Timer then
-      if ITrackU[k][l].Timer <= minimum and maximum then
+      if ITrackU[k][l].Timer <= minimum and maximum > 0 then
         self:SetValue(0)
         ITrackU[k][l].Text_PlayerStacks:SetText("")
         ITrackU[k][l].Frame_PlayerDebuffed:SetScript("OnUpdate", nil)
@@ -668,9 +667,10 @@ local function table_frame_player_debuffed(Env, type, spell_id, dest_name, aura_
               ITrackU[spell_id][dest_name].Min = 0
 
               -- Max
-               _, _, _, _, ITrackU[spell_id][dest_name].Max, _, _, _, _, _, _, _, _, _, _, _, _, _ = find_unit_aura(dest_name, spell_id, ITrackU[spell_id][dest_name].Filter)                                         
+               _, _, _, _, ITrackU[spell_id][dest_name].Max, _, _, _, _, _, _, _, _, _, _, _, _, _ = find_unit_aura(dest_name, spell_id, ITrackU[spell_id][dest_name].Filter) 
+                                       
               -- Set MinMax Status Bar
-              if ITrackU[spell_id][dest_name].Max then
+              if ITrackU[spell_id][dest_name].Max > 0 then
               	ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetMinMaxValues(ITrackU[spell_id][dest_name].Min, ITrackU[spell_id][dest_name].Max)
               else
               	ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetMinMaxValues(ITrackU[spell_id][dest_name].Min, 1)
@@ -797,17 +797,30 @@ if ITrackU then
     if (type == "SPELL_AURA_APPLIED" or type == "SPELL_AURA_APPLIED_DOSE") and ITrackU then
       local _, _, _, _, _, _, _, _, _, _, _, spell_id, _, _, aura_type  = CombatLogGetCurrentEventInfo()
         
+        -- Get dest_name without server
+        local Nbr_Car_To_Tiret = string.find(dest_name, "-")
+        if Nbr_Car_To_Tiret then
+          dest_name_final = dest_name:sub(0, Nbr_Car_To_Tiret - 2)
+        else
+          dest_name_final = dest_name
+        end
+        --print(dest_name_final)
+
         if ITrackU_showauras then
-          ITrackU_showauras.bdd[spell_id] = aura_type
+          if source_GUID:sub(0, 8) == "Creature" then
+            ITrackU_showauras.bdd.CREATURE[spell_id] = aura_type
+          elseif source_GUID:sub(0, 6) == "Player" then
+            ITrackU_showauras.bdd.PLAYER[spell_id] = aura_type
+          end
         end
         
       	if ITrackU[spell_id] then
 	        -- Create Frame & Table
-	        if ITrackU[spell_id].debuffed[dest_name] == nil then
-	        	table_frame_player_debuffed("PROD", type, spell_id, dest_name, aura_type)
+	        if ITrackU[spell_id].debuffed[dest_name_final] == nil then
+	        	table_frame_player_debuffed("PROD", type, spell_id, dest_name_final, aura_type)
 	        else
-	        	if ITrackU[spell_id].debuffed[dest_name].frame_active == "No" then
-	        		table_frame_player_debuffed("PROD", type, spell_id, dest_name, aura_type)
+	        	if ITrackU[spell_id].debuffed[dest_name_final].frame_active == "No" then
+	        		table_frame_player_debuffed("PROD", type, spell_id, dest_name_final, aura_type)
 	        	end	
 	    	end
 	        -- Order Frame
@@ -819,19 +832,19 @@ if ITrackU then
     if type == "SPELL_AURA_REMOVED" and ITrackU then
       if ITrackU.DebuffToTrack then
         local _, _, _, _, _, _, _, _, _, _, _, spell_id, aura_type = CombatLogGetCurrentEventInfo()
-        if ITrackU.DebuffToTrack[spell_id] and ITrackU[spell_id][dest_name] then
+        if ITrackU.DebuffToTrack[spell_id] and ITrackU[spell_id][dest_name_final] then
         
           -- On remove la frame si Stack ou Spread
-          if (ITrackU.DebuffToTrack[spell_id].Type == "Stack" or ITrackU.DebuffToTrack[spell_id].Type == "Spread") and dest_name ~= select(1, UnitName("player")) then
-            remove_frame(ITrackU[spell_id][dest_name].Frame_PlayerDistance)
+          if (ITrackU.DebuffToTrack[spell_id].Type == "Stack" or ITrackU.DebuffToTrack[spell_id].Type == "Spread") and dest_name_final ~= select(1, UnitName("player")) then
+            remove_frame(ITrackU[spell_id][dest_name_final].Frame_PlayerDistance)
           end      
         
           -- Vider les tables
-          ITrackU[spell_id].debuffed[dest_name] = nil
-          ITrackU[spell_id][dest_name].Frame_PlayerDebuffed:SetScript("OnUpdate", nil)
-          remove_frame(ITrackU[spell_id][dest_name].Frame_PlayerDebuffed)
-          ITrackU[spell_id][dest_name].Text_PlayerDebuffed:SetText("")
-          ITrackU[spell_id][dest_name].Text_PlayerStacks:SetText("")
+          ITrackU[spell_id].debuffed[dest_name_final] = nil
+          ITrackU[spell_id][dest_name_final].Frame_PlayerDebuffed:SetScript("OnUpdate", nil)
+          remove_frame(ITrackU[spell_id][dest_name_final].Frame_PlayerDebuffed)
+          ITrackU[spell_id][dest_name_final].Text_PlayerDebuffed:SetText("")
+          ITrackU[spell_id][dest_name_final].Text_PlayerStacks:SetText("")
           
           -- On hide la frame titre si Count = 0
           ITrackU.DebuffToTrack[spell_id].Count = ITrackU.DebuffToTrack[spell_id].Count - 1
@@ -850,20 +863,20 @@ if ITrackU then
     if type == "UNIT_DIED" and ITrackU then
       if ITrackU.DebuffToTrack then
         for k, v in pairs(ITrackU.DebuffToTrack) do
-          if ITrackU[k].debuffed[dest_name] then
+          if ITrackU[k].debuffed[dest_name_final] then
 
 
             -- On remove la frame si Stack ou Spread
-            if (ITrackU.DebuffToTrack[k].Type == "Stack" or ITrackU.DebuffToTrack[k].Type == "Spread") and dest_name ~= select(1, UnitName("player")) then
-              remove_frame(ITrackU[k][dest_name].Frame_PlayerDistance)
+            if (ITrackU.DebuffToTrack[k].Type == "Stack" or ITrackU.DebuffToTrack[k].Type == "Spread") and dest_name_final ~= select(1, UnitName("player")) then
+              remove_frame(ITrackU[k][dest_name_final].Frame_PlayerDistance)
             end      
           
             -- Vider les tables
-            ITrackU[k].debuffed[dest_name] = nil
-            ITrackU[k][dest_name].Frame_PlayerDebuffed:SetScript("OnUpdate", nil)
-            remove_frame(ITrackU[k][dest_name].Frame_PlayerDebuffed)
-            ITrackU[k][dest_name].Text_PlayerDebuffed:SetText("")
-            ITrackU[k][dest_name].Text_PlayerStacks:SetText("")
+            ITrackU[k].debuffed[dest_name_final] = nil
+            ITrackU[k][dest_name_final].Frame_PlayerDebuffed:SetScript("OnUpdate", nil)
+            remove_frame(ITrackU[k][dest_name_final].Frame_PlayerDebuffed)
+            ITrackU[k][dest_name_final].Text_PlayerDebuffed:SetText("")
+            ITrackU[k][dest_name_final].Text_PlayerStacks:SetText("")
             
             -- On hide la frame titre si Count = 0
             ITrackU.DebuffToTrack[k].Count = ITrackU.DebuffToTrack[k].Count - 1
@@ -897,11 +910,13 @@ if ITrackU == nil or ITrackU == "ITrackU" then ITrackU = {} end
     --Set ShowAuras
     ITrackU_showauras = {}
     ITrackU_showauras.bdd = {}
+    ITrackU_showauras.bdd.PLAYER = {}
+    ITrackU_showauras.bdd.CREATURE = {}
     ITrackU_showauras.encounter = ITrackU.encounter_id 
     ITrackU_showauras.difficulty = ITrackU.difficulty
     
-    print("Encounter_ID = ", ITrackU.encounter_id)
-    print("Difficulty = ", ITrackU.difficulty)
+    --print("Encounter_ID = ", ITrackU.encounter_id)
+    --print("Difficulty = ", ITrackU.difficulty)
 
       -- Ne se lances que si répertorié
       if db_ITrackU.profiles[ITrack.profile].debuffs_table[ITrackU.encounter_id] then
@@ -955,7 +970,55 @@ end
 SLASH_ITRACKU_CLOSEFRAME_SLASHCMD1 = '/closeframe'
 
 SlashCmdList['ITRACKU_SHOWAURAS_SLASHCMD'] = function()
-  print("héhé")
+  local ITrackU_ShowAuras_GlobalHeight = 20
+  local ITrackU_ShowAuras_GLobalWidth = 200
+  local ITrackU_ShowAuras_WidthBetweenItems = 10
+  local ITrackU_ShowAuras_HeightBetweenItems = 5
+  if ITrackU_showauras then
+    local ITrackU_ShowAuras_Frame = CreateFrame("FRAME", "ITrackU_ShowAuras_Frame", UIParent)
+    ITrackU_ShowAuras_Frame:SetBackdrop({bgFile = [[Interface\ChatFrame\ChatFrameBackground]]});
+    ITrackU_ShowAuras_Frame:SetWidth(200)
+    ITrackU_ShowAuras_Frame:SetHeight(40)
+    ITrackU_ShowAuras_Frame:SetBackdropColor(1,0,0,1)
+    ITrackU_ShowAuras_Frame:SetPoint("CENTER", 0, 0)
+    ITrackU_ShowAuras_Frame:SetFrameStrata("BACKGROUND")
+    ITrackU_ShowAuras_Frame:Show()
+
+    local ITrackU_ShowAuras_Titre_Frame = CreateFrame("FRAME", "ITrackU_ShowAuras_Titre_Frame", ITrackU_ShowAuras_Frame)
+    ITrackU_ShowAuras_Titre_Frame:SetBackdrop({bgFile = [[Interface\ChatFrame\ChatFrameBackground]]});
+    ITrackU_ShowAuras_Titre_Frame:SetWidth(200)
+    ITrackU_ShowAuras_Titre_Frame:SetHeight(ITrackU_ShowAuras_GlobalHeight)
+    ITrackU_ShowAuras_Titre_Frame:SetBackdropColor(0,1,0,1)
+    ITrackU_ShowAuras_Titre_Frame:SetPoint("TOPLEFT", 0, 0)
+    ITrackU_ShowAuras_Titre_Frame:SetFrameStrata("LOW")
+    ITrackU_ShowAuras_Titre_Frame:Show()
+
+      -- Text_Frame_Titre
+      ITrackU_ShowAuras_Titre_Text = ITrackU_ShowAuras_Titre_Frame:CreateFontString("ITrackU_ShowAuras_Titre_Text", "OVERLAY", "GameFontNormal")
+      ITrackU_ShowAuras_Titre_Text:SetPoint("CENTER", 0, 0)
+      ITrackU_ShowAuras_Titre_Text:SetText(ITrackU_showauras.encounter.." - "..ITrackU_showauras.difficulty)
+      ITrackU_ShowAuras_Titre_Text:SetFont("Fonts\\FRIZQT__.TTF", 12, "MONOCHROME")
+      ITrackU_ShowAuras_Titre_Text:SetTextColor(1, 0, 0, 1)
+
+    if ITrackU_showauras.bdd.PLAYER then
+      local ITrackU_ShowAuras_Titre_Player_Frame = CreateFrame("FRAME", "ITrackU_ShowAuras_Titre_Player_Frame", ITrackU_ShowAuras_Frame)
+      ITrackU_ShowAuras_Titre_Player_Frame:SetBackdrop({bgFile = [[Interface\ChatFrame\ChatFrameBackground]]});
+      ITrackU_ShowAuras_Titre_Player_Frame:SetWidth(200)
+      ITrackU_ShowAuras_Titre_Player_Frame:SetHeight(ITrackU_ShowAuras_GlobalHeight)
+      ITrackU_ShowAuras_Titre_Player_Frame:SetBackdropColor(0,0,1,1)
+      ITrackU_ShowAuras_Titre_Player_Frame:SetPoint("TOPLEFT", 0, -ITrackU_ShowAuras_GlobalHeight)
+      ITrackU_ShowAuras_Titre_Player_Frame:SetFrameStrata("LOW")
+      ITrackU_ShowAuras_Titre_Player_Frame:Show()
+
+        -- Text_Frame_Titre
+        ITrackU_ShowAuras_Titre_Player_Text = ITrackU_ShowAuras_Titre_Player_Frame:CreateFontString("ITrackU_ShowAuras_Titre_Player_Text", "OVERLAY", "GameFontNormal")
+        ITrackU_ShowAuras_Titre_Player_Text:SetPoint("CENTER", 0, 0)
+        ITrackU_ShowAuras_Titre_Player_Text:SetText("Buffs/Debuffs Alliés")
+        ITrackU_ShowAuras_Titre_Player_Text:SetFont("Fonts\\FRIZQT__.TTF", 12, "MONOCHROME")
+        ITrackU_ShowAuras_Titre_Player_Text:SetTextColor(1, 0, 0, 1)
+
+    end
+  end
 end
 SLASH_ITRACKU_SHOWAURAS_SLASHCMD1 = '/showauras'
 

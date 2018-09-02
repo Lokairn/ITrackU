@@ -11,64 +11,8 @@
 table.insert(ITrack.defaults.profile.debuffs_table , 2113,{
   -- Normal
   [1] = {
-    -- Iris de focalisation
-    [260805] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Rituel redoutable
-    [260773] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Orties acérées
-    [260741] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Marque runique instable
-    [260702] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 6,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Manipulation d'âme
-    [260907] = {
+    -- Lentille mortelle
+    [260703] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -84,64 +28,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2113,{
   },
   -- Heroic
   [2] = {
-    -- Iris de focalisation
-    [260805] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Rituel redoutable
-    [260773] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Orties acérées
-    [260741] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Marque runique instable
-    [260702] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 6,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Manipulation d'âme
-    [260907] = {
+    -- Lentille mortelle
+    [260703] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -157,64 +45,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2113,{
   },
   -- Mythic
   [23] = {
-    -- Iris de focalisation
-    [260805] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Rituel redoutable
-    [260773] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Orties acérées
-    [260741] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Marque runique instable
-    [260702] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 6,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Manipulation d'âme
-    [260907] = {
+    -- Lentille mortelle
+    [260703] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -230,64 +62,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2113,{
   },
   -- Mythic +
   [8] = {
-    -- Iris de focalisation
-    [260805] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Rituel redoutable
-    [260773] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Orties acérées
-    [260741] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Marque runique instable
-    [260702] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 6,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Manipulation d'âme
-    [260907] = {
+    -- Lentille mortelle
+    [260703] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -304,349 +80,15 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2113,{
 })
 
   --Soulbound Goliath
-table.insert(ITrack.defaults.profile.debuffs_table , 2114,{
-  -- Normal
-  [1] = {
-    -- Broussailles ardentes
-    [260547] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Récolte d'âmes
-    [260512] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Epines de l'âme
-    [260551] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Ecrasement
-    [260508] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Feu de brousse
-    [260570] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 5,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-  },
-  -- Heroic
-  [2] = {
-    -- Broussailles ardentes
-    [260547] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Récolte d'âmes
-    [260512] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Epines de l'âme
-    [260551] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Ecrasement
-    [260508] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Feu de brousse
-    [260570] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 5,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-  },
-  -- Mythic
-  [23] = {
-    -- Broussailles ardentes
-    [260547] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Récolte d'âmes
-    [260512] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Epines de l'âme
-    [260551] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Ecrasement
-    [260508] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Feu de brousse
-    [260570] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 5,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-  },
-  -- Mythic +
-  [8] = {
-    -- Broussailles ardentes
-    [260547] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Récolte d'âmes
-    [260512] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Epines de l'âme
-    [260551] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Ecrasement
-    [260508] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Feu de brousse
-    [260570] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 5,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-  },
-})      
+--table.insert(ITrack.defaults.profile.debuffs_table , 2114,{
+--})      
 
 --Raal the Gluttonous
 table.insert(ITrack.defaults.profile.debuffs_table , 2115,{
   -- Normal
   [1] = {
-    -- Attendrir
-    [264923] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Consumer le serviteur
-    [265002] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Expulsion putride
-    [264694] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Appel de serviteur
-    [264931] = {
+    -- ????
+    [264712] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -662,50 +104,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2115,{
   },
   -- Heroic
   [2] = {
-    -- Attendrir
-    [264923] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Consumer le serviteur
-    [265002] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Expulsion putride
-    [264694] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Appel de serviteur
-    [264931] = {
+    -- ????
+    [264712] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -721,50 +121,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2115,{
   },
   -- Mythic
   [23] = {
-    -- Attendrir
-    [264923] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Consumer le serviteur
-    [265002] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Expulsion putride
-    [264694] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Appel de serviteur
-    [264931] = {
+    -- ????
+    [264712] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -780,50 +138,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2115,{
   },
   -- Mythic +
   [8] = {
-    -- Attendrir
-    [264923] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Consumer le serviteur
-    [265002] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Expulsion putride
-    [264694] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Appel de serviteur
-    [264931] = {
+    -- ????
+    [264712] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -843,8 +159,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2115,{
 table.insert(ITrack.defaults.profile.debuffs_table , 2116,{
   -- Normal
   [1] = {
-    -- Transfert de vitalité
-    [261446] = {
+    -- ????
+    [261438] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -857,36 +173,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2116,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Pathogène virulent
-    [261439] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Cadence discordante
-    [268306] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Vitalité putride
-    [261447] = {
+    -- ????
+    [261440] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -902,8 +190,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2116,{
   },
   -- Heroic
   [2] = {
-    -- Transfert de vitalité
-    [261446] = {
+    -- ????
+    [261438] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -916,36 +204,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2116,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Pathogène virulent
-    [261439] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Cadence discordante
-    [268306] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Vitalité putride
-    [261447] = {
+    -- ????
+    [261440] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -961,8 +221,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2116,{
   },
   -- Mythic
   [23] = {
-    -- Transfert de vitalité
-    [261446] = {
+    -- ????
+    [261438] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -975,36 +235,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2116,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Pathogène virulent
-    [261439] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Cadence discordante
-    [268306] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Vitalité putride
-    [261447] = {
+    -- ????
+    [261440] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -1020,8 +252,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2116,{
   },
   -- Mythic +
   [8] = {
-    -- Transfert de vitalité
-    [261446] = {
+    -- ????
+    [261438] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -1034,36 +266,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2116,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Pathogène virulent
-    [261439] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Cadence discordante
-    [268306] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Vitalité putride
-    [261447] = {
+    -- ????
+    [261440] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -1083,50 +287,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2116,{
 table.insert(ITrack.defaults.profile.debuffs_table , 2117,{
   -- Normal
   [1] = {
-    -- Foudre assombrie
-    [266225] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
     -- Lentille mortelle
     [268202] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Essence d'effroi
-    [266181] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Feu alchimique
-    [266198] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -1142,50 +304,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2117,{
   },
   -- Heroic
   [2] = {
-    -- Foudre assombrie
-    [266225] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
     -- Lentille mortelle
     [268202] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Essence d'effroi
-    [266181] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Feu alchimique
-    [266198] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -1201,50 +321,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2117,{
   },
   -- Mythic
   [23] = {
-    -- Foudre assombrie
-    [266225] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
     -- Lentille mortelle
     [268202] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Essence d'effroi
-    [266181] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Feu alchimique
-    [266198] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -1260,50 +338,8 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2117,{
   },
   -- Mythic +
   [8] = {
-    -- Foudre assombrie
-    [266225] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
     -- Lentille mortelle
     [268202] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Essence d'effroi
-    [266181] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Feu alchimique
-    [266198] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,

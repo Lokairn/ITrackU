@@ -8,356 +8,8 @@
   -- [8] = "Mythic +",
 
 -- Adderis and Aspix
-table.insert(ITrack.defaults.profile.debuffs_table , 2124,{
-  -- Normal
-  [1] = {
-    -- Bouclier de foudre
-    [263246] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Conduction
-    [263371] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 8,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Horion statique
-    [263257] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Ruée arquée
-    [263425] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 15,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Arc tranchant
-    [263234] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Frappe du cyclone
-    [263309] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },     
-  },
-  -- Heroic
-  [2] = {
-    -- Bouclier de foudre
-    [263246] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Conduction
-    [263371] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 8,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Horion statique
-    [263257] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Ruée arquée
-    [263425] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 15,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Arc tranchant
-    [263234] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Frappe du cyclone
-    [263309] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },     
-  },
-  -- Mythic
-  [23] = {
-    -- Bouclier de foudre
-    [263246] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Conduction
-    [263371] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 8,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Horion statique
-    [263257] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Ruée arquée
-    [263425] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 15,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Arc tranchant
-    [263234] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Frappe du cyclone
-    [263309] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },     
-  },
-  -- Mythic +
-  [8] = {
-    -- Bouclier de foudre
-    [263246] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Conduction
-    [263371] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 8,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Horion statique
-    [263257] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Ruée arquée
-    [263425] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 15,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Arc tranchant
-    [263234] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Frappe du cyclone
-    [263309] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },     
-  },
-})
+--table.insert(ITrack.defaults.profile.debuffs_table , 2124,{
+--})
 
 -- Merektha
 table.insert(ITrack.defaults.profile.debuffs_table , 2125,{
@@ -377,6 +29,20 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2125,{
       ["Activate"] = true,
       ["Base"] = true,
     },
+    -- ????
+    [269970] = {
+      ["IfActive"] = false,
+      ["PlayerOnly"] = "All",
+      ["Count"] = 0,
+      ["Type"] = "Classic",
+      ["TypeDistance"] = 0,
+      ["Rôle"] = "All",
+      ["MaxStacks"] = false,
+      ["MaxStacksNumber"] = 5,
+      ["Columns"] = 0,
+      ["Activate"] = true,
+      ["Base"] = true,
+    },
     -- Noeud de serpents
     [263958] = {
       ["IfActive"] = false,
@@ -408,6 +74,20 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2125,{
   },
   -- Heroic
   [2] = {
+    -- ????
+    [269970] = {
+      ["IfActive"] = false,
+      ["PlayerOnly"] = "All",
+      ["Count"] = 0,
+      ["Type"] = "Classic",
+      ["TypeDistance"] = 0,
+      ["Rôle"] = "All",
+      ["MaxStacks"] = false,
+      ["MaxStacksNumber"] = 5,
+      ["Columns"] = 0,
+      ["Activate"] = true,
+      ["Base"] = true,
+    },
     -- Cytotoxine
     [267027] = {
       ["IfActive"] = false,
@@ -453,6 +133,20 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2125,{
   },
   -- Mythic
   [23] = {
+    -- ????
+    [269970] = {
+      ["IfActive"] = false,
+      ["PlayerOnly"] = "All",
+      ["Count"] = 0,
+      ["Type"] = "Classic",
+      ["TypeDistance"] = 0,
+      ["Rôle"] = "All",
+      ["MaxStacks"] = false,
+      ["MaxStacksNumber"] = 5,
+      ["Columns"] = 0,
+      ["Activate"] = true,
+      ["Base"] = true,
+    },
     -- Cytotoxine
     [267027] = {
       ["IfActive"] = false,
@@ -498,6 +192,20 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2125,{
   },
   -- Mythic +
   [8] = {
+    -- ????
+    [269970] = {
+      ["IfActive"] = false,
+      ["PlayerOnly"] = "All",
+      ["Count"] = 0,
+      ["Type"] = "Classic",
+      ["TypeDistance"] = 0,
+      ["Rôle"] = "All",
+      ["MaxStacks"] = false,
+      ["MaxStacksNumber"] = 5,
+      ["Columns"] = 0,
+      ["Activate"] = true,
+      ["Base"] = true,
+    },
     -- Cytotoxine
     [267027] = {
       ["IfActive"] = false,
@@ -619,6 +327,20 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2126,{
 table.insert(ITrack.defaults.profile.debuffs_table , 2127,{
   -- Normal
   [1] = {
+    -- ?????
+    [268007] = {
+      ["IfActive"] = false,
+      ["PlayerOnly"] = "All",
+      ["Count"] = 0,
+      ["Type"] = "Classic",
+      ["TypeDistance"] = 0,
+      ["Rôle"] = "All",
+      ["MaxStacks"] = false,
+      ["MaxStacksNumber"] = 5,
+      ["Columns"] = 0,
+      ["Activate"] = true,
+      ["Base"] = true,
+    },
     -- Peste
     [269686] = {
       ["IfActive"] = false,
@@ -650,6 +372,20 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2127,{
   },
   -- Heroic
   [2] = {
+    -- ?????
+    [268007] = {
+      ["IfActive"] = false,
+      ["PlayerOnly"] = "All",
+      ["Count"] = 0,
+      ["Type"] = "Classic",
+      ["TypeDistance"] = 0,
+      ["Rôle"] = "All",
+      ["MaxStacks"] = false,
+      ["MaxStacksNumber"] = 5,
+      ["Columns"] = 0,
+      ["Activate"] = true,
+      ["Base"] = true,
+    },
     -- Peste
     [269686] = {
       ["IfActive"] = false,
@@ -681,6 +417,20 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2127,{
   },
   -- Mythic
   [23] = {
+    -- ?????
+    [268007] = {
+      ["IfActive"] = false,
+      ["PlayerOnly"] = "All",
+      ["Count"] = 0,
+      ["Type"] = "Classic",
+      ["TypeDistance"] = 0,
+      ["Rôle"] = "All",
+      ["MaxStacks"] = false,
+      ["MaxStacksNumber"] = 5,
+      ["Columns"] = 0,
+      ["Activate"] = true,
+      ["Base"] = true,
+    },
     -- Peste
     [269686] = {
       ["IfActive"] = false,
@@ -712,6 +462,20 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2127,{
   },
   -- Mythic +
   [8] = {
+    -- ?????
+    [268007] = {
+      ["IfActive"] = false,
+      ["PlayerOnly"] = "All",
+      ["Count"] = 0,
+      ["Type"] = "Classic",
+      ["TypeDistance"] = 0,
+      ["Rôle"] = "All",
+      ["MaxStacks"] = false,
+      ["MaxStacksNumber"] = 5,
+      ["Columns"] = 0,
+      ["Activate"] = true,
+      ["Base"] = true,
+    },
     -- Peste
     [269686] = {
       ["IfActive"] = false,

@@ -98,7 +98,13 @@ ITrack.defaults = {
       spells_stun_table = {
         [46968] = "WARRIOR",
         [255654] = "ALL",  
-        [192058] = "SHAMAN",      
+        [192058] = "SHAMAN",
+        [5211] = "DRUID",
+        [30283] = "WARLOCK",
+        [179057] = "DEMONHUNTER",
+        [205369] = "PRIEST",
+        [107570] = "WARRIOR",
+        [853] = "PALADIN",   
       },
       items_stun_table = {
         [151974] = "ALL",
@@ -161,10 +167,17 @@ table.insert(ITrack.defaults.profile.debuffs_table , 2222,{
 
 function ITrackUDB:OnInitialize()
   self.db = LibStub("AceDB-3.0"):New("db_ITrackU", ITrack.defaults)
+  self.db.RegisterCallback(self, "OnProfileChanged", "RefreshConfig")
+  self.db.RegisterCallback(self, "OnProfileCopied", "RefreshConfig")
+  self.db.RegisterCallback(self, "OnProfileReset", "RefreshConfig")
 end
 
 function ITrackUDB:OnEnable()
   if self.db.profile.optionA then
     self.db.profile.playerName = UnitName("player")
   end
+end
+
+function ITrackUDB:RefreshConfig()
+  print("Ok")
 end

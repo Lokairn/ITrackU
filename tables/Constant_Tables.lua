@@ -16,10 +16,46 @@ ITrack.raids_difficulty = {
 
 -- BDD des MapIDs
 ITrack.dungeons_mapid = {
-    [1456] = {
-      ["extension"] = "Legion",
-      ["dungeon"] = "Darkheat Trincket",
+    [1763] = {
+      ["extension"] = "Battle For Azeroth",
+      ["dungeon"] = "Atal Dazar",
     },
+    [1754] = {
+      ["extension"] = "Battle For Azeroth",
+      ["dungeon"] = "Freehold",
+    },
+    [1762] = {
+      ["extension"] = "Battle For Azeroth",
+      ["dungeon"] = "Kings Rest",
+    },
+    [1864] = {
+      ["extension"] = "Battle For Azeroth",
+      ["dungeon"] = "Shrine Of The Storm",
+    },
+    [1822] = {
+      ["extension"] = "Battle For Azeroth",
+      ["dungeon"] = "Siege of Boralus",
+    },
+    [1877] = {
+      ["extension"] = "Battle For Azeroth",
+      ["dungeon"] = "Temple of Sethraliss",
+    },
+    [1594] = {
+      ["extension"] = "Battle For Azeroth",
+      ["dungeon"] = "The Motherlode",
+    },
+    [1771] = {
+      ["extension"] = "Battle For Azeroth",
+      ["dungeon"] = "Tol Dagor",
+    },
+    [1841] = {
+      ["extension"] = "Battle For Azeroth",
+      ["dungeon"] = "Underrot",
+    },
+    [1862] = {
+     	["extension"] = "Battle For Azeroth",
+     	["dungeon"] = "Waycrest Manor",
+   	},
 }
 
 -- Fonts
@@ -87,6 +123,10 @@ ITrack.Roster_Test = {
 ITrack.Stun_SpellID = {
 	[132168] = true,
 	[118905] = true,
+  [5211] = true,
+  [30283] = true,
+  [226943] = true,
+  [853] = true,
 }
 
 -- Horizontal Alignement pour Debuff Module
@@ -96,7 +136,7 @@ ITrack.ModuleDebuff_HorizontalAlignement = {
 }
 
 -- Vertical Alignement pour Debuff Module
-ITrack.ModuleDebuff_HorizontalAlignement = {
+ITrack.ModuleDebuff_VerticalAlignement = {
 	TOP = "TOP",
 	BOTTOM = "BOTTOM",
 }

@@ -11,34 +11,6 @@
 table.insert(ITrack.defaults.profile.debuffs_table, 2093,{
   -- Normal
   [1] = {
-    -- Bombardement répugnant
-    [256035] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-  -- Tir de poudre d'azérite
-    [256106] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 30,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
   -- Breuvage revitalisant
     [256060] = {
       ["IfActive"] = false,
@@ -52,38 +24,24 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2093,{
       ["Columns"] = 0,
       ["Activate"] = true,
       ["Base"] = true,
-    },    
+    },  
+  -- ???
+    [256016] = {
+      ["IfActive"] = false,
+      ["PlayerOnly"] = "All",
+      ["Count"] = 0,
+      ["Type"] = "Classic",
+      ["TypeDistance"] = 0,
+      ["Rôle"] = "All",
+      ["MaxStacks"] = false,
+      ["MaxStacksNumber"] = 5,
+      ["Columns"] = 0,
+      ["Activate"] = true,
+      ["Base"] = true,
+    },   
   },
   -- Heroic
   [2] = {
-    -- Bombardement répugnant
-    [256035] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-  -- Tir de poudre d'azérite
-    [256106] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 30,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
   -- Breuvage revitalisant
     [256060] = {
       ["IfActive"] = false,
@@ -97,38 +55,24 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2093,{
       ["Columns"] = 0,
       ["Activate"] = true,
       ["Base"] = true,
-    },    
+    },  
+  -- ???
+    [256016] = {
+      ["IfActive"] = false,
+      ["PlayerOnly"] = "All",
+      ["Count"] = 0,
+      ["Type"] = "Classic",
+      ["TypeDistance"] = 0,
+      ["Rôle"] = "All",
+      ["MaxStacks"] = false,
+      ["MaxStacksNumber"] = 5,
+      ["Columns"] = 0,
+      ["Activate"] = true,
+      ["Base"] = true,
+    },   
   },
   -- Mythic
   [23] = {
-    -- Bombardement répugnant
-    [256035] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-  -- Tir de poudre d'azérite
-    [256106] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 30,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
   -- Breuvage revitalisant
     [256060] = {
       ["IfActive"] = false,
@@ -142,38 +86,24 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2093,{
       ["Columns"] = 0,
       ["Activate"] = true,
       ["Base"] = true,
-    },    
+    },   
+  -- ???
+    [256016] = {
+      ["IfActive"] = false,
+      ["PlayerOnly"] = "All",
+      ["Count"] = 0,
+      ["Type"] = "Classic",
+      ["TypeDistance"] = 0,
+      ["Rôle"] = "All",
+      ["MaxStacks"] = false,
+      ["MaxStacksNumber"] = 5,
+      ["Columns"] = 0,
+      ["Activate"] = true,
+      ["Base"] = true,
+    }, 
   },
   -- Mythic +
   [8] = {
-    -- Bombardement répugnant
-    [256035] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-  -- Tir de poudre d'azérite
-    [256106] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 30,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
   -- Breuvage revitalisant
     [256060] = {
       ["IfActive"] = false,
@@ -187,7 +117,21 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2093,{
       ["Columns"] = 0,
       ["Activate"] = true,
       ["Base"] = true,
-    },    
+    },   
+  -- ???
+    [256016] = {
+      ["IfActive"] = false,
+      ["PlayerOnly"] = "All",
+      ["Count"] = 0,
+      ["Type"] = "Classic",
+      ["TypeDistance"] = 0,
+      ["Rôle"] = "All",
+      ["MaxStacks"] = false,
+      ["MaxStacksNumber"] = 5,
+      ["Columns"] = 0,
+      ["Activate"] = true,
+      ["Base"] = true,
+    },  
   },
 })
 
@@ -195,36 +139,8 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2093,{
 table.insert(ITrack.defaults.profile.debuffs_table, 2094,{
   -- Normal
   [1] = {
-    -- Sous la même bannière
-    [257821] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Tir de poudre
-    [256979] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Tonneau du voile noir
-    [258337] = {
+    -- ????
+    [258875] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -240,36 +156,8 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2094,{
   },
   -- Heroic
   [2] = {
-    -- Sous la même bannière
-    [257821] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Tir de poudre
-    [256979] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Tonneau du voile noir
-    [258337] = {
+    -- ????
+    [258875] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -285,36 +173,8 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2094,{
   },
   -- Mythic
   [23] = {
-    -- Sous la même bannière
-    [257821] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Tir de poudre
-    [256979] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Tonneau du voile noir
-    [258337] = {
+    -- ????
+    [258875] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -330,36 +190,8 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2094,{
   },
   -- Mythic +
   [8] = {
-    -- Sous la même bannière
-    [257821] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Tir de poudre
-    [256979] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    },
-    -- Tonneau du voile noir
-    [258337] = {
+    -- ????
+    [258875] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -379,8 +211,8 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2094,{
 table.insert(ITrack.defaults.profile.debuffs_table, 2095,{
   -- Normal
   [1] = {
-    -- Réarmer
-    [256706] = {
+    --  ????
+    [256363] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -393,13 +225,13 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2095,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Requin frénétique
-    [256552] = {
+    --  ????
+    [272554] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 5,
+      ["Type"] = "Classic",
+      ["TypeDistance"] = 0,
       ["Rôle"] = "All",
       ["MaxStacks"] = false,
       ["MaxStacksNumber"] = 5,
@@ -410,8 +242,8 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2095,{
   },
   -- Heroic
   [2] = {
-    -- Réarmer
-    [256706] = {
+    --  ????
+    [256363] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -424,13 +256,13 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2095,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Requin frénétique
-    [256552] = {
+    --  ????
+    [272554] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 5,
+      ["Type"] = "Classic",
+      ["TypeDistance"] = 0,
       ["Rôle"] = "All",
       ["MaxStacks"] = false,
       ["MaxStacksNumber"] = 5,
@@ -441,8 +273,8 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2095,{
   },
   -- Mythic
   [23] = {
-    -- Réarmer
-    [256706] = {
+    --  ????
+    [256363] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -455,13 +287,13 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2095,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Requin frénétique
-    [256552] = {
+    --  ????
+    [272554] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 5,
+      ["Type"] = "Classic",
+      ["TypeDistance"] = 0,
       ["Rôle"] = "All",
       ["MaxStacks"] = false,
       ["MaxStacksNumber"] = 5,
@@ -472,8 +304,8 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2095,{
   },
   -- Mythic +
   [8] = {
-    -- Réarmer
-    [256706] = {
+    --  ????
+    [256363] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
@@ -486,13 +318,13 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2095,{
       ["Activate"] = true,
       ["Base"] = true,
     },
-    -- Requin frénétique
-    [256552] = {
+    --  ????
+    [272554] = {
       ["IfActive"] = false,
       ["PlayerOnly"] = "All",
       ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 5,
+      ["Type"] = "Classic",
+      ["TypeDistance"] = 0,
       ["Rôle"] = "All",
       ["MaxStacks"] = false,
       ["MaxStacksNumber"] = 5,
@@ -507,34 +339,6 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2095,{
 table.insert(ITrack.defaults.profile.debuffs_table, 2096, {
   -- Normal
   [1] = {
-    -- Dés pipés : Sur le pont !
-    [257402] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Dés pipés : Navire de guerre
-    [257458] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
     -- Barrage au canon
     [257305] = {
       ["IfActive"] = false,
@@ -542,34 +346,6 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2096, {
       ["Count"] = 0,
       ["Type"] = "Spread",
       ["TypeDistance"] = 5,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Bombe de poudre noire
-    [257315] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 5,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Sabre vent-vif
-    [257278] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
       ["Rôle"] = "All",
       ["MaxStacks"] = false,
       ["MaxStacksNumber"] = 5,
@@ -580,34 +356,6 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2096, {
   },
   -- Heroic
   [2] = {
-    -- Dés pipés : Sur le pont !
-    [257402] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Dés pipés : Navire de guerre
-    [257458] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
     -- Barrage au canon
     [257305] = {
       ["IfActive"] = false,
@@ -615,34 +363,6 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2096, {
       ["Count"] = 0,
       ["Type"] = "Spread",
       ["TypeDistance"] = 5,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Bombe de poudre noire
-    [257315] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 5,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Sabre vent-vif
-    [257278] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
       ["Rôle"] = "All",
       ["MaxStacks"] = false,
       ["MaxStacksNumber"] = 5,
@@ -653,34 +373,6 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2096, {
   }, 
   -- Mythic
   [23] = {
-    -- Dés pipés : Sur le pont !
-    [257402] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Dés pipés : Navire de guerre
-    [257458] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
     -- Barrage au canon
     [257305] = {
       ["IfActive"] = false,
@@ -688,34 +380,6 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2096, {
       ["Count"] = 0,
       ["Type"] = "Spread",
       ["TypeDistance"] = 5,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Bombe de poudre noire
-    [257315] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 5,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Sabre vent-vif
-    [257278] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
       ["Rôle"] = "All",
       ["MaxStacks"] = false,
       ["MaxStacksNumber"] = 5,
@@ -726,34 +390,6 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2096, {
   }, 
   -- Mythic+
   [8] = {
-    -- Dés pipés : Sur le pont !
-    [257402] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Dés pipés : Navire de guerre
-    [257458] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
     -- Barrage au canon
     [257305] = {
       ["IfActive"] = false,
@@ -761,34 +397,6 @@ table.insert(ITrack.defaults.profile.debuffs_table, 2096, {
       ["Count"] = 0,
       ["Type"] = "Spread",
       ["TypeDistance"] = 5,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Bombe de poudre noire
-    [257315] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Spread",
-      ["TypeDistance"] = 5,
-      ["Rôle"] = "All",
-      ["MaxStacks"] = false,
-      ["MaxStacksNumber"] = 5,
-      ["Columns"] = 0,
-      ["Activate"] = true,
-      ["Base"] = true,
-    }, 
-    -- Sabre vent-vif
-    [257278] = {
-      ["IfActive"] = false,
-      ["PlayerOnly"] = "All",
-      ["Count"] = 0,
-      ["Type"] = "Classic",
-      ["TypeDistance"] = 0,
       ["Rôle"] = "All",
       ["MaxStacks"] = false,
       ["MaxStacksNumber"] = 5,

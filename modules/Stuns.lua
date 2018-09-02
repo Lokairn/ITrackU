@@ -266,7 +266,7 @@ local function combat_log_event_unfiltered_handler(self, ...)
           	
           	if db_ITrackU_Stun[select(8, GetInstanceInfo())][unit_guid_log].Stunnable == nil then
 		          db_ITrackU_Stun[select(8, GetInstanceInfo())][unit_guid_log].Stunnable = true
-		          print(L["ADD_ADDED_TO_BDD"], unit_guid_log, " - ", dest_name)
+		          print("Un nouvel add a été ajouté à la BDD : ", unit_guid_log, " - ", dest_name)
 
 		          -- Call changement de target si MAJ de la table
 		          player_target_changed_handler()
