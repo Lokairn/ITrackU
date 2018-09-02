@@ -8,11 +8,11 @@ L["LOADING_ADDON"] = "Welcome on ITrackU. Version 1.6.0 To open the configuratio
 
 
  -- Debuff module presentation
-L["Module_Debuff_Name"] = "Module des Debuffs"
-L["Module_Debuff_Title"] = "Module : Debuffs"
-L["Module_Debuff_Activate_Description"] = "Activer le tracker de stuns durant les combats"
-L["Module_Debuff_Description_Header"] = "Module des debuffs : Description"
-L["Module_Debuff_Description"] = "Le tracker de module de debuff ITrackU a pour objectif de ..."
+L["Module_Debuff_Name"] = "Module des Affaiblissements"
+L["Module_Debuff_Title"] = "Module : Affaiblissements"
+L["Module_Debuff_Activate_Description"] = "Activer le suivi des étourdissements  durant les combats" --Need review
+L["Module_Debuff_Description_Header"] = "Module des Affaibilissements : Description"
+L["Module_Debuff_Description"] = "Le suivi de module d'affaiblissement ITrackU a pour objectif de ..."
 L["Module_Debuff_Close_Frame"] = "Fermer la fenêtre"
 L["Module_Debuff_Open_Frame"] = "Ouvrir la fenêtre"
 L["Module_Debuff_Move_Frame_Header"] = "Déplacer la fenêtre"
@@ -20,7 +20,7 @@ L["Module_Debuff_Lock_Frame"] = "Déplacer la fenêtre principale"
 L["Module_Debuff_Header_Pos_Dimension"] = "Position & Dimension"
 L["Module_Debuff_Description_Pos_Dimension"] = "Modifier la position et la dimension de toutes les fenêtres."
 L["Module_Debuff_Global_Width"] = "Largeur des barres de personnage"
-L["Module_Debuff_Description_Dimension_Heights"] = "Modifier la hauteur de la fênetre de titre ou/et la hauteur des fenêtres de debuff"
+L["Module_Debuff_Description_Dimension_Heights"] = "Modifier la hauteur de la fênetre de titre et / ou la hauteur des fenêtres d'affaiblissement"
 L["Module_Debuff_Height_Title"] = "Hauteur des titres"
 L["Module_Debuff_Height_Debuffed"] = "Hauteur des barres de personnage"
 L["Module_Debuff_Header_Space_Between_Item"] = "Espace entre les éléments"
