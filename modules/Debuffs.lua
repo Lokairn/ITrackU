@@ -806,7 +806,7 @@ if ITrackU then
         end
         --print(dest_name_final)
 
-        if ITrackU_showauras and dest_GUID:sub(0,6) == "Player" then
+        if ITrackU_showauras and dest_GUID:sub(0,6) == "Player" and dest_GUID ~= source_GUID then
           if source_GUID:sub(0, 8) == "Creature" then
             ITrackU_showauras.bdd.CREATURE[spell_id] = aura_type
           elseif source_GUID:sub(0, 6) == "Player" then
