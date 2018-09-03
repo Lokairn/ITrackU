@@ -2,7 +2,7 @@
 ## Title: ITrackU
 ## Author: Kahinh, Sindalar & Lokairn
 ## Notes: ITrackU, Module Debuffs/Buffs & Module Stuns
-## Version: 1.6.0
+## Version: 1.6.2
 ## SavedVariables: db_ITrackU
 ## SavedVariables: db_ITrackU_Stun
 ## SavedVariables: ITrackU_showauras
