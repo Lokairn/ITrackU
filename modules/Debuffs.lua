@@ -806,7 +806,7 @@ if ITrackU then
         end
         --print(dest_name_final)
 
-        if ITrackU_showauras then
+        if ITrackU_showauras and dest_GUID:sub(0,6) == "Player" then
           if source_GUID:sub(0, 8) == "Creature" then
             ITrackU_showauras.bdd.CREATURE[spell_id] = aura_type
           elseif source_GUID:sub(0, 6) == "Player" then
@@ -968,59 +968,6 @@ SlashCmdList['ITRACKU_CLOSEFRAME_SLASHCMD'] = function()
   encounter_end()
 end
 SLASH_ITRACKU_CLOSEFRAME_SLASHCMD1 = '/closeframe'
-
-SlashCmdList['ITRACKU_SHOWAURAS_SLASHCMD'] = function()
-  local ITrackU_ShowAuras_GlobalHeight = 20
-  local ITrackU_ShowAuras_GLobalWidth = 200
-  local ITrackU_ShowAuras_WidthBetweenItems = 10
-  local ITrackU_ShowAuras_HeightBetweenItems = 5
-  if ITrackU_showauras then
-    local ITrackU_ShowAuras_Frame = CreateFrame("FRAME", "ITrackU_ShowAuras_Frame", UIParent)
-    ITrackU_ShowAuras_Frame:SetBackdrop({bgFile = [[Interface\ChatFrame\ChatFrameBackground]]});
-    ITrackU_ShowAuras_Frame:SetWidth(200)
-    ITrackU_ShowAuras_Frame:SetHeight(40)
-    ITrackU_ShowAuras_Frame:SetBackdropColor(1,0,0,1)
-    ITrackU_ShowAuras_Frame:SetPoint("CENTER", 0, 0)
-    ITrackU_ShowAuras_Frame:SetFrameStrata("BACKGROUND")
-    ITrackU_ShowAuras_Frame:Show()
-
-    local ITrackU_ShowAuras_Titre_Frame = CreateFrame("FRAME", "ITrackU_ShowAuras_Titre_Frame", ITrackU_ShowAuras_Frame)
-    ITrackU_ShowAuras_Titre_Frame:SetBackdrop({bgFile = [[Interface\ChatFrame\ChatFrameBackground]]});
-    ITrackU_ShowAuras_Titre_Frame:SetWidth(200)
-    ITrackU_ShowAuras_Titre_Frame:SetHeight(ITrackU_ShowAuras_GlobalHeight)
-    ITrackU_ShowAuras_Titre_Frame:SetBackdropColor(0,1,0,1)
-    ITrackU_ShowAuras_Titre_Frame:SetPoint("TOPLEFT", 0, 0)
-    ITrackU_ShowAuras_Titre_Frame:SetFrameStrata("LOW")
-    ITrackU_ShowAuras_Titre_Frame:Show()
-
-      -- Text_Frame_Titre
-      ITrackU_ShowAuras_Titre_Text = ITrackU_ShowAuras_Titre_Frame:CreateFontString("ITrackU_ShowAuras_Titre_Text", "OVERLAY", "GameFontNormal")
-      ITrackU_ShowAuras_Titre_Text:SetPoint("CENTER", 0, 0)
-      ITrackU_ShowAuras_Titre_Text:SetText(ITrackU_showauras.encounter.." - "..ITrackU_showauras.difficulty)
-      ITrackU_ShowAuras_Titre_Text:SetFont("Fonts\\FRIZQT__.TTF", 12, "MONOCHROME")
-      ITrackU_ShowAuras_Titre_Text:SetTextColor(1, 0, 0, 1)
-
-    if ITrackU_showauras.bdd.PLAYER then
-      local ITrackU_ShowAuras_Titre_Player_Frame = CreateFrame("FRAME", "ITrackU_ShowAuras_Titre_Player_Frame", ITrackU_ShowAuras_Frame)
-      ITrackU_ShowAuras_Titre_Player_Frame:SetBackdrop({bgFile = [[Interface\ChatFrame\ChatFrameBackground]]});
-      ITrackU_ShowAuras_Titre_Player_Frame:SetWidth(200)
-      ITrackU_ShowAuras_Titre_Player_Frame:SetHeight(ITrackU_ShowAuras_GlobalHeight)
-      ITrackU_ShowAuras_Titre_Player_Frame:SetBackdropColor(0,0,1,1)
-      ITrackU_ShowAuras_Titre_Player_Frame:SetPoint("TOPLEFT", 0, -ITrackU_ShowAuras_GlobalHeight)
-      ITrackU_ShowAuras_Titre_Player_Frame:SetFrameStrata("LOW")
-      ITrackU_ShowAuras_Titre_Player_Frame:Show()
-
-        -- Text_Frame_Titre
-        ITrackU_ShowAuras_Titre_Player_Text = ITrackU_ShowAuras_Titre_Player_Frame:CreateFontString("ITrackU_ShowAuras_Titre_Player_Text", "OVERLAY", "GameFontNormal")
-        ITrackU_ShowAuras_Titre_Player_Text:SetPoint("CENTER", 0, 0)
-        ITrackU_ShowAuras_Titre_Player_Text:SetText("Buffs/Debuffs Alliés")
-        ITrackU_ShowAuras_Titre_Player_Text:SetFont("Fonts\\FRIZQT__.TTF", 12, "MONOCHROME")
-        ITrackU_ShowAuras_Titre_Player_Text:SetTextColor(1, 0, 0, 1)
-
-    end
-  end
-end
-SLASH_ITRACKU_SHOWAURAS_SLASHCMD1 = '/showauras'
 
 ---------------------------------------------------------------------------------------------------
 -----------------------------------------   FRAME TEST   ------------------------------------------

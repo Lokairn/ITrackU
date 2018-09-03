@@ -1,1 +1,1 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/">		<Script file="Stuns.lua"/>	<Script file="Debuffs.lua"/></Ui>
+<Ui xmlns="http://www.blizzard.com/wow/ui/">		<Script file="Stuns.lua"/>	<Script file="Debuffs.lua"/>	<Script file="ShowAuras.lua"/></Ui>
